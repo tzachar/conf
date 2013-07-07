@@ -15,8 +15,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'wincent/Command-T'
-Bundle 'Raimondi/delimitMate'
+"Bundle 'wincent/Command-T'
+"Bundle 'Raimondi/delimitMate'
 Bundle 'sjl/gundo.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'Lokaltog/vim-easymotion'
@@ -160,8 +160,21 @@ let g:Powerline_symbols = 'unicode'
 nnoremap <F5> :GundoToggle<CR>
 
 "ctrlp config
+let g:ctrlp_match_window_bottom = 1
 let g:ctrlp_extensions = ['funky']
-nnoremap <Leader>f :CtrlPFunky<Cr>
+let g:ctrlp_max_files = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_prompt_mappings = {
+			\'AcceptSelection("t")':['<cr>'],
+			\'AcceptSelection("e")':['<c-x>'],
+			\ }
+nnoremap <Leader>pf :CtrlPFunky<cr>
+nnoremap <Leader>pF :execute 'CtrlPFunky ' . expand('<cword>')<cr>
+nnoremap <Leader>pp :CtrlP<cr>
+nnoremap <Leader>pb :CtrlPBuffer<cr>
+nnoremap <Leader>pr :CtrlPMRU<cr>
+
 " narrow the list down with a word under cursor
 nnoremap <Leader>F :execute 'CtrlPFunky ' . expand('<cword>')<Cr>'
 
