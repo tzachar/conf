@@ -1,0 +1,103 @@
+Mrxvt.termName:			rxvt
+Mrxvt.autohideTabber:		True
+Mrxvt.hideTabbar:		True
+Mrxvt.syncTabTitle:		True
+Mrxvt.titleFormat:		%n. %t
+Mrxvt.highlightTabOnBell:	True
+Mrxvt.smoothResize:		True
+
+Mrxvt.itabBackground:		#101010
+Mrxvt.tabBackground:		#000000
+Mrxvt.tabForeground:		wheat
+Mrxvt.itabForeground:		#909090
+
+
+Mrxvt.scrollBar:		False
+Mrxvt.scrollbarRight:		False
+Mrxvt.scrollbarStyle:		rxvt
+Mrxvt.saveLines:		10000
+Mrxvt.scrollTtyOutputInhibit:	True
+Mrxvt.scrollTtyKeypress:	True
+Mrxvt.scrollColor:		#808080
+Mrxvt.troughColor:		#202020
+Mrxvt.xft:			1
+Mrxvt.xftFont:			Droid Sans Mono
+#Mrxvt.xftFont:			Bitstream Vera Sans Mono
+Mrxvt.xftSize:			14
+Mrxvt.xftAntialias:		1
+Mrxvt.xftNomFont:		1
+Mrxvt.xftPFont:			Bitstream Vera Sans
+Mrxvt.xftPSize:			12
+
+Mrxvt.xftHinting:		1
+Mrxvt.xftAutoHint:		1
+Mrxvt.xftGlobalAdvance:	1
+Mrxvt.xftRGBA:		rgb
+
+
+Mrxvt.cursorBlink:		False
+Mrxvt.cursorColor:		wheat
+Mrxvt.background:		#000000
+Mrxvt.foreground:		wheat
+Mrxvt.colorBD:			#a0afaf
+Mrxvt.colorUL:			#00af00
+Mrxvt.cutChars:			-_.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+Mrxvt.macro.Ctrl+Shift+b:	ToggleBroadcast
+
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+#!! black dark/light
+#Mrxvt.color0:                #000000
+#Mrxvt.color8:                #000000
+#!! red dark/light
+#Mrxvt.color1:                #dc322f
+#Mrxvt.color9:                #cb4b16
+#!! green dark/light
+#Mrxvt.color2:                #859900
+#Mrxvt.color10:               #586e75
+#!! yellow dark/light
+#Mrxvt.color3:                #b58900
+#Mrxvt.color11:               #657b83
+#!! blue dark/light
+#Mrxvt.color4:                #268bd2
+#Mrxvt.color12:               #839496
+#!! magenta dark/light
+#Mrxvt.color5:                #d33682
+#Mrxvt.color13:               #6c71c4
+#!! cyan dark/light
+#Mrxvt.color6:                #2aa198
+#Mrxvt.color14:               #93a1a1
+#!! white dark/light
+#Mrxvt.color7:                #eee8d5
+#Mrxvt.color15:               #fdf6e3
+
+Mrxvt.color1:			#ff0000
+Mrxvt.color2:			#00ff00
+Mrxvt.color3:			#ffff00
+Mrxvt.color4:			#a0a0ff
+Mrxvt.color5:			#ff00ff
+Mrxvt.color6:			#00ffff
+Mrxvt.color7:			#9a9a9a
+Mrxvt.color8:			#5f5f5f
+Mrxvt.color9:			#e70000
+Mrxvt.color10:			#00e700
+Mrxvt.color11:			#e7e700
+Mrxvt.color12:			#f000e7
+Mrxvt.color13:			#e700e7
+Mrxvt.color14:			#00e7e7
+Mrxvt.color15:			#e7e7e7

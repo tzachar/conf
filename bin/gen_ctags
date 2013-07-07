@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+#make the tags file
+find -L . -regextype posix-egrep -regex "(.*\.[ch])|(.*\.cpp)|(.*\.hpp)" > .ctags.files
+cp /home/tzachar/repos/tags .
+#ctags-exuberant  --append=yes -L .ctags.files --c++-kinds=+p --fields=+iaS --extra=+q -I
+ctags-exuberant --append=yes --language-force=c++ -L .ctags.files --c++-kinds=+p+l --fields=+iamS --extra=+q -I
+rm -rf .ctags.files
+
+#make the cscope file
+find -L . -regextype posix-egrep -regex "(.*\.[ch])|(.*\.cpp)|(.*\.hpp)" > .cscope.files
+cscope -b -i.cscope.files -q
+rm -rf .cscope.files

@@ -1,0 +1,40 @@
+[ui]
+username = tzachar
+
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
+
+
+[extensions]
+
+hgext.transplant =
+hgext.rebase =
+hgext.fetch =
+hgext.churn =
+hgext.convert =
+hgext.mq =
+hgext.graphlog =
+hgext.hgk =
+hgext.extdiff =
+hgext.bookmarks =
+hggit = /usr/local/lib/python2.7/dist-packages/hg_git-0.4.0-py2.7.egg/hggit
+color = 
+prompt = /home/tzachar/mercurial/hg-prompt/prompt.py
+
+[extdiff]
+cmd.kdiff3 = 
+cmd.vimdiff = vim
+opts.vimdiff = -f '+next' '+execute "DirDiff" argv(0) argv(1)'
+
+
+[diff]
+git = 1
+
+[hooks]
+
+[alias]
+, = glog -l10 --template '\033[33;40m{rev} \033[35;40m{desc|firstline|fill68} \033[1;30;40m({date|age} by {author|person})\033[0;37;40m \033[33;40m{tags} \033[35;40m{branches} \033[37;40m\n\n'
+
+[defaults]
+incoming = -G --template '\033[33;40m{rev} \033[35;40m{desc|firstline|fill68} \033[1;30;40m({date|age} by {author|person})\033[0;37;40m \033[33;40m{tags} \033[35;40m{branches}\033[37;40m\n\n'
+

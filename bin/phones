@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+
+my $COLOR1 = "\033[1;35m";
+my $COLOR2 = "\033[1;36m";
+my $COLOR3 = "\033[1;33m";
+my $NC = "\033[0m";
+
+my $phones_file = "$ENV{'HOME'}/.config/phones.csv";
+
+open FILE, "< $phones_file";
+my @phones = <FILE>;
+
+if ($ARGV[0] =~ m/-s/){
+	for (@phones){
+		my @fields = split /\,/;
+		my $name = lc("$fields[0]");
+		$name =~ s/\"|'//g;
+		print "$name\n";
+	}
+	exit;
+}
+
+
+@ARGV = ("") if @ARGV < 1;
+foreach my $name (@ARGV){
+	for (@phones){
+		chomp;
+		if ($_ =~ /$name.*/i){
+			my @record = split /\,/;
+			my $name = lc("$record[0]");
+			$name =~ s/\"|'//g;
+			printf "$COLOR1%-19s$COLOR2-$COLOR3   ", $name;
+			shift @record;
+			foreach my $str (@record) {
+				$str =~ s/\"//g;
+				length($str) > 0 and printf "%-14s   ", $str;
+			}
+			printf "$NC\n";
+		}
+	}
+}

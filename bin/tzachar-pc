@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rdesktop -a 24 -g 80% tzachar-pc -d israel.final -p 1q2w3E
