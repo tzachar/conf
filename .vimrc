@@ -87,11 +87,18 @@ autocmd BufEnter *.tex set makeprg=~/bin/latexmake.sh
 autocmd BufEnter *.tex map ;p :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
 autocmd BufEnter *.tex map ;; :execute "!~tzachar/bin/latexmake.sh " . line("."). " " . expand("%:r")<cr><cr>
 autocmd BufEnter *.tex setlocal spell spelllang=en
-autocmd BufEnter *.tex map  =  <ESC>:call FormatLatexPar(0)<CR>
-autocmd BufEnter *.tex map! =  <ESC>:call FormatLatexPar(0)<CR>
+autocmd BufEnter *.tex nnoremap =  <ESC>:call FormatLatexPar(0)<CR>
 
 autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 autocmd BufEnter *.heb.tex set rightleft
+
+function! UpdateTimeStamp()
+	%s/LAST_CHANGE "\zs[^"]*/\= strftime("%c")/
+endfunction
+
+augroup TimeStamp
+	au!
+	au! BufWritePre,FileWritePre,FileAppendPre *.cpp,*.c,*.py,*.h,*.hpp :call UpdateTimeStamp()
 
 " vim -b : edit binary using xxd-format!
 augroup Binary
