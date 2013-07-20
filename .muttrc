@@ -29,6 +29,8 @@ set include
 set sort = 'threads'
 set sort_aux = 'reverse-last-date-received'
 set auto_tag = yes
+set pgp_auto_decode = yes
+
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
@@ -91,9 +93,9 @@ set crypt_replysignencrypted=yes
 set crypt_verify_sig=yes
 
 #use gmail contacts:
-#set query_command="/usr/local/bin/goobook query %s"
-#bind editor <Tab> complete-query
-
+set query_command="/usr/local/bin/goobook query \'%s\'"
+bind editor <Tab> complete-query
+macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
 
 #source .mutt/solarized-dark-16
 source .mutt/solarized-light-16

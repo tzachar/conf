@@ -13,7 +13,8 @@ syntax on		" Default to no syntax highlightning
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
-Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'Valloric/YouCompleteMe'
 "Bundle 'wincent/Command-T'
 "Bundle 'Raimondi/delimitMate'
@@ -99,6 +100,7 @@ endfunction
 augroup TimeStamp
 	au!
 	au! BufWritePre,FileWritePre,FileAppendPre *.cpp,*.c,*.py,*.h,*.hpp :call UpdateTimeStamp()
+augroup END
 
 " vim -b : edit binary using xxd-format!
 augroup Binary
