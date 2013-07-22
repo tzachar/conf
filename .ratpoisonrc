@@ -1,0 +1,3 @@
+exec xsetroot -solid black -cursor_name left_ptr
+bind C-c exec konsole
+bind c-c exec konsole
