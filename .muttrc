@@ -62,6 +62,8 @@ set pgp_export_command="gpg --no-verbose --export --armor %r"
 set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
 set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r" 
 set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r" 
+set pgp_replyinline=yes
+set pgp_autoinline=yes
 
 # specify the uid to use when encrypting/signing
 set pgp_sign_as=0x071C86AC
