@@ -1,10 +1,11 @@
 # A basic .muttrc for use with Gmail
 
+#read passwords form encrypted file
+source "gpg -d ~/.mutt/passwords.gpg |"
+
 # Change the following six lines to match your Gmail account details
 set imap_user = "nir.tzachar@gmail.com"
-set imap_pass = "hnbsnnfwsyqqyaym"
 set smtp_url = "smtp://nir.tzachar@smtp.gmail.com:587/"
-set smtp_pass = "hnbsnnfwsyqqyaym"
 set from = "nir.tzachar@gmail.com"
 set realname = "Nir Tzachar"
 
