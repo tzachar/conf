@@ -28,6 +28,10 @@ Bundle 'klen/python-mode'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'vim-scripts/MPage'
 Bundle 'vim-scripts/FSwitch'
+Bundle 'tpope/vim-repeat'
+Bundle 'svermeulen/vim-easyclip'
+Bundle 'arecarn/crunch'
+
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
