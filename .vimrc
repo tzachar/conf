@@ -86,7 +86,7 @@ autocmd BufEnter *.cu set syntax=cpp
 
 autocmd BufEnter *.java ab sop System.out.println
 autocmd BufEnter *.java set formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
-au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
+au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
 autocmd BufEnter *.tex set makeprg=~/bin/latexmake.sh
 autocmd BufEnter *.tex map ;p :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
@@ -98,7 +98,10 @@ autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 autocmd BufEnter *.heb.tex set rightleft
 
 function! UpdateTimeStamp()
-	%s/LAST_CHANGE "\zs[^"]*/\= strftime("%c")/
+	let l:winview = winsaveview()
+	%s/LAST_CHANGE "\zs[^"]*/\= strftime("%c")/e
+	%s/LAST_CHANGE_DATE "\zs[^"]*/\= strftime("%Y%m%d")/e
+	call winresetview(l:winview)
 endfunction
 
 augroup TimeStamp
@@ -200,6 +203,8 @@ let g:pymode_lint_ignore="E501"
 "FSwitch
 "Switch to the file and load it into the current window >
 nmap <silent> <Leader>of :FSHere<cr>
+nmap <silent> <Leader>oo :FSHere<cr>
+nmap <silent> <Leader>ol :FSRight<cr>
 augroup mycppfiles
   au!
   au BufEnter *.h let b:fswitchdst  = 'cpp,cc,C'
@@ -208,3 +213,11 @@ au BufEnter *.c,*.cpp let b:fswitchdst = 'h,hpp'
 au BufEnter *.c,*.cpp let b:fswitchlocs = 'reg:|src|include/**|'
 augroup END
 
+"folding highlight
+hi Folded term=standout ctermfg=LightBlue ctermbg=DarkGrey
+
+"localvimrc
+let g:localvimrc_sandbox=0
+
+"for highlight text
+highlight Search cterm=NONE ctermfg=black ctermbg=red
