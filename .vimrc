@@ -30,7 +30,8 @@ Bundle 'vim-scripts/MPage'
 Bundle 'vim-scripts/FSwitch'
 Bundle 'tpope/vim-repeat'
 Bundle 'svermeulen/vim-easyclip'
-Bundle 'arecarn/crunch'
+"Bundle 'arecarn/crunch'
+Bundle 'jamessan/vim-gnupg'
 
 
 set showcmd		" Show (partial) command in status line.
