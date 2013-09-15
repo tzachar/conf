@@ -54,6 +54,7 @@ set hlsearch
 set viminfo='50,\"100,:50,%,n~/.viminfo
 set laststatus=2
 set encoding=utf-8
+set so=5 "cursor cant get closer than 5 lines to end of screen
 
 
 function! ResCur()
