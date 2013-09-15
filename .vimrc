@@ -29,7 +29,7 @@ Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'vim-scripts/MPage'
 Bundle 'vim-scripts/FSwitch'
 Bundle 'tpope/vim-repeat'
-Bundle 'svermeulen/vim-easyclip'
+"Bundle 'svermeulen/vim-easyclip'
 "Bundle 'arecarn/crunch'
 Bundle 'jamessan/vim-gnupg'
 
