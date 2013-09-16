@@ -101,4 +101,4 @@ bind editor <Tab> complete-query
 macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
 
 #source .mutt/solarized-dark-16
-source .mutt/solarized-light-16
+source ~/.mutt/solarized-light-16

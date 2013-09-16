@@ -32,6 +32,7 @@ Bundle 'tpope/vim-repeat'
 "Bundle 'svermeulen/vim-easyclip'
 "Bundle 'arecarn/crunch'
 Bundle 'jamessan/vim-gnupg'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
 
 
 set showcmd		" Show (partial) command in status line.
@@ -130,7 +131,8 @@ map <C-left> :tabprev <cr>
 map <C-down> :tabclose <cr>
 map <C-right> :tabnext <cr>
 
-map <C-f> :!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
+nmap <C-f> :.!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
+vmap <C-f> :!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
 map ss :setlocal spell spelllang=en<cr>
 
 "spelling highlight
@@ -223,3 +225,7 @@ let g:localvimrc_sandbox=0
 
 "for highlight text
 highlight Search cterm=NONE ctermfg=black ctermbg=red
+
+"latex box:
+imap [[ \begin{
+imap ]] <Plug>LatexCloseCurEnv
