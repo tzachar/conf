@@ -1,0 +1,2 @@
+#!/bin/sh
+gpg2 --no-tty --use-agent -q -d ~/.goobookrc.gpg
