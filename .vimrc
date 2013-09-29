@@ -33,7 +33,7 @@ Bundle 'tpope/vim-repeat'
 "Bundle 'arecarn/crunch'
 Bundle 'jamessan/vim-gnupg'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
-
+Bundle 'headerguard.vim' 
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -104,7 +104,7 @@ function! UpdateTimeStamp()
 	let l:winview = winsaveview()
 	%s/LAST_CHANGE "\zs[^"]*/\= strftime("%c")/e
 	%s/LAST_CHANGE_DATE "\zs[^"]*/\= strftime("%Y%m%d")/e
-	call winresetview(l:winview)
+	call winrestview(l:winview)
 endfunction
 
 augroup TimeStamp
