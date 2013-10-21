@@ -1,3 +1,0 @@
-#!/bin/bash
-
-rdesktop -a 24 -g 80% worm-pc -u wcto -d israel.final -p 1q2w3E

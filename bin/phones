@@ -1,16 +1,23 @@
-#!/usr/bin/perl
+#!/usr/bin/perl 
+
+use Getopt::Std;
 
 my $COLOR1 = "\033[1;35m";
 my $COLOR2 = "\033[1;36m";
-my $COLOR3 = "\033[1;33m";
-my $NC = "\033[0m";
+my $COLOR3 = "\033[1;34m";
+my $NC="\033[0m";
 
-my $phones_file = "$ENV{'HOME'}/.config/phones.csv";
+my %options=();
+my $phone_file = "$ENV{'HOME'}/bin/phones.csv";
 
-open FILE, "< $phones_file";
+getopts('s',\%options);
+
+
+open FILE, "< $phone_file";
 my @phones = <FILE>;
 
-if ($ARGV[0] =~ m/-s/){
+# adding a -s makes the script print all entries. used for complition...
+if ($options{s}){ 
 	for (@phones){
 		my @fields = split /\,/;
 		my $name = lc("$fields[0]");
@@ -20,8 +27,7 @@ if ($ARGV[0] =~ m/-s/){
 	exit;
 }
 
-
-@ARGV = ("") if @ARGV < 1;
+@ARGV = ("") if @ARGV < 1;	
 foreach my $name (@ARGV){
 	for (@phones){
 		chomp;
@@ -33,9 +39,10 @@ foreach my $name (@ARGV){
 			shift @record;
 			foreach my $str (@record) {
 				$str =~ s/\"//g;
-				length($str) > 0 and printf "%-14s   ", $str;
+				length($str)>0 and printf "%-14s   ", $str;
 			}
 			printf "$NC\n";
 		}
 	}
 }
+

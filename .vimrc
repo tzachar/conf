@@ -229,3 +229,7 @@ highlight Search cterm=NONE ctermfg=black ctermbg=red
 "latex box:
 imap [[ \begin{
 imap ]] <Plug>LatexCloseCurEnv
+
+"map <c-u> to upper case current word
+nmap <c-u> vawU
+imap <c-u> <esc>vawUli
