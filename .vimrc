@@ -84,6 +84,8 @@ augroup filetype
   au! BufRead,BufNewFile *.pp setfiletype puppet 
 augroup end
 
+augroup ftypeOptions
+autocmd!
 autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8 
 autocmd BufEnter *.cu set syntax=cpp
 
@@ -99,6 +101,8 @@ autocmd BufEnter *.tex nnoremap =  <ESC>:call FormatLatexPar(0)<CR>
 
 autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 autocmd BufEnter *.heb.tex set rightleft
+
+augroup end
 
 function! UpdateTimeStamp()
 	let l:winview = winsaveview()
@@ -126,10 +130,10 @@ augroup END
 
 noremap mm :make -j4 <cr>
 
-noremap <C-up> :tabnew 
-noremap <C-left> :tabprev <cr>
-noremap <C-down> :tabclose <cr>
-noremap <C-right> :tabnext <cr>
+noremap <C-k> :tabnew 
+noremap <C-h> :tabprev <cr>
+noremap <C-j> :tabclose <cr>
+noremap <C-l> :tabnext <cr>
 
 nnoremap <C-f> :.!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
 vnoremap <C-f> :!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
@@ -143,14 +147,18 @@ hi SpellLocal term=reverse ctermfg=black ctermbg=darkgreen guifg=#ffffff guibg=#
 
 noremap <C-F11> :wa<cr>:!gen_ctags<cr>:cs reset<cr>
 noremap cc :wa<cr>:!gen_ctags<cr>:cs reset<cr>
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+augroup popups
+	au!
+	autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+	autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+augroup end
 
 "jumpt to last opened location
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g'\"" | endif
-endif
+augroup lastopen
+	au!
+	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+				\| exe "normal! g'\"" | endif
+augroup end
 
 nnoremap <C-N> :cn<CR>
 nnoremap <C-@><C-N> :cN<CR>
@@ -230,6 +238,18 @@ highlight Search cterm=NONE ctermfg=black ctermbg=red
 inoremap [[ \begin{
 inoremap ]] <Plug>LatexCloseCurEnv
 
-"map <c-u> to upper case current word
-nnoremap <c-u> vawU
-inoremap <c-u> <esc>vawUli
+"open up .vimrc
+nnoremap <leader>ve :vsplit $MYVIMRC<cr><c-w>wG
+"source up .vimrc
+nnoremap <leader>vs :source $MYVIMRC<cr>
+
+inoremap jk <esc>
+nnoremap ; :
+nnoremap : ;
+
+"remove mappings:
+inoremap <esc> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <up> <nop>
