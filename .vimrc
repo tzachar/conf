@@ -43,7 +43,7 @@ set incsearch		" Incremental search
 set autowrite		" Automatically save before commands like :next and :make
 set nocompatible	" Use Vim defaults (much better!)
 " use Q for formatting, not ex-mode:
-map Q gq
+noremap Q gq
 set backspace=2		" allow backspacing over everything in insert mode
 set smartindent
 set autoindent		" always set autoindenting on
@@ -124,16 +124,16 @@ au BufWritePost *.bin if &bin | %!xxd
 au BufWritePost *.bin set nomod | endif
 augroup END
 
-map mm :make -j4 <cr>
+noremap mm :make -j4 <cr>
 
-map <C-up> :tabnew 
-map <C-left> :tabprev <cr>
-map <C-down> :tabclose <cr>
-map <C-right> :tabnext <cr>
+noremap <C-up> :tabnew 
+noremap <C-left> :tabprev <cr>
+noremap <C-down> :tabclose <cr>
+noremap <C-right> :tabnext <cr>
 
-nmap <C-f> :.!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
-vmap <C-f> :!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
-map ss :setlocal spell spelllang=en<cr>
+nnoremap <C-f> :.!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
+vnoremap <C-f> :!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
+noremap ss :setlocal spell spelllang=en<cr>
 
 "spelling highlight
 hi SpellBad term=reverse ctermfg=white ctermbg=darkred guifg=#ffffff guibg=#7f0000 gui=underline
@@ -141,8 +141,8 @@ hi SpellCap guifg=#ffffff guibg=#7f007f
 hi SpellRare guifg=#ffffff guibg=#00007f gui=underline
 hi SpellLocal term=reverse ctermfg=black ctermbg=darkgreen guifg=#ffffff guibg=#7f0000 gui=underline
 
-map <C-F11> :wa<cr>:!gen_ctags<cr>:cs reset<cr>
-map cc :wa<cr>:!gen_ctags<cr>:cs reset<cr>
+noremap <C-F11> :wa<cr>:!gen_ctags<cr>:cs reset<cr>
+noremap cc :wa<cr>:!gen_ctags<cr>:cs reset<cr>
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
@@ -152,8 +152,8 @@ if has("autocmd")
     \| exe "normal! g'\"" | endif
 endif
 
-nmap <C-N> :cn<CR>
-nmap <C-@><C-N> :cN<CR>
+nnoremap <C-N> :cn<CR>
+nnoremap <C-@><C-N> :cN<CR>
 
 
 "for syntastics:
@@ -170,7 +170,7 @@ let g:CommandTMaxFiles=30000
 nnoremap - :Switch<cr>
 
 "make Enter work like C-Y in popup menue
-:inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "powerline
 set noshowmode
@@ -199,16 +199,16 @@ nnoremap <Leader>pr :CtrlPMRU<cr>
 nnoremap <Leader>F :execute 'CtrlPFunky ' . expand('<cword>')<Cr>'
 
 "multipage editing
-nmap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
+nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
 
 "pymode config
 let g:pymode_lint_ignore="E501"
 
 "FSwitch
 "Switch to the file and load it into the current window >
-nmap <silent> <Leader>of :FSHere<cr>
-nmap <silent> <Leader>oo :FSHere<cr>
-nmap <silent> <Leader>ol :FSRight<cr>
+nnoremap <silent> <Leader>of :FSHere<cr>
+nnoremap <silent> <Leader>oo :FSHere<cr>
+nnoremap <silent> <Leader>ol :FSRight<cr>
 augroup mycppfiles
   au!
   au BufEnter *.h let b:fswitchdst  = 'cpp,cc,C'
@@ -227,9 +227,9 @@ let g:localvimrc_sandbox=0
 highlight Search cterm=NONE ctermfg=black ctermbg=red
 
 "latex box:
-imap [[ \begin{
-imap ]] <Plug>LatexCloseCurEnv
+inoremap [[ \begin{
+inoremap ]] <Plug>LatexCloseCurEnv
 
 "map <c-u> to upper case current word
-nmap <c-u> vawU
-imap <c-u> <esc>vawUli
+nnoremap <c-u> vawU
+inoremap <c-u> <esc>vawUli
