@@ -234,12 +234,30 @@ let g:localvimrc_sandbox=0
 "for highlight text
 highlight Search cterm=NONE ctermfg=black ctermbg=red
 
+" This rewires n and N to do the highlighing...
+nnoremap <silent> n   n:call HLNext(0.2)<cr>
+nnoremap <silent> N   N:call HLNext(0.2)<cr>
+highlight MyGroup ctermbg=white ctermfg=red
+function! HLNext (blinktime)
+	let [bufnum, lnum, col, off] = getpos('.')
+	let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+	let target_pat = '\c\%#'.@/
+	let ring = matchadd('MyGroup', target_pat, 101)
+	redraw
+	exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+	call matchdelete(ring)
+	redraw
+endfunction
+
+
+
+
 "latex box:
 inoremap [[ \begin{
 inoremap ]] <Plug>LatexCloseCurEnv
 
 "open up .vimrc
-nnoremap <leader>ve :vsplit $MYVIMRC<cr><c-w>wG
+nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 "source up .vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
 
