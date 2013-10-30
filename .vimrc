@@ -261,7 +261,10 @@ nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 "source up .vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
 
+inoremap jj <esc>
 inoremap jk <esc>
+inoremap kl <esc>
+inoremap hj <esc>
 nnoremap ; :
 nnoremap : ;
 
@@ -271,3 +274,7 @@ noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
 noremap <up> <nop>
+
+"add a ; at the end of the line
+inoremap <leader>; <esc>mTA;<esc>`Ta
+nnoremap <leader>; mTA;<esc>`T
