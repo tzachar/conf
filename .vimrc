@@ -34,6 +34,9 @@ Bundle 'tpope/vim-repeat'
 Bundle 'jamessan/vim-gnupg'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'headerguard.vim' 
+Bundle 'DeonPoncini/includefixer' 
+Bundle 'fisadev/vim-ctrlp-cmdpalette' 
+Bundle 'sgur/ctrlp-extensions.vim' 
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -56,7 +59,6 @@ set viminfo='50,\"100,:50,%,n~/.viminfo
 set laststatus=2
 set encoding=utf-8
 set so=5 "cursor cant get closer than 5 lines to end of screen
-
 
 function! ResCur()
 	if line("'\"") <= line("$")

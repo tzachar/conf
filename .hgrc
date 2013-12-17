@@ -17,7 +17,6 @@ hgext.graphlog =
 hgext.hgk =
 hgext.extdiff =
 hgext.bookmarks =
-hggit = /usr/local/lib/python2.7/dist-packages/hg_git-0.4.0-py2.7.egg/hggit
 color = 
 prompt = /home/tzachar/mercurial/hg-prompt/prompt.py
 
