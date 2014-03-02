@@ -33,10 +33,12 @@ Bundle 'tpope/vim-repeat'
 "Bundle 'arecarn/crunch'
 Bundle 'jamessan/vim-gnupg'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'headerguard.vim' 
+Bundle 'headerguard' 
 Bundle 'DeonPoncini/includefixer' 
 Bundle 'fisadev/vim-ctrlp-cmdpalette' 
 Bundle 'sgur/ctrlp-extensions.vim' 
+Bundle 'Rykka/riv.vim'
+Bundle 'JazzCore/ctrlp-cmatcher'
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -96,10 +98,14 @@ autocmd BufEnter *.java set formatoptions=tcqr cindent showmatch noexpandtab tab
 au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
 autocmd BufEnter *.tex set makeprg=~/bin/latexmake.sh
-autocmd BufEnter *.tex map ;p :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
-autocmd BufEnter *.tex map ;; :execute "!~tzachar/bin/latexmake.sh " . line("."). " " . expand("%:r")<cr><cr>
+autocmd BufEnter *.tex nnoremap <silent> <Leader>l :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
+autocmd BufEnter *.tex nnoremap <silent> <Leader>x :execute "!~tzachar/bin/latexmake.sh " . line("."). " " . expand("%:r")<cr><cr>
 autocmd BufEnter *.tex setlocal spell spelllang=en
 autocmd BufEnter *.tex nnoremap =  <ESC>:call FormatLatexPar(0)<CR>
+
+"latex box:
+autocmd BufEnter *.tex inoremap [[ \begin{
+autocmd BufEnter *.tex inoremap ]] <Plug>LatexCloseCurEnv
 
 autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 autocmd BufEnter *.heb.tex set rightleft
@@ -254,28 +260,23 @@ endfunction
 
 
 
-"latex box:
-inoremap [[ \begin{
-inoremap ]] <Plug>LatexCloseCurEnv
-
 "open up .vimrc
 nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 "source up .vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
 
 inoremap jj <esc>
-inoremap jk <esc>
-inoremap kl <esc>
-inoremap hj <esc>
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
 "remove mappings:
-inoremap <esc> <nop>
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <up> <nop>
+"inoremap <esc> <nop>
+"noremap <up> <nop>
+"noremap <down> <nop>
+"noremap <left> <nop>
+"noremap <up> <nop>
 
 "add a ; at the end of the line
 inoremap <leader>; <esc>mTA;<esc>`Ta
@@ -305,3 +306,5 @@ if executable('ag')
 	let g:ctrlp_use_caching = 0
 endif
 
+"tell ctrl-p to use 'JazzCore/ctrlp-cmatcher'
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
