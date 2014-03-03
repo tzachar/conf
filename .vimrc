@@ -61,6 +61,7 @@ set viminfo='50,\"100,:50,%,n~/.viminfo
 set laststatus=2
 set encoding=utf-8
 set so=5 "cursor cant get closer than 5 lines to end of screen
+set spelllang=en
 
 function! ResCur()
 	if line("'\"") <= line("$")
@@ -145,7 +146,6 @@ noremap <C-l> :tabnext <cr>
 
 nnoremap <C-f> :.!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
 vnoremap <C-f> :!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
-noremap ss :setlocal spell spelllang=en<cr>
 
 "spelling highlight
 hi SpellBad term=reverse ctermfg=white ctermbg=darkred guifg=#ffffff guibg=#7f0000 gui=underline
@@ -308,3 +308,16 @@ endif
 
 "tell ctrl-p to use 'JazzCore/ctrlp-cmatcher'
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+
+
+" Map key to toggle opt
+function MapToggle(key, opt)
+  let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
+  exec 'nnoremap '.a:key.' '.cmd
+  "exec 'inoremap '.a:key." \<C-O>".cmd
+endfunction
+command -nargs=+ MapToggle call MapToggle(<f-args>)
+
+MapToggle <Leader>s spell
+MapToggle <Leader>a paste
+
