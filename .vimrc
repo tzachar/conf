@@ -40,6 +40,7 @@ Bundle 'sgur/ctrlp-extensions.vim'
 Bundle 'Rykka/riv.vim'
 Bundle 'JazzCore/ctrlp-cmatcher'
 Bundle 'sjl/splice.vim'
+Bundle 'wellle/targets.vim'
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
