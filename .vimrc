@@ -42,6 +42,8 @@ Bundle 'JazzCore/ctrlp-cmatcher'
 Bundle 'sjl/splice.vim'
 Bundle 'wellle/targets.vim'
 Bundle 'tpope/vim-commentary'
+Bundle 'ingo-library'
+Bundle 'TextTransform'
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -309,10 +311,20 @@ endif
 "tell ctrl-p to use 'JazzCore/ctrlp-cmatcher'
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
-source ~/.vim/mapfuncs.vim
+" Map key to toggle opt
+function MapToggle(key, opt)
+  let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
+  exec 'nnoremap '.a:key.' '.cmd
+  "exec 'inoremap '.a:key." \<C-O>".cmd
+endfunction
+command -nargs=+ MapToggle call MapToggle(<f-args>)
 
 MapToggle <Leader>s spell
 MapToggle <Leader>a paste
 
-
+function! PerlFormat(str)
+  let out = system('perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"', a:str)
+  return out
+endfunction
+call TextTransform#MakeMappings('', '<Leader>f', 'PerlFormat') 
 
