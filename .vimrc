@@ -147,9 +147,6 @@ noremap <C-h> :tabprev <cr>
 noremap <C-j> :tabclose <cr>
 noremap <C-l> :tabnext <cr>
 
-nnoremap <C-f> :.!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
-vnoremap <C-f> :!perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"<cr><cr>
-
 "spelling highlight
 hi SpellBad term=reverse ctermfg=white ctermbg=darkred guifg=#ffffff guibg=#7f0000 gui=underline
 hi SpellCap guifg=#ffffff guibg=#7f007f
@@ -312,15 +309,10 @@ endif
 "tell ctrl-p to use 'JazzCore/ctrlp-cmatcher'
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
-
-" Map key to toggle opt
-function MapToggle(key, opt)
-  let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
-  exec 'nnoremap '.a:key.' '.cmd
-  "exec 'inoremap '.a:key." \<C-O>".cmd
-endfunction
-command -nargs=+ MapToggle call MapToggle(<f-args>)
+source ~/.vim/mapfuncs.vim
 
 MapToggle <Leader>s spell
 MapToggle <Leader>a paste
+
+
 
