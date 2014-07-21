@@ -44,6 +44,7 @@ Bundle 'wellle/targets.vim'
 Bundle 'tpope/vim-commentary'
 Bundle 'ingo-library'
 Bundle 'TextTransform'
+Bundle 'saihoooooooo/glowshi-ft.vim'
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -267,11 +268,19 @@ nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 "source up .vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
 
+let g:glowshi_ft_no_default_key_mappings=1
 inoremap jj <esc>
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+"for glowshi
+map <unique>f <plug>(glowshi-ft-f)
+map <unique>F <plug>(glowshi-ft-F)
+map <unique>t <plug>(glowshi-ft-t)
+map <unique>T <plug>(glowshi-ft-T)
+"map : <plug>(glowshi-ft-repeat)
+"map <unique>, <plug>(glowshi-ft-opposite)
 
 "remove mappings:
 "inoremap <esc> <nop>
