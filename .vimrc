@@ -45,6 +45,7 @@ Bundle 'tpope/vim-commentary'
 Bundle 'ingo-library'
 Bundle 'TextTransform'
 Bundle 'saihoooooooo/glowshi-ft.vim'
+Bundle 'sheerun/vim-polyglot'
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
