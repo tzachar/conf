@@ -46,6 +46,7 @@ Bundle 'ingo-library'
 Bundle 'TextTransform'
 Bundle 'saihoooooooo/glowshi-ft.vim'
 Bundle 'sheerun/vim-polyglot'
+Bundle 'godlygeek/csapprox'
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -338,3 +339,4 @@ function! PerlFormat(str)
 endfunction
 call TextTransform#MakeMappings('', '<Leader>f', 'PerlFormat') 
 
+colorscheme candycode
