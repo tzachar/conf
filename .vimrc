@@ -45,6 +45,7 @@ Bundle 'tpope/vim-commentary'
 Bundle 'ingo-library'
 Bundle 'TextTransform'
 Bundle 'saihoooooooo/glowshi-ft.vim'
+Plugin 'haya14busa/incsearch.vim'
 "Bundle 'sheerun/vim-polyglot'
 "Bundle 'godlygeek/csapprox'
 
