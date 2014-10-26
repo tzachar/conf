@@ -45,6 +45,7 @@ Bundle 'tpope/vim-commentary'
 Bundle 'ingo-library'
 Bundle 'TextTransform'
 Bundle 'saihoooooooo/glowshi-ft.vim'
+Plugin 'Rykka/clickable.vim'
 Plugin 'haya14busa/incsearch.vim'
 "Bundle 'sheerun/vim-polyglot'
 "Bundle 'godlygeek/csapprox'
@@ -343,3 +344,15 @@ call TextTransform#MakeMappings('', '<Leader>f', 'PerlFormat')
 set background=dark
 colorscheme candycode
 set background=dark
+
+"for incsearch
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
