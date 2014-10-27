@@ -92,9 +92,9 @@ hi Cursor       guifg=#000000       guibg=#ffff99       gui=NONE
 hi CursorIM     guifg=#000000       guibg=#aaccff       gui=NONE
             \   ctermfg=black       ctermbg=white       cterm=reverse
 hi CursorLine   guifg=NONE          guibg=#1b1b1b       gui=NONE
-            \   ctermfg=NONE        ctermbg=NONE        cterm=NONE
+            \   ctermfg=NONE        ctermbg=lightred    cterm=NONE
 hi CursorColumn guifg=NONE          guibg=#1b1b1b       gui=NONE
-            \   ctermfg=NONE        ctermbg=NONE        cterm=NONE
+            \   ctermfg=NONE        ctermbg=lightred    cterm=reverse
 
 hi Visual       guifg=#ffffff       guibg=#606070       gui=NONE
             \   ctermfg=white       ctermbg=lightblue   cterm=NONE

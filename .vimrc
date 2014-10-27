@@ -211,6 +211,8 @@ let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_prompt_mappings = {
 			\'AcceptSelection("t")':['<cr>'],
 			\'AcceptSelection("e")':['<c-x>'],
+			\ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+			\ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
 			\ }
 nnoremap <Leader>pf :CtrlPFunky<cr>
 nnoremap <Leader>pF :execute 'CtrlPFunky ' . expand('<cword>')<cr>
