@@ -12,46 +12,47 @@ syntax on		" Default to no syntax highlightning
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 "Bundle 'Lokaltog/vim-powerline'
-Bundle 'bling/vim-airline'
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'bling/vim-airline'
+Plugin 'Valloric/YouCompleteMe'
 "Bundle 'wincent/Command-T'
 "Bundle 'Raimondi/delimitMate'
-Bundle 'sjl/gundo.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'mutewinter/swap-parameters'
-Bundle 'kien/ctrlp.vim'
-Bundle 'klen/python-mode'
-Bundle 'tacahiroy/ctrlp-funky'
-Bundle 'vim-scripts/MPage'
-Bundle 'vim-scripts/FSwitch'
-Bundle 'tpope/vim-repeat'
+Plugin 'sjl/gundo.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'mutewinter/swap-parameters'
+Plugin 'kien/ctrlp.vim'
+Plugin 'klen/python-mode'
+Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'vim-scripts/MPage'
+Plugin 'vim-scripts/FSwitch'
+Plugin 'tpope/vim-repeat'
 "Bundle 'svermeulen/vim-easyclip'
 "Bundle 'arecarn/crunch'
-Bundle 'jamessan/vim-gnupg'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'headerguard' 
-Bundle 'DeonPoncini/includefixer' 
-Bundle 'fisadev/vim-ctrlp-cmdpalette' 
-Bundle 'sgur/ctrlp-extensions.vim' 
+Plugin 'jamessan/vim-gnupg'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'headerguard' 
+Plugin 'DeonPoncini/includefixer' 
+Plugin 'fisadev/vim-ctrlp-cmdpalette' 
+Plugin 'sgur/ctrlp-extensions.vim' 
 "disabled for now, need clickable.vim which i do not like..
 "Bundle 'Rykka/riv.vim'
-Bundle 'JazzCore/ctrlp-cmatcher'
-Bundle 'sjl/splice.vim'
-Bundle 'wellle/targets.vim'
-Bundle 'tpope/vim-commentary'
-Bundle 'ingo-library'
-Bundle 'TextTransform'
-Bundle 'saihoooooooo/glowshi-ft.vim'
+Plugin 'JazzCore/ctrlp-cmatcher'
+Plugin 'sjl/splice.vim'
+Plugin 'wellle/targets.vim'
+Plugin 'tpope/vim-commentary'
+Plugin 'ingo-library'
+Plugin 'TextTransform'
+Plugin 'saihoooooooo/glowshi-ft.vim'
 "Plugin 'Rykka/clickable.vim'
 "Bundle "Rykka/clickable-things"
 "Bundle "Rykka/os.vim"
 Plugin 'haya14busa/incsearch.vim'
 "Bundle 'sheerun/vim-polyglot'
 "Bundle 'godlygeek/csapprox'
+Plugin 'jeetsukumaran/vim-buffergator'
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -75,6 +76,7 @@ set laststatus=2
 set encoding=utf-8
 set so=5 "cursor cant get closer than 5 lines to end of screen
 set spelllang=en
+set hidden
 
 function! ResCur()
 	if line("'\"") <= line("$")
@@ -152,10 +154,20 @@ augroup END
 
 noremap mm :make -j4 <cr>
 
-noremap <C-k> :tabnew 
-noremap <C-h> :tabprev <cr>
-noremap <C-j> :tabclose <cr>
-noremap <C-l> :tabnext <cr>
+"noremap <C-k> :tabnew 
+"noremap <C-h> :tabprev <cr>
+"noremap <C-j> :tabclose <cr>
+"noremap <C-l> :tabnext <cr>
+noremap <C-l> :bnext<cr>
+noremap <C-j> :bprev<cr>
+noremap <C-k> :b#<cr>
+"noremap <leader>bn :bNext <cr>
+"noremap <leader>bp :bprevious <cr>
+"noremap <leader>bl :ls <cr>
+
+"buffergatror oftions
+let g:buffergator_viewport_split_policy="B"
+let g:buffergator_split_size="10"
 
 "spelling highlight
 hi SpellBad term=reverse ctermfg=white ctermbg=darkred guifg=#ffffff guibg=#7f0000 gui=underline
@@ -212,11 +224,11 @@ let g:ctrlp_max_files = 0
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_prompt_mappings = {
-			\'AcceptSelection("t")':['<cr>'],
-			\'AcceptSelection("e")':['<c-x>'],
 			\ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
 			\ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
 			\ }
+			"\'AcceptSelection("t")':['<cr>'],
+			"\'AcceptSelection("e")':['<c-x>'],
 nnoremap <Leader>pf :CtrlPFunky<cr>
 nnoremap <Leader>pF :execute 'CtrlPFunky ' . expand('<cword>')<cr>
 nnoremap <Leader>pp :CtrlP<cr>
