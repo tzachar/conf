@@ -1,13 +1,17 @@
-" screen
-if match($TERM, "screen") != -1
-	set term=xterm-color
-	"set terminal for 256 colors
-endif
+set term=xterm-color
+"set terminal for 256 colors
+set t_ku=[A
+set t_ku=OA
+set t_kd=[B
+set t_kd=OB
+set t_kl=[D
+set t_kl=OD
+set t_kr=[C
+set t_kr=OC
 set t_Co=256
 
 let mapleader=","
 
-call pathogen#infect()
 syntax on		" Default to no syntax highlightning 
 
 set rtp+=~/.vim/bundle/vundle/
@@ -53,6 +57,10 @@ Plugin 'haya14busa/incsearch.vim'
 "Bundle 'sheerun/vim-polyglot'
 "Bundle 'godlygeek/csapprox'
 Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'vimoutliner/vimoutliner'
+Plugin 'vim-scripts/a.vim'
+Plugin 'vim-scripts/DirDiff.vim'
+Plugin 'vim-scripts/DirDo.vim'
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.

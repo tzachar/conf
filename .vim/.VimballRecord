@@ -1,1 +1,0 @@
-drcstubs.vba: call delete('/home/tzachar/.vim/ftplugin/c/drcstubs.vim')|call delete('/home/tzachar/.vim/ftplugin/sh/drcstubs.vim')|call delete('/home/tzachar/.vim/ftplugin/tex/drcstubs.vim')|call delete('/home/tzachar/.vim/ftplugin/vim/drcstubs.vim')|call delete('/home/tzachar/.vim/doc/drcstubs.txt')

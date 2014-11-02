@@ -23,7 +23,7 @@ Mrxvt.troughColor:		#202020
 Mrxvt.xft:			1
 Mrxvt.xftFont:			Droid Sans Mono
 #Mrxvt.xftFont:			Bitstream Vera Sans Mono
-Mrxvt.xftSize:			14
+Mrxvt.xftSize:			16
 Mrxvt.xftAntialias:		1
 Mrxvt.xftNomFont:		1
 Mrxvt.xftPFont:			Bitstream Vera Sans
