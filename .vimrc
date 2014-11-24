@@ -1,21 +1,17 @@
-set term=xterm-color
+"set term=xterm-color
 "set terminal for 256 colors
 set t_ku=[A
-set t_ku=OA
 set t_kd=[B
-set t_kd=OB
 set t_kl=[D
-set t_kl=OD
 set t_kr=[C
-set t_kr=OC
 set t_Co=256
 
 let mapleader=","
 
 syntax on		" Default to no syntax highlightning 
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 Plugin 'gmarik/vundle'
 "Bundle 'Lokaltog/vim-powerline'
 Plugin 'bling/vim-airline'
@@ -54,13 +50,15 @@ Plugin 'saihoooooooo/glowshi-ft.vim'
 "Bundle "Rykka/clickable-things"
 "Bundle "Rykka/os.vim"
 Plugin 'haya14busa/incsearch.vim'
-"Bundle 'sheerun/vim-polyglot'
-"Bundle 'godlygeek/csapprox'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'godlygeek/csapprox'
 Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'vimoutliner/vimoutliner'
 Plugin 'vim-scripts/a.vim'
 Plugin 'vim-scripts/DirDiff.vim'
 Plugin 'vim-scripts/DirDo.vim'
+Plugin 'AndrewRadev/switch.vim'
+call vundle#end()
 
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -259,8 +257,8 @@ nnoremap <silent> <Leader>oo :FSHere<cr>
 nnoremap <silent> <Leader>ol :FSRight<cr>
 augroup mycppfiles
   au!
-  au BufEnter *.h let b:fswitchdst  = 'cpp,cc,C'
-  au BufEnter *.h let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/'
+  au BufEnter *.h,*.hpp let b:fswitchdst  = 'cpp,cc,C'
+  au BufEnter *.h,*.hpp let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/'
 au BufEnter *.c,*.cpp let b:fswitchdst = 'h,hpp'
 au BufEnter *.c,*.cpp let b:fswitchlocs = 'reg:|src|include/**|'
 augroup END

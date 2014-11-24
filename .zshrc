@@ -112,3 +112,8 @@ if [[ -f .config/hosts/${HOSTNAME}.conf ]]; then . .config/hosts/${HOSTNAME}.con
 stty -ixon
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+[ -f /usr/local/google/google-cloud-sdk/path.zsh.inc ] && \
+	source /usr/local/google/google-cloud-sdk/path.zsh.inc
+[ -f /usr/local/google/google-cloud-sdk/completion.zsh.inc ] && \
+	source /usr/local/google/google-cloud-sdk/completion.zsh.inc

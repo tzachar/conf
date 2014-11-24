@@ -1,8 +1,11 @@
 [![Build Status](https://secure.travis-ci.org/AndrewRadev/switch.vim.png?branch=master)](http://travis-ci.org/AndrewRadev/switch.vim)
 
-## Usage
+## Screencast!
 
-You can find a screencast demonstrating the plugin [here](http://youtu.be/zIOOLZJb87U).
+This plugin is easier to demonstrate than explain. You can find a screencast
+[here](http://youtu.be/zIOOLZJb87U).
+
+## Usage
 
 The main entry point of the plugin is a single command, `:Switch`. When the
 command is executed, the plugin looks for one of a few specific patterns under
@@ -21,6 +24,8 @@ to map it to "-", place the following in your .vimrc:
 ``` vim
 nnoremap - :Switch<cr>
 ```
+See the "customization" section below for information on how to create several
+mappings with different definitions.
 
 There are three main principles that the substition follows:
 
@@ -64,15 +69,19 @@ There are three main principles that the substition follows:
 
 There are two variables that hold the global definition list and the
 buffer-local definition list -- `g:switch_definitions` and
-`b:switch_definitions`, respectively. In order to customize these to perform
-the switches you want, you can directly override them. For their default
-contents, please see the file plugin/switch.vim.
+`b:switch_definitions`, respectively. These contain the definitions for the
+built-ins provided by the plugin. In order to add the switches you want, you
+should override `g:switch_custom_definitions` and
+`b:switch_custom_definitions` instead.
+
 
 The format of the variables is a simple List of items. Each item can be either
-a List or a Dict. Example for a List:
+a List or a Dict.
+
+### List definitions
 
 ``` vim
-let g:switch_definitions =
+let g:switch_custom_definitions =
     \ [
     \   ['foo', 'bar', 'baz']
     \ ]
@@ -84,10 +93,12 @@ will be changed to "bar". If it sees "bar", it will change it to "baz", and
 is implemented (in a slightly different way) by the "toggle.vim" plugin.
 
 The more complicated (and more powerful) way to define a switch pattern is by
-using a Dict:
+using a Dict.
+
+### Dict definitions
 
 ``` vim
-autocmd FileType eruby let b:switch_definitions =
+autocmd FileType eruby let b:switch_custom_definitions =
     \ [
     \   {
     \     ':\(\k\+\)\s\+=>': '\1:',
@@ -110,7 +121,7 @@ this definition in `ftplugin/eruby.vim`.
 Another interesting example is the following definition:
 
 ``` vim
-autocmd FileType php let b:switch_definitions =
+autocmd FileType php let b:switch_custom_definitions =
       \ [
       \   {
       \     '<?php echo \(.\{-}\) ?>':        '<?php \1 ?>',
@@ -123,8 +134,78 @@ In this case, when in the "php" filetype, the plugin will attempt to remove
 the "echo" in "<?php echo 'something' ?>" or vice-versa. However, the second
 pattern wouldn't work properly if it didn't contain "\%(echo\)\@!". This
 pattern asserts that, in this place of the text, there is no "echo".
-Otherwise, the second pattern would match as well. Using the |\@!| pattern in
+Otherwise, the second pattern would match as well. Using the `\@!` pattern in
 strategic places is important in many cases.
+
+For even more complicated substitions, you can use the nested form.
+
+### Nested dict definitions
+
+The following expression replaces underscored identifier names with their
+camelcased versions.
+
+``` vim
+let b:switch_custom_definitions = [
+      \   {
+      \     '\<[a-z0-9]\+_\k\+\>': {
+      \       '_\(.\)': '\U\1'
+      \     },
+      \     '\<[a-z0-9]\+[A-Z]\k\+\>': {
+      \       '\([A-Z]\)': '_\l\1'
+      \     },
+      \   }
+      \ ]
+```
+
+If the cursor is on "foo_bar_baz", then switching would produce "fooBarBaz"
+and vice-versa. The logic is as follows:
+
+  - The keys of the dict are patterns, just like the "normal" dict version.
+  - The values of the dict are dicts with patterns for keys and replacements
+    for values.
+
+The goal of this form is to enable substituting several different kinds of
+patterns within the limits of another one. In this example, there's no way to
+define this switch using the simpler form, since there's an unknown number of
+underscores in the variable name and all of them need to be replaced in order
+to make the switch complete.
+
+The nested patterns differ from the simple one in that each one of them is
+replaced globally, only within the limits of the "parent" pattern.
+
+Note that this particular example is **NOT** included as a built-in, since it
+may overshadow other ones and is probably not that useful, either (it's rare
+that a language would require changing between the two forms). An example usage
+may be within javascript, if your server-side variables are underscored and the
+client-side ones need to be camelcased. For something more complete, you can
+take a look at [this gist](https://gist.github.com/othree/5655583).
+
+You could also use a separate mapping for that.
+
+### Separate mappings
+
+While it was recommended to define a mapping for `:Switch`, you could actually
+define several mappings with your own custom definitions:
+
+``` vim
+let g:variable_style_switch_definitions = [
+      \   {
+      \     '\<[a-z0-9]\+_\k\+\>': {
+      \       '_\(.\)': '\U\1'
+      \     },
+      \     '\<[a-z0-9]\+[A-Z]\k\+\>': {
+      \       '\([A-Z]\)': '_\l\1'
+      \     },
+      \   }
+      \ ]
+nnoremap + :call switch#Switch(g:variable_style_switch_definitions)<cr>
+nnoremap - :Switch<cr>
+```
+
+With this, typing `-` would invoke the built-in switch definitions, while
+typing `+` would switch between camelcase and underscored variable styles.
+This may be particularly useful if you have several clashing switches on
+patterns that match similar things.
 
 ## Builtins
 
@@ -172,7 +253,7 @@ definitions with their patterns and replacements, look at the file
   end
   ```
 
-* Rspec should/should_not:
+* Rspec `should`/`should_not`:
   ``` ruby
   1.should eq 1
   1.should_not eq 1
@@ -191,6 +272,20 @@ definitions with their patterns and replacements, look at the file
   foo = :baz
   ```
   (Note that it only works for single-word strings.)
+
+
+* Ruby block shorthands:
+  ``` ruby
+  do_something { |x| x.some_work! }
+  do_something(&:some_work!)
+  ```
+
+* Array shorthands:
+  ``` ruby
+  ['one', 'two', 'three']
+  %w(one two three)
+  ```
+  (In this case, be careful to not have the cursor on one of the strings, or you'll trigger the string switch as seen above.)
 
 ### PHP "echo" in tags:
 
@@ -220,7 +315,6 @@ definitions with their patterns and replacements, look at the file
   ``` erb
   <% something %>
   <%# something %>
-  <%=raw something %>
   <%= something %>
   ```
 
@@ -228,6 +322,33 @@ definitions with their patterns and replacements, look at the file
   ``` erb
   <% foo = { :one => 'two' } %>
   <% foo = { one: 'two' } %>
+  ```
+
+### Haml
+
+* If-clauses:
+  ``` haml
+  - if predicate?
+    Hello, World!
+
+  - if true or (predicate?)
+    Hello, World!
+
+  - if false and (predicate?)
+    Hello, World!
+  ```
+
+* Tag type:
+  ``` haml
+  - something
+  -# something
+  = something
+  ```
+
+* Hash style:
+  ``` haml
+  %a{:href => '/example'}
+  %a{href: '/example'}
   ```
 
 ### C++ pointer dots/arrows:
@@ -244,6 +365,51 @@ functionCall (foo) ->
 functionCall (foo) =>
 ```
 
+### Coffeescript dictionary shorthands
+
+``` coffeescript
+foo = {one, two}
+foo = {one: one, two}
+```
+
+### Clojure
+
+* String style:
+  ``` clojure
+  "baz"
+  'bar
+  :baz
+  ```
+  (Note that it only works for single-word strings, such as `baz`, `b-a-z`, or `**`.)
+
+* If-clauses:
+  ``` clojure
+  (if predicate?
+    (prn "Hello, world!")
+    (prn "oh..."))
+
+  (if (or true predicate?)
+    (prn "Hello, world!")
+    (prn "oh..."))
+
+  (if (and false predicate?)
+    (prn "Hello, world!")
+    (prn "oh..."))
+  ```
+  (Note that it also works for `if-not`, `when`, and `when-not`.)
+
+### Scala
+
+* String style:
+  ``` scala
+  "foo bar"
+  s"foo bar"
+  f"foo bar"
+  """foo bar"""
+  s"""foo bar"""
+  f"""foo bar"""
+  ```
+
 ## Similar work
 
 This plugin is very similar to two other ones:
@@ -256,7 +422,12 @@ complicated patterns. The drawback is that this makes extending it more
 involved. I encourage anyone that doesn't need the additional power in
 switch.vim to take a look at one of these two.
 
-# Issues
+## Contributing
+
+If you'd like to hack on the plugin, please see
+[CONTRIBUTING.md](https://github.com/AndrewRadev/switch.vim/blob/master/CONTRIBUTING.md) first.
+
+## Issues
 
 Any issues and suggestions are very welcome on the
 [github bugtracker](https://github.com/AndrewRadev/switch.vim/issues).
