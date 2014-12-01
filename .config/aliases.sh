@@ -19,7 +19,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 # -> Prevents accidentally clobbering files.
 alias mkdir='mkdir -p'
-alias vi='vi -p'
+alias vi='vim'
 
 alias h='history'
 alias j='jobs -l'
@@ -63,3 +63,6 @@ alias rcmake="cmake -DCMAKE_BUILD_TYPE=Release"
 alias cq=condor_q
 
 alias sai='sudo apt-get install'
+alias sac='apt-cache search'
+
+alias sq='squeue -o "%.7i %.9P %.20j %.8u %.2t %.10M %.6D %R"'

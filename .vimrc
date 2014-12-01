@@ -10,7 +10,7 @@ let mapleader=","
 
 syntax on		" Default to no syntax highlightning 
 
-set rtp+=~/.vim/bundle/Vundle.vim/
+set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 Plugin 'gmarik/vundle'
 "Bundle 'Lokaltog/vim-powerline'
@@ -249,6 +249,7 @@ nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<c
 
 "pymode config
 let g:pymode_lint_ignore="E501"
+let g:pymode_rope=0
 
 "FSwitch
 "Switch to the file and load it into the current window >
