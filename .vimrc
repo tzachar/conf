@@ -13,11 +13,10 @@ syntax on		" Default to no syntax highlightning
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 Plugin 'gmarik/vundle'
-"Bundle 'Lokaltog/vim-powerline'
+"Plugin 'Lokaltog/vim-powerline'
 Plugin 'bling/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
-"Bundle 'wincent/Command-T'
-"Bundle 'Raimondi/delimitMate'
+"Plugin 'Raimondi/delimitMate'
 Plugin 'sjl/gundo.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'Lokaltog/vim-easymotion'
@@ -29,8 +28,8 @@ Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'vim-scripts/MPage'
 Plugin 'vim-scripts/FSwitch'
 Plugin 'tpope/vim-repeat'
-"Bundle 'svermeulen/vim-easyclip'
-"Bundle 'arecarn/crunch'
+"Plugin 'svermeulen/vim-easyclip'
+"Plugin 'arecarn/crunch'
 Plugin 'jamessan/vim-gnupg'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'headerguard' 
@@ -38,7 +37,7 @@ Plugin 'DeonPoncini/includefixer'
 Plugin 'fisadev/vim-ctrlp-cmdpalette' 
 Plugin 'sgur/ctrlp-extensions.vim' 
 "disabled for now, need clickable.vim which i do not like..
-"Bundle 'Rykka/riv.vim'
+"Plugin 'Rykka/riv.vim'
 Plugin 'JazzCore/ctrlp-cmatcher'
 Plugin 'sjl/splice.vim'
 Plugin 'wellle/targets.vim'
@@ -47,8 +46,8 @@ Plugin 'ingo-library'
 Plugin 'TextTransform'
 Plugin 'saihoooooooo/glowshi-ft.vim'
 "Plugin 'Rykka/clickable.vim'
-"Bundle "Rykka/clickable-things"
-"Bundle "Rykka/os.vim"
+"Plugin "Rykka/clickable-things"
+"Plugin "Rykka/os.vim"
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'godlygeek/csapprox'
@@ -58,6 +57,7 @@ Plugin 'vim-scripts/a.vim'
 Plugin 'vim-scripts/DirDiff.vim'
 Plugin 'vim-scripts/DirDo.vim'
 Plugin 'AndrewRadev/switch.vim'
+Plugin 'tommcdo/vim-exchange'
 call vundle#end()
 
 set showcmd		" Show (partial) command in status line.
