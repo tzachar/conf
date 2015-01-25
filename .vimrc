@@ -58,6 +58,8 @@ Plugin 'vim-scripts/DirDiff.vim'
 Plugin 'vim-scripts/DirDo.vim'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'tommcdo/vim-exchange'
+Plugin 'cosminadrianpopescu/vim-sql-workbench'
+Plugin 'tpope/vim-surround'
 call vundle#end()
 
 set showcmd		" Show (partial) command in status line.
@@ -240,6 +242,7 @@ nnoremap <Leader>pF :execute 'CtrlPFunky ' . expand('<cword>')<cr>
 nnoremap <Leader>pp :CtrlP<cr>
 nnoremap <Leader>pb :CtrlPBuffer<cr>
 nnoremap <Leader>pr :CtrlPMRU<cr>
+nnoremap <Leader>pc :CtrlPCmdPalette<cr>
 
 " narrow the list down with a word under cursor
 nnoremap <Leader>F :execute 'CtrlPFunky ' . expand('<cword>')<Cr>'
@@ -377,3 +380,9 @@ map *  <Plug>(incsearch-nohl-*)
 map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
+
+
+"for sqlbench
+let g:sw_config_dir='/home/tzachar/.sqlworkbench/'
+let g:sw_exe='/home/tzachar/sqlworkbench/sqlwbconsole.sh'
+let g:sw_shortcuts_sql_buffer_statement='/home/tzachar/.vim/shortcuts_sql_buffer_statement.vim'

@@ -37,6 +37,7 @@ source $ZSH/oh-my-zsh.sh
 #
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa google_compute_engine
 
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
@@ -114,6 +115,9 @@ if [[ -f .config/hosts/${HOSTNAME}.conf ]]; then . .config/hosts/${HOSTNAME}.con
 stty -ixon
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+[ -f sqlworkbench/sqlwbconsole.sh ] &&\
+	PATH=${PATH}:${HOME}/sqlworkbench
 
 [ -f /usr/local/google/google-cloud-sdk/path.zsh.inc ] && \
 	source /usr/local/google/google-cloud-sdk/path.zsh.inc

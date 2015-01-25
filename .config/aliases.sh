@@ -19,7 +19,12 @@ alias cp='cp -i'
 alias mv='mv -i'
 # -> Prevents accidentally clobbering files.
 alias mkdir='mkdir -p'
-alias vi='vim'
+if [ -f /usr/bin/nvim ]; then
+	alias vi='nvim'
+	alias vim='nvim'
+else
+	alias vi='vim'
+fi
 
 alias h='history'
 alias j='jobs -l'
