@@ -2,9 +2,13 @@ if exists("g:loaded_switch") || &cp
   finish
 endif
 
-let g:loaded_switch = '0.2.0' " version number
+let g:loaded_switch = '0.3.0' " version number
 let s:keepcpo = &cpo
 set cpo&vim
+
+if !exists('g:switch_mapping')
+  let g:switch_mapping = 'gs'
+endif
 
 let g:switch_builtins =
       \ {
@@ -49,6 +53,16 @@ let g:switch_builtins =
       \       '%w(':      '[',
       \       '\(\k\+\) ': '''\1'', ',
       \       '\(\k\+\))': '''\1'']',
+      \     },
+      \     '\[\%(\k\|[:, ]\)\+\]': {
+      \       '\[':           '%i(',
+      \       ':\(\k\+\),\=': '\1',
+      \       ']':            ')',
+      \     },
+      \     '%i(\%(\k\|\s\)\+)': {
+      \       '%i(':      '[',
+      \       '\(\k\+\) ': ':\1, ',
+      \       '\(\k\+\))': ':\1]',
       \     },
       \   },
       \   'rspec_should': ['should ', 'should_not '],
@@ -192,6 +206,10 @@ function! s:Switch()
   call switch#Switch(definitions)
   silent! call repeat#set(":Switch\<cr>")
 endfunction
+
+if g:switch_mapping != ''
+  exe 'nnoremap '.g:switch_mapping.' :Switch<cr>'
+endif
 
 let &cpo = s:keepcpo
 unlet s:keepcpo

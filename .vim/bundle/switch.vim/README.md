@@ -18,12 +18,22 @@ flag = true
 
 Then, upon executing `:Switch`, the "true" will turn into "false".
 
-It is highly recommended to map the `:Switch` command to a key. For example,
-to map it to "-", place the following in your .vimrc:
+There's a default mapping to trigger the command, `gs`. Note that this is
+already a Vim built-in, but it doesn't seem particularly useful.
+
+If you'd like to change the mapping, change the value of `g:switch_mapping`.
+For example, to map it to "-", place the following in your .vimrc:
 
 ``` vim
-nnoremap - :Switch<cr>
+let g:switch_mapping = "-"
 ```
+
+To avoid the default mapping completely, set the variable to an empty string:
+
+``` vim
+let g:switch_mapping = ""
+```
+
 See the "customization" section below for information on how to create several
 mappings with different definitions.
 
@@ -66,6 +76,9 @@ There are three main principles that the substition follows:
    different way, the definition list should be redefined by the user.
 
 ## Customization
+
+*Note: for more switches by the community, take a look at the
+[wiki](https://github.com/AndrewRadev/switch.vim/wiki)*
 
 There are two variables that hold the global definition list and the
 buffer-local definition list -- `g:switch_definitions` and
@@ -184,8 +197,8 @@ You could also use a separate mapping for that.
 
 ### Separate mappings
 
-While it was recommended to define a mapping for `:Switch`, you could actually
-define several mappings with your own custom definitions:
+While there's a default mapping for `:Switch`, you could actually define
+several mappings with your own custom definitions:
 
 ``` vim
 let g:variable_style_switch_definitions = [
@@ -285,7 +298,12 @@ definitions with their patterns and replacements, look at the file
   ['one', 'two', 'three']
   %w(one two three)
   ```
-  (In this case, be careful to not have the cursor on one of the strings, or you'll trigger the string switch as seen above.)
+
+  ``` ruby
+  [:one, :two, :three]
+  %i(one two three)
+  ```
+  (In this case, be careful to not have the cursor on one of the strings/symbols, or you'll trigger the string switch as seen above.)
 
 ### PHP "echo" in tags:
 

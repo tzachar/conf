@@ -62,13 +62,14 @@ Plugin 'cosminadrianpopescu/vim-sql-workbench'
 Plugin 'tpope/vim-surround'
 call vundle#end()
 
+set nocompatible	" Use Vim defaults (much better!)
 set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
 set ruler		" Show the line and column numbers of the cursor 
 set ignorecase		" Do case insensitive matching
 set incsearch		" Incremental search
 set autowrite		" Automatically save before commands like :next and :make
-set nocompatible	" Use Vim defaults (much better!)
+set history=10000
 " use Q for formatting, not ex-mode:
 noremap Q gq
 set backspace=2		" allow backspacing over everything in insert mode
@@ -115,6 +116,8 @@ augroup end
 augroup ftypeOptions
 autocmd!
 autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8 
+autocmd BufEnter *.cpp,*.hpp :set formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ CPP\ --no-backup\ 2>/dev/null
+autocmd BufEnter *.c,*.h :set formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ C\ --no-backup\ 2>/dev/null
 autocmd BufEnter *.cu set syntax=cpp
 
 autocmd BufEnter *.java ab sop System.out.println
@@ -302,6 +305,7 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+
 "for glowshi
 map <unique>f <plug>(glowshi-ft-f)
 map <unique>F <plug>(glowshi-ft-F)
@@ -318,8 +322,13 @@ map <unique>T <plug>(glowshi-ft-T)
 "noremap <up> <nop>
 
 "add a ; at the end of the line
-inoremap <leader>; <esc>mTA;<esc>`Ta
-nnoremap <leader>; mTA;<esc>`T
+function! ToggleEndChar(charToMatch)
+	let l:winview = winsaveview()
+	s/\v(.)$/\=submatch(1)==a:charToMatch ? '' : submatch(1).a:charToMatch
+	nohlsearch
+	call winrestview(l:winview)
+endfunction
+nnoremap <Leader>; :call ToggleEndChar(';')<CR>
 
 cnoremap <C-a>  <Home>
 cnoremap <C-b>  <Left>
