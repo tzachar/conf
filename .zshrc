@@ -123,3 +123,6 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 	source /usr/local/google/google-cloud-sdk/path.zsh.inc
 [ -f /usr/local/google/google-cloud-sdk/completion.zsh.inc ] && \
 	source /usr/local/google/google-cloud-sdk/completion.zsh.inc
+
+#export TERM=xterm
+#export COLORTERM=xterm

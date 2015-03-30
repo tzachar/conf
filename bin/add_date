@@ -1,0 +1,22 @@
+#!/bin/bash
+
+POINTSIZE=30
+FILL="#ff3b00"
+FONT="helvetica"
+
+if [ $# -gt 0 ]; then
+	PICNAME=$1
+else
+	echo -n "pic to convert:"
+	read PICNAME
+fi
+
+STR=$(jhead $PICNAME | fgrep "Date/Time" |  sed -r 's/ +/ /g' | cut -d" " -f3)
+
+#find deimentions
+DIM=$(tcprobe -i $PICNAME | grep "import frame size")
+DIM=$(echo $DIM| cut -d" " -f5 )
+DIM_X=$(echo $DIM|cut -d"x" -f1)
+DIM_Y=$(echo $DIM|cut -d"x" -f2)
+
+convert -pointsize $(($DIM_X/40)) -font $FONT -fill $FILL -draw "text 50,$(($DIM_Y-$POINTSIZE-50)) '$STR'" $PICNAME $(echo $PICNAME | cut -d"." -f1).date.jpg

@@ -1,0 +1,6 @@
+#!/bin/bash
+unset http_proxy
+exec mplayer -cache 500 ${HOME}/bin/gglz.asx
+#exec mplayer -cache 500 "mms://stream.msn.co.il/gglz"
+#exec mplayer -cache 500 "http://213.8.143.166:80/gglz?MSWMExt=.asf"
+#exec aviplay ${HOME}/bin/gglz.asx

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+smbmount //smb1.cs.bgu.ac.il/tzachar ${HOME}/uni_account/

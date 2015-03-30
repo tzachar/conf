@@ -1,0 +1,2 @@
+#!/bin/bash
+exec mplayer -cache 300 "mms://stream.msn.co.il/glz-stream"

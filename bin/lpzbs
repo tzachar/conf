@@ -1,0 +1,79 @@
+#!/bin/csh
+
+if ( $#argv == 0 ) then
+   echo 'Usage: $0 file1 file2 file3 .................'
+   echo "where fileX is a file to b printed,"
+   echo "either in ps, pfd, dvi or plain text."
+   echo "have a nice day"
+   exit 3
+endif
+
+
+
+#the printer name is the name of the script!!
+set printer=`basename $0`
+
+set file=/usr/bin/file
+set egrep="/bin/egrep"
+set dvi2ps=/usr/bin/dvips
+# host specific parameters.
+set machine=`uname`
+if ( $machine == "Linux" ) then
+   set fgrep=/bin/fgrep
+   set gawk=/usr/bin/gawk
+   set enscript=/bin/enscript
+else if ( $machine == "SunOS") then
+   set fgrep=/usr/bin/fgrep
+   set gawk=/usr/local/bin/gawk
+   set enscript=/usr/local/bin/enscript
+else if ( $machine == "IRIX64" ) then
+   set fgrep=/usr/bin/fgrep
+   set gawk=/usr/bin/awk
+   set enscript=/usr/local/bin/enscript
+endif
+
+foreach printout ( $argv )
+   if ( ! -e $printout ) then
+      echo "no such file $printout , skipping"
+      continue
+   endif
+   set file_output=`$file $printout`
+   set kind=""
+   # checking for a postscript file:
+   if ( `echo $file_output | $gawk '{print $2}'` == "PostScript" ) then
+      set kind="ps"
+   #checking for a dvi file: which starts \367\002/
+   else if ( `cat $printout | $gawk '{if ( $1 ~ /^\367\002/ ) {print "yes"} exit}'` == "yes" ) then 
+      set kind="dvi"
+   #check for a pdf file, we have to check thrice, the file output is different on sunos linuxan aix
+   else if (`echo $file_output | $gawk '{print $2$3$4}'` == "AdobePortableDocument") then 
+      set kind="pdf"
+   else if (`echo $file_output | $gawk '{print $2}'` == "PDF" ) then 
+      set kind="pdf" 
+   else if ( `cat $printout | $gawk '{if ($1 ~ /^\%PDF-/) {print "yes"} exit}'` == yes ) then 
+      set kind="pdf"
+   endif
+   echo $kind
+   echo $file_output | $gawk '{print $2}'
+   if ( $kind == "ps" ) then
+      echo sending ps file $printout to $printer
+      lpr -P$printer:t  $printout
+   else if ( $kind == "dvi" ) then
+      echo sending dvi file $printout to $printer
+      $dvi2ps -q -f- $printout  | lpr -P$printer:t
+   else if ( $kind == "pdf" ) then
+      echo sending pdf file $printout to $printer
+      /usr/local/bin/acroread -toPostScript < $printout | lpr -P$printer:t 
+   else
+   #if we got here, its probably a text file, but lets make sure:
+   set a=`$file $printout | cut -d: -f2 | $egrep '(symbolic|PostScript|executable|data)' | $egrep -v  script`
+   if( ${#a} > 0 ) then
+       echo "not a suppurted file format $printout"
+       continue
+   endif
+   # OK. we passed the check, lets enscript the text file.                 
+   echo sending text file $printout to $printer 
+   $enscript -P$printer:t $printout
+   endif
+end   
+echo "may the force b with you"

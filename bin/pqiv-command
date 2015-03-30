@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "pqiv-command: $@"
+
+
+case $1 in
+	1) cp $2 /stuff/for_dev; echo Saved;;
+	2) rm -rf /stuff/for_dev/$(basename $2) ; echo Deleted;;
+	*) echo "unrecognized command"; exit ;;
+esac
+

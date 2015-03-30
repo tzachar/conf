@@ -1,0 +1,16 @@
+enlightenment_remote -module-disable ibar
+
+enlightenment_remote -module-load engage
+enlightenment_remote -module-enable engage
+
+enlightenment_remote -module-load tclock
+enlightenment_remote -module-enable tclock
+
+enlightenment_remote -focus-setting-set NEW_WINDOW
+enlightenment_remote -desks-set 8 1
+enlightenment_remote -edge-flip-set 0
+
+enlightenment_remote -maximize-policy-set SMART
+
+#this is for nautilus, so it wont use a desktop!!
+gconftool-2 /apps/nautilus/preferences/show_desktop -t bool -s false

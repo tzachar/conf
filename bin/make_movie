@@ -1,0 +1,24 @@
+#!/bin/bash
+
+NAME=""
+
+if [ $# -gt 0 ]; then
+        NAME=$1
+else
+	echo -n "avi file name: "
+	read NAME
+fi
+
+BASENAME=$(basename $NAME .avi ) 
+BASENAME=$(basename $BASENAME .AVI)
+OUT=${BASENAME}.flv
+
+echo "Converting to flv...."
+ffmpeg -i $NAME -s 320x240 -ar 44100 -r 12 $OUT
+echo "Adding metadata...."
+cat $OUT | flvtool2 -U stdin $OUT
+echo "Generating picture...."
+ffmpeg -i $NAME -vcodec png -vframes 1 -an -f rawvideo -s 320x240 ${BASENAME}.png
+convert ${BASENAME}.png ${BASENAME}.jpg
+rm -rf ${BASENAME}.png
+echo "Done. Saved as $OUT"

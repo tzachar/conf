@@ -1,0 +1,8 @@
+1,$s/Duplexer False/Duplexer True/g
+/Duplex false .* setpagedevice/d
+s///g
+s/%%BeginFeature: \*Duplex None/%%BeginFeature: \*Duplex DuplexNoTumble   \
+statusdict \/duplexer get exec    \
+   \{ \<\< \Duplex true \/Tumble false \>\> setpagedevice \}      \
+   \{ \<\< \Duplex false \>\>  setpagedevice \}                    \
+   ifelse /

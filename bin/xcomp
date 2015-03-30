@@ -1,0 +1,7 @@
+#!/bin/bash
+
+XCOMP=${HOME}/bin/xcompmgr
+
+while true; do
+	${XCOMP} -cCfF -r7 -o.65 -l-10 -t-8 -D3 -I0.01 -O0.01
+done

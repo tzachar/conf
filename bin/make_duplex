@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# != 1 ]; then
+	echo "Usage: $0 ps_file"
+	exit -1
+fi
+
+cat ~/bin/twosides $1 | sed -f ~/bin/duplex > $$
+mv $$ $1

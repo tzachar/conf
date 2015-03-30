@@ -1,0 +1,8 @@
+#!/bin/bash
+
+BTCLIENT=btdownloadcurses.py
+
+#while /bin/true; do
+	${BTCLIENT} --max_upload_rate 1 --minport 16881 --maxport 17000 \
+	--max_uploads 3  --min_peers 80 $@
+#done

@@ -1,0 +1,10 @@
+#/bin/bash
+
+mkdir tmp.$$
+cd tmp.$$
+
+mencoder ../"$1" -oac mp3lame -lameopts abr:br=128 -ovc xvid -xvidencopts bitrate=-716800:pass=1 -vf pp=de,scale=720:-2 -o /dev/null
+mencoder ../"$1" -oac mp3lame -lameopts abr:br=128 -ovc xvid -xvidencopts bitrate=-716800:pass=1 -vf pp=de,scale=720:-2 -o ../"$1".avi
+
+rm -rf tmp.$$
+

@@ -1,0 +1,19 @@
+#!/usr/bin/expect --
+
+if { ! $argc == 2 } {
+	send_user "Usage: print printer_name file"
+	exit
+	}
+
+set dir [pwd]
+
+spawn ssh lp_test
+expect "tzachar" {send "ftp [lindex $argv 0]\r"}
+expect "Name" {send "popy\r"}
+send "bin\r"
+send "pass\r"
+send "put $dir/[lindex $argv 1] \r"
+
+expect "Transfer complete" {send "by\r"}
+send "quit\r"
+

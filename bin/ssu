@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DIR=${HOME}/bin/SU/
+SSU=""
+
+SSU=${DIR}/${HOSTTYPE}.su
+if [ $(hostname) == lead ] ; then
+	SSU=${DIR}/lead.su
+elif [ $(hostname) == cyan ] ; then
+	SSU=${DIR}/cyan.su
+fi
+
+exec $SSU $@

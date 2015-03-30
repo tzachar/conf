@@ -1,5 +1,8 @@
 "set term=xterm-color
 "set terminal for 256 colors
+if match($TERM, "screen")!=-1
+  set term=xterm
+endif
 set t_ku=[A
 set t_kd=[B
 set t_kl=[D
@@ -60,6 +63,7 @@ Plugin 'AndrewRadev/switch.vim'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'cosminadrianpopescu/vim-sql-workbench'
 Plugin 'tpope/vim-surround'
+Plugin 'Konfekt/FastFold'
 call vundle#end()
 
 set nocompatible	" Use Vim defaults (much better!)
@@ -256,6 +260,9 @@ nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<c
 "pymode config
 let g:pymode_lint_ignore="E501"
 let g:pymode_rope=0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_lookup_project = 0
+let g:pymode_folding = 0
 
 "FSwitch
 "Switch to the file and load it into the current window >

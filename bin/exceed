@@ -1,0 +1,17 @@
+#!/bin/bash --norc
+
+pkill -9 agent
+pkill -9 eye
+echo -n "ur display is:"
+read DISPLAY
+export DISPLAY=${DISPLAY:=""}:0.0
+echo $DISPLAY > $HOME/.config/display
+eval `ssh-agent`
+ssh-add
+echo $DISPLAY
+starticewm &
+#sleep 5
+#xset fp+ tcp/silver:7100 &
+xrdb -merge $HOME/.config/X/Xdefaults/app-defaults/XTerm
+xrdb -merge $HOME/.config/X/Xdefaults/app-defaults/Emacs
+~/bin/eyes-reminder &

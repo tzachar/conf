@@ -1,0 +1,1 @@
+for ff in *.MOV; do echo MVI_6597.avi; ffmpeg -threads 2 -b 23037k -i MVI_6597.MOV -acodec copy MVI_6597.avi; done

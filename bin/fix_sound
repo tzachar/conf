@@ -1,0 +1,3 @@
+#!/bin/sh
+iecset -c0 -n2 pro on audio on
+

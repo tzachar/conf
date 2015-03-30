@@ -1,0 +1,2 @@
+\ls *JPG|while read F; do echo "scaling $F"; djpeg $F|pnmscale '0.33'|cjpeg >small/$F; done
+

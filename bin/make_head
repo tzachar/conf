@@ -1,0 +1,34 @@
+#!/bin/bash
+
+NAME=""
+ANS=""
+
+if [ $# -gt 0 ]; then 
+	NAME=$1 
+else
+	echo -n "ut header name: "
+	read NAME
+fi
+
+if [ -a $NAME ]; then 
+	while [ "$ANS" != "yes" -a "$ANS" != "no" ]; do
+		echo -n "file exists. remove? [yes/no] "
+		read ANS
+	done
+fi	
+
+if [ "$ANS" == "no" ]; then exit 1; fi
+
+/bin/rm -rf $NAME
+
+cat > $NAME << EOF
+
+#ifndef ${NAME}_HEAD_${$}
+#define ${NAME}_HEAD_${$}
+
+
+
+#endif
+EOF
+
+

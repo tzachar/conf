@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+while /bin/true; do
+	bittorrent-console --max_uploads 6 --max_upload_rate 1 \
+	--max_allow_in 10 --max_initiate 60 --minport 16881 \
+	--maxport 16890 $@
+done
