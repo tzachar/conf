@@ -1,7 +1,6 @@
-"set term=xterm-color
 "set terminal for 256 colors
-if match($TERM, "screen")!=-1
-  set term=xterm
+if has('nvim') && match($TERM, "screen")!=-1
+	set term=xterm
 endif
 set t_ku=[A
 set t_kd=[B
@@ -61,9 +60,11 @@ Plugin 'vim-scripts/DirDiff.vim'
 Plugin 'vim-scripts/DirDo.vim'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'tommcdo/vim-exchange'
-Plugin 'cosminadrianpopescu/vim-sql-workbench'
+"Plugin 'cosminadrianpopescu/vim-sql-workbench'
+Plugin 'vim-scripts/dbext.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'Konfekt/FastFold'
+Plugin 'tomasr/molokai'
 call vundle#end()
 
 set nocompatible	" Use Vim defaults (much better!)
@@ -277,6 +278,12 @@ au BufEnter *.c,*.cpp let b:fswitchdst = 'h,hpp'
 au BufEnter *.c,*.cpp let b:fswitchlocs = 'reg:|src|include/**|'
 augroup END
 
+if has('nvim')
+	augroup nvimTerminal
+		tnoremap jj <C-\><C-n>
+	augroup END
+endif
+
 "folding highlight
 hi Folded term=standout ctermfg=LightBlue ctermbg=DarkGrey
 
@@ -372,7 +379,7 @@ function MapToggle(key, opt)
 endfunction
 command -nargs=+ MapToggle call MapToggle(<f-args>)
 
-MapToggle <Leader>s spell
+MapToggle <Leader>ss spell
 MapToggle <Leader>a paste
 
 function! PerlFormat(str)
@@ -398,7 +405,18 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
 
-"for sqlbench
-let g:sw_config_dir='/home/tzachar/.sqlworkbench/'
-let g:sw_exe='/home/tzachar/sqlworkbench/sqlwbconsole.sh'
-let g:sw_shortcuts_sql_buffer_statement='/home/tzachar/.vim/shortcuts_sql_buffer_statement.vim'
+"for dbext
+let g:dbext_default_profile_Vault = 'type=SQLITE:dbname=/home/tzachar/work/vault/db/vault.sqlite'
+let g:dbext_default_SQLITE_cmd_header=".mode list\n.headers ON\n"
+augroup project_vault
+	au!
+	" Automatically choose the correct dbext profile
+	autocmd BufRead */vault/db/*.sql DBSetOption profile=Vault
+
+        function! DBextPostResult(db_type, buf_nr)                                                                                                 
+            " If dealing with a MYSQL database                                                                                                     
+            if a:db_type == 'SQLITE' 
+		    execute ':silent 2,$! showtable -d\| -titles=1 -s -w=80 -t'
+            endif                                                                                                                                  
+        endfunction                               
+augroup end

@@ -125,4 +125,5 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 	source /usr/local/google/google-cloud-sdk/completion.zsh.inc
 
 #export TERM=xterm
-#export COLORTERM=xterm
+export COLORTERM=gnome-terminal
+#export NVIM_TUI_ENABLE_TRUE_COLOR=1

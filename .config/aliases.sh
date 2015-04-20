@@ -20,8 +20,8 @@ alias mv='mv -i'
 # -> Prevents accidentally clobbering files.
 alias mkdir='mkdir -p'
 if [ -f /usr/bin/nvim ]; then
-	alias vi='nvim'
-	alias vim='nvim'
+	alias vi='TERM= nvim'
+	alias vim='TERM= nvim'
 else
 	alias vi='vim'
 fi
