@@ -415,7 +415,7 @@ augroup project_vault
 
         function! DBextPostResult(db_type, buf_nr)                                                                                                 
             " If dealing with a MYSQL database                                                                                                     
-            if a:db_type == 'SQLITE' 
+            if a:db_type == 'SQLITE' && line('$') >= 2 
 		    execute ':silent 2,$! showtable -d\| -titles=1 -s -w=80 -t'
             endif                                                                                                                                  
         endfunction                               
