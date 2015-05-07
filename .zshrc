@@ -90,7 +90,7 @@ export EDITOR VISUAL HOME_CONF HOME_LIB
 export HOME_BIN PAGER
 #export LC_ALL=C
 export LC_ALL=en_US.UTF-8
-export PYTHONPATH=${PYTHONPATH}:${HOME}/python
+export PYTHONPATH=${PYTHONPATH}:${HOME}/python:~/work/vault/code/vault_py:~/work/vault/code/vault_py/apis
 
 #export number of processors on linux
 if [ -f /proc/cpuinfo ]; then

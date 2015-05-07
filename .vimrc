@@ -65,6 +65,7 @@ Plugin 'vim-scripts/dbext.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'Konfekt/FastFold'
 Plugin 'tomasr/molokai'
+Plugin 'rking/ag.vim'
 call vundle#end()
 
 set nocompatible	" Use Vim defaults (much better!)
@@ -221,7 +222,7 @@ let g:CommandTAcceptSelectionMap='<C-o>'
 let g:CommandTMaxFiles=30000
 
 "for Switch:
-nnoremap - :Switch<cr>
+let g:switch_mapping = "-"
 
 "make Enter work like C-Y in popup menue
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -408,6 +409,7 @@ map g# <Plug>(incsearch-nohl-g#)
 "for dbext
 let g:dbext_default_profile_Vault = 'type=SQLITE:dbname=/home/tzachar/work/vault/db/vault.sqlite'
 let g:dbext_default_SQLITE_cmd_header=".mode list\n.headers ON\n"
+let  g:dbext_default_DBI_max_rows = 0
 augroup project_vault
 	au!
 	" Automatically choose the correct dbext profile
