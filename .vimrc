@@ -265,6 +265,7 @@ let g:pymode_rope=0
 let g:pymode_rope_completion = 0
 let g:pymode_rope_lookup_project = 0
 let g:pymode_folding = 0
+let g:pymode_breakpoint = 1 
 
 "FSwitch
 "Switch to the file and load it into the current window >
@@ -391,7 +392,7 @@ call TextTransform#MakeMappings('', '<Leader>f', 'PerlFormat')
 
 set background=dark
 colorscheme candycode
-set background=dark
+"set background=dark
 
 "for incsearch
 map /  <Plug>(incsearch-forward)
