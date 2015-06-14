@@ -12,61 +12,65 @@ let mapleader=","
 
 syntax on		" Default to no syntax highlightning 
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#begin()
-Plugin 'gmarik/vundle'
-"Plugin 'Lokaltog/vim-powerline'
-Plugin 'bling/vim-airline'
-Plugin 'Valloric/YouCompleteMe'
-"Plugin 'Raimondi/delimitMate'
-Plugin 'sjl/gundo.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'mutewinter/swap-parameters'
-Plugin 'kien/ctrlp.vim'
-Plugin 'klen/python-mode'
-Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'vim-scripts/MPage'
-Plugin 'vim-scripts/FSwitch'
-Plugin 'tpope/vim-repeat'
-"Plugin 'svermeulen/vim-easyclip'
-"Plugin 'arecarn/crunch'
-Plugin 'jamessan/vim-gnupg'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'headerguard' 
-Plugin 'DeonPoncini/includefixer' 
-Plugin 'fisadev/vim-ctrlp-cmdpalette' 
-Plugin 'sgur/ctrlp-extensions.vim' 
+call plug#begin('~/.vim/plugged')
+Plug 'gmarik/vundle'
+"Plug 'Lokaltog/vim-powerline'
+Plug 'bling/vim-airline'
+Plug 'Valloric/YouCompleteMe', {'do': './install.sh'}
+"Plug 'Raimondi/delimitMate'
+Plug 'sjl/gundo.vim'
+Plug 'mileszs/ack.vim'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mutewinter/swap-parameters'
+Plug 'kien/ctrlp.vim'
+Plug 'klen/python-mode'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'vim-scripts/MPage'
+Plug 'vim-scripts/FSwitch'
+Plug 'tpope/vim-repeat'
+"Plug 'svermeulen/vim-easyclip'
+"Plug 'arecarn/crunch'
+Plug 'jamessan/vim-gnupg'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'headerguard' 
+Plug 'DeonPoncini/includefixer' 
+Plug 'fisadev/vim-ctrlp-cmdpalette' 
+Plug 'sgur/ctrlp-extensions.vim' 
 "disabled for now, need clickable.vim which i do not like..
-"Plugin 'Rykka/riv.vim'
-Plugin 'JazzCore/ctrlp-cmatcher'
-Plugin 'sjl/splice.vim'
-Plugin 'wellle/targets.vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'ingo-library'
-Plugin 'TextTransform'
-Plugin 'saihoooooooo/glowshi-ft.vim'
-"Plugin 'Rykka/clickable.vim'
-"Plugin "Rykka/clickable-things"
-"Plugin "Rykka/os.vim"
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'godlygeek/csapprox'
-Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'vimoutliner/vimoutliner'
-Plugin 'vim-scripts/a.vim'
-Plugin 'vim-scripts/DirDiff.vim'
-Plugin 'vim-scripts/DirDo.vim'
-Plugin 'AndrewRadev/switch.vim'
-Plugin 'tommcdo/vim-exchange'
-"Plugin 'cosminadrianpopescu/vim-sql-workbench'
-Plugin 'vim-scripts/dbext.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'Konfekt/FastFold'
-Plugin 'tomasr/molokai'
-Plugin 'rking/ag.vim'
-call vundle#end()
+"Plug 'Rykka/riv.vim'
+Plug 'JazzCore/ctrlp-cmatcher', {'do': './install.sh'}
+Plug 'sjl/splice.vim'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-commentary'
+Plug 'ingo-library'
+Plug 'TextTransform'
+Plug 'saihoooooooo/glowshi-ft.vim'
+"Plug 'Rykka/clickable.vim'
+"Plug "Rykka/clickable-things"
+"Plug "Rykka/os.vim"
+" Plug 'haya14busa/incsearch.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'godlygeek/csapprox'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'vimoutliner/vimoutliner'
+Plug 'vim-scripts/a.vim'
+Plug 'vim-scripts/DirDiff.vim'
+Plug 'vim-scripts/DirDo.vim'
+Plug 'AndrewRadev/switch.vim'
+Plug 'tommcdo/vim-exchange'
+"Plug 'cosminadrianpopescu/vim-sql-workbench'
+Plug 'vim-scripts/dbext.vim'
+Plug 'tpope/vim-surround'
+Plug 'Konfekt/FastFold'
+Plug 'tomasr/molokai'
+Plug 'rking/ag.vim'
+
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
+
+
+call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
 set showcmd		" Show (partial) command in status line.
@@ -265,7 +269,7 @@ let g:pymode_rope=0
 let g:pymode_rope_completion = 0
 let g:pymode_rope_lookup_project = 0
 let g:pymode_folding = 0
-let g:pymode_breakpoint = 1 
+let g:pymode_breakpoint = 0 
 
 "FSwitch
 "Switch to the file and load it into the current window >
@@ -315,7 +319,6 @@ nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 "source up .vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
 
-let g:glowshi_ft_no_default_key_mappings=1
 inoremap jj <esc>
 nnoremap ; :
 nnoremap : ;
@@ -323,6 +326,7 @@ vnoremap ; :
 vnoremap : ;
 
 "for glowshi
+let g:glowshi_ft_no_default_key_mappings=1
 map <unique>f <plug>(glowshi-ft-f)
 map <unique>F <plug>(glowshi-ft-F)
 map <unique>t <plug>(glowshi-ft-t)
@@ -395,16 +399,16 @@ colorscheme candycode
 "set background=dark
 
 "for incsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
+" map /  <Plug>(incsearch-forward)
+" map ?  <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
+" let g:incsearch#auto_nohlsearch = 1
+" map n  <Plug>(incsearch-nohl-n)
+" map N  <Plug>(incsearch-nohl-N)
+" map *  <Plug>(incsearch-nohl-*)
+" map #  <Plug>(incsearch-nohl-#)
+" map g* <Plug>(incsearch-nohl-g*)
+" map g# <Plug>(incsearch-nohl-g#)
 
 
 "for dbext

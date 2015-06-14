@@ -10,7 +10,7 @@ set from = "nir.tzachar@gmail.com"
 set realname = "Nir Tzachar"
 
 # Change the following line to a different editor you prefer.
-set editor = "nvim"
+set editor = "TERM='' nvim"
 
 # Basic config, you can leave this as is
 set folder = "imaps://imap.gmail.com:993"
@@ -79,16 +79,16 @@ set pgp_timeout=60
 # if you want to use S-mime instead set the smime_is_default variable to yes
 
 # automatically sign all outgoing messages
-set crypt_autosign
-# sign only replies to signed messages
-set crypt_replysign
+#set crypt_autosign
+## sign only replies to signed messages
+#set crypt_replysign
 
-# automatically encrypt outgoing messages
-set crypt_autoencrypt=no
-# encrypt only replies to signed messages
-set crypt_replyencrypt=yes
-# encrypt and sign replies to encrypted messages
-set crypt_replysignencrypted=yes
+## automatically encrypt outgoing messages
+#set crypt_autoencrypt=no
+## encrypt only replies to signed messages
+#set crypt_replyencrypt=yes
+## encrypt and sign replies to encrypted messages
+#set crypt_replysignencrypted=yes
 
 # automatically verify the sign of a message when opened
 set crypt_verify_sig=yes
@@ -97,9 +97,6 @@ set crypt_verify_sig=yes
 set query_command="/usr/local/bin/goobook query \'%s\'"
 bind editor <Tab> complete-query
 macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
-
-#source .mutt/solarized-dark-16
-source ~/.mutt/solarized-light-16
 
 #gpg:
 source ~/.mutt/gpg.rc
