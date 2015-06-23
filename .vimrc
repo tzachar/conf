@@ -69,6 +69,10 @@ Plug 'rking/ag.vim'
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 
+" js stuff
+Plug 'pangloss/vim-javascript'
+Plug 'jelera/vim-javascript-syntax'
+
 
 call plug#end()
 
@@ -140,12 +144,16 @@ autocmd BufEnter *.tex nnoremap <silent> <Leader>x :execute "!~tzachar/bin/latex
 autocmd BufEnter *.tex setlocal spell spelllang=en
 autocmd BufEnter *.tex nnoremap =  <ESC>:call FormatLatexPar(0)<CR>
 
+"js
+autocmd BufEnter *.html syntax sync fromstart
+
 "latex box:
 autocmd BufEnter *.tex inoremap [[ \begin{
 autocmd BufEnter *.tex inoremap ]] <Plug>LatexCloseCurEnv
 
 autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 autocmd BufEnter *.heb.tex set rightleft
+
 
 augroup end
 
