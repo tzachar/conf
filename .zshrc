@@ -83,7 +83,7 @@ EDITOR="vim"
 VISUAL=$EDITOR
 PAGER='less -r'
 
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64/ 
 
 export HOSTNAME=$(hostname)
 export EDITOR VISUAL HOME_CONF HOME_LIB 
@@ -127,3 +127,10 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #export TERM=xterm
 export COLORTERM=gnome-terminal
 #export NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+
+#qfc:
+[[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
+
+export CUDA_INC_DIR=/usr/local/cuda/include/                                                                                                       
+export CUDA_HOME=/usr/local/cuda/ 

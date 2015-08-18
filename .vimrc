@@ -133,6 +133,7 @@ autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,
 autocmd BufEnter *.cpp,*.hpp :set formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ CPP\ --no-backup\ 2>/dev/null
 autocmd BufEnter *.c,*.h :set formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ C\ --no-backup\ 2>/dev/null
 autocmd BufEnter *.cu set syntax=cpp
+autocmd BufEnter *.cpp,*.hpp :set matchpairs+=<:> 
 
 autocmd BufEnter *.java ab sop System.out.println
 autocmd BufEnter *.java set formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
@@ -290,6 +291,7 @@ augroup mycppfiles
   au BufEnter *.h,*.hpp let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/'
 au BufEnter *.c,*.cpp let b:fswitchdst = 'h,hpp'
 au BufEnter *.c,*.cpp let b:fswitchlocs = 'reg:|src|include/**|'
+au BufEnter *.c,*.cpp abbrev autp auto
 augroup END
 
 if has('nvim')
@@ -435,3 +437,24 @@ augroup project_vault
             endif                                                                                                                                  
         endfunction                               
 augroup end
+
+augroup replacegJ
+
+	fun! JoinSpaceless()
+		if getline('.')[-1:-1] == '('
+			execute 'normal! gJ'
+			" Character under cursor is whitespace?
+			if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
+				" When remove it!
+				execute 'normal dw'
+			endif
+		else
+			execute 'normal! J'
+		endif
+	endfun
+
+	" Map it to a key
+	nnoremap J :call JoinSpaceless()<CR>
+augroup end
+
+set mouse=
