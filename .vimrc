@@ -42,7 +42,9 @@ Plug 'sgur/ctrlp-extensions.vim'
 Plug 'JazzCore/ctrlp-cmatcher', {'do': './install.sh'}
 Plug 'sjl/splice.vim'
 Plug 'wellle/targets.vim'
-Plug 'tpope/vim-commentary'
+" use a fork of commentary
+" Plug 'tpope/vim-commentary'
+Plug 'jeetsukumaran/vim-commentary'
 Plug 'ingo-library'
 Plug 'TextTransform'
 Plug 'saihoooooooo/glowshi-ft.vim'
