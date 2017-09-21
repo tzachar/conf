@@ -1,30 +1,35 @@
-"set terminal for 256 colors
-if has('nvim') && match($TERM, "screen")!=-1
-	set term=xterm
-endif
+" "set terminal for 256 colors
+" if has('nvim') && match($TERM, "screen")!=-1
+" 	set term=xterm
+" endif
 set t_ku=[A
 set t_kd=[B
 set t_kl=[D
 set t_kr=[C
-set t_Co=256
+" set t_Co=256
+set termguicolors
+
+set t_8f=^[[38;2;%lu;%lu;%lum
+set t_8b=^[[48;2;%lu;%lu;%lum
 
 let mapleader=","
 
-syntax on		" Default to no syntax highlightning 
+let g:plug_threads=4
 
 call plug#begin('~/.vim/plugged')
-Plug 'gmarik/vundle'
-"Plug 'Lokaltog/vim-powerline'
+" Plug 'Lokaltog/vim-powerline'
 Plug 'bling/vim-airline'
-Plug 'Valloric/YouCompleteMe', {'do': './install.sh'}
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py'}
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'Raimondi/delimitMate'
 Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter'
 Plug 'mutewinter/swap-parameters'
 Plug 'kien/ctrlp.vim'
-Plug 'klen/python-mode'
+Plug 'klen/python-mode', { 'tag': 'develop' }
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'vim-scripts/MPage'
 Plug 'vim-scripts/FSwitch'
@@ -32,8 +37,8 @@ Plug 'tpope/vim-repeat'
 "Plug 'svermeulen/vim-easyclip'
 "Plug 'arecarn/crunch'
 Plug 'jamessan/vim-gnupg'
-Plug 'LaTeX-Box-Team/LaTeX-Box'
-Plug 'headerguard' 
+Plug 'lervag/vimtex'
+Plug 'vim-scripts/headerguard' 
 Plug 'DeonPoncini/includefixer' 
 Plug 'fisadev/vim-ctrlp-cmdpalette' 
 Plug 'sgur/ctrlp-extensions.vim' 
@@ -45,15 +50,15 @@ Plug 'wellle/targets.vim'
 " use a fork of commentary
 " Plug 'tpope/vim-commentary'
 Plug 'jeetsukumaran/vim-commentary'
-Plug 'ingo-library'
-Plug 'TextTransform'
+Plug 'vim-scripts/ingo-library'
+Plug 'vim-scripts/TextTransform'
 Plug 'saihoooooooo/glowshi-ft.vim'
 "Plug 'Rykka/clickable.vim'
 "Plug "Rykka/clickable-things"
 "Plug "Rykka/os.vim"
 " Plug 'haya14busa/incsearch.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'godlygeek/csapprox'
+"Plug 'godlygeek/csapprox'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'vimoutliner/vimoutliner'
 Plug 'vim-scripts/a.vim'
@@ -67,6 +72,11 @@ Plug 'tpope/vim-surround'
 Plug 'Konfekt/FastFold'
 Plug 'tomasr/molokai'
 Plug 'rking/ag.vim'
+Plug 'chrisbra/csv.vim'
+" candycode
+" Plug 'https://gist.github.com/MrElendig/1289610', 
+" 	\ { 'as': 'candycode', 'do': 'mkdir -p plugin; cp -f *.vim plugin/' }
+Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
@@ -74,6 +84,23 @@ Plug 'junegunn/vim-oblique'
 " js stuff
 Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
+
+Plug 'luochen1990/rainbow'
+
+" true color
+" Plug 'MaxSt/FlatColor'
+
+" project wide search and replace
+Plug 'eugen0329/vim-esearch'
+
+" highligh yanked region
+Plug 'machakann/vim-highlightedyank'
+
+" close html tags
+Plug 'alvan/vim-closetag'
+
+" jump to last place
+Plug 'farmergreg/vim-lastplace'
 
 
 call plug#end()
@@ -103,17 +130,15 @@ set so=5 "cursor cant get closer than 5 lines to end of screen
 set spelllang=en
 set hidden
 
-function! ResCur()
-	if line("'\"") <= line("$")
-		normal! g`"
-		return 1
-	endif
-endfunction
 
-augroup resCur
-	autocmd!
-	autocmd BufWinEnter * call ResCur()
-augroup END
+"activate true color:
+if has('patch-7.4.1778')
+	set termguicolors
+endif
+if has('nvim')
+	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
 
 "search for tags first in the file dir, then current dir, then boost:
 set tags=./tags,tags,/usr/local/boost/tags,/home/tzachar/.vim/tags/stl_tags
@@ -124,6 +149,9 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 filetype on
 filetype plugin indent on
 
+syntax on		" Default to no syntax highlightning 
+
+
 augroup filetype
   au! BufRead,BufNewFile *.proto setfiletype proto
   au! BufRead,BufNewFile *.pp setfiletype puppet 
@@ -132,30 +160,29 @@ augroup end
 augroup ftypeOptions
 autocmd!
 autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8 
-autocmd BufEnter *.cpp,*.hpp :set formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ CPP\ --no-backup\ 2>/dev/null
-autocmd BufEnter *.c,*.h :set formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ C\ --no-backup\ 2>/dev/null
-autocmd BufEnter *.cu set syntax=cpp
+autocmd BufEnter *.cpp,*.hpp :setlocal formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ CPP\ --no-backup\ 2>/dev/null
+autocmd BufEnter *.c,*.h :setlocal formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ C\ --no-backup\ 2>/dev/null
+autocmd BufEnter *.cu setlocal syntax=cpp
 autocmd BufEnter *.cpp,*.hpp :set matchpairs+=<:> 
 
-autocmd BufEnter *.java ab sop System.out.println
-autocmd BufEnter *.java set formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
+autocmd BufEnter *.java ab <buffer> sop System.out.println
+autocmd BufEnter *.java setlocal formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
 au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
-autocmd BufEnter *.tex set makeprg=~/bin/latexmake.sh
-autocmd BufEnter *.tex nnoremap <silent> <Leader>l :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
-autocmd BufEnter *.tex nnoremap <silent> <Leader>x :execute "!~tzachar/bin/latexmake.sh " . line("."). " " . expand("%:r")<cr><cr>
+autocmd BufEnter *.tex setlocal makeprg=~/bin/latexmake.sh
+autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>l :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
+autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>x :execute "!~tzachar/bin/latexmake.sh " . line("."). " " . expand("%:r")<cr><cr>
 autocmd BufEnter *.tex setlocal spell spelllang=en
-autocmd BufEnter *.tex nnoremap =  <ESC>:call FormatLatexPar(0)<CR>
+" autocmd BufEnter *.tex nnoremap <buffer> =  <ESC>:call FormatLatexPar(0)<CR>
 
 "js
 autocmd BufEnter *.html syntax sync fromstart
 
 "latex box:
-autocmd BufEnter *.tex inoremap [[ \begin{
-autocmd BufEnter *.tex inoremap ]] <Plug>LatexCloseCurEnv
+autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
 
 autocmd BufEnter *.heb.tex setlocal spell spelllang=he
-autocmd BufEnter *.heb.tex set rightleft
+autocmd BufEnter *.heb.tex setlocal rightleft
 
 
 augroup end
@@ -214,13 +241,9 @@ augroup popups
 	autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 	autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 augroup end
+"make Enter work like C-Y in popup menue
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-"jumpt to last opened location
-augroup lastopen
-	au!
-	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-				\| exe "normal! g'\"" | endif
-augroup end
 
 nnoremap <C-N> :cn<CR>
 nnoremap <C-@><C-N> :cN<CR>
@@ -231,20 +254,16 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 			\ 'active_filetypes': ['ruby', 'php', 'python'],
 			\ 'passive_filetypes': [] }
 
-"for commant-T
-let g:CommandTAcceptSelectionTabMap='<CR>'
-let g:CommandTAcceptSelectionMap='<C-o>'
-let g:CommandTMaxFiles=30000
-
 "for Switch:
 let g:switch_mapping = "-"
 
-"make Enter work like C-Y in popup menue
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 "powerline
-set noshowmode
-let g:Powerline_symbols = 'unicode'
+" set noshowmode
+" let g:Powerline_symbols = 'unicode'
+
+" airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'luna'
 
 "gundo
 nnoremap <F5> :GundoToggle<CR>
@@ -268,19 +287,19 @@ nnoremap <Leader>pb :CtrlPBuffer<cr>
 nnoremap <Leader>pr :CtrlPMRU<cr>
 nnoremap <Leader>pc :CtrlPCmdPalette<cr>
 
-" narrow the list down with a word under cursor
-nnoremap <Leader>F :execute 'CtrlPFunky ' . expand('<cword>')<Cr>'
-
 "multipage editing
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
 
 "pymode config
 let g:pymode_lint_ignore="E501"
-let g:pymode_rope=0
+let g:pymode_rope=1
 let g:pymode_rope_completion = 0
 let g:pymode_rope_lookup_project = 0
 let g:pymode_folding = 0
 let g:pymode_breakpoint = 0 
+let g:pymode_options_colorcolumn = 0
+let g:pymode_rope_organize_imports_bind = '<Leader>ro'
+
 
 "FSwitch
 "Switch to the file and load it into the current window >
@@ -288,12 +307,12 @@ nnoremap <silent> <Leader>of :FSHere<cr>
 nnoremap <silent> <Leader>oo :FSHere<cr>
 nnoremap <silent> <Leader>ol :FSRight<cr>
 augroup mycppfiles
-  au!
-  au BufEnter *.h,*.hpp let b:fswitchdst  = 'cpp,cc,C'
-  au BufEnter *.h,*.hpp let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/'
-au BufEnter *.c,*.cpp let b:fswitchdst = 'h,hpp'
-au BufEnter *.c,*.cpp let b:fswitchlocs = 'reg:|src|include/**|'
-au BufEnter *.c,*.cpp abbrev autp auto
+	au!
+	au BufEnter *.h,*.hpp let b:fswitchdst  = 'cpp,cc,C'
+	au BufEnter *.h,*.hpp let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/'
+	au BufEnter *.c,*.cpp let b:fswitchdst = 'h,hpp'
+	au BufEnter *.c,*.cpp let b:fswitchlocs = 'reg:|src|include/**|'
+	au BufEnter *.c,*.cpp abbrev autp auto
 augroup END
 
 if has('nvim')
@@ -407,8 +426,10 @@ endfunction
 call TextTransform#MakeMappings('', '<Leader>f', 'PerlFormat') 
 
 set background=dark
-colorscheme candycode
-"set background=dark
+" colorscheme gruvbox
+" colorscheme candycode
+" " colorscheme flatcolor
+" set background=dark
 
 "for incsearch
 " map /  <Plug>(incsearch-forward)
@@ -429,13 +450,19 @@ let g:dbext_default_SQLITE_cmd_header=".mode list\n.headers ON\n"
 let  g:dbext_default_DBI_max_rows = 0
 augroup project_vault
 	au!
+
+	fun! SetupDbext()
+		DBSetOption profile=Vault
+	endfun
+
 	" Automatically choose the correct dbext profile
 	autocmd BufRead */vault/db/*.sql DBSetOption profile=Vault
+	" autocmd BufRead */vault/db/*.sql SetupDbext()
 
         function! DBextPostResult(db_type, buf_nr)                                                                                                 
             " If dealing with a MYSQL database                                                                                                     
             if a:db_type == 'SQLITE' && line('$') >= 2 
-		    execute ':silent 2,$! showtable -d\| -titles=1 -s -w=80 -t'
+		    execute ':silent 2,$! showtable -d\| -t -title=1'
             endif                                                                                                                                  
         endfunction                               
 augroup end
@@ -460,3 +487,27 @@ augroup replacegJ
 augroup end
 
 set mouse=
+
+let g:rainbow_active = 1
+let g:deoplete#enable_at_startup = 1
+
+" for eugen0329/vim-esearch
+let g:esearch = {
+  \ 'adapter':    'ag',
+  \ 'backend':    'nvim',
+  \ 'out':        'win',
+  \ 'batch_size': 1000,
+  \ 'use':        ['visual', 'hlsearch', 'last'],
+  \}
+
+
+" tag closing
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+
+" ycm params
+let g:ycm_python_binary_path = '/usr/bin/python3'
+
+" vimtex
+let g:vimtex_compiler_enabled = 0
+
+set guicursor=

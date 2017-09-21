@@ -71,3 +71,5 @@ alias sai='sudo apt-get install'
 alias sac='apt-cache search'
 
 alias sq='squeue -o "%.7i %.9P %.20j %.8u %.2t %.10M %.6D %R"'
+
+alias spip='sudo -H pip'

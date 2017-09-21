@@ -1,4 +1,7 @@
-ssh-add&
-setxkbmap -option -option grp:switch,grp:alt_shift_toggle,grp_led:scroll us,il&
-gnome-settings-daemon&
-ratpoison
+#eval `ssh-agent -s`
+#ssh-add
+unity-settings-daemon&
+xscreensaver&
+xbindkeys&
+#ratpoison
+exec awesome

@@ -18,6 +18,16 @@ from os import path
 from mercurial import extensions, commands, cmdutil, help
 from mercurial.node import hex, short
 
+cmdtable = {}
+command = cmdutil.command(cmdtable)
+
+# `revrange' has been moved into module `scmutil' since v1.9.
+try :
+    from mercurial import scmutil
+    revrange = scmutil.revrange
+except :
+    revrange = cmdutil.revrange
+
 CACHE_PATH = ".hg/prompt/cache"
 CACHE_TIMEOUT = timedelta(minutes=15)
 
@@ -65,6 +75,11 @@ def _get_filter_arg(f):
     else:
         return None
 
+@command('prompt',
+         [('', 'angle-brackets', None, 'use angle brackets (<>) for keywords'),
+          ('', 'cache-incoming', None, 'used internally by hg-prompt'),
+          ('', 'cache-outgoing', None, 'used internally by hg-prompt')],
+         'hg prompt STRING')
 def prompt(ui, repo, fs='', **opts):
     '''get repository information for use in a shell prompt
 
@@ -103,7 +118,14 @@ def prompt(ui, repo, fs='', **opts):
             book = getattr(repo, '_bookmarkcurrent', None)
         except KeyError:
             book = getattr(repo, '_bookmarkcurrent', None)
-        return _with_groups(m.groups(), book) if book else ''
+        if book is None:
+            book = getattr(repo, '_activebookmark', None)
+        if book:
+            cur = repo['.'].node()
+            if repo._bookmarks[book] == cur:
+                return _with_groups(m.groups(), book)
+        else:
+            return ''
 
     def _branch(m):
         g = m.groups()
@@ -132,7 +154,7 @@ def prompt(ui, repo, fs='', **opts):
     def _count(m):
         g = m.groups()
         query = [g[1][1:]] if g[1] else ['all()']
-        return _with_groups(g, str(len(cmdutil.revrange(repo, query))))
+        return _with_groups(g, str(len(revrange(repo, query))))
 
     def _node(m):
         g = m.groups()
@@ -332,13 +354,23 @@ def prompt(ui, repo, fs='', **opts):
         return _with_groups(g, str(tip)) if rev >= 0 else ''
 
     def _update(m):
-        if not repo.branchtags():
+        current_rev = repo[None].parents()[0]
+
+        # Get the tip of the branch for the current branch
+        try:
+            heads = repo.branchmap()[current_rev.branch()]
+            tip = heads[-1]
+        except (KeyError, IndexError):
             # We are in an empty repository.
+
             return ''
 
-        current_rev = repo[None].parents()[0]
-        to = repo[repo.branchtags()[current_rev.branch()]]
-        return _with_groups(m.groups(), '^') if current_rev != to else ''
+        for head in reversed(heads):
+            if not repo[head].closesbranch():
+                tip = head
+                break
+
+        return _with_groups(m.groups(), '^') if current_rev != repo[tip] else ''
 
 
     if opts.get("angle_brackets"):
@@ -433,15 +465,6 @@ def uisetup(ui):
     except KeyError:
         pass
 
-cmdtable = {
-    "prompt":
-    (prompt, [
-        ('', 'angle-brackets', None, 'use angle brackets (<>) for keywords'),
-        ('', 'cache-incoming', None, 'used internally by hg-prompt'),
-        ('', 'cache-outgoing', None, 'used internally by hg-prompt'),
-    ],
-    'hg prompt STRING')
-}
 help.helptable += (
     (['prompt-keywords', 'prompt-keywords'], ('Keywords supported by hg-prompt'),
      (r'''hg-prompt currently supports a number of keywords.

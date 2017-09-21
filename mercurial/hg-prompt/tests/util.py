@@ -41,6 +41,12 @@ def get_sandbox_ui():
 def hg_branch(branch='test'):
     commands.branch(_ui, get_sandbox_repo(), branch)
 
+def hg_bookmark(bookmark='test'):
+    commands.bookmark(_ui, get_sandbox_repo(), bookmark)
+
+def hg_deactivate_bookmark():
+    commands.bookmark(_ui, get_sandbox_repo(), inactive=True)
+
 def hg_update(rev):
     opts = { 'rev': str(rev), }
     commands.update(_ui, get_sandbox_repo(), **opts)

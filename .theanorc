@@ -2,9 +2,10 @@
 floatX = float32
 device = gpu0
 mode = FAST_RUN
+allow_gc = True
 
 [nvcc]
 fastmath = True
 
 [cuda]
-root = /usr/local/cuda-7.0/
+root = /usr/local/cuda/
