@@ -511,3 +511,7 @@ let g:ycm_python_binary_path = '/usr/bin/python3'
 let g:vimtex_compiler_enabled = 0
 
 set guicursor=
+
+" for vim-surround:
+" when surrounding with 'e', ask for a wrapper
+let g:surround_101 = "\1wrapper:\1(\r)"
