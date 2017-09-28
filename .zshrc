@@ -33,7 +33,7 @@ COMPLETION_WAITING_DOTS="true"
 #
 # custom plugins:
 # https://github.com/zsh-users/zsh-autosuggestions
-plugins=(git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions)
+plugins=(git sudo ubuntu history history-substring-search ssh-agent autosuggestions tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,3 +138,5 @@ export COLORTERM=gnome-terminal
 
 export CUDA_INC_DIR=/usr/local/cuda/include/                                                                                                       
 export CUDA_HOME=/usr/local/cuda/ 
+
+export TERM=xterm-256color
