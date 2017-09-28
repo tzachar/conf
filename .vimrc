@@ -515,3 +515,6 @@ set guicursor=
 " for vim-surround:
 " when surrounding with 'e', ask for a wrapper
 let g:surround_101 = "\1wrapper:\1(\r)"
+
+" dont paste toggle
+set pastetoggle=
