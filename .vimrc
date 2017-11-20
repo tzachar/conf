@@ -28,7 +28,7 @@ Plug 'mileszs/ack.vim'
 Plug 'Lokaltog/vim-easymotion'
 " Plug 'scrooloose/nerdcommenter'
 Plug 'mutewinter/swap-parameters'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'klen/python-mode', { 'tag': 'develop' }
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'vim-scripts/MPage'
@@ -289,13 +289,14 @@ nnoremap <Leader>pp :CtrlP<cr>
 nnoremap <Leader>pb :CtrlPBuffer<cr>
 nnoremap <Leader>pr :CtrlPMRU<cr>
 nnoremap <Leader>pc :CtrlPCmdPalette<cr>
+let g:ctrlp_root_markers = ['.ctrlp_ignore']
 
 "multipage editing
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
 
 "pymode config
 let g:pymode_lint_ignore="E501"
-let g:pymode_rope=1
+let g:pymode_rope=0
 let g:pymode_rope_completion = 0
 let g:pymode_rope_lookup_project = 0
 let g:pymode_folding = 0
