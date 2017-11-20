@@ -102,6 +102,9 @@ Plug 'alvan/vim-closetag'
 " jump to last place
 Plug 'farmergreg/vim-lastplace'
 
+" colorschemes
+Plug 'flazz/vim-colorschemes'
+
 
 call plug#end()
 
@@ -427,7 +430,7 @@ call TextTransform#MakeMappings('', '<Leader>f', 'PerlFormat')
 
 set background=dark
 " colorscheme gruvbox
-" colorscheme candycode
+colorscheme candycode
 " " colorscheme flatcolor
 " set background=dark
 

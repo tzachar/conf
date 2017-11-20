@@ -58,6 +58,9 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+# bind ctrl + space to execute current auto suggestion
+bindkey '^ ' autosuggest-execute
+
 #dont want sahring of history
 setopt no_sharehistory
 
@@ -140,3 +143,6 @@ export CUDA_INC_DIR=/usr/local/cuda/include/
 export CUDA_HOME=/usr/local/cuda/ 
 
 export TERM=xterm-256color
+
+# remove alias to ag
+unalias -m ag
