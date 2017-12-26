@@ -16,9 +16,11 @@ let mapleader=","
 
 let g:plug_threads=4
 
+let g:polyglot_disabled = ['latex']
+
 call plug#begin('~/.vim/plugged')
 " Plug 'Lokaltog/vim-powerline'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py'}
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -53,9 +55,6 @@ Plug 'jeetsukumaran/vim-commentary'
 Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/TextTransform'
 Plug 'saihoooooooo/glowshi-ft.vim'
-"Plug 'Rykka/clickable.vim'
-"Plug "Rykka/clickable-things"
-"Plug "Rykka/os.vim"
 " Plug 'haya14busa/incsearch.vim'
 Plug 'sheerun/vim-polyglot'
 "Plug 'godlygeek/csapprox'
@@ -70,13 +69,12 @@ Plug 'tommcdo/vim-exchange'
 Plug 'vim-scripts/dbext.vim'
 Plug 'tpope/vim-surround'
 Plug 'Konfekt/FastFold'
-Plug 'tomasr/molokai'
+" Plug 'tomasr/molokai'
 Plug 'rking/ag.vim'
 Plug 'chrisbra/csv.vim'
 " candycode
 " Plug 'https://gist.github.com/MrElendig/1289610', 
 " 	\ { 'as': 'candycode', 'do': 'mkdir -p plugin; cp -f *.vim plugin/' }
-Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
@@ -513,6 +511,11 @@ let g:ycm_python_binary_path = '/usr/bin/python3'
 
 " vimtex
 let g:vimtex_compiler_enabled = 0
+if !exists('g:ycm_semantic_triggers')
+	let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
+
 
 set guicursor=
 
