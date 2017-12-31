@@ -179,8 +179,9 @@ autocmd BufEnter *.tex setlocal spell spelllang=en
 "js
 autocmd BufEnter *.html syntax sync fromstart
 
-"latex box:
+"latex :
 autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
+autocmd BufEnter *.tex inoremap <buffer> \i \item
 
 autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 autocmd BufEnter *.heb.tex setlocal rightleft
