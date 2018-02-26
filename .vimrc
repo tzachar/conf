@@ -4,7 +4,7 @@
 " endif
 
 " disable python2
-let g:loaded_python_provider = 1
+" let g:loaded_python_provider = 1
 
 
 set t_ku=[A
