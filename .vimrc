@@ -69,7 +69,6 @@ Plug 'tommcdo/vim-exchange'
 Plug 'vim-scripts/dbext.vim'
 Plug 'tpope/vim-surround'
 Plug 'Konfekt/FastFold'
-" Plug 'tomasr/molokai'
 Plug 'rking/ag.vim'
 Plug 'chrisbra/csv.vim'
 " candycode
@@ -102,7 +101,7 @@ Plug 'farmergreg/vim-lastplace'
 
 " colorschemes
 Plug 'flazz/vim-colorschemes'
-
+Plug 'felixhummel/setcolors.vim'
 
 call plug#end()
 
@@ -182,6 +181,7 @@ autocmd BufEnter *.html syntax sync fromstart
 "latex :
 autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
 autocmd BufEnter *.tex inoremap <buffer> \i \item
+autocmd BufEnter *.tex colorscheme twilight
 
 autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 autocmd BufEnter *.heb.tex setlocal rightleft
