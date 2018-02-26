@@ -146,3 +146,5 @@ export TERM=xterm-256color
 
 # remove alias to ag
 unalias -m ag
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
