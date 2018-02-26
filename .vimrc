@@ -299,6 +299,7 @@ let g:ctrlp_root_markers = ['.ctrlp_ignore']
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
 
 "pymode config
+let g:pymode_python = 'python3'
 let g:pymode_lint_ignore="E501"
 let g:pymode_rope=0
 let g:pymode_rope_completion = 0
