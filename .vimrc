@@ -2,6 +2,11 @@
 " if has('nvim') && match($TERM, "screen")!=-1
 " 	set term=xterm
 " endif
+
+" disable python2
+let g:loaded_python_provider = 1
+
+
 set t_ku=[A
 set t_kd=[B
 set t_kl=[D
@@ -29,7 +34,7 @@ Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
 Plug 'Lokaltog/vim-easymotion'
 " Plug 'scrooloose/nerdcommenter'
-Plug 'mutewinter/swap-parameters'
+Plug 'machakann/vim-swap'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'klen/python-mode', { 'tag': 'develop' }
 Plug 'tacahiroy/ctrlp-funky'
