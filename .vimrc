@@ -4,7 +4,7 @@
 " endif
 
 " disable python2
-" let g:loaded_python_provider = 1
+let g:loaded_python_provider = 1
 
 
 set t_ku=[A
@@ -52,6 +52,7 @@ Plug 'sgur/ctrlp-extensions.vim'
 "disabled for now, need clickable.vim which i do not like..
 "Plug 'Rykka/riv.vim'
 Plug 'JazzCore/ctrlp-cmatcher', {'do': './install.sh'}
+Plug 'nixprime/cpsm', {'do': './install.sh'}
 Plug 'sjl/splice.vim'
 Plug 'wellle/targets.vim'
 " use a fork of commentary
@@ -300,7 +301,7 @@ nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<c
 
 "pymode config
 let g:pymode_python = 'python3'
-let g:pymode_lint_ignore="E501"
+let g:pymode_lint_ignore=["E501"]
 let g:pymode_rope=0
 let g:pymode_rope_completion = 0
 let g:pymode_rope_lookup_project = 0
@@ -414,8 +415,8 @@ if executable('ag')
 	let g:ctrlp_use_caching = 0
 endif
 
-"tell ctrl-p to use 'JazzCore/ctrlp-cmatcher'
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+"tell ctrl-p to use 'nixprime/cpsm'
+let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 
 " Map key to toggle opt
 function MapToggle(key, opt)

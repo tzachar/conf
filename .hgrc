@@ -21,6 +21,9 @@ hgext.graphlog =
 hgext.hgk =
 hgext.extdiff =
 hgext.bookmarks =
+hggit = 
+
+
 color = 
 prompt = /home/tzachar/mercurial/hg-prompt/prompt.py
 
