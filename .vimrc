@@ -67,8 +67,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'vimoutliner/vimoutliner'
 Plug 'vim-scripts/a.vim'
-Plug 'vim-scripts/DirDiff.vim'
-Plug 'vim-scripts/DirDo.vim'
+" Plug 'vim-scripts/DirDiff.vim'
+" Plug 'vim-scripts/DirDo.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'tommcdo/vim-exchange'
 "Plug 'cosminadrianpopescu/vim-sql-workbench'
@@ -108,6 +108,13 @@ Plug 'farmergreg/vim-lastplace'
 " colorschemes
 Plug 'flazz/vim-colorschemes'
 Plug 'felixhummel/setcolors.vim'
+
+" async lint
+Plug 'w0rp/ale'
+
+" show changes in vcs
+Plug 'mhinz/vim-signify'
+
 
 call plug#end()
 
@@ -533,3 +540,11 @@ let g:surround_101 = "\1wrapper:\1(\r)"
 
 " dont paste toggle
 set pastetoggle=
+
+
+" for ALEFix
+let g:ale_fixers = {
+\   'python': ['yapf'],
+\}
+
+
