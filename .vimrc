@@ -94,7 +94,7 @@ Plug 'luochen1990/rainbow'
 " Plug 'MaxSt/FlatColor'
 
 " project wide search and replace
-Plug 'eugen0329/vim-esearch'
+" Plug 'eugen0329/vim-esearch'
 
 " highligh yanked region
 Plug 'machakann/vim-highlightedyank'
@@ -109,11 +109,11 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'flazz/vim-colorschemes'
 Plug 'felixhummel/setcolors.vim'
 
-" async lint
-Plug 'w0rp/ale'
-
 " show changes in vcs
 Plug 'mhinz/vim-signify'
+
+" python formatter
+Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 
 call plug#end()
@@ -541,10 +541,14 @@ let g:surround_101 = "\1wrapper:\1(\r)"
 " dont paste toggle
 set pastetoggle=
 
+" config for vim-signify
+let g:signify_vcs_list = [ 'git', 'hg' ] 
 
-" for ALEFix
-let g:ale_fixers = {
-\   'python': ['yapf'],
-\}
+" config for yapf python formatter plugin
+augroup pythonFormat
+autocmd!
+	autocmd FileType python nnoremap <Leader>f :<C-U>YAPF<Cr>
+	autocmd FileType python vnoremap <Leader>f :YAPF<Cr>
+augroup end
 
 
