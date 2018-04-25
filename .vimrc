@@ -29,6 +29,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py'}
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-jedi'
+" Plug 'zchee/deoplete-zsh'
 "Plug 'Raimondi/delimitMate'
 Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
@@ -38,7 +40,7 @@ Plug 'machakann/vim-swap'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'klen/python-mode', { 'tag': 'develop' }
 Plug 'tacahiroy/ctrlp-funky'
-Plug 'vim-scripts/MPage'
+" Plug 'vim-scripts/MPage'
 Plug 'vim-scripts/FSwitch'
 Plug 'tpope/vim-repeat'
 "Plug 'svermeulen/vim-easyclip'
@@ -51,7 +53,7 @@ Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'sgur/ctrlp-extensions.vim' 
 "disabled for now, need clickable.vim which i do not like..
 "Plug 'Rykka/riv.vim'
-Plug 'JazzCore/ctrlp-cmatcher', {'do': './install.sh'}
+" Plug 'JazzCore/ctrlp-cmatcher', {'do': './install.sh'}
 Plug 'nixprime/cpsm', {'do': './install.sh'}
 Plug 'sjl/splice.vim'
 Plug 'wellle/targets.vim'
@@ -398,6 +400,16 @@ function! ToggleEndChar(charToMatch)
 endfunction
 nnoremap <Leader>; :call ToggleEndChar(';')<CR>
 
+"toggle a f at the begining of the current python string
+function! FStringAppend()
+	let l:winview = winsaveview()
+	silent! s/\v(.)'([^']*)'/\=submatch(1) == "f" ? printf("'%s'", submatch(2)) : printf("%sf'%s'", submatch(1), submatch(2)) 
+	silent! s/\v(.)"([^"]*)"/\=submatch(1) == "f" ? printf('"%s"', submatch(2)) : printf('%sf"%s"', submatch(1), submatch(2)) 
+	nohlsearch
+	call winrestview(l:winview)
+endfunction
+nnoremap <Leader>j :call FStringAppend()<CR>
+
 cnoremap <C-a>  <Home>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
@@ -442,10 +454,9 @@ function! PerlFormat(str)
 endfunction
 call TextTransform#MakeMappings('', '<Leader>f', 'PerlFormat') 
 
-set background=dark
+" set background=dark
 " colorscheme gruvbox
 colorscheme candycode
-" " colorscheme flatcolor
 " set background=dark
 
 "for incsearch
@@ -506,16 +517,15 @@ augroup end
 set mouse=
 
 let g:rainbow_active = 1
-let g:deoplete#enable_at_startup = 1
 
 " for eugen0329/vim-esearch
-let g:esearch = {
-  \ 'adapter':    'ag',
-  \ 'backend':    'nvim',
-  \ 'out':        'win',
-  \ 'batch_size': 1000,
-  \ 'use':        ['visual', 'hlsearch', 'last'],
-  \}
+" let g:esearch = {
+"   \ 'adapter':    'ag',
+"   \ 'backend':    'nvim',
+"   \ 'out':        'win',
+"   \ 'batch_size': 1000,
+"   \ 'use':        ['visual', 'hlsearch', 'last'],
+"   \}
 
 
 " tag closing
@@ -551,4 +561,9 @@ autocmd!
 	autocmd FileType python vnoremap <Leader>f :YAPF<Cr>
 augroup end
 
-
+" Use deoplete.
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_smart_case = 1
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
