@@ -117,6 +117,7 @@ Plug 'mhinz/vim-signify'
 " python formatter
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
+Plug 'tzachar/fsub'
 
 call plug#end()
 
@@ -400,16 +401,6 @@ function! ToggleEndChar(charToMatch)
 endfunction
 nnoremap <Leader>; :call ToggleEndChar(';')<CR>
 
-"toggle a f at the begining of the current python string
-function! FStringAppend()
-	let l:winview = winsaveview()
-	silent! s/\v(.)'([^']*)'/\=submatch(1) == "f" ? printf("'%s'", submatch(2)) : printf("%sf'%s'", submatch(1), submatch(2)) 
-	silent! s/\v(.)"([^"]*)"/\=submatch(1) == "f" ? printf('"%s"', submatch(2)) : printf('%sf"%s"', submatch(1), submatch(2)) 
-	nohlsearch
-	call winrestview(l:winview)
-endfunction
-nnoremap <Leader>j :call FStringAppend()<CR>
-
 cnoremap <C-a>  <Home>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
@@ -452,7 +443,7 @@ function! PerlFormat(str)
   let out = system('perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"', a:str)
   return out
 endfunction
-call TextTransform#MakeMappings('', '<Leader>f', 'PerlFormat') 
+call TextTransform#MakeMappings('', '<Leader>fp', 'PerlFormat') 
 
 " set background=dark
 " colorscheme gruvbox
@@ -557,8 +548,9 @@ let g:signify_vcs_list = [ 'git', 'hg' ]
 " config for yapf python formatter plugin
 augroup pythonFormat
 autocmd!
-	autocmd FileType python nnoremap <Leader>f :<C-U>YAPF<Cr>
-	autocmd FileType python vnoremap <Leader>f :YAPF<Cr>
+	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
+	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
+	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
 augroup end
 
 " Use deoplete.
