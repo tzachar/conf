@@ -117,7 +117,7 @@ Plug 'mhinz/vim-signify'
 " python formatter
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
-Plug 'tzachar/fsub'
+Plug 'tzachar/vim-fsub'
 
 call plug#end()
 
