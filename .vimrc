@@ -5,6 +5,7 @@
 
 " disable python2
 let g:loaded_python_provider = 1
+let g:gundo_prefer_python3 = 1
 
 
 set t_ku=[A
@@ -119,6 +120,8 @@ Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 Plug 'tzachar/vim-fsub'
 
+Plug 'godlygeek/tabular'
+
 call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
@@ -145,6 +148,9 @@ set encoding=utf-8
 set so=5 "cursor cant get closer than 5 lines to end of screen
 set spelllang=en
 set hidden
+
+" default yank to clip
+set clipboard+=unnamed
 
 
 "activate true color:
@@ -551,6 +557,18 @@ autocmd!
 	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
 	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
+augroup end
+
+augroup tabularShorts
+autocmd!
+	nnoremap <Leader>t= :Tabularize /=<CR>
+	vnoremap <Leader>t= :Tabularize /=<CR>
+	nnoremap <Leader>t: :Tabularize /:\zs<CR>
+	vnoremap <Leader>t: :Tabularize /:\zs<CR>
+	nnoremap <Leader>t, :Tabularize /,\zs<CR>
+	vnoremap <Leader>t, :Tabularize /,\zs<CR>
+	nnoremap <Leader>t> :Tabularize /=>\zs<CR>
+	vnoremap <Leader>t> :Tabularize /=>\zs<CR>
 augroup end
 
 " Use deoplete.

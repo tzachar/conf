@@ -6,7 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="agnoster"
-ZSH_THEME="cypher"
+# ZSH_THEME="cypher"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -27,15 +27,27 @@ DISABLE_AUTO_TITLE="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
+#must be b4 plugins
+if [ -d ~/.pyenv/bin ] ; then
+	export PYTHON_CONFIGURE_OPTS="--enable-shared"
+	export PATH="/home/tzachar/.pyenv/bin:$PATH"
+fi
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #
 # custom plugins:
 # https://github.com/zsh-users/zsh-autosuggestions
-plugins=(web-search zsh git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions tmux)
+plugins=(pyenv web-search zsh git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions tmux)
 
 source $ZSH/oh-my-zsh.sh
+
+if [ -d ~/.pyenv/bin ] ; then
+	PROMPT="%{${fg[green]}%}($(pyenv_prompt_info))%{${reset_color}%} %m %{${fg_bold[red]}%}:: %{${fg[green]}%}%3~%(0?. . %{${fg[red]}%}%? )%{${fg[blue]}%}»%{${reset_color}%} "
+else
+	PROMPT="%m %{${fg_bold[red]}%}:: %{${fg[green]}%}%3~%(0?. . %{${fg[red]}%}%? )%{${fg[blue]}%}»%{${reset_color}%} "
+fi
 
 # Customize to your needs...
 #
@@ -148,3 +160,4 @@ export TERM=xterm-256color
 unalias -m ag
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
