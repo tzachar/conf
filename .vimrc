@@ -121,6 +121,7 @@ Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'tzachar/vim-fsub'
 
 Plug 'godlygeek/tabular'
+Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
 
@@ -570,6 +571,12 @@ autocmd!
 	nnoremap <Leader>t> :Tabularize /=>\zs<CR>
 	vnoremap <Leader>t> :Tabularize /=>\zs<CR>
 augroup end
+
+" indentguide
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 1
+
 
 " Use deoplete.
 " let g:deoplete#enable_at_startup = 1
