@@ -122,6 +122,10 @@ Plug 'tzachar/vim-fsub'
 
 Plug 'godlygeek/tabular'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'yuttie/comfortable-motion.vim'
+
+" add cmd utils as vim commands
+Plug 'tpope/vim-eunuch'
 
 call plug#end()
 
@@ -473,7 +477,7 @@ colorscheme candycode
 "for dbext
 let g:dbext_default_profile_Vault = 'type=SQLITE:dbname=/home/tzachar/work/vault/db/vault.sqlite'
 let g:dbext_default_SQLITE_cmd_header=".mode list\n.headers ON\n"
-let  g:dbext_default_DBI_max_rows = 0
+let g:dbext_default_DBI_max_rows = 0
 augroup project_vault
 	au!
 
@@ -485,12 +489,11 @@ augroup project_vault
 	autocmd BufRead */vault/db/*.sql DBSetOption profile=Vault
 	" autocmd BufRead */vault/db/*.sql SetupDbext()
 
-        function! DBextPostResult(db_type, buf_nr)                                                                                                 
-            " If dealing with a MYSQL database                                                                                                     
-            if a:db_type == 'SQLITE' && line('$') >= 2 
-		    execute ':silent 2,$! showtable -d\| -t -title=1'
-            endif                                                                                                                                  
-        endfunction                               
+	function! DBextPostResult(db_type, buf_nr)
+		if a:db_type == 'SQLITE' && line('$') >= 2 
+			execute ':silent 2,$! showtable -d\| -t -title=1'
+		endif
+	endfunction                               
 augroup end
 
 augroup replacegJ
@@ -500,7 +503,7 @@ augroup replacegJ
 			execute 'normal! gJ'
 			" Character under cursor is whitespace?
 			if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
-				" When remove it!
+				" Then remove it!
 				execute 'normal dw'
 			endif
 		else
@@ -576,6 +579,7 @@ augroup end
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 1
+let g:indent_guides_color_change_percent = 20
 
 
 " Use deoplete.
