@@ -79,7 +79,7 @@ Plug 'vim-scripts/dbext.vim'
 Plug 'tpope/vim-surround'
 Plug 'Konfekt/FastFold'
 Plug 'rking/ag.vim'
-Plug 'chrisbra/csv.vim'
+" Plug 'chrisbra/csv.vim'
 " candycode
 " Plug 'https://gist.github.com/MrElendig/1289610', 
 " 	\ { 'as': 'candycode', 'do': 'mkdir -p plugin; cp -f *.vim plugin/' }
@@ -118,14 +118,18 @@ Plug 'mhinz/vim-signify'
 " python formatter
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
+Plug 'sbdchd/neoformat'
+
 Plug 'tzachar/vim-fsub'
 
 Plug 'godlygeek/tabular'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'yuttie/comfortable-motion.vim'
+" Plug 'yuttie/comfortable-motion.vim'
 
 " add cmd utils as vim commands
 Plug 'tpope/vim-eunuch'
+
+Plug 'posva/vim-vue'
 
 call plug#end()
 
@@ -153,6 +157,7 @@ set encoding=utf-8
 set so=5 "cursor cant get closer than 5 lines to end of screen
 set spelllang=en
 set hidden
+set modeline
 
 " default yank to clip
 set clipboard+=unnamed
@@ -208,7 +213,7 @@ autocmd BufEnter *.html syntax sync fromstart
 "latex :
 autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
 autocmd BufEnter *.tex inoremap <buffer> \i \item
-autocmd BufEnter *.tex colorscheme twilight
+"autocmd BufEnter *.tex colorscheme twilight
 
 autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 autocmd BufEnter *.heb.tex setlocal rightleft
@@ -555,13 +560,17 @@ set pastetoggle=
 " config for vim-signify
 let g:signify_vcs_list = [ 'git', 'hg' ] 
 
-" config for yapf python formatter plugin
+" " config for yapf python formatter plugin
+" augroup pythonFormat
+" autocmd!
+" 	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
+" 	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
+" 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
+" augroup end
 augroup pythonFormat
-autocmd!
-	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
-	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
+	autocmd!
 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
-augroup end
+augroup end      
 
 augroup tabularShorts
 autocmd!

@@ -97,7 +97,7 @@ HOME_LIB=${HOME}/lib
 HOME_BIN=${HOME}/bin
 #########################################
 
-PATH=${HOME_BIN}:${PATH:=""}:/usr/local/mercurial/contrib:/sbin
+export PATH=${HOME_BIN}:${PATH:=""}:/usr/local/mercurial/contrib:/sbin
 EDITOR="vim"
 VISUAL=$EDITOR
 PAGER='less -r'
@@ -133,7 +133,10 @@ if [[ -f .config/hosts/${HOSTNAME}.conf ]]; then . .config/hosts/${HOSTNAME}.con
 #control the terminal:
 stty -ixon
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+export PATH=$PATH:$HOME/npm/bin
+export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
 
 [ -f sqlworkbench/sqlwbconsole.sh ] &&\
 	PATH=${PATH}:${HOME}/sqlworkbench
