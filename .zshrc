@@ -154,8 +154,8 @@ unalias -m ag
 if [ -d ~/.pyenv ] ; then
 	export PYTHON_CONFIGURE_OPTS="--enable-shared"
 	export PYENV_ROOT="$HOME/.pyenv"
-	export PATH="/home/tzachar/.pyenv/bin:$PATH"
-	export PATH="/home/tzachar/.pyenv/shims:$PATH"
+	export PATH="/home/${USER}/.pyenv/bin:$PATH"
+	export PATH="/home/${USER}/.pyenv/shims:$PATH"
 fi
 
 eval "$(pyenv init -)"

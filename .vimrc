@@ -6,7 +6,7 @@
 " disable python2
 let g:loaded_python_provider = 1
 let g:gundo_prefer_python3 = 1
-let g:python3_host_prog = "/home/tzachar/.pyenv/shims/python3"
+let g:python3_host_prog = "/home/" . $USER . "/.pyenv/shims/python3"
 " let g:python3_host_prog = "/usr/bin/python3"
 
 
@@ -483,7 +483,7 @@ colorscheme candycode
 
 
 "for dbext
-let g:dbext_default_profile_Vault = 'type=SQLITE:dbname=/home/tzachar/work/vault/db/vault.sqlite'
+let g:dbext_default_profile_Vault = 'type=SQLITE:dbname=/home/' . $USER . '/work/vault/db/vault.sqlite'
 let g:dbext_default_SQLITE_cmd_header=".mode list\n.headers ON\n"
 let g:dbext_default_DBI_max_rows = 0
 augroup project_vault
