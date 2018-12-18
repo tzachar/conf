@@ -27,27 +27,17 @@ DISABLE_AUTO_TITLE="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-#must be b4 plugins
-if [ -d ~/.pyenv/bin ] ; then
-	export PYTHON_CONFIGURE_OPTS="--enable-shared"
-	export PATH="/home/tzachar/.pyenv/bin:$PATH"
-fi
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #
 # custom plugins:
 # https://github.com/zsh-users/zsh-autosuggestions
-plugins=(pyenv web-search zsh git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions tmux)
+plugins=(web-search zsh git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions tmux)
 
 source $ZSH/oh-my-zsh.sh
 
-if [ -d ~/.pyenv/bin ] ; then
-	PROMPT="%{${fg[green]}%}($(pyenv_prompt_info))%{${reset_color}%} %m %{${fg_bold[red]}%}:: %{${fg[green]}%}%3~%(0?. . %{${fg[red]}%}%? )%{${fg[blue]}%}»%{${reset_color}%} "
-else
-	PROMPT="%m %{${fg_bold[red]}%}:: %{${fg[green]}%}%3~%(0?. . %{${fg[red]}%}%? )%{${fg[blue]}%}»%{${reset_color}%} "
-fi
+PROMPT="%m %{${fg_bold[red]}%}:: %{${fg[green]}%}%3~%(0?. . %{${fg[red]}%}%? )%{${fg[blue]}%}»%{${reset_color}%} "
 
 # Customize to your needs...
 #
@@ -97,12 +87,12 @@ HOME_LIB=${HOME}/lib
 HOME_BIN=${HOME}/bin
 #########################################
 
-export PATH=${HOME_BIN}:${PATH:=""}:/usr/local/mercurial/contrib:/sbin
-EDITOR="vim"
+export PATH=${PATH:=""}:/sbin:${HOME_BIN}
+EDITOR="nvim"
 VISUAL=$EDITOR
 PAGER='less -r'
 
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64/ 
+# export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64/ 
 
 export HOSTNAME=$(hostname)
 export EDITOR VISUAL HOME_CONF HOME_LIB 
@@ -147,12 +137,8 @@ export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
 	source /usr/local/google/google-cloud-sdk/completion.zsh.inc
 
 #export TERM=xterm
-export COLORTERM=gnome-terminal
+# export COLORTERM=gnome-terminal
 #export NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-
-#qfc:
-[[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
 
 export CUDA_INC_DIR=/usr/local/cuda/include/                                                                                                       
 export CUDA_HOME=/usr/local/cuda/ 
@@ -164,3 +150,12 @@ unalias -m ag
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+#must be b4 plugins
+if [ -d ~/.pyenv ] ; then
+	export PYTHON_CONFIGURE_OPTS="--enable-shared"
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="/home/tzachar/.pyenv/bin:$PATH"
+	export PATH="/home/tzachar/.pyenv/shims:$PATH"
+fi
+
+eval "$(pyenv init -)"

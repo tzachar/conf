@@ -6,6 +6,8 @@
 " disable python2
 let g:loaded_python_provider = 1
 let g:gundo_prefer_python3 = 1
+let g:python3_host_prog = "/home/tzachar/.pyenv/shims/python3"
+" let g:python3_host_prog = "/usr/bin/python3"
 
 
 set t_ku=[A
@@ -129,7 +131,8 @@ Plug 'nathanaelkane/vim-indent-guides'
 " add cmd utils as vim commands
 Plug 'tpope/vim-eunuch'
 
-Plug 'posva/vim-vue'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+
 
 call plug#end()
 
@@ -538,7 +541,7 @@ let g:rainbow_active = 1
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
 " ycm params
-let g:ycm_python_binary_path = '/usr/bin/python3'
+" let g:ycm_python_binary_path = '/usr/bin/python3'
 
 " vimtex
 let g:vimtex_compiler_enabled = 0
@@ -589,11 +592,3 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_color_change_percent = 20
-
-
-" Use deoplete.
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#enable_smart_case = 1
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
