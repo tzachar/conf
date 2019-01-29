@@ -121,7 +121,7 @@ font:
   # screens and make reading text a little easier.
   # On X11 it is possible to change the DPI for each instance of alacritty by using
   # `WINIT_HIDPI_FACTOR=1.0 alacritty` to scale the font.
-  scale_with_dpi: true
+  # scale_with_dpi: true
 
   # OS X only: use thin stroke font rendering. Thin strokes are suitable
   # for retina displays, but for non-retina you probably want this set to
@@ -130,10 +130,6 @@ font:
 
 # Should display the render timer
 render_timer: false
-
-# Use custom cursor colors. If true, display the cursor in the cursor.foreground
-# and cursor.background colors, otherwise invert the colors of the cursor.
-custom_cursor_colors: false
 
 # Colors (Tomorrow Night Bright)
 colors:
@@ -146,6 +142,14 @@ colors:
   cursor:
     text: '0x000000'
     cursor: '0xffffff'
+    # Style of the cursor
+    #
+    # Values for 'cursor_style':
+    # - Block
+    # - Underline
+    # - Beam
+    style: Block
+
 
   # Normal colors
   normal:
@@ -228,6 +232,7 @@ mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
 mouse:
+  hide_when_typing: true
   # Click settings
   #
   # The `double_click` and `triple_click` settings control the time
@@ -250,16 +255,6 @@ selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>*"
 
 dynamic_title: true
-
-hide_cursor_when_typing: false
-
-# Style of the cursor
-#
-# Values for 'cursor_style':
-# - Block
-# - Underline
-# - Beam
-cursor_style: Block
 
 # Live config reload (changes require restart)
 live_config_reload: true

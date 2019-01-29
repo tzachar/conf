@@ -33,7 +33,8 @@ COMPLETION_WAITING_DOTS="true"
 #
 # custom plugins:
 # https://github.com/zsh-users/zsh-autosuggestions
-plugins=(web-search zsh git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions tmux)
+# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md -- must be last
+plugins=(web-search zsh git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions tmux pip zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
