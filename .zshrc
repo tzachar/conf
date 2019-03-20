@@ -160,3 +160,5 @@ if [ -d ~/.pyenv ] ; then
 fi
 
 eval "$(pyenv init -)"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

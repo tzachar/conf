@@ -5,6 +5,7 @@
 
 " disable python2
 let g:loaded_python_provider = 1
+let g:python_host_prog = ""
 let g:gundo_prefer_python3 = 1
 let g:python3_host_prog = "/home/" . $USER . "/.pyenv/shims/python3"
 " let g:python3_host_prog = "/usr/bin/python3"
@@ -30,6 +31,16 @@ call plug#begin('~/.vim/plugged')
 " Plug 'Lokaltog/vim-powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
+" Plug 'ncm2/ncm2-cssomni'
+" Plug 'ncm2/ncm2-tern'
+" Plug 'ncm2/ncm2-jedi'
+" Plug 'ncm2/ncm2-vim'
+
 Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py'}
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'zchee/deoplete-jedi'
@@ -41,7 +52,8 @@ Plug 'Lokaltog/vim-easymotion'
 " Plug 'scrooloose/nerdcommenter'
 Plug 'machakann/vim-swap'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'klen/python-mode', { 'tag': 'develop' }
+" Plug 'klen/python-mode', { 'tag': 'develop' }
+Plug 'python-mode/python-mode', { 'branch': 'develop'}
 Plug 'tacahiroy/ctrlp-funky'
 " Plug 'vim-scripts/MPage'
 Plug 'vim-scripts/FSwitch'
@@ -330,6 +342,7 @@ nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<c
 
 "pymode config
 let g:pymode_python = 'python3'
+let g:pymode_lint_signs = 1
 let g:pymode_lint_ignore=["E501"]
 let g:pymode_rope=0
 let g:pymode_rope_completion = 0
@@ -542,6 +555,8 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
 " ycm params
 " let g:ycm_python_binary_path = '/usr/bin/python3'
+nnoremap gd :YcmCompleter GoTo<CR>
+nnoremap gk :YcmCompleter GetDoc<CR>
 
 " vimtex
 let g:vimtex_compiler_enabled = 0
