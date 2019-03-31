@@ -98,8 +98,7 @@ Plug 'rking/ag.vim'
 " Plug 'https://gist.github.com/MrElendig/1289610', 
 " 	\ { 'as': 'candycode', 'do': 'mkdir -p plugin; cp -f *.vim plugin/' }
 
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-oblique'
+Plug 'junegunn/vim-slash'
 
 " js stuff
 Plug 'pangloss/vim-javascript'
@@ -607,3 +606,7 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_color_change_percent = 20
+
+" for vim-slash
+noremap <plug>(slash-after) zz
+
