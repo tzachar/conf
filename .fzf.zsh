@@ -1,7 +1,7 @@
 # Setup fzf
 # ---------
 if [[ ! "$PATH" == */home/tzachar/fzf/bin* ]]; then
-  export PATH="$PATH:/home/tzachar/fzf/bin"
+  export PATH="${PATH:+${PATH}:}/home/tzachar/fzf/bin"
 fi
 
 # Auto-completion
@@ -11,4 +11,3 @@ fi
 # Key bindings
 # ------------
 source "/home/tzachar/fzf/shell/key-bindings.zsh"
-

@@ -149,6 +149,7 @@ export TERM=xterm-256color
 # remove alias to ag
 unalias -m ag
 
+export FZF_DEFAULT_OPTS='--tiebreak=end'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #must be b4 plugins

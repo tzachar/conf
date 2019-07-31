@@ -17,6 +17,7 @@ set t_kl=[D
 set t_kr=[C
 " set t_Co=256
 set termguicolors
+set noswapfile
 
 set t_8f=^[[38;2;%lu;%lu;%lum
 set t_8b=^[[48;2;%lu;%lu;%lum
@@ -28,33 +29,37 @@ let g:plug_threads=4
 let g:polyglot_disabled = ['latex']
 
 call plug#begin('~/.vim/plugged')
-" Plug 'Lokaltog/vim-powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Plug 'ncm2/ncm2'
-" Plug 'roxma/nvim-yarp'
-" Plug 'ncm2/ncm2-bufword'
-" Plug 'ncm2/ncm2-path'
-" Plug 'ncm2/ncm2-cssomni'
-" Plug 'ncm2/ncm2-tern'
-" Plug 'ncm2/ncm2-jedi'
-" Plug 'ncm2/ncm2-vim'
+" Plug 'zxqfl/tabnine-vim'
+" Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py', 'for': ['python', 'c++', 'c', 'html']}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-zsh'
+Plug 'Shougo/neco-vim'
 
-Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py'}
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'zchee/deoplete-jedi'
-" Plug 'zchee/deoplete-zsh'
-"Plug 'Raimondi/delimitMate'
 Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
 Plug 'Lokaltog/vim-easymotion'
 " Plug 'scrooloose/nerdcommenter'
+
 Plug 'machakann/vim-swap'
-Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'klen/python-mode', { 'tag': 'develop' }
+
+" ctrlp related stuff
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'tacahiroy/ctrlp-funky'
+" Plug 'fisadev/vim-ctrlp-cmdpalette' 
+" Plug 'sgur/ctrlp-extensions.vim' 
+" Plug 'nixprime/cpsm', {'do': './install.sh'}
+
+"fzf
+Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 Plug 'python-mode/python-mode', { 'branch': 'develop'}
-Plug 'tacahiroy/ctrlp-funky'
+Plug 'vim-scripts/ExtractMatches'
 " Plug 'vim-scripts/MPage'
 Plug 'vim-scripts/FSwitch'
 Plug 'tpope/vim-repeat'
@@ -64,12 +69,8 @@ Plug 'jamessan/vim-gnupg'
 Plug 'lervag/vimtex'
 Plug 'vim-scripts/headerguard' 
 Plug 'DeonPoncini/includefixer' 
-Plug 'fisadev/vim-ctrlp-cmdpalette' 
-Plug 'sgur/ctrlp-extensions.vim' 
 "disabled for now, need clickable.vim which i do not like..
 "Plug 'Rykka/riv.vim'
-" Plug 'JazzCore/ctrlp-cmatcher', {'do': './install.sh'}
-Plug 'nixprime/cpsm', {'do': './install.sh'}
 Plug 'sjl/splice.vim'
 Plug 'wellle/targets.vim'
 " use a fork of commentary
@@ -91,7 +92,7 @@ Plug 'tommcdo/vim-exchange'
 "Plug 'cosminadrianpopescu/vim-sql-workbench'
 Plug 'vim-scripts/dbext.vim'
 Plug 'tpope/vim-surround'
-Plug 'Konfekt/FastFold'
+" Plug 'Konfekt/FastFold'
 Plug 'rking/ag.vim'
 " Plug 'chrisbra/csv.vim'
 " candycode
@@ -129,11 +130,11 @@ Plug 'felixhummel/setcolors.vim'
 Plug 'mhinz/vim-signify'
 
 " python formatter
-Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
+" Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 Plug 'sbdchd/neoformat'
 
-Plug 'tzachar/vim-fsub'
+Plug 'tzachar/vim-fsub', { 'for': 'python' }
 
 Plug 'godlygeek/tabular'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -144,6 +145,8 @@ Plug 'tpope/vim-eunuch'
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
+" show mappings
+Plug 'liuchengxu/vim-which-key'
 
 call plug#end()
 
@@ -213,7 +216,7 @@ autocmd BufEnter *.cpp,*.hpp :set matchpairs+=<:>
 
 autocmd BufEnter *.java ab <buffer> sop System.out.println
 autocmd BufEnter *.java setlocal formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
-au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
+au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
 
 autocmd BufEnter *.tex setlocal makeprg=~/bin/latexmake.sh
 autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>l :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
@@ -284,14 +287,12 @@ hi SpellLocal term=reverse ctermfg=black ctermbg=darkgreen guifg=#ffffff guibg=#
 
 noremap <C-F11> :wa<cr>:!gen_ctags<cr>:cs reset<cr>
 noremap cc :wa<cr>:!gen_ctags<cr>:cs reset<cr>
+
 augroup popups
 	au!
 	autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 	autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 augroup end
-"make Enter work like C-Y in popup menue
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-
 
 nnoremap <C-N> :cn<CR>
 nnoremap <C-@><C-N> :cN<CR>
@@ -317,24 +318,53 @@ let g:airline_theme = 'luna'
 nnoremap <F5> :GundoToggle<CR>
 
 "ctrlp config
-let g:ctrlp_match_window_bottom = 1
-let g:ctrlp_extensions = ['funky']
-let g:ctrlp_max_files = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_follow_symlinks = 1
-let g:ctrlp_prompt_mappings = {
-			\ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
-			\ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
-			\ }
-			"\'AcceptSelection("t")':['<cr>'],
-			"\'AcceptSelection("e")':['<c-x>'],
-nnoremap <Leader>pf :CtrlPFunky<cr>
-nnoremap <Leader>pF :execute 'CtrlPFunky ' . expand('<cword>')<cr>
-nnoremap <Leader>pp :CtrlP<cr>
-nnoremap <Leader>pb :CtrlPBuffer<cr>
-nnoremap <Leader>pr :CtrlPMRU<cr>
-nnoremap <Leader>pc :CtrlPCmdPalette<cr>
-let g:ctrlp_root_markers = ['.ctrlp_ignore']
+" let g:ctrlp_match_window_bottom = 1
+" let g:ctrlp_extensions = ['funky']
+" let g:ctrlp_max_files = 0
+" let g:ctrlp_working_path_mode = 0
+" let g:ctrlp_follow_symlinks = 1
+" let g:ctrlp_prompt_mappings = {
+" 			\ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+" 			\ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
+" 			\ }
+" 			"\'AcceptSelection("t")':['<cr>'],
+" 			"\'AcceptSelection("e")':['<c-x>'],
+" nnoremap <Leader>pf :CtrlPFunky<cr>
+" nnoremap <Leader>pF :execute 'CtrlPFunky ' . expand('<cword>')<cr>
+" nnoremap <Leader>pp :CtrlP<cr>
+" nnoremap <Leader>pb :CtrlPBuffer<cr>
+" nnoremap <Leader>pr :CtrlPMRU<cr>
+" nnoremap <Leader>pc :CtrlPCmdPalette<cr>
+" let g:ctrlp_root_markers = ['.ctrlp_ignore']
+
+" fzf config
+nnoremap <Leader>pb :Buffers<cr>
+nnoremap <Leader>pp :Files<cr>
+nnoremap <Leader>pf :BTags<cr>
+
+" Override Colors command. You can safely do this in your .vimrc as fzf.vim
+" will not override existing commands.
+command! -bang Colors
+  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
+
+" Augmenting Ag command using fzf#vim#with_preview function
+"   * fzf#vim#with_preview([[options], [preview window], [toggle keys...]])
+"     * For syntax-highlighting, Ruby and any of the following tools are required:
+"       - Bat: https://github.com/sharkdp/bat
+"       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
+"       - CodeRay: http://coderay.rubychan.de/
+"       - Rouge: https://github.com/jneen/rouge
+"
+"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+"   :Ag! - Start fzf in fullscreen and display the preview window above
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
 
 "multipage editing
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
@@ -564,6 +594,18 @@ if !exists('g:ycm_semantic_triggers')
 endif
 let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 
+" deoplete:
+let g:deoplete#enable_at_startup = 1
+let g:LanguageClient_hasSnippetsSupport = 0
+function! s:check_back_space() abort 
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#manual_complete()
+
 
 set guicursor=
 
@@ -609,4 +651,8 @@ let g:indent_guides_color_change_percent = 20
 
 " for vim-slash
 " noremap <plug>(slash-after) zz
+"
 
+
+" disable csv
+let g:polyglot_disabled = ['csv']
