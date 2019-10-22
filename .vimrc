@@ -148,6 +148,9 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " show mappings
 Plug 'liuchengxu/vim-which-key'
 
+" syntax ranges
+Plug 'vim-scripts/SyntaxRange'
+
 call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
@@ -656,3 +659,9 @@ let g:indent_guides_color_change_percent = 20
 
 " disable csv
 let g:polyglot_disabled = ['csv']
+
+" syntax ranges:
+augroup syntax_ranges
+	autocmd!
+	call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
+augroup end
