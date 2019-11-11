@@ -151,6 +151,12 @@ Plug 'liuchengxu/vim-which-key'
 " syntax ranges
 Plug 'vim-scripts/SyntaxRange'
 
+" jupyter integration
+Plug 'jupyter-vim/jupyter-vim'
+
+" chrome ghost text
+Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+
 call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
