@@ -16,7 +16,13 @@ set t_kd=[B
 set t_kl=[D
 set t_kr=[C
 " set t_Co=256
-set termguicolors
+"activate true color:
+if (has("termguicolors"))
+	set termguicolors
+endif
+if has('nvim')
+	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
 set noswapfile
 
 set t_8f=^[[38;2;%lu;%lu;%lum
@@ -29,6 +35,9 @@ let g:plug_threads=4
 let g:polyglot_disabled = ['latex']
 
 call plug#begin('~/.vim/plugged')
+" color scheme
+Plug 'joshdick/onedark.vim'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -186,15 +195,6 @@ set modeline
 set clipboard+=unnamed
 
 
-"activate true color:
-if has('patch-7.4.1778')
-	set termguicolors
-endif
-if has('nvim')
-	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-
-
 "search for tags first in the file dir, then current dir, then boost:
 set tags=./tags,tags,/usr/local/boost/tags,/home/tzachar/.vim/tags/stl_tags
 
@@ -318,7 +318,7 @@ let g:switch_mapping = "-"
 
 " airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'luna'
+let g:airline_theme = 'angr'
 
 "gundo
 nnoremap <F5> :GundoToggle<CR>
@@ -514,7 +514,12 @@ call TextTransform#MakeMappings('', '<Leader>fp', 'PerlFormat')
 
 " set background=dark
 " colorscheme gruvbox
-colorscheme candycode
+" colorscheme candycode
+let g:onedark_color_overrides = {
+\ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0" },
+\ "white": { "gui": "wheat", "cterm": "145", "cterm16": "7" },
+\}
+colorscheme onedark
 " set background=dark
 
 "for incsearch
