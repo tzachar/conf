@@ -19,20 +19,12 @@ alias cp='cp -i'
 alias mv='mv -i'
 # -> Prevents accidentally clobbering files.
 alias mkdir='mkdir -p'
-if [ -f /usr/bin/nvim ]; then
-	alias vi='TERM= nvim'
-	alias vim='TERM= nvim'
-else
-	alias vi='vim'
-fi
-
 alias h='history'
 alias j='jobs -l'
 alias which='type -a'
 alias ..='cd ..'
 alias path='echo -e ${PATH//:/\\n}'
 alias pjet='enscript -h -G -fCourier9 -d $LPDEST'  # Pretty-print using enscript
-alias background='xv -root -quit -max -rmode 5'    # Put a picture in the background
 alias du='du -kh'
 alias df='df -kTh'
 alias grep='grep --color=auto'
@@ -42,14 +34,15 @@ alias wget='wget -l5 -r -nc -t0 -np -nd'
 alias calc='set -o noglob;_calc'
 alias pconsole="~/bin/pconsole.sh"
 
-alias ls='ls -hF --color'
+if ! type "exa" > /dev/null; then
+	echo "exa not installed (install using cargo). resorting to plain ls"
+	alias ls='ls -hF --color'
+	alias ll='ls -al'
+else
+	alias ls='exa'
+	alias ll='exa -al'
+fi
 
-alias ll='ls -al'               # show hidden files
-alias lk='ls -lSr'              # sort by size
-alias lc='ls -lcr'              # sort by change time  
-alias lu='ls -lur'              # sort by access time   
-alias lr='ls -lR'               # recursive ls
-alias lt='ls -ltr'              # sort by date
 alias tree='tree -Csu'   
 # spelling typos - highly personnal :-)
 alias xs='cd'
@@ -67,9 +60,5 @@ alias rcmake="cmake -DCMAKE_BUILD_TYPE=Release"
 
 alias cq=condor_q
 
-alias sai='sudo apt-get install'
-alias sac='apt-cache search'
-
 alias sq='squeue -o "%.7i %.9P %.20j %.8u %.2t %.10M %.6D %R"'
-
-alias spip='sudo -H pip'
+alias vi='nvim'

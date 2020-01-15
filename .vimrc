@@ -163,6 +163,10 @@ Plug 'vim-scripts/SyntaxRange'
 " chrome ghost text
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
+"python format
+Plug 'psf/black', { 'for': 'python' }
+
+
 call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
@@ -370,7 +374,25 @@ command! -bang -nargs=* Ag
   \                 <bang>0)
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
+" let g:fzf_layout = { 'down': '~40%' }
+
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let opts = {
+        \ 'relative': 'cursor',
+  	\ 'col': 0,
+	\ 'row': 1,
+        \ 'width': 80,
+        \ 'height': 20,
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
 
 "multipage editing
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>

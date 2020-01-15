@@ -27,6 +27,9 @@ DISABLE_AUTO_TITLE="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
+ZSH_TMUX_FIXTERM="false"
+ZSH_TMUX_FIXTERM_WITH_256COLOR='tmux-256colors'
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -34,7 +37,7 @@ COMPLETION_WAITING_DOTS="true"
 # custom plugins:
 # https://github.com/zsh-users/zsh-autosuggestions
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md -- must be last
-plugins=(web-search git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions tmux pip zsh-syntax-highlighting)
+plugins=(web-search git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions pip zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,7 +91,7 @@ HOME_LIB=${HOME}/lib
 HOME_BIN=${HOME}/bin
 #########################################
 
-export PATH=${PATH:=""}:/sbin:${HOME_BIN}
+export PATH=${PATH:=""}:/sbin:${HOME_BIN}:~/.local/kitty.app/bin/
 EDITOR="nvim"
 VISUAL=$EDITOR
 PAGER='less -r'
@@ -143,8 +146,9 @@ export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
 
 export CUDA_INC_DIR=/usr/local/cuda/include/                                                                                                       
 export CUDA_HOME=/usr/local/cuda/ 
+export TF_FORCE_GPU_ALLOW_GROWTH=true
 
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
 # remove alias to ag
 unalias -m ag
