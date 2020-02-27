@@ -33,6 +33,7 @@ alias md='mkdir'
 alias wget='wget -l5 -r -nc -t0 -np -nd'
 alias calc='set -o noglob;_calc'
 alias pconsole="~/bin/pconsole.sh"
+alias parallel="parallel --tmpdir /run/shm --compress"
 
 if ! type "exa" > /dev/null; then
 	echo "exa not installed (install using cargo). resorting to plain ls"
@@ -40,7 +41,7 @@ if ! type "exa" > /dev/null; then
 	alias ll='ls -al'
 else
 	alias ls='exa'
-	alias ll='exa -al'
+	alias ll='exa -al -snew'
 fi
 
 alias tree='tree -Csu'   
