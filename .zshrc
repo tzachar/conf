@@ -68,7 +68,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 bindkey '^ ' autosuggest-execute
 
 #dont want sahring of history
-setopt no_sharehistory
+#setopt no_sharehistory
 
 #complete in middle of word
 setopt complete_in_word

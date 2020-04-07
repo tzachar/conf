@@ -47,6 +47,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'deoplete-plugins/deoplete-zsh'
+Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
 
 Plug 'sjl/gundo.vim'
@@ -67,7 +68,9 @@ Plug 'machakann/vim-swap'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'python-mode/python-mode', { 'branch': 'develop'}
+" Plug 'python-mode/python-mode', { 'branch': 'develop'}
+Plug 'neovim/nvim-lsp'
+
 Plug 'vim-scripts/ExtractMatches'
 " Plug 'vim-scripts/MPage'
 Plug 'vim-scripts/FSwitch'
@@ -166,6 +169,8 @@ Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 "python format
 Plug 'psf/black', { 'for': 'python' }
 
+" align on character
+Plug 'tommcdo/vim-lion'
 
 call plug#end()
 
@@ -216,6 +221,25 @@ augroup filetype
   au! BufRead,BufNewFile *.pp setfiletype puppet 
 augroup end
 
+
+augroup ftypePython
+	au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
+	autocmd!
+	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
+	autocmd FileType python nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+	autocmd FileType python nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+	autocmd FileType python nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+	autocmd FileType python nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+	autocmd FileType python nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+	autocmd FileType python nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+	autocmd FileType python nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+	autocmd FileType python nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+
+" 	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
+" 	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
+" 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
+augroup end
+
 augroup ftypeOptions
 autocmd!
 autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8 
@@ -226,7 +250,6 @@ autocmd BufEnter *.cpp,*.hpp :set matchpairs+=<:>
 
 autocmd BufEnter *.java ab <buffer> sop System.out.println
 autocmd BufEnter *.java setlocal formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
-au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
 
 autocmd BufEnter *.tex setlocal makeprg=~/bin/latexmake.sh
 autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>l :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
@@ -236,6 +259,7 @@ autocmd BufEnter *.tex setlocal spell spelllang=en
 
 "js
 autocmd BufEnter *.html syntax sync fromstart
+autocmd BufEnter *.html set ft=html
 
 "latex :
 autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
@@ -309,9 +333,9 @@ nnoremap <C-@><C-N> :cN<CR>
 
 
 "for syntastics:
-let g:syntastic_mode_map = { 'mode': 'passive',
-			\ 'active_filetypes': ['ruby', 'php', 'python'],
-			\ 'passive_filetypes': [] }
+" let g:syntastic_mode_map = { 'mode': 'passive',
+" 			\ 'active_filetypes': ['ruby', 'php', 'python'],
+" 			\ 'passive_filetypes': [] }
 
 "for Switch:
 let g:switch_mapping = "-"
@@ -398,16 +422,16 @@ endfunction
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
 
 "pymode config
-let g:pymode_python = 'python3'
-let g:pymode_lint_signs = 1
-let g:pymode_lint_ignore=["E501"]
-let g:pymode_rope=0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_lookup_project = 0
-let g:pymode_folding = 0
-let g:pymode_breakpoint = 0 
-let g:pymode_options_colorcolumn = 0
-let g:pymode_rope_organize_imports_bind = '<Leader>ro'
+" let g:pymode_python = 'python3'
+" let g:pymode_lint_signs = 1
+" let g:pymode_lint_ignore=["E501"]
+" let g:pymode_rope=0
+" let g:pymode_rope_completion = 0
+" let g:pymode_rope_lookup_project = 0
+" let g:pymode_folding = 0
+" let g:pymode_breakpoint = 0 
+" let g:pymode_options_colorcolumn = 0
+" let g:pymode_rope_organize_imports_bind = '<Leader>ro'
 
 
 "FSwitch
@@ -617,8 +641,8 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
 " ycm params
 " let g:ycm_python_binary_path = '/usr/bin/python3'
-nnoremap gd :YcmCompleter GoTo<CR>
-nnoremap gk :YcmCompleter GetDoc<CR>
+" nnoremap gd :YcmCompleter GoTo<CR>
+" nnoremap gk :YcmCompleter GetDoc<CR>
 
 " vimtex
 let g:vimtex_compiler_enabled = 0
@@ -653,17 +677,6 @@ set pastetoggle=
 " config for vim-signify
 let g:signify_vcs_list = [ 'git', 'hg' ] 
 
-" " config for yapf python formatter plugin
-" augroup pythonFormat
-" autocmd!
-" 	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
-" 	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
-" 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
-" augroup end
-augroup pythonFormat
-	autocmd!
-	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
-augroup end      
 
 augroup tabularShorts
 autocmd!
@@ -696,3 +709,15 @@ augroup syntax_ranges
 	autocmd!
 	call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
 augroup end
+
+" nvim-lsp:
+lua << EOF
+local nvim_lsp = require'nvim_lsp'
+nvim_lsp.pyls.setup{
+	plugins = {
+		pylint = {
+			enabled = 'true'
+		}
+	}
+}
+EOF
