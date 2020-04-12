@@ -42,7 +42,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Plug 'zxqfl/tabnine-vim'
-" Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py', 'for': ['python', 'c++', 'c', 'html']}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'deoplete-plugins/deoplete-jedi'
@@ -68,7 +67,6 @@ Plug 'machakann/vim-swap'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Plug 'python-mode/python-mode', { 'branch': 'develop'}
 Plug 'neovim/nvim-lsp'
 
 Plug 'vim-scripts/ExtractMatches'
@@ -176,6 +174,7 @@ call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
 set showcmd		" Show (partial) command in status line.
+set mouse=
 set showmatch		" Show matching brackets.
 set ruler		" Show the line and column numbers of the cursor 
 set ignorecase		" Do case insensitive matching
@@ -221,19 +220,29 @@ augroup filetype
   au! BufRead,BufNewFile *.pp setfiletype puppet 
 augroup end
 
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
 
 augroup ftypePython
-	au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
 	autocmd!
+	au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
+	au FileType python setlocal number
 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
 	autocmd FileType python nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 	autocmd FileType python nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 	autocmd FileType python nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 	autocmd FileType python nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-	autocmd FileType python nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+	"autocmd FileType python nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 	autocmd FileType python nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 	autocmd FileType python nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 	autocmd FileType python nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+	" autocmd FileType python nnoremap <silent> =     :. Neoformat <CR>
+	" autocmd FileType python vnoremap <silent> =     :Neoformat <CR>
+
+	autocmd BufWritePre *.py :call TrimWhitespace()
 
 " 	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
 " 	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
@@ -241,33 +250,33 @@ augroup ftypePython
 augroup end
 
 augroup ftypeOptions
-autocmd!
-autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8 
-autocmd BufEnter *.cpp,*.hpp :setlocal formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ CPP\ --no-backup\ 2>/dev/null
-autocmd BufEnter *.c,*.h :setlocal formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ C\ --no-backup\ 2>/dev/null
-autocmd BufEnter *.cu setlocal syntax=cpp
-autocmd BufEnter *.cpp,*.hpp :set matchpairs+=<:> 
+	autocmd!
+	autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8 
+	autocmd BufEnter *.cpp,*.hpp :setlocal formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ CPP\ --no-backup\ 2>/dev/null
+	autocmd BufEnter *.c,*.h :setlocal formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ C\ --no-backup\ 2>/dev/null
+	autocmd BufEnter *.cu setlocal syntax=cpp
+	autocmd BufEnter *.cpp,*.hpp :set matchpairs+=<:> 
 
-autocmd BufEnter *.java ab <buffer> sop System.out.println
-autocmd BufEnter *.java setlocal formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
+	autocmd BufEnter *.java ab <buffer> sop System.out.println
+	autocmd BufEnter *.java setlocal formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
 
-autocmd BufEnter *.tex setlocal makeprg=~/bin/latexmake.sh
-autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>l :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
-autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>x :execute "!~tzachar/bin/latexmake.sh " . line("."). " " . expand("%:r")<cr><cr>
-autocmd BufEnter *.tex setlocal spell spelllang=en
-" autocmd BufEnter *.tex nnoremap <buffer> =  <ESC>:call FormatLatexPar(0)<CR>
+	autocmd BufEnter *.tex setlocal makeprg=~/bin/latexmake.sh
+	autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>l :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
+	autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>x :execute "!~tzachar/bin/latexmake.sh " . line("."). " " . expand("%:r")<cr><cr>
+	autocmd BufEnter *.tex setlocal spell spelllang=en
+	" autocmd BufEnter *.tex nnoremap <buffer> =  <ESC>:call FormatLatexPar(0)<CR>
 
-"js
-autocmd BufEnter *.html syntax sync fromstart
-autocmd BufEnter *.html set ft=html
+	"js
+	autocmd BufEnter *.html syntax sync fromstart
+	autocmd BufEnter *.html set ft=html
 
-"latex :
-autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
-autocmd BufEnter *.tex inoremap <buffer> \i \item
-"autocmd BufEnter *.tex colorscheme twilight
+	"latex :
+	autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
+	autocmd BufEnter *.tex inoremap <buffer> \i \item
+	"autocmd BufEnter *.tex colorscheme twilight
 
-autocmd BufEnter *.heb.tex setlocal spell spelllang=he
-autocmd BufEnter *.heb.tex setlocal rightleft
+	autocmd BufEnter *.heb.tex setlocal spell spelllang=he
+	autocmd BufEnter *.heb.tex setlocal rightleft
 
 
 augroup end
@@ -332,17 +341,8 @@ nnoremap <C-N> :cn<CR>
 nnoremap <C-@><C-N> :cN<CR>
 
 
-"for syntastics:
-" let g:syntastic_mode_map = { 'mode': 'passive',
-" 			\ 'active_filetypes': ['ruby', 'php', 'python'],
-" 			\ 'passive_filetypes': [] }
-
 "for Switch:
 let g:switch_mapping = "-"
-
-"powerline
-" set noshowmode
-" let g:Powerline_symbols = 'unicode'
 
 " airline
 let g:airline_powerline_fonts = 1
@@ -350,26 +350,6 @@ let g:airline_theme = 'angr'
 
 "gundo
 nnoremap <F5> :GundoToggle<CR>
-
-"ctrlp config
-" let g:ctrlp_match_window_bottom = 1
-" let g:ctrlp_extensions = ['funky']
-" let g:ctrlp_max_files = 0
-" let g:ctrlp_working_path_mode = 0
-" let g:ctrlp_follow_symlinks = 1
-" let g:ctrlp_prompt_mappings = {
-" 			\ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
-" 			\ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
-" 			\ }
-" 			"\'AcceptSelection("t")':['<cr>'],
-" 			"\'AcceptSelection("e")':['<c-x>'],
-" nnoremap <Leader>pf :CtrlPFunky<cr>
-" nnoremap <Leader>pF :execute 'CtrlPFunky ' . expand('<cword>')<cr>
-" nnoremap <Leader>pp :CtrlP<cr>
-" nnoremap <Leader>pb :CtrlPBuffer<cr>
-" nnoremap <Leader>pr :CtrlPMRU<cr>
-" nnoremap <Leader>pc :CtrlPCmdPalette<cr>
-" let g:ctrlp_root_markers = ['.ctrlp_ignore']
 
 " fzf config
 nnoremap <Leader>pb :Buffers<cr>
@@ -420,18 +400,6 @@ endfunction
 
 "multipage editing
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
-
-"pymode config
-" let g:pymode_python = 'python3'
-" let g:pymode_lint_signs = 1
-" let g:pymode_lint_ignore=["E501"]
-" let g:pymode_rope=0
-" let g:pymode_rope_completion = 0
-" let g:pymode_rope_lookup_project = 0
-" let g:pymode_folding = 0
-" let g:pymode_breakpoint = 0 
-" let g:pymode_options_colorcolumn = 0
-" let g:pymode_rope_organize_imports_bind = '<Leader>ro'
 
 
 "FSwitch
@@ -498,13 +466,6 @@ map <unique>T <plug>(glowshi-ft-T)
 "map : <plug>(glowshi-ft-repeat)
 "map <unique>, <plug>(glowshi-ft-opposite)
 
-"remove mappings:
-"inoremap <esc> <nop>
-"noremap <up> <nop>
-"noremap <down> <nop>
-"noremap <left> <nop>
-"noremap <up> <nop>
-
 "add a ; at the end of the line
 function! ToggleEndChar(charToMatch)
 	let l:winview = winsaveview()
@@ -530,16 +491,7 @@ cnoremap <C-g>  <C-c>
 if executable('ag')
 	" Use ag over grep
 	set grepprg=ag\ --nogroup\ --nocolor
-
-	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-	" ag is fast enough that CtrlP doesn't need to cache
-	let g:ctrlp_use_caching = 0
 endif
-
-"tell ctrl-p to use 'nixprime/cpsm'
-let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
 
 " Map key to toggle opt
 function MapToggle(key, opt)
@@ -567,19 +519,6 @@ let g:onedark_color_overrides = {
 \}
 colorscheme onedark
 " set background=dark
-
-"for incsearch
-" map /  <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
-" let g:incsearch#auto_nohlsearch = 1
-" map n  <Plug>(incsearch-nohl-n)
-" map N  <Plug>(incsearch-nohl-N)
-" map *  <Plug>(incsearch-nohl-*)
-" map #  <Plug>(incsearch-nohl-#)
-" map g* <Plug>(incsearch-nohl-g*)
-" map g# <Plug>(incsearch-nohl-g#)
-
 
 "for dbext
 let g:dbext_default_profile_Vault = 'type=SQLITE:dbname=/home/' . $USER . '/work/vault/db/vault.sqlite'
@@ -622,34 +561,16 @@ augroup replacegJ
 	nnoremap J :call JoinSpaceless()<CR>
 augroup end
 
-set mouse=
-
 let g:rainbow_active = 1
-
-" for eugen0329/vim-esearch
-" let g:esearch = {
-"   \ 'adapter':    'ag',
-"   \ 'backend':    'nvim',
-"   \ 'out':        'win',
-"   \ 'batch_size': 1000,
-"   \ 'use':        ['visual', 'hlsearch', 'last'],
-"   \}
-
 
 " tag closing
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
-
-" ycm params
-" let g:ycm_python_binary_path = '/usr/bin/python3'
-" nnoremap gd :YcmCompleter GoTo<CR>
-" nnoremap gk :YcmCompleter GetDoc<CR>
 
 " vimtex
 let g:vimtex_compiler_enabled = 0
 if !exists('g:ycm_semantic_triggers')
 	let g:ycm_semantic_triggers = {}
 endif
-let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 
 " deoplete:
 let g:deoplete#enable_at_startup = 1
@@ -720,4 +641,13 @@ nvim_lsp.pyls.setup{
 		}
 	}
 }
+
+nvim_lsp.bashls.setup{
+    filetypes = { "sh", "zsh" }
+}
+
+nvim_lsp.html.setup{
+    filetypes = { "html", "css" }
+}
+
 EOF
