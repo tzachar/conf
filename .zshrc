@@ -91,7 +91,7 @@ HOME_LIB=${HOME}/lib
 HOME_BIN=${HOME}/bin
 #########################################
 
-export PATH=${PATH:=""}:/sbin:${HOME_BIN}:~/.local/kitty.app/bin/
+export PATH=${PATH:=""}:/sbin:${HOME_BIN}:~/.local/kitty.app/bin/:${HOME}/.dotnet
 EDITOR="nvim"
 VISUAL=$EDITOR
 PAGER='less -r'
@@ -147,6 +147,7 @@ export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
 export CUDA_INC_DIR=/usr/local/cuda/include/                                                                                                       
 export CUDA_HOME=/usr/local/cuda/ 
 export TF_FORCE_GPU_ALLOW_GROWTH=true
+export TF_CPP_MIN_LOG_LEVEL=3
 
 # export TERM=xterm-256color
 
@@ -158,7 +159,7 @@ export FZF_DEFAULT_OPTS='--tiebreak=end'
 
 #must be b4 plugins
 if [ -d ~/.pyenv ] ; then
-	export PYTHON_CONFIGURE_OPTS="--enable-shared"
+	export PYTHON_CONFIGURE_OPTS="--enable-shared --enable-loadable-sqlite-extensions"
 	export PYENV_ROOT="$HOME/.pyenv"
 	export PATH="/home/${USER}/.pyenv/bin:$PATH"
 	export PATH="/home/${USER}/.pyenv/shims:$PATH"

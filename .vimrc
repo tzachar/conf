@@ -230,23 +230,27 @@ augroup ftypePython
 	autocmd!
 	au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
 	au FileType python setlocal number
+	autocmd BufWritePre *.py :call TrimWhitespace()
+	autocmd FileType python set textwidth=120	" set text width to 70 chars.
 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
-	autocmd FileType python nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-	autocmd FileType python nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-	autocmd FileType python nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-	autocmd FileType python nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-	"autocmd FileType python nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-	autocmd FileType python nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-	autocmd FileType python nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-	autocmd FileType python nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 	" autocmd FileType python nnoremap <silent> =     :.YAPF <CR>
 	" autocmd FileType python vnoremap <silent> =     :YAPF <CR>
-
-	autocmd BufWritePre *.py :call TrimWhitespace()
 
 " 	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
 " 	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
 " 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
+augroup end
+
+augroup lspFiles
+	autocmd!
+	autocmd FileType python,html,json nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+	autocmd FileType python,html,json nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+	autocmd FileType python,html,json nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+	autocmd FileType python,html,json nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+	"autocmd FileType python nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+	autocmd FileType python,html,json nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+	autocmd FileType python,html,json nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+	autocmd FileType python,html,json nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 augroup end
 
 augroup ftypeOptions
@@ -269,6 +273,7 @@ augroup ftypeOptions
 	"js
 	autocmd BufEnter *.html syntax sync fromstart
 	autocmd BufEnter *.html set ft=html
+	autocmd FileType html set textwidth=10000
 
 	"latex :
 	autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
@@ -632,52 +637,74 @@ augroup syntax_ranges
 augroup end
 
 " nvim-lsp:
+" nvim_lsp.pyls.setup{
+" 	settings = {
+" 	  pyls = {
+" 	    enable = false;
+" 	    trace = { server = "verbose"; };
+" 	    commandPath = "";
+" 	    configurationSources = { "pycodestyle" };
+" 	    plugins = {
+" 	      jedi_completion = { enabled = true; };
+" 	      jedi_hover = { enabled = true; };
+" 	      jedi_references = { enabled = true; };
+" 	      jedi_signature_help = { enabled = true; };
+" 	      jedi_symbols = {
+" 		enabled = true;
+" 		all_scopes = true;
+" 	      };
+" 	      mccabe = {
+" 		enabled = true;
+" 		threshold = 15;
+" 	      };
+" 	      preload = { enabled = true; };
+" 	      pycodestyle = { 
+" 		      enabled = true;
+" 		      maxLineLength = 120;
+" 	      };
+" 	      pydocstyle = {
+" 		enabled = false;
+" 		match = "(?!test_).*\\.py";
+" 		matchDir = "[^\\.].*";
+" 	      };
+" 	      pyflakes = { enabled = true; };
+" 	      rope_completion = { enabled = true; };
+" 	      yapf = { enabled = true; };
+" 	    };
+" 	  };
+" 	};
+" }
+
 lua << EOF
 local nvim_lsp = require'nvim_lsp'
-nvim_lsp.pyls.setup{
-	settings = {
-	  pyls = {
-	    enable = true;
-	    trace = { server = "verbose"; };
-	    commandPath = "";
-	    configurationSources = { "pycodestyle" };
-	    plugins = {
-	      jedi_completion = { enabled = true; };
-	      jedi_hover = { enabled = true; };
-	      jedi_references = { enabled = true; };
-	      jedi_signature_help = { enabled = true; };
-	      jedi_symbols = {
-		enabled = true;
-		all_scopes = true;
-	      };
-	      mccabe = {
-		enabled = true;
-		threshold = 15;
-	      };
-	      preload = { enabled = true; };
-	      pycodestyle = { 
-		      enabled = true;
-		      maxLineLength = 120;
-	      };
-	      pydocstyle = {
-		enabled = false;
-		match = "(?!test_).*\\.py";
-		matchDir = "[^\\.].*";
-	      };
-	      pyflakes = { enabled = true; };
-	      rope_completion = { enabled = true; };
-	      yapf = { enabled = true; };
-	    };
-	  };
+nvim_lsp.pyls_ms.setup{
+ 	settings = {
+		myls_ms = {
+			filetypes = { "python" };
+			init_options = {
+				analysisUpdates = true;
+				asyncStartup = true;
+				displayOptions = {};
+			};
+		};
 	};
-}
+};
+	
 
 nvim_lsp.bashls.setup{
-    filetypes = { "sh", "zsh" }
-}
+settings = {
+	bashls = {
+		    filetypes = { "sh", "zsh" };
+	    };
+	};
+};
 
 nvim_lsp.html.setup{
-    filetypes = { "html", "css" }
-}
+	settings = { 
+		html = {
+			filetypes = { "html", "css" };
+		};
+	};
+};
 
 EOF
