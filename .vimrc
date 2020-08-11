@@ -112,7 +112,7 @@ Plug 'rking/ag.vim'
 " Plug 'junegunn/vim-slash'
 
 " js stuff
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
 
 Plug 'luochen1990/rainbow'
@@ -161,14 +161,18 @@ Plug 'liuchengxu/vim-which-key'
 " syntax ranges
 Plug 'vim-scripts/SyntaxRange'
 
-" chrome ghost text
-Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+" firevim
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 "python format
 Plug 'psf/black', { 'for': 'python' }
 
 " align on character
 Plug 'tommcdo/vim-lion'
+
+"strip whitespace on save
+Plug 'axelf4/vim-strip-trailing-whitespace'
+
 
 call plug#end()
 
@@ -220,17 +224,17 @@ augroup filetype
   au! BufRead,BufNewFile *.pp setfiletype puppet 
 augroup end
 
-fun! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfun
+" fun! TrimWhitespace()
+"     let l:save = winsaveview()
+"     keeppatterns %s/\s\+$//e
+"     call winrestview(l:save)
+" endfun
 
 augroup ftypePython
 	autocmd!
 	au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
 	au FileType python setlocal number
-	autocmd BufWritePre *.py :call TrimWhitespace()
+	" autocmd BufWritePre *.py :call TrimWhitespace()
 	autocmd FileType python set textwidth=120	" set text width to 70 chars.
 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
 	" autocmd FileType python nnoremap <silent> =     :.YAPF <CR>
@@ -633,7 +637,8 @@ let g:polyglot_disabled = ['csv']
 " syntax ranges:
 augroup syntax_ranges
 	autocmd!
-	call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
+	autocmd FileType html,js,javascript call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
+	autocmd FileType html,js,javascript call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
 augroup end
 
 " nvim-lsp:
