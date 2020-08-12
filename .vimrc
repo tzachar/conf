@@ -153,8 +153,6 @@ Plug 'nathanaelkane/vim-indent-guides'
 " add cmd utils as vim commands
 Plug 'tpope/vim-eunuch'
 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-
 " show mappings
 Plug 'liuchengxu/vim-which-key'
 
@@ -162,7 +160,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'vim-scripts/SyntaxRange'
 
 " firevim
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 "python format
 Plug 'psf/black', { 'for': 'python' }
@@ -173,6 +171,9 @@ Plug 'tommcdo/vim-lion'
 "strip whitespace on save
 Plug 'axelf4/vim-strip-trailing-whitespace'
 
+Plug 'nvim-treesitter/nvim-treesitter'
+
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 call plug#end()
 
@@ -206,6 +207,9 @@ set modeline
 " default yank to clip
 set clipboard+=unnamed
 
+
+" set tex flavor:
+let g:tex_flavor = 'latex'
 
 "search for tags first in the file dir, then current dir, then boost:
 set tags=./tags,tags,/usr/local/boost/tags,/home/tzachar/.vim/tags/stl_tags
@@ -680,21 +684,23 @@ augroup end
 " 	};
 " }
 
+" nvim_lsp.pyls_ms.setup{
+"  	settings = {
+" 		myls_ms = {
+" 			filetypes = { "python" };
+" 			init_options = {
+" 				analysisUpdates = true;
+" 				asyncStartup = true;
+" 				displayOptions = {};
+" 			};
+" 		};
+" 	};
+" };
+
 lua << EOF
 local nvim_lsp = require'nvim_lsp'
-nvim_lsp.pyls_ms.setup{
- 	settings = {
-		myls_ms = {
-			filetypes = { "python" };
-			init_options = {
-				analysisUpdates = true;
-				asyncStartup = true;
-				displayOptions = {};
-			};
-		};
-	};
-};
-	
+require'nvim_lsp'.jedi_language_server.setup{}
+
 
 nvim_lsp.bashls.setup{
 settings = {
@@ -712,4 +718,77 @@ nvim_lsp.html.setup{
 	};
 };
 
+EOF
+
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+      enable = false,                    -- false will disable the whole extension
+      disable = { "c", "rust" },        -- list of language that will be disabled
+      custom_captures = {               -- mapping of user defined captures to highlight groups
+        -- ["foo.bar"] = "Identifier"   -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
+      },
+    },
+    incremental_selection = {
+      enable = true,
+      disable = { "cpp", "lua" },
+      keymaps = {                       -- mappings for incremental selection (visual mappings)
+        init_selection = "gnn",         -- maps in normal mode to init the node/scope selection
+        node_incremental = "grn",       -- increment to the upper named parent
+        scope_incremental = "grc",      -- increment to the upper scope (as defined in locals.scm)
+        node_decremental = "grm",       -- decrement to the previous node
+      }
+    },
+    refactor = {
+      highlight_definitions = {
+        enable = true
+      },
+      highlight_current_scope = {
+        enable = false
+      },
+      smart_rename = {
+        enable = true,
+        keymaps = {
+          smart_rename = "grr"          -- mapping to rename reference under cursor
+        }
+      },
+      navigation = {
+        enable = true,
+        keymaps = {
+          goto_definition = "gnd",      -- mapping to go to definition of symbol under cursor
+          list_definitions = "gnD"      -- mapping to list all definitions in current file
+        }
+      }
+    },
+    textobjects = { -- syntax-aware textobjects
+    enable = true,
+    disable = {},
+    keymaps = {
+        ["iL"] = { -- you can define your own textobjects directly here
+          python = "(function_definition) @function",
+          cpp = "(function_definition) @function",
+          c = "(function_definition) @function",
+          java = "(method_declaration) @function"
+        },
+        -- or you use the queries from supported languages with textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["aC"] = "@class.outer",
+        ["iC"] = "@class.inner",
+        ["ac"] = "@conditional.outer",
+        ["ic"] = "@conditional.inner",
+        ["ae"] = "@block.outer",
+        ["ie"] = "@block.inner",
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["is"] = "@statement.inner",
+        ["as"] = "@statement.outer",
+        ["ad"] = "@comment.outer",
+        ["am"] = "@call.outer",
+        ["im"] = "@call.inner"
+      }
+    },
+    ensure_installed = "all" -- one of "all", "language", or a list of languages
+}
 EOF
