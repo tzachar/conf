@@ -30,9 +30,8 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 
 let mapleader=","
 
-let g:plug_threads=4
+let g:plug_threads=8
 
-let g:polyglot_disabled = ['latex']
 
 call plug#begin('~/.vim/plugged')
 " color scheme
@@ -41,13 +40,22 @@ Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Plug 'zxqfl/tabnine-vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-Plug 'deoplete-plugins/deoplete-jedi'
+" Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
+
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-lua/diagnostic-nvim'
+
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'aca/completion-tabnine', { 'do': './install.sh' }
+" Plug 'nvim-treesitter/completion-treesitter'
+" Plug 'steelsojka/completion-buffers'
+
+
 
 Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
@@ -90,7 +98,7 @@ Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/TextTransform'
 Plug 'saihoooooooo/glowshi-ft.vim'
 " Plug 'haya14busa/incsearch.vim'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 "Plug 'godlygeek/csapprox'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'vimoutliner/vimoutliner'
@@ -171,9 +179,9 @@ Plug 'tommcdo/vim-lion'
 "strip whitespace on save
 Plug 'axelf4/vim-strip-trailing-whitespace'
 
-" Plug 'nvim-treesitter/nvim-treesitter'
-
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+
+Plug 'Iron-E/nvim-highlite'
 
 call plug#end()
 
@@ -207,6 +215,18 @@ set modeline
 " default yank to clip
 set clipboard+=unnamed
 
+" deoplete:
+let g:deoplete#enable_at_startup = 1
+let g:LanguageClient_hasSnippetsSupport = 0
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ deoplete#manual_complete()
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " set tex flavor:
 let g:tex_flavor = 'latex'
@@ -259,6 +279,10 @@ augroup lspFiles
 	autocmd FileType python,html,json nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 	autocmd FileType python,html,json nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 	autocmd FileType python,html,json nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+
+	let g:diagnostic_enable_virtual_text = 1
+	let g:diagnostic_insert_delay = 1
+
 augroup end
 
 augroup ftypeOptions
@@ -530,7 +554,9 @@ let g:onedark_color_overrides = {
 \ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0" },
 \ "white": { "gui": "wheat", "cterm": "145", "cterm16": "7" },
 \}
-colorscheme onedark
+" colorscheme onedark
+colorscheme highlite
+highlight Normal guibg=black guifg=wheat
 " set background=dark
 
 "for dbext
@@ -585,18 +611,29 @@ if !exists('g:ycm_semantic_triggers')
 	let g:ycm_semantic_triggers = {}
 endif
 
-" deoplete:
-let g:deoplete#enable_at_startup = 1
-let g:LanguageClient_hasSnippetsSupport = 0
-" function! s:check_back_space() abort 
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ deoplete#manual_complete()
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" augroup completeopts
+" 	autocmd BufEnter * lua require'completion'.on_attach()
+" 	set completeopt=menuone,noinsert,noselect
+" 	set shortmess+=c
+
+" 	" make enter select completion
+" 	inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" 	let g:completion_chain_complete_list = {
+" 	    \ 'default': [
+" 	    \    {'complete_items': ['tabnine', 'lsp', 'ts', 'buffers', 'snippet']},
+" 	    \    {'mode': '<c-n>'}
+" 	    \]
+" 	\}
+" 	" show matches in original order
+" 	let g:completion_matching_strategy_list = []
+
+" 	let g:completion_enable_auto_signature = 0
+" 	let g:completion_trigger_keyword_length = 2
+" 	let g:completion_tabnine_max_num_results=7
+" 	let g:completion_tabnine_sort_by_details=1
+" 	let g:completion_tabnine_max_lines=1000
+" augroup end
 
 
 set guicursor=
@@ -636,7 +673,7 @@ let g:indent_guides_color_change_percent = 20
 
 
 " disable csv
-let g:polyglot_disabled = ['csv']
+let g:polyglot_disabled = ['csv', 'latex']
 
 " syntax ranges:
 augroup syntax_ranges
@@ -645,61 +682,9 @@ augroup syntax_ranges
 	autocmd FileType html,js,javascript call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
 augroup end
 
-" nvim-lsp:
-" nvim_lsp.pyls.setup{
-" 	settings = {
-" 	  pyls = {
-" 	    enable = false;
-" 	    trace = { server = "verbose"; };
-" 	    commandPath = "";
-" 	    configurationSources = { "pycodestyle" };
-" 	    plugins = {
-" 	      jedi_completion = { enabled = true; };
-" 	      jedi_hover = { enabled = true; };
-" 	      jedi_references = { enabled = true; };
-" 	      jedi_signature_help = { enabled = true; };
-" 	      jedi_symbols = {
-" 		enabled = true;
-" 		all_scopes = true;
-" 	      };
-" 	      mccabe = {
-" 		enabled = true;
-" 		threshold = 15;
-" 	      };
-" 	      preload = { enabled = true; };
-" 	      pycodestyle = { 
-" 		      enabled = true;
-" 		      maxLineLength = 120;
-" 	      };
-" 	      pydocstyle = {
-" 		enabled = false;
-" 		match = "(?!test_).*\\.py";
-" 		matchDir = "[^\\.].*";
-" 	      };
-" 	      pyflakes = { enabled = true; };
-" 	      rope_completion = { enabled = true; };
-" 	      yapf = { enabled = true; };
-" 	    };
-" 	  };
-" 	};
-" }
-
-" nvim_lsp.pyls_ms.setup{
-"  	settings = {
-" 		myls_ms = {
-" 			filetypes = { "python" };
-" 			init_options = {
-" 				analysisUpdates = true;
-" 				asyncStartup = true;
-" 				displayOptions = {};
-" 			};
-" 		};
-" 	};
-" };
-
 lua << EOF
 local nvim_lsp = require'nvim_lsp'
-require'nvim_lsp'.jedi_language_server.setup{}
+require'nvim_lsp'.jedi_language_server.setup{on_attach=require'diagnostic'.on_attach}
 
 
 nvim_lsp.bashls.setup{
@@ -718,77 +703,104 @@ nvim_lsp.html.setup{
 	};
 };
 
+-- LspInstall sqlls
+require'nvim_lsp'.sqlls.setup{}
+
 EOF
 
 
-"lua <<EOF
-"require'nvim-treesitter.configs'.setup {
-"    highlight = {
-"      enable = false,                    -- false will disable the whole extension
-"      disable = { "c", "rust" },        -- list of language that will be disabled
-"      custom_captures = {               -- mapping of user defined captures to highlight groups
-"        -- ["foo.bar"] = "Identifier"   -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
-"      },
-"    },
-"    incremental_selection = {
-"      enable = true,
-"      disable = { "cpp", "lua" },
-"      keymaps = {                       -- mappings for incremental selection (visual mappings)
-"        init_selection = "gnn",         -- maps in normal mode to init the node/scope selection
-"        node_incremental = "grn",       -- increment to the upper named parent
-"        scope_incremental = "grc",      -- increment to the upper scope (as defined in locals.scm)
-"        node_decremental = "grm",       -- decrement to the previous node
-"      }
-"    },
-"    refactor = {
-"      highlight_definitions = {
-"        enable = true
-"      },
-"      highlight_current_scope = {
-"        enable = false
-"      },
-"      smart_rename = {
-"        enable = true,
-"        keymaps = {
-"          smart_rename = "grr"          -- mapping to rename reference under cursor
-"        }
-"      },
-"      navigation = {
-"        enable = true,
-"        keymaps = {
-"          goto_definition = "gnd",      -- mapping to go to definition of symbol under cursor
-"          list_definitions = "gnD"      -- mapping to list all definitions in current file
-"        }
-"      }
-"    },
-"    textobjects = { -- syntax-aware textobjects
-"    enable = true,
-"    disable = {},
-"    keymaps = {
-"        ["iL"] = { -- you can define your own textobjects directly here
-"          python = "(function_definition) @function",
-"          cpp = "(function_definition) @function",
-"          c = "(function_definition) @function",
-"          java = "(method_declaration) @function"
-"        },
-"        -- or you use the queries from supported languages with textobjects.scm
-"        ["af"] = "@function.outer",
-"        ["if"] = "@function.inner",
-"        ["aC"] = "@class.outer",
-"        ["iC"] = "@class.inner",
-"        ["ac"] = "@conditional.outer",
-"        ["ic"] = "@conditional.inner",
-"        ["ae"] = "@block.outer",
-"        ["ie"] = "@block.inner",
-"        ["al"] = "@loop.outer",
-"        ["il"] = "@loop.inner",
-"        ["is"] = "@statement.inner",
-"        ["as"] = "@statement.outer",
-"        ["ad"] = "@comment.outer",
-"        ["am"] = "@call.outer",
-"        ["im"] = "@call.inner"
-"      }
-"    },
-"    ensure_installed = "all" -- one of "all", "language", or a list of languages
-"}
-"EOF
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+      enable = true,                    -- false will disable the whole extension
+      disable = { "rust" },        -- list of language that will be disabled
+      custom_captures = {               -- mapping of user defined captures to highlight groups
+        -- ["foo.bar"] = "Identifier"   -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
+      },
+    },
+    incremental_selection = {
+      enable = true,
+      disable = { "lua" },
+      keymaps = {                       -- mappings for incremental selection (visual mappings)
+        init_selection = "gnn",         -- maps in normal mode to init the node/scope selection
+        node_incremental = "grn",       -- increment to the upper named parent
+        scope_incremental = "grc",      -- increment to the upper scope (as defined in locals.scm)
+        node_decremental = "grm",       -- decrement to the previous node
+      }
+    },
+    refactor = {
+      highlight_definitions = {
+        enable = true
+      },
+      highlight_current_scope = {
+        enable = false
+      },
+      smart_rename = {
+        enable = true,
+        keymaps = {
+          smart_rename = "grr"          -- mapping to rename reference under cursor
+        }
+      },
+      navigation = {
+        enable = true,
+        keymaps = {
+          goto_definition = "gnd",      -- mapping to go to definition of symbol under cursor
+          list_definitions = "gnD"      -- mapping to list all definitions in current file
+        }
+      }
+    },
+    textobjects = { -- syntax-aware textobjects
+    enable = true,
+    disable = {},
+    keymaps = {
+        ["iL"] = { -- you can define your own textobjects directly here
+          python = "(function_definition) @function",
+          cpp = "(function_definition) @function",
+          c = "(function_definition) @function",
+          java = "(method_declaration) @function"
+        },
+        -- or you use the queries from supported languages with textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["aC"] = "@class.outer",
+        ["iC"] = "@class.inner",
+        ["ac"] = "@conditional.outer",
+        ["ic"] = "@conditional.inner",
+        ["ae"] = "@block.outer",
+        ["ie"] = "@block.inner",
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["is"] = "@statement.inner",
+        ["as"] = "@statement.outer",
+        ["ad"] = "@comment.outer",
+        ["am"] = "@call.outer",
+        ["im"] = "@call.inner"
+      },
+      -- swap parameters (keymap -> textobject query)
+      swap_next = {
+        ["<a-p>"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<a-P>"] = "@parameter.inner",
+      },
+      -- set mappings to go to start/end of adjacent textobjects (keymap -> textobject query)
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+    },
+    ensure_installed = "all"
+}
+EOF
