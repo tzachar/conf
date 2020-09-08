@@ -686,6 +686,7 @@ lua << EOF
 local nvim_lsp = require'nvim_lsp'
 require'nvim_lsp'.jedi_language_server.setup{on_attach=require'diagnostic'.on_attach}
 require'nvim_lsp'.jsonls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.vimls.setup{on_attach=require'diagnostic'.on_attach}
 
 nvim_lsp.bashls.setup{
 	on_attach = require'diagnostic'.on_attach;
