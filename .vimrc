@@ -465,9 +465,6 @@ hi Folded term=standout ctermfg=LightBlue ctermbg=DarkGrey
 "localvimrc
 let g:localvimrc_sandbox=0
 
-"for highlight text
-highlight Search cterm=NONE ctermfg=black ctermbg=red
-
 " This rewires n and N to do the highlighing...
 "nnoremap <silent> n   n:call HLNext(0.2)<cr>
 "nnoremap <silent> N   N:call HLNext(0.2)<cr>
@@ -557,6 +554,9 @@ let g:onedark_color_overrides = {
 " colorscheme onedark
 colorscheme highlite
 highlight Normal guibg=black guifg=wheat
+"for highlight text
+highlight Search guibg=red
+
 " set background=dark
 
 "for dbext
