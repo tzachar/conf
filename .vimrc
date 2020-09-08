@@ -75,7 +75,7 @@ Plug 'machakann/vim-swap'
 Plug 'junegunn/fzf', { 'dir': '~/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'neovim/nvim-lsp'
+Plug 'neovim/nvim-lspconfig'
 
 Plug 'vim-scripts/ExtractMatches'
 " Plug 'vim-scripts/MPage'
@@ -685,17 +685,19 @@ augroup end
 lua << EOF
 local nvim_lsp = require'nvim_lsp'
 require'nvim_lsp'.jedi_language_server.setup{on_attach=require'diagnostic'.on_attach}
-
+require'nvim_lsp'.jsonls.setup{on_attach=require'diagnostic'.on_attach}
 
 nvim_lsp.bashls.setup{
-settings = {
-	bashls = {
-		    filetypes = { "sh", "zsh" };
-	    };
+	on_attach = require'diagnostic'.on_attach;
+	settings = {
+		bashls = {
+			    filetypes = { "sh", "zsh" };
+		};
 	};
 };
 
 nvim_lsp.html.setup{
+	on_attach = require'diagnostic'.on_attach;
 	settings = { 
 		html = {
 			filetypes = { "html", "css" };
@@ -704,7 +706,9 @@ nvim_lsp.html.setup{
 };
 
 -- LspInstall sqlls
-require'nvim_lsp'.sqlls.setup{}
+require'nvim_lsp'.sqlls.setup{
+	on_attach = require'diagnostic'.on_attach;
+};
 
 EOF
 
