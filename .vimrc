@@ -62,7 +62,7 @@ Plug 'mileszs/ack.vim'
 Plug 'Lokaltog/vim-easymotion'
 " Plug 'scrooloose/nerdcommenter'
 
-Plug 'machakann/vim-swap'
+" Plug 'machakann/vim-swap'
 
 " ctrlp related stuff
 " Plug 'ctrlpvim/ctrlp.vim'
@@ -152,7 +152,7 @@ Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 " Plug 'sbdchd/neoformat'
 
-Plug 'tzachar/vim-fsub', { 'for': 'python' }
+" Plug 'tzachar/vim-fsub', { 'for': 'python' }
 
 Plug 'godlygeek/tabular'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -171,7 +171,7 @@ Plug 'vim-scripts/SyntaxRange'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 "python format
-Plug 'psf/black', { 'for': 'python' }
+" Plug 'psf/black', { 'for': 'python' }
 
 " align on character
 Plug 'tommcdo/vim-lion'
@@ -182,6 +182,9 @@ Plug 'axelf4/vim-strip-trailing-whitespace'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'Iron-E/nvim-highlite'
+
+Plug 'Vimjas/vim-python-pep8-indent'
+
 
 call plug#end()
 
@@ -304,7 +307,7 @@ augroup ftypeOptions
 
 	"js
 	autocmd BufEnter *.html syntax sync fromstart
-	autocmd BufEnter *.html set ft=html
+	autocmd BufEnter *.html set ft=html.javascript
 	autocmd FileType html set textwidth=10000
 
 	"latex :
@@ -551,8 +554,8 @@ let g:onedark_color_overrides = {
 \ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0" },
 \ "white": { "gui": "wheat", "cterm": "145", "cterm16": "7" },
 \}
-" colorscheme onedark
-colorscheme highlite
+colorscheme onedark
+" colorscheme highlite
 highlight Normal guibg=black guifg=wheat
 "for highlight text
 highlight Search guibg=red
@@ -754,58 +757,54 @@ require'nvim-treesitter.configs'.setup {
         }
       }
     },
-    textobjects = { -- syntax-aware textobjects
-    enable = true,
-    disable = {},
-    keymaps = {
-        ["iL"] = { -- you can define your own textobjects directly here
-          python = "(function_definition) @function",
-          cpp = "(function_definition) @function",
-          c = "(function_definition) @function",
-          java = "(method_declaration) @function"
-        },
-        -- or you use the queries from supported languages with textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["aC"] = "@class.outer",
-        ["iC"] = "@class.inner",
-        ["ac"] = "@conditional.outer",
-        ["ic"] = "@conditional.inner",
-        ["ae"] = "@block.outer",
-        ["ie"] = "@block.inner",
-        ["al"] = "@loop.outer",
-        ["il"] = "@loop.inner",
-        ["is"] = "@statement.inner",
-        ["as"] = "@statement.outer",
-        ["ad"] = "@comment.outer",
-        ["am"] = "@call.outer",
-        ["im"] = "@call.inner"
-      },
-      -- swap parameters (keymap -> textobject query)
-      swap_next = {
-        ["<a-p>"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<a-P>"] = "@parameter.inner",
-      },
-      -- set mappings to go to start/end of adjacent textobjects (keymap -> textobject query)
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer",
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-    },
+    textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+	      -- You can use the capture groups defined in textobjects.scm
+	      ["af"] = "@function.outer",
+	      ["if"] = "@function.inner",
+	      ["ac"] = "@class.outer",
+	      ["ic"] = "@class.inner",
+
+	      -- Or you can define your own textobjects like this
+	      ["iF"] = {
+		      python = "(function_definition) @function",
+		      cpp = "(function_definition) @function",
+		      c = "(function_definition) @function",
+		      java = "(method_declaration) @function",
+	      },
+		},
+	},
+	swap = {
+		enable = true,
+		swap_next = {
+			["<leader>gs"] = "@parameter.inner",
+		},
+		swap_previous = {
+			["<leader>gS"] = "@parameter.inner",
+		},
+	},
+	move = {
+	      enable = true,
+	      goto_next_start = {
+		["]m"] = "@function.outer",
+		["]]"] = "@class.outer",
+	      },
+	      goto_next_end = {
+		["]M"] = "@function.outer",
+		["]["] = "@class.outer",
+	      },
+	      goto_previous_start = {
+		["[m"] = "@function.outer",
+		["[["] = "@class.outer",
+	      },
+	      goto_previous_end = {
+		["[M"] = "@function.outer",
+		["[]"] = "@class.outer",
+	      },
+	},
     ensure_installed = "all"
+    }
 }
 EOF

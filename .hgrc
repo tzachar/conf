@@ -3,7 +3,7 @@ username = tzachar
 
 [merge-tools]
 #kdiff3.args = $base $local $other -o $output
-splice.executable = vim
+splice.executable = nvim
 splice.args = -f $base $local $other $output -c 'SpliceInit'
 splice.premerge = keep
 splice.priority = 1
