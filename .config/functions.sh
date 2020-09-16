@@ -169,3 +169,11 @@ function pull_all() #pull+update all mercurial repos under current dir.
 	done
 }
 
+function update_nvim()
+{
+	pushd ~/bin
+	\wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+	\mv nvim.appimage nvim
+	chmod a+rx nvim
+	popd
+}

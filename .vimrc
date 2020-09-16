@@ -185,7 +185,6 @@ Plug 'Iron-E/nvim-highlite'
 
 Plug 'Vimjas/vim-python-pep8-indent'
 
-
 call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
