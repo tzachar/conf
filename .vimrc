@@ -179,11 +179,15 @@ Plug 'tommcdo/vim-lion'
 "strip whitespace on save
 Plug 'axelf4/vim-strip-trailing-whitespace'
 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'Iron-E/nvim-highlite'
 
 Plug 'Vimjas/vim-python-pep8-indent'
+
+"lsp config
+Plug 'RishabhRD/popfix'
+Plug 'RishabhRD/nvim-lsputils'
 
 call plug#end()
 
@@ -216,6 +220,9 @@ set modeline
 
 " default yank to clip
 set clipboard+=unnamed
+
+" this controls saving swap and highlighting var under cursor
+set updatetime=200
 
 " deoplete:
 let g:deoplete#enable_at_startup = 1
@@ -273,8 +280,8 @@ augroup end
 
 augroup lspFiles
 	autocmd!
-	autocmd FileType python,html,json nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-	autocmd FileType python,html,json nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+	autocmd FileType python,html,json nnoremap <silent> <c-]>    <cmd>lua vim.lsp.buf.declaration()<CR>
+	autocmd FileType python,html,json nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 	autocmd FileType python,html,json nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 	autocmd FileType python,html,json nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
 	"autocmd FileType python nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
@@ -806,4 +813,16 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = "all"
     }
 }
+EOF
+
+lua <<EOF
+vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
+vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
+vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+
 EOF
