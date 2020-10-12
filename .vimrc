@@ -48,6 +48,9 @@ Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
 
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
 Plug 'nvim-lua/diagnostic-nvim'
 
 " Plug 'nvim-lua/completion-nvim'
@@ -179,7 +182,7 @@ Plug 'tommcdo/vim-lion'
 "strip whitespace on save
 Plug 'axelf4/vim-strip-trailing-whitespace'
 
-" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'Iron-E/nvim-highlite'
 
@@ -188,6 +191,9 @@ Plug 'Vimjas/vim-python-pep8-indent'
 "lsp config
 Plug 'RishabhRD/popfix'
 Plug 'RishabhRD/nvim-lsputils'
+
+" git
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -752,7 +758,7 @@ require'nvim-treesitter.configs'.setup {
       smart_rename = {
         enable = true,
         keymaps = {
-          smart_rename = "grr"          -- mapping to rename reference under cursor
+          smart_rename = "gt"          -- mapping to rename reference under cursor
         }
       },
       navigation = {
@@ -785,10 +791,10 @@ require'nvim-treesitter.configs'.setup {
 	swap = {
 		enable = true,
 		swap_next = {
-			["<leader>gs"] = "@parameter.inner",
+			["gs"] = "@parameter.inner",
 		},
 		swap_previous = {
-			["<leader>gS"] = "@parameter.inner",
+			["gS"] = "@parameter.inner",
 		},
 	},
 	move = {
