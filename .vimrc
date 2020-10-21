@@ -195,6 +195,9 @@ Plug 'RishabhRD/nvim-lsputils'
 " git
 Plug 'tpope/vim-fugitive'
 
+" iron, repr integration
+Plug 'hkupty/iron.nvim'
+
 call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
@@ -832,3 +835,36 @@ vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.docu
 vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
 EOF
+
+
+" iron conf
+lua << EOF
+local iron = require("iron")
+
+iron.core.set_config{
+	preferred = {
+		python = "ipython",
+	},
+	memory_management = 'singleton',
+}
+
+EOF
+
+
+function! CleverKey(key)
+	if col('.') <= 0
+		return a:key
+	endif
+	if col('.') > strlen(getline('.'))
+		return a:key
+	endif
+	if nr2char(strgetchar(getline('.'), col('.') - 1)) == a:key
+		return "\<Right>"
+	else
+		return a:key
+	endif
+endfunction
+inoremap <expr> ) CleverKey(")")
+inoremap <expr> ' CleverKey("'")
+inoremap <expr> " CleverKey('"')
+inoremap <expr> ] CleverKey(']')
