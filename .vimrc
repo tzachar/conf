@@ -734,6 +734,9 @@ EOF
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
+	indent = {
+   	 	enable = false
+   	 },
     highlight = {
       enable = true,                    -- false will disable the whole extension
       disable = { "rust" },        -- list of language that will be disabled
@@ -773,6 +776,13 @@ require'nvim-treesitter.configs'.setup {
       }
     },
     textobjects = {
+    lsp_interop = {
+      enable = true,
+      peek_definition_code = {
+        ["df"] = "@function.outer",
+        ["dF"] = "@class.outer",
+      },
+    },
     select = {
       enable = true,
       keymaps = {
@@ -794,10 +804,10 @@ require'nvim-treesitter.configs'.setup {
 	swap = {
 		enable = true,
 		swap_next = {
-			["gs"] = "@parameter.inner",
+			["<leader>gs"] = "@parameter.inner",
 		},
 		swap_previous = {
-			["gS"] = "@parameter.inner",
+			["<leader>gS"] = "@parameter.inner",
 		},
 	},
 	move = {
@@ -868,3 +878,4 @@ inoremap <expr> ) CleverKey(")")
 inoremap <expr> ' CleverKey("'")
 inoremap <expr> " CleverKey('"')
 inoremap <expr> ] CleverKey(']')
+inoremap <expr> , CleverKey(',')
