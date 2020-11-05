@@ -37,6 +37,7 @@ ZSH_TMUX_FIXTERM_WITH_256COLOR='tmux-256colors'
 # custom plugins:
 # https://github.com/zsh-users/zsh-autosuggestions
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md -- must be last
+# git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
 plugins=(web-search git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions pip zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
@@ -70,8 +71,8 @@ bindkey -M vicmd 'j' history-substring-search-down
 # bind ctrl + space to execute current auto suggestion
 bindkey '^ ' autosuggest-execute
 
-#dont want sahring of history
-#setopt no_sharehistory
+# want share_history
+setopt share_history
 
 #complete in middle of word
 setopt complete_in_word

@@ -46,6 +46,8 @@ Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'deoplete-plugins/deoplete-zsh'
 Plug 'Shougo/deoplete-lsp'
 Plug 'Shougo/neco-vim'
+Plug 'fszymanski/deoplete-emoji'
+
 
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
@@ -244,6 +246,8 @@ let g:LanguageClient_hasSnippetsSupport = 0
 "       \ pumvisible() ? "\<C-n>" :
 "       \ <SID>check_back_space() ? "\<TAB>" :
 "       \ deoplete#manual_complete()
+
+call deoplete#custom#option('auto_complete_delay', 100)
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " set tex flavor:
@@ -296,6 +300,7 @@ augroup lspFiles
 	"autocmd FileType python nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 	autocmd FileType python,html,json nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 	autocmd FileType python,html,json nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+	autocmd FileType python,html,json nnoremap <silent> gj    <cmd>lua vim.lsp.buf.code_action()<CR>
 	autocmd FileType python,html,json nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 
 	let g:diagnostic_enable_virtual_text = 1
@@ -646,7 +651,10 @@ endif
 " 	" show matches in original order
 " 	let g:completion_matching_strategy_list = []
 
-" 	let g:completion_enable_auto_signature = 0
+" 	let g:completion_enable_auto_popup = 1
+" 	let g:completion_tabnine_priority = 1000
+" 	let g:completion_timer_cycle = 80
+" 	let g:completion_enable_auto_signature = 1
 " 	let g:completion_trigger_keyword_length = 2
 " 	let g:completion_tabnine_max_num_results=7
 " 	let g:completion_tabnine_sort_by_details=1
@@ -701,13 +709,19 @@ augroup syntax_ranges
 augroup end
 
 lua << EOF
+
+local on_attach_vim = function(client)
+  --require'completion'.on_attach(client)
+  require'diagnostic'.on_attach(client)
+end
+
 local nvim_lsp = require'nvim_lsp'
-require'nvim_lsp'.jedi_language_server.setup{on_attach=require'diagnostic'.on_attach}
-require'nvim_lsp'.jsonls.setup{on_attach=require'diagnostic'.on_attach}
-require'nvim_lsp'.vimls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.jedi_language_server.setup{on_attach=on_attach_vim}
+require'nvim_lsp'.jsonls.setup{on_attach=on_attach_vim}
+require'nvim_lsp'.vimls.setup{on_attach=on_attach_vim}
 
 nvim_lsp.bashls.setup{
-	on_attach = require'diagnostic'.on_attach;
+	on_attach = on_attach_vim;
 	settings = {
 		bashls = {
 			    filetypes = { "sh", "zsh" };
@@ -716,7 +730,7 @@ nvim_lsp.bashls.setup{
 };
 
 nvim_lsp.html.setup{
-	on_attach = require'diagnostic'.on_attach;
+	on_attach = on_attach_vim;
 	settings = { 
 		html = {
 			filetypes = { "html", "css" };
@@ -726,16 +740,14 @@ nvim_lsp.html.setup{
 
 -- LspInstall sqlls
 require'nvim_lsp'.sqlls.setup{
-	on_attach = require'diagnostic'.on_attach;
+	on_attach = on_attach_vim;
 };
 
-EOF
+-- treesitter
 
-
-lua <<EOF
 require'nvim-treesitter.configs'.setup {
 	indent = {
-   	 	enable = false
+   	 	enable = true
    	 },
     highlight = {
       enable = true,                    -- false will disable the whole extension
@@ -832,9 +844,8 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = "all"
     }
 }
-EOF
 
-lua <<EOF
+-- lsp_utils
 vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
 vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
 vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
@@ -844,11 +855,38 @@ vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.im
 vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
 vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
-EOF
+vim.g.lsp_utils_location_opts = {
+	height = 24,
+	mode = 'editor',
+	preview = {
+		title = 'Location Preview',
+		border = true,
+		coloring = true,
+	},
+	keymaps = {
+		n = {
+			['<C-n>'] = 'j',
+			['<C-p>'] = 'k'
+		}
+	}
+}
+vim.g.lsp_utils_symbols_opts = {
+	height = 0,
+	mode = 'editor',
+	preview = {
+		title = 'Symbol Preview',
+		border = true,
+		coloring = true,
+	},
+	keymaps = {
+		n = {
+			['<C-n>'] = 'j',
+			['<C-p>'] = 'k'
+		}
+	}
+}
 
-
-" iron conf
-lua << EOF
+-- iron conf
 local iron = require("iron")
 
 iron.core.set_config{
@@ -859,7 +897,6 @@ iron.core.set_config{
 }
 
 EOF
-
 
 function! CleverKey(key)
 	if col('.') <= 0
