@@ -916,3 +916,7 @@ inoremap <expr> ' CleverKey("'")
 inoremap <expr> " CleverKey('"')
 inoremap <expr> ] CleverKey(']')
 inoremap <expr> , CleverKey(',')
+
+
+" git fugitive commands
+command -nargs=* Glg Git --paginate lg <args>
