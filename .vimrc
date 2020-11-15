@@ -715,12 +715,12 @@ local on_attach_vim = function(client)
   require'diagnostic'.on_attach(client)
 end
 
-local nvim_lsp = require'nvim_lsp'
-require'nvim_lsp'.jedi_language_server.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.jsonls.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.vimls.setup{on_attach=on_attach_vim}
+local lspconfig = require'lspconfig'
+require'lspconfig'.jedi_language_server.setup{on_attach=on_attach_vim}
+require'lspconfig'.jsonls.setup{on_attach=on_attach_vim}
+require'lspconfig'.vimls.setup{on_attach=on_attach_vim}
 
-nvim_lsp.bashls.setup{
+lspconfig.bashls.setup{
 	on_attach = on_attach_vim;
 	settings = {
 		bashls = {
@@ -729,9 +729,9 @@ nvim_lsp.bashls.setup{
 	};
 };
 
-nvim_lsp.html.setup{
+lspconfig.html.setup{
 	on_attach = on_attach_vim;
-	settings = { 
+	settings = {
 		html = {
 			filetypes = { "html", "css" };
 		};
@@ -739,7 +739,7 @@ nvim_lsp.html.setup{
 };
 
 -- LspInstall sqlls
-require'nvim_lsp'.sqlls.setup{
+require'lspconfig'.sqlls.setup{
 	on_attach = on_attach_vim;
 };
 
