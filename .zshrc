@@ -159,6 +159,9 @@ export TF_CPP_MIN_LOG_LEVEL=3
 unalias -m ag
 
 export FZF_DEFAULT_OPTS='--tiebreak=end'
+if type ag &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
+fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #must be b4 plugins

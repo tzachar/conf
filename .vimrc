@@ -53,8 +53,6 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
-Plug 'nvim-lua/diagnostic-nvim'
-
 " Plug 'nvim-lua/completion-nvim'
 " Plug 'aca/completion-tabnine', { 'do': './install.sh' }
 " Plug 'nvim-treesitter/completion-treesitter'
@@ -607,7 +605,7 @@ augroup end
 augroup replacegJ
 
 	fun! JoinSpaceless()
-		if getline('.')[-1:-1] == '('
+		if getline('.')[-1:-1] == '(' || getline('.')[-1:-1] == '['
 			execute 'normal! gJ'
 			" Character under cursor is whitespace?
 			if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
@@ -711,8 +709,7 @@ augroup end
 lua << EOF
 
 local on_attach_vim = function(client)
-  --require'completion'.on_attach(client)
-  require'diagnostic'.on_attach(client)
+  -- require'completion'.on_attach(client)
 end
 
 local lspconfig = require'lspconfig'
