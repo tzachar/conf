@@ -1,3 +1,12 @@
 [submodule "fzf"]
 	path = fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "spaceship-prompt"]
+	path = spaceship-prompt
+	url = /home/tzachar/.oh-my-zsh/custom/themes/spaceship-prompt
+[submodule "zsh-autosuggestions"]
+	path = zsh-autosuggestions
+	url = /home/tzachar/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+[submodule "zsh-syntax-highlighting"]
+	path = zsh-syntax-highlighting
+	url = /home/tzachar/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
