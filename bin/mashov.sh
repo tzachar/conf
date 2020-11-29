@@ -12,8 +12,8 @@ fi
 # sleep 5
 # python ~/bin/mashov.py mashov --school 770073 --user L329245153 --pw Cutedog12 --email ziv.ayalon@gmail.com &
 # sleep 5
-# python ~/bin/mashov.py mashov --school 384248 --user 029635646 --pw Nadav711 --email ziv.ayalon@gmail.com &
-# sleep 5
+python ~/bin/mashov.py mashov --school 384248 --user 029635646 --pw Nadav711 --email ziv.ayalon@gmail.com &
+sleep 5
 
 
 python ~/bin/mashov.py ishurim --target gali --email nir.tzachar@gmail.com &

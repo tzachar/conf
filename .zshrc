@@ -7,6 +7,21 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="agnoster"
 # ZSH_THEME="cypher"
+ZSH_THEME="spaceship"
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  pyenv         # Pyenv section
+  exec_time     # Execution time
+  line_sep      # Line break
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -42,7 +57,7 @@ plugins=(web-search git sudo ubuntu history history-substring-search ssh-agent z
 
 source $ZSH/oh-my-zsh.sh
 
-PROMPT="%m %{${fg_bold[red]}%}:: %{${fg[green]}%}%3~%(0?. . %{${fg[red]}%}%? )%{${fg[blue]}%}»%{${reset_color}%} "
+# PROMPT="%m %{${fg_bold[red]}%}:: %{${fg[green]}%}%3~%(0?. . %{${fg[red]}%}%? )%{${fg[blue]}%}»%{${reset_color}%} "
 
 # Customize to your needs...
 #
@@ -126,7 +141,7 @@ export MANPATH=${MANPATH}:${HOME}/man
 
 #
 #source host specific config. do this last, to allow overrides
-if [[ -f .config/hosts/${HOSTNAME}.conf ]]; then . .config/hosts/${HOSTNAME}.conf; fi
+if [[ -f ~/.config/hosts/${HOSTNAME}.conf ]]; then . ~/.config/hosts/${HOSTNAME}.conf; fi
 
 #control the terminal:
 stty -ixon
