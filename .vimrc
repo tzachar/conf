@@ -49,7 +49,7 @@ Plug 'Shougo/neco-vim'
 Plug 'fszymanski/deoplete-emoji'
 
 
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
