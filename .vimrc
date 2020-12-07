@@ -186,8 +186,6 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'Iron-E/nvim-highlite'
 
-Plug 'Vimjas/vim-python-pep8-indent'
-
 "lsp config
 Plug 'RishabhRD/popfix'
 Plug 'RishabhRD/nvim-lsputils'

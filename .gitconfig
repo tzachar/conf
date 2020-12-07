@@ -12,3 +12,5 @@
 	tool = meld
 [pager]
 	status = true
+[submodule]
+	recurse = true
