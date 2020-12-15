@@ -1,4 +1,4 @@
-" "set terminal for 256 colors
+ "set terminal for 256 colors
 " if has('nvim') && match($TERM, "screen")!=-1
 " 	set term=xterm
 " endif
@@ -187,8 +187,10 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'Iron-E/nvim-highlite'
 
 "lsp config
-Plug 'RishabhRD/popfix'
-Plug 'RishabhRD/nvim-lsputils'
+" Plug 'RishabhRD/popfix', { 'do' : 'make' }
+" Plug 'RishabhRD/nvim-lsputils'
+
+Plug 'ojroques/nvim-lspfuzzy', {'branch': 'main'}
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -256,7 +258,7 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " set filetypes 
 filetype on
-filetype plugin indent on
+" filetype plugin indent on
 
 syntax on		" Default to no syntax highlightning 
 
@@ -437,22 +439,33 @@ command! -bang -nargs=* Ag
 " let g:fzf_layout = { 'down': '~40%' }
 
 let $FZF_DEFAULT_OPTS='--layout=reverse'
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
+" function! FloatingFZF()
+"   let buf = nvim_create_buf(v:false, v:true)
+"   call setbufvar(buf, '&signcolumn', 'no')
 
-  let opts = {
-        \ 'relative': 'cursor',
-  	\ 'col': 0,
-	\ 'row': 1,
-        \ 'width': 80,
-        \ 'height': 20,
-        \ }
+"   let height = &lines - 3
+"   let width = float2nr(&columns - (&columns * 2 / 10))
+"   let opts = {
+"         \ 'relative': 'cursor',
+"   	\ 'col': 0,
+" 	\ 'row': 1,
+"         \ 'width': width * 2 / 3,
+"         \ 'height': 40,
+"         \ }
 
-  call nvim_open_win(buf, v:true, opts)
-endfunction
+"   let win = nvim_open_win(buf, v:true, opts)
+"   call setwinvar(win, '&winhl', 'Normal:Pmenu')
+
+"   setlocal
+"         \ buftype=nofile
+"         \ nobuflisted
+"         \ bufhidden=hide
+"         \ nonumber
+"         \ norelativenumber
+"         \ signcolumn=no
+" endfunction
 
 "multipage editing
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
@@ -742,7 +755,7 @@ require'lspconfig'.sqlls.setup{
 
 require'nvim-treesitter.configs'.setup {
 	indent = {
-   	 	enable = true
+   	 	enable = false
    	 },
     highlight = {
       enable = true,                    -- false will disable the whole extension
@@ -840,15 +853,19 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 
+-- lsp fzf integration
+require('lspfuzzy').setup {}
+
+
 -- lsp_utils
-vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
-vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
-vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
-vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
-vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
-vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
-vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+-- vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+-- vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
+-- vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
+-- vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+-- vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+-- vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+-- vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+-- vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
 vim.g.lsp_utils_location_opts = {
 	height = 24,
