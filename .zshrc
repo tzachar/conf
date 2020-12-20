@@ -1,3 +1,4 @@
+export TERMINFO=/home/tzachar/.local/kitty.app/lib/kitty/terminfo
 source ~/.zplug/init.zsh
 
 # ZSH_THEME="agnoster"
@@ -191,5 +192,3 @@ eval "$(pyenv init -)"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export NUMEXPR_MAX_THREADS=4
-
-export TERMINFO=/home/tzachar/.local/kitty.app/lib/kitty/terminfo
