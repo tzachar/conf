@@ -1,0 +1,1 @@
+/home/tzachar/.zplug/repos/zplug/zplug/init.zsh
