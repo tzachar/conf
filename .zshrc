@@ -1,13 +1,7 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+source ~/.zplug/init.zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 # ZSH_THEME="agnoster"
 # ZSH_THEME="cypher"
-ZSH_THEME="spaceship"
 SPACESHIP_PROMPT_ORDER=(
   time          # Time stamps section
   user          # Username section
@@ -23,39 +17,35 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+zplug "plugins/git",   from:oh-my-zsh
+zplug "plugins/sudo",   from:oh-my-zsh
+zplug "plugins/ubuntu",   from:oh-my-zsh
+zplug "plugins/history",   from:oh-my-zsh
+zplug "plugins/ssh", from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-history-substring-search", defer:3
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
 
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
 
-# Uncomment following line if you want to disable colors in ls
-#DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
 
 ZSH_TMUX_FIXTERM="false"
 ZSH_TMUX_FIXTERM_WITH_256COLOR='tmux-256colors'
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-#
-# custom plugins:
-# https://github.com/zsh-users/zsh-autosuggestions
-# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md -- must be last
-# git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
-plugins=(web-search git sudo ubuntu history history-substring-search ssh-agent zsh-autosuggestions pip zsh-syntax-highlighting)
 
-source $ZSH/oh-my-zsh.sh
+export HISTFILE=~/.zsh_history
+export HISTSIZE=100000
+export SAVEHIST=100000
 
 # PROMPT="%m %{${fg_bold[red]}%}:: %{${fg[green]}%}%3~%(0?. . %{${fg[red]}%}%? )%{${fg[blue]}%}»%{${reset_color}%} "
 
@@ -68,12 +58,18 @@ zstyle :omz:plugins:ssh-agent identities id_rsa google_compute_engine
 # ignore double slashes in file completion
 zstyle :completion:\* squeeze-slashes true
 
+# use emacs keys
+bindkey -e
+
 # bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey "[A" history-substring-search-up
 bindkey "[B" history-substring-search-down
+
+bindkey '^[[1;5C' emacs-forward-word
+bindkey '^[[1;5D' emacs-backward-word
 
 # bind P and N for EMACS mode
 bindkey -M emacs '^P' history-substring-search-up

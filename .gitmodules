@@ -1,0 +1,6 @@
+[submodule ".zplug/repos/zplug/zplug"]
+	path = .zplug/repos/zplug/zplug
+	url = https://github.com/zplug/zplug.git
+[submodule "fzf"]
+	path = fzf
+	url = https://github.com/junegunn/fzf.git
