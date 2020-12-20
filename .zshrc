@@ -23,6 +23,7 @@ zplug "plugins/ubuntu",   from:oh-my-zsh
 zplug "plugins/history",   from:oh-my-zsh
 zplug "plugins/ssh", from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
+zplug "marlonrichert/zsh-autocomplete"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search", defer:3
 zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
@@ -57,6 +58,8 @@ zstyle :omz:plugins:ssh-agent identities id_rsa google_compute_engine
 
 # ignore double slashes in file completion
 zstyle :completion:\* squeeze-slashes true
+
+zstyle ':autocomplete:tab:*' widget-style menu-select
 
 # use emacs keys
 bindkey -e
@@ -188,3 +191,5 @@ eval "$(pyenv init -)"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export NUMEXPR_MAX_THREADS=4
+
+export TERMINFO=/home/tzachar/.local/kitty.app/lib/kitty/terminfo
