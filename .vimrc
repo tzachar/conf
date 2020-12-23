@@ -156,6 +156,7 @@ Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 " Plug 'sbdchd/neoformat'
 
 " Plug 'tzachar/vim-fsub', { 'for': 'python' }
+Plug 'Vimjas/vim-python-pep8-indent'
 
 Plug 'godlygeek/tabular'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -439,33 +440,35 @@ command! -bang -nargs=* Ag
 " let g:fzf_layout = { 'down': '~40%' }
 
 let $FZF_DEFAULT_OPTS='--layout=reverse'
-" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-" function! FloatingFZF()
-"   let buf = nvim_create_buf(v:false, v:true)
-"   call setbufvar(buf, '&signcolumn', 'no')
+function! FloatingFZF()
+  " creates a scratch, unlisted, new, empty, unnamed buffer
+  " to be used in the floating window
+  let buf = nvim_create_buf(v:false, v:true)
 
-"   let height = &lines - 3
-"   let width = float2nr(&columns - (&columns * 2 / 10))
-"   let opts = {
-"         \ 'relative': 'cursor',
-"   	\ 'col': 0,
-" 	\ 'row': 1,
-"         \ 'width': width * 2 / 3,
-"         \ 'height': 40,
-"         \ }
+  " 90% of the height
+  let height = float2nr(&lines * 0.9)
+  " 60% of the height
+  let width = float2nr(&columns * 0.6)
+  " horizontal position (centralized)
+  let horizontal = float2nr((&columns - width) / 2)
+  " vertical position (one line down of the top)
+  let vertical = 1
 
-"   let win = nvim_open_win(buf, v:true, opts)
-"   call setwinvar(win, '&winhl', 'Normal:Pmenu')
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height
+        \ }
 
-"   setlocal
-"         \ buftype=nofile
-"         \ nobuflisted
-"         \ bufhidden=hide
-"         \ nonumber
-"         \ norelativenumber
-"         \ signcolumn=no
-" endfunction
+  " open the new window, floating, and enter to it
+  let win = nvim_open_win(buf, v:true, opts)
+  call setwinvar(win, '&winhl', 'NormalFloat:TabLine')
+
+endfunction
 
 "multipage editing
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>

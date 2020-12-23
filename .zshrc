@@ -1,5 +1,4 @@
 export TERMINFO=/home/tzachar/.local/kitty.app/lib/kitty/terminfo
-source ~/.zplug/init.zsh
 
 # ZSH_THEME="agnoster"
 # ZSH_THEME="cypher"
@@ -18,32 +17,34 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-zplug "plugins/git",   from:oh-my-zsh
-zplug "plugins/sudo",   from:oh-my-zsh
-zplug "plugins/ubuntu",   from:oh-my-zsh
-zplug "plugins/history",   from:oh-my-zsh
-zplug "plugins/ssh", from:oh-my-zsh
-zplug "zsh-users/zsh-autosuggestions"
-zplug "marlonrichert/zsh-autocomplete"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-history-substring-search", defer:3
-zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
+source ~/antigen.zsh
+antigen use oh-my-zsh
 
-# Then, source plugins and add commands to $PATH
-zplug load --verbose
+antigen bundle git
+antigen bundle sudo
+antigen bundle ubuntu
+antigen bundle history
+antigen bundle ssh
+antigen bundle ssh-agent
+antigen bundle tmux
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle Aloxaf/fzf-tab
 
+antigen theme denysdovhan/spaceship-prompt
 
+# these are last
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search
+
+antigen apply
+
+# zstyle ':fzf-tab:complete:*' fzf-bindings 'tab:accept'
+
+DISABLE_AUTO_TITLE="true"
 ZSH_TMUX_FIXTERM="false"
 ZSH_TMUX_FIXTERM_WITH_256COLOR='tmux-256colors'
-
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=100000
@@ -60,7 +61,6 @@ zstyle :omz:plugins:ssh-agent identities id_rsa google_compute_engine
 # ignore double slashes in file completion
 zstyle :completion:\* squeeze-slashes true
 
-zstyle ':autocomplete:tab:*' widget-style menu-select
 
 # use emacs keys
 bindkey -e
@@ -192,3 +192,4 @@ eval "$(pyenv init -)"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export NUMEXPR_MAX_THREADS=4
+enable-fzf-tab
