@@ -446,28 +446,17 @@ function! FloatingFZF()
   " creates a scratch, unlisted, new, empty, unnamed buffer
   " to be used in the floating window
   let buf = nvim_create_buf(v:false, v:true)
-
-  " 90% of the height
-  let height = float2nr(&lines * 0.9)
-  " 60% of the height
-  let width = float2nr(&columns * 0.6)
-  " horizontal position (centralized)
-  let horizontal = float2nr((&columns - width) / 2)
-  " vertical position (one line down of the top)
-  let vertical = 1
+  call setbufvar(buf, '&signcolumn', 'no')
 
   let opts = {
-        \ 'relative': 'editor',
-        \ 'row': vertical,
-        \ 'col': horizontal,
-        \ 'width': width,
-        \ 'height': height
+        \ 'relative': 'cursor',
+  	\ 'col': 0,
+	\ 'row': 1,
+        \ 'width': 120,
+        \ 'height': 20,
         \ }
 
-  " open the new window, floating, and enter to it
-  let win = nvim_open_win(buf, v:true, opts)
-  call setwinvar(win, '&winhl', 'NormalFloat:TabLine')
-
+  call nvim_open_win(buf, v:true, opts)
 endfunction
 
 "multipage editing
