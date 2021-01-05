@@ -35,7 +35,9 @@ let g:plug_threads=8
 
 call plug#begin('~/.vim/plugged')
 " color scheme
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
+" Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'glepnir/zephyr-nvim', {'branch': 'main'}
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -575,7 +577,9 @@ let g:onedark_color_overrides = {
 \ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0" },
 \ "white": { "gui": "wheat", "cterm": "145", "cterm16": "7" },
 \}
-colorscheme onedark
+let g:nvcode_termcolors=256
+" colorscheme onedark
+colorscheme zephyr
 " colorscheme highlite
 highlight Normal guibg=black guifg=wheat
 "for highlight text

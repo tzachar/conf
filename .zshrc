@@ -61,6 +61,11 @@ zstyle :omz:plugins:ssh-agent identities id_rsa google_compute_engine
 # ignore double slashes in file completion
 zstyle :completion:\* squeeze-slashes true
 
+# set autosuggest color
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=245,underline,bold"
+# bind ctrl + space to execute current auto suggestion
+bindkey '^ ' autosuggest-execute
+
 
 # use emacs keys
 bindkey -e
@@ -82,9 +87,6 @@ bindkey -M emacs '^N' history-substring-search-down
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
-
-# bind ctrl + space to execute current auto suggestion
-bindkey '^ ' autosuggest-execute
 
 # want share_history
 setopt share_history
