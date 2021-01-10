@@ -64,7 +64,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 Plug 'sjl/gundo.vim'
 Plug 'mileszs/ack.vim'
-Plug 'Lokaltog/vim-easymotion'
+Plug 'justinmk/vim-sneak'
 " Plug 'scrooloose/nerdcommenter'
 
 " Plug 'machakann/vim-swap'
@@ -290,23 +290,6 @@ augroup ftypePython
 " 	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
 " 	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
 " 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
-augroup end
-
-augroup lspFiles
-	autocmd!
-	autocmd FileType python,html,json nnoremap <silent> <c-]>    <cmd>lua vim.lsp.buf.declaration()<CR>
-	autocmd FileType python,html,json nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-	autocmd FileType python,html,json nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-	autocmd FileType python,html,json nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-	"autocmd FileType python nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-	autocmd FileType python,html,json nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-	autocmd FileType python,html,json nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-	autocmd FileType python,html,json nnoremap <silent> gj    <cmd>lua vim.lsp.buf.code_action()<CR>
-	autocmd FileType python,html,json nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-
-	let g:diagnostic_enable_virtual_text = 1
-	let g:diagnostic_insert_delay = 1
-
 augroup end
 
 augroup ftypeOptions
@@ -715,17 +698,64 @@ augroup end
 
 lua << EOF
 
-local on_attach_vim = function(client)
-  -- require'completion'.on_attach(client)
+local lspconfig = require'lspconfig'
+local nvim_lsp = require('lspconfig')
+
+local on_attach = function(client)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  end
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    require('lspconfig').util.nvim_multiline_command [[
+      :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd!
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
+  end
 end
 
-local lspconfig = require'lspconfig'
-require'lspconfig'.jedi_language_server.setup{on_attach=on_attach_vim}
-require'lspconfig'.jsonls.setup{on_attach=on_attach_vim}
-require'lspconfig'.vimls.setup{on_attach=on_attach_vim}
+-- Use a loop to conveniently both setup defined servers
+-- and map buffer local keybindings when the language server attaches
+local servers = { "jedi_language_server", "jsonls", "vimls", "bashls", "html", "sqlls"}
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup { on_attach = on_attach }
+end
+
 
 lspconfig.bashls.setup{
-	on_attach = on_attach_vim;
 	settings = {
 		bashls = {
 			    filetypes = { "sh", "zsh" };
@@ -734,7 +764,6 @@ lspconfig.bashls.setup{
 };
 
 lspconfig.html.setup{
-	on_attach = on_attach_vim;
 	settings = {
 		html = {
 			filetypes = { "html", "css" };
@@ -742,13 +771,7 @@ lspconfig.html.setup{
 	};
 };
 
--- LspInstall sqlls
-require'lspconfig'.sqlls.setup{
-	on_attach = on_attach_vim;
-};
-
 -- treesitter
-
 require'nvim-treesitter.configs'.setup {
 	indent = {
    	 	enable = false
@@ -853,16 +876,6 @@ require'nvim-treesitter.configs'.setup {
 require('lspfuzzy').setup {}
 
 
--- lsp_utils
--- vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
--- vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
--- vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
--- vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
--- vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
--- vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
--- vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
--- vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
-
 vim.g.lsp_utils_location_opts = {
 	height = 24,
 	mode = 'editor',
@@ -928,3 +941,6 @@ inoremap <expr> , CleverKey(',')
 
 " git fugitive commands
 command -nargs=* Glg Git --paginate lg <args>
+
+" vim sneak
+let g:sneak#s_next=1
