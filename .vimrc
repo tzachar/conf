@@ -234,7 +234,7 @@ set modeline
 set clipboard+=unnamed
 
 " this controls saving swap and highlighting var under cursor
-set updatetime=200
+set updatetime=100
 
 " deoplete:
 let g:deoplete#enable_at_startup = 1
@@ -711,9 +711,10 @@ local on_attach = function(client)
   local opts = { noremap=true, silent=true }
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -735,9 +736,9 @@ local on_attach = function(client)
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     require('lspconfig').util.nvim_multiline_command [[
-      :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      " :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      " :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      " :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
       augroup lsp_document_highlight
         autocmd!
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -944,3 +945,6 @@ command -nargs=* Glg Git --paginate lg <args>
 
 " vim sneak
 let g:sneak#s_next=1
+
+" semshi
+let g:semshi#mark_selected_nodes=0
