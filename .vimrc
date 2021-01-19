@@ -940,6 +940,13 @@ inoremap <expr> ] CleverKey(']')
 inoremap <expr> , CleverKey(',')
 
 
+function! s:tsreload()
+	write
+	edit
+	TSBufEnable
+endfunction
+command TSReload s:tsreload
+
 " git fugitive commands
 command -nargs=* Glg Git --paginate lg <args>
 

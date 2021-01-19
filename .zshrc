@@ -63,9 +63,6 @@ zstyle :completion:\* squeeze-slashes true
 
 # set autosuggest color
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=245,underline,bold"
-# bind ctrl + space to execute current auto suggestion
-bindkey '^ ' autosuggest-execute
-
 
 # use emacs keys
 bindkey -e
@@ -195,3 +192,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export NUMEXPR_MAX_THREADS=4
 enable-fzf-tab
+
+# bind ctrl + space to execute current auto suggestion
+bindkey '^ ' autosuggest-execute
+
