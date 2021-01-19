@@ -940,12 +940,12 @@ inoremap <expr> ] CleverKey(']')
 inoremap <expr> , CleverKey(',')
 
 
-function! s:tsreload()
+function! Tsreload()
 	write
 	edit
-	TSBufEnable
+	TSBufEnable highlight
 endfunction
-command TSReload s:tsreload
+command TSReload :call Tsreload()
 
 " git fugitive commands
 command -nargs=* Glg Git --paginate lg <args>
