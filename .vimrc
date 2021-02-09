@@ -32,6 +32,12 @@ let mapleader=","
 
 let g:plug_threads=8
 
+" auto install vim-plug and plugs
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin('~/.vim/plugged')
 " color scheme
@@ -42,14 +48,15 @@ Plug 'glepnir/zephyr-nvim', {'branch': 'main'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-" Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'deoplete-plugins/deoplete-zsh'
-Plug 'Shougo/deoplete-lsp'
-Plug 'Shougo/neco-vim'
-Plug 'fszymanski/deoplete-emoji'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+" Plug 'deoplete-plugins/deoplete-zsh'
+" Plug 'Shougo/deoplete-lsp'
+" Plug 'Shougo/neco-vim'
+" Plug 'fszymanski/deoplete-emoji'
 
+Plug 'hrsh7th/nvim-compe'
+Plug 'tzachar/compe-tabnine', { 'do': './install.sh' } 
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
@@ -72,8 +79,8 @@ Plug 'justinmk/vim-sneak'
 " ctrlp related stuff
 " Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'tacahiroy/ctrlp-funky'
-" Plug 'fisadev/vim-ctrlp-cmdpalette' 
-" Plug 'sgur/ctrlp-extensions.vim' 
+" Plug 'fisadev/vim-ctrlp-cmdpalette'
+" Plug 'sgur/ctrlp-extensions.vim'
 " Plug 'nixprime/cpsm', {'do': './install.sh'}
 
 "fzf
@@ -90,8 +97,8 @@ Plug 'tpope/vim-repeat'
 "Plug 'arecarn/crunch'
 Plug 'jamessan/vim-gnupg'
 Plug 'lervag/vimtex'
-Plug 'vim-scripts/headerguard' 
-Plug 'DeonPoncini/includefixer' 
+Plug 'vim-scripts/headerguard'
+Plug 'DeonPoncini/includefixer'
 "disabled for now, need clickable.vim which i do not like..
 "Plug 'Rykka/riv.vim'
 Plug 'sjl/splice.vim'
@@ -119,7 +126,7 @@ Plug 'tpope/vim-surround'
 Plug 'rking/ag.vim'
 " Plug 'chrisbra/csv.vim'
 " candycode
-" Plug 'https://gist.github.com/MrElendig/1289610', 
+" Plug 'https://gist.github.com/MrElendig/1289610',
 " 	\ { 'as': 'candycode', 'do': 'mkdir -p plugin; cp -f *.vim plugin/' }
 
 " Plug 'junegunn/vim-slash'
@@ -146,8 +153,8 @@ Plug 'alvan/vim-closetag'
 Plug 'farmergreg/vim-lastplace'
 
 " colorschemes
-Plug 'flazz/vim-colorschemes'
-Plug 'felixhummel/setcolors.vim'
+" Plug 'flazz/vim-colorschemes'
+" Plug 'felixhummel/setcolors.vim'
 
 " show changes in vcs
 Plug 'mhinz/vim-signify'
@@ -183,7 +190,8 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'tommcdo/vim-lion'
 
 "strip whitespace on save
-Plug 'axelf4/vim-strip-trailing-whitespace'
+" Plug 'axelf4/vim-strip-trailing-whitespace'
+Plug 'ntpeters/vim-better-whitespace'
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
@@ -201,13 +209,19 @@ Plug 'tpope/vim-fugitive'
 " iron, repr integration
 Plug 'hkupty/iron.nvim'
 
+" update language servers
+Plug 'alexaandru/nvim-lspupdate'
+
+" auto add delimiters
+Plug 'cohama/lexima.vim'
+
 call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
 set showcmd		" Show (partial) command in status line.
 set mouse=
 set showmatch		" Show matching brackets.
-set ruler		" Show the line and column numbers of the cursor 
+set ruler		" Show the line and column numbers of the cursor
 set ignorecase		" Do case insensitive matching
 set incsearch		" Incremental search
 set autowrite		" Automatically save before commands like :next and :make
@@ -237,8 +251,8 @@ set clipboard+=unnamed
 set updatetime=100
 
 " deoplete:
-let g:deoplete#enable_at_startup = 1
-let g:LanguageClient_hasSnippetsSupport = 0
+" let g:deoplete#enable_at_startup = 1
+" let g:LanguageClient_hasSnippetsSupport = 0
 " function! s:check_back_space() abort
 "   let col = col('.') - 1
 "   return !col || getline('.')[col - 1]  =~ '\s'
@@ -248,8 +262,19 @@ let g:LanguageClient_hasSnippetsSupport = 0
 "       \ <SID>check_back_space() ? "\<TAB>" :
 "       \ deoplete#manual_complete()
 
-call deoplete#custom#option('auto_complete_delay', 100)
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" call deoplete#custom#option('auto_complete_delay', 100)
+" inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" completion-nvim
+" autocmd BufEnter * lua require'completion'.on_attach()
+" " Use <Tab> and <S-Tab> to navigate through popup menu
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" let g:completion_trigger_keyword_length = 1
+" let g:completion_trigger_on_delete = 1
+" let g:completion_timer_cycle = 200
+" let g:completion_enable_auto_signature = 0
+
 
 " set tex flavor:
 let g:tex_flavor = 'latex'
@@ -259,16 +284,16 @@ set tags=./tags,tags,/usr/local/boost/tags,/home/tzachar/.vim/tags/stl_tags
 
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
-" set filetypes 
+" set filetypes
 filetype on
 " filetype plugin indent on
 
-syntax on		" Default to no syntax highlightning 
+syntax on		" Default to no syntax highlightning
 
 
 augroup filetype
   au! BufRead,BufNewFile *.proto setfiletype proto
-  au! BufRead,BufNewFile *.pp setfiletype puppet 
+  au! BufRead,BufNewFile *.pp setfiletype puppet
 augroup end
 
 " fun! TrimWhitespace()
@@ -294,11 +319,11 @@ augroup end
 
 augroup ftypeOptions
 	autocmd!
-	autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8 
+	autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8
 	autocmd BufEnter *.cpp,*.hpp :setlocal formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ CPP\ --no-backup\ 2>/dev/null
 	autocmd BufEnter *.c,*.h :setlocal formatprg=uncrustify\ -c\ ~/.config/uncrustify.cfg\ -l\ C\ --no-backup\ 2>/dev/null
 	autocmd BufEnter *.cu setlocal syntax=cpp
-	autocmd BufEnter *.cpp,*.hpp :set matchpairs+=<:> 
+	autocmd BufEnter *.cpp,*.hpp :set matchpairs+=<:>
 
 	autocmd BufEnter *.java ab <buffer> sop System.out.println
 	autocmd BufEnter *.java setlocal formatoptions=tcqr cindent showmatch noexpandtab tabstop=8
@@ -351,7 +376,7 @@ augroup END
 
 noremap mm :make -j4 <cr>
 
-"noremap <C-k> :tabnew 
+"noremap <C-k> :tabnew
 "noremap <C-h> :tabprev <cr>
 "noremap <C-j> :tabclose <cr>
 "noremap <C-l> :tabnext <cr>
@@ -375,11 +400,11 @@ hi SpellLocal term=reverse ctermfg=black ctermbg=darkgreen guifg=#ffffff guibg=#
 noremap <C-F11> :wa<cr>:!gen_ctags<cr>:cs reset<cr>
 noremap cc :wa<cr>:!gen_ctags<cr>:cs reset<cr>
 
-augroup popups
-	au!
-	autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-	autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-augroup end
+" augroup popups
+" 	au!
+" 	autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+" 	autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" augroup end
 
 nnoremap <C-N> :cn<CR>
 nnoremap <C-@><C-N> :cN<CR>
@@ -389,6 +414,7 @@ nnoremap <C-@><C-N> :cN<CR>
 let g:switch_mapping = "-"
 
 " airline
+let g:airline#extensions#nvimlsp#enabled = 0
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'angr'
 
@@ -551,7 +577,7 @@ function! PerlFormat(str)
   let out = system('perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"', a:str)
   return out
 endfunction
-call TextTransform#MakeMappings('', '<Leader>fp', 'PerlFormat') 
+call TextTransform#MakeMappings('', '<Leader>fp', 'PerlFormat')
 
 " set background=dark
 " colorscheme gruvbox
@@ -586,10 +612,10 @@ augroup project_vault
 	" autocmd BufRead */vault/db/*.sql SetupDbext()
 
 	function! DBextPostResult(db_type, buf_nr)
-		if a:db_type == 'SQLITE' && line('$') >= 2 
+		if a:db_type == 'SQLITE' && line('$') >= 2
 			execute ':silent 2,$! showtable -d\| -t -title=1'
 		endif
-	endfunction                               
+	endfunction
 augroup end
 
 augroup replacegJ
@@ -623,33 +649,6 @@ if !exists('g:ycm_semantic_triggers')
 endif
 
 
-" augroup completeopts
-" 	autocmd BufEnter * lua require'completion'.on_attach()
-" 	set completeopt=menuone,noinsert,noselect
-" 	set shortmess+=c
-
-" 	" make enter select completion
-" 	inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" 	let g:completion_chain_complete_list = {
-" 	    \ 'default': [
-" 	    \    {'complete_items': ['tabnine', 'lsp', 'ts', 'buffers', 'snippet']},
-" 	    \    {'mode': '<c-n>'}
-" 	    \]
-" 	\}
-" 	" show matches in original order
-" 	let g:completion_matching_strategy_list = []
-
-" 	let g:completion_enable_auto_popup = 1
-" 	let g:completion_tabnine_priority = 1000
-" 	let g:completion_timer_cycle = 80
-" 	let g:completion_enable_auto_signature = 1
-" 	let g:completion_trigger_keyword_length = 2
-" 	let g:completion_tabnine_max_num_results=7
-" 	let g:completion_tabnine_sort_by_details=1
-" 	let g:completion_tabnine_max_lines=1000
-" augroup end
-
-
 set guicursor=
 
 " for vim-surround:
@@ -660,7 +659,7 @@ let g:surround_101 = "\1wrapper:\1(\r)"
 set pastetoggle=
 
 " config for vim-signify
-let g:signify_vcs_list = [ 'git', 'hg' ] 
+let g:signify_vcs_list = [ 'git', 'hg' ]
 
 
 augroup tabularShorts
@@ -740,7 +739,6 @@ local servers = { "jedi_language_server", "jsonls", "vimls", "bashls", "html", "
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
-
 
 lspconfig.bashls.setup{
 	settings = {
@@ -906,24 +904,24 @@ iron.core.set_config{
 
 EOF
 
-function! CleverKey(key)
-	if col('.') <= 0
-		return a:key
-	endif
-	if col('.') > strlen(getline('.'))
-		return a:key
-	endif
-	if nr2char(strgetchar(getline('.'), col('.') - 1)) == a:key
-		return "\<Right>"
-	else
-		return a:key
-	endif
-endfunction
-inoremap <expr> ) CleverKey(")")
-inoremap <expr> ' CleverKey("'")
-inoremap <expr> " CleverKey('"')
-inoremap <expr> ] CleverKey(']')
-inoremap <expr> , CleverKey(',')
+" function! CleverKey(key)
+" 	if col('.') <= 0
+" 		return a:key
+" 	endif
+" 	if col('.') > strlen(getline('.'))
+" 		return a:key
+" 	endif
+" 	if nr2char(strgetchar(getline('.'), col('.') - 1)) == a:key
+" 		return "\<Right>"
+" 	else
+" 		return a:key
+" 	endif
+" endfunction
+" inoremap <expr> ) CleverKey(")")
+" inoremap <expr> ' CleverKey("'")
+" inoremap <expr> " CleverKey('"')
+" inoremap <expr> ] CleverKey(']')
+" inoremap <expr> , CleverKey(',')
 
 
 function! Tsreload()
@@ -941,3 +939,85 @@ let g:sneak#s_next=1
 
 " semshi
 let g:semshi#mark_selected_nodes=0
+
+" compe
+set completeopt=menu,menuone,noselect
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'enable'
+let g:compe.throttle_time = 100
+let g:compe.source_timeout = 400
+let g:compe.incomplete_delay = 500
+let g:compe.allow_prefix_unmatch = v:false
+
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.vsnip = v:false
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.nvim_lua = v:true
+let g:compe.source.spell = v:true
+let g:compe.source.tags = v:true
+let g:compe.source.snippets_nvim = v:false
+let g:compe.source.tabnine = v:true
+
+let g:lexima_no_default_rules = v:true
+call lexima#set_default_rules()
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+lua << EOF
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  -- elseif vim.fn.call("vsnip#available", {1}) == 1 then
+--  return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+ -- elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+ --   return t "<Plug>(vsnip-jump-prev)"
+  else
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+EOF
+
+
+" highlight whitespace
+let g:better_whitespace_ctermcolor='red'
+let g:better_whitespace_guicolor='red'
