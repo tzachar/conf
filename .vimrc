@@ -213,7 +213,7 @@ Plug 'hkupty/iron.nvim'
 Plug 'alexaandru/nvim-lspupdate'
 
 " auto add delimiters
-Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
 
 call plug#end()
 
@@ -941,7 +941,7 @@ let g:sneak#s_next=1
 let g:semshi#mark_selected_nodes=0
 
 " compe
-set completeopt=menu,menuone,noselect
+set completeopt=menuone,noselect
 let g:compe = {}
 let g:compe.enabled = v:true
 let g:compe.autocomplete = v:true
@@ -963,12 +963,16 @@ let g:compe.source.nvim_lua = v:true
 let g:compe.source.spell = v:true
 let g:compe.source.tags = v:true
 let g:compe.source.snippets_nvim = v:false
-let g:compe.source.tabnine = v:true
+let g:compe.source.tabnine = {}
+let g:compe.source.tabnine.max_line = 1000
+let g:compe.source.tabnine.max_num_results = 6
+let g:compe.source.tabnine.priority = 5000
 
-let g:lexima_no_default_rules = v:true
-call lexima#set_default_rules()
+" let g:lexima_no_default_rules = v:true
+" call lexima#set_default_rules()
 inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
+" inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
