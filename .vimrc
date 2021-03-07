@@ -964,6 +964,7 @@ let g:compe.source.nvim_lua = v:true
 let g:compe.source.spell = v:true
 let g:compe.source.tags = v:true
 let g:compe.source.snippets_nvim = v:false
+" let g:compe.source.tabnine = v:true
 let g:compe.source.tabnine = {}
 let g:compe.source.tabnine.max_line = 1000
 let g:compe.source.tabnine.max_num_results = 6
