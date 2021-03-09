@@ -1,1 +1,1 @@
-/home/tzachar/.vimrc
+.vimrc
