@@ -114,10 +114,10 @@ EDITOR="nvim"
 VISUAL=$EDITOR
 PAGER='less -r'
 
-# export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64/ 
+# export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64/
 
 export HOSTNAME=$(hostname)
-export EDITOR VISUAL HOME_CONF HOME_LIB 
+export EDITOR VISUAL HOME_CONF HOME_LIB
 export HOME_BIN PAGER
 #export LC_ALL=C
 export LC_ALL=en_US.UTF-8
@@ -162,8 +162,8 @@ export NODE_PATH="$NODE_PATH:$HOME/npm/lib/node_modules"
 # export COLORTERM=gnome-terminal
 #export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-export CUDA_INC_DIR=/usr/local/cuda/include/                                                                                                       
-export CUDA_HOME=/usr/local/cuda/ 
+export CUDA_INC_DIR=/usr/local/cuda/include/
+export CUDA_HOME=/usr/local/cuda/
 export TF_FORCE_GPU_ALLOW_GROWTH=true
 export TF_CPP_MIN_LOG_LEVEL=3
 
@@ -178,15 +178,15 @@ if type ag &> /dev/null; then
 fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#must be b4 plugins
+# pyenv
+export PYTHON_CONFIGURE_OPTS="--enable-shared --enable-loadable-sqlite-extensions"
+export PYENV_ROOT="$HOME/.pyenv"
 if [ -d ~/.pyenv ] ; then
-	export PYTHON_CONFIGURE_OPTS="--enable-shared --enable-loadable-sqlite-extensions"
-	export PYENV_ROOT="$HOME/.pyenv"
 	export PATH="/home/${USER}/.pyenv/bin:$PATH"
 	export PATH="/home/${USER}/.pyenv/shims:$PATH"
+	eval "$(pyenv init -)"
 fi
 
-eval "$(pyenv init -)"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
