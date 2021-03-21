@@ -40,11 +40,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" color scheme
-" Plug 'joshdick/onedark.vim'
-" Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'glepnir/zephyr-nvim', {'branch': 'main'}
-
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -56,7 +51,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'fszymanski/deoplete-emoji'
 
 Plug 'hrsh7th/nvim-compe'
-Plug 'tzachar/compe-tabnine', { 'do': './install.sh' } 
+Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
@@ -136,6 +131,7 @@ Plug 'rking/ag.vim'
 Plug 'jelera/vim-javascript-syntax'
 
 Plug 'luochen1990/rainbow'
+" Plug 'p00f/nvim-ts-rainbow'
 
 " true color
 " Plug 'MaxSt/FlatColor'
@@ -193,7 +189,7 @@ Plug 'tommcdo/vim-lion'
 " Plug 'axelf4/vim-strip-trailing-whitespace'
 Plug 'ntpeters/vim-better-whitespace'
 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'Iron-E/nvim-highlite'
 
@@ -214,6 +210,14 @@ Plug 'alexaandru/nvim-lspupdate'
 
 " auto add delimiters
 " Plug 'cohama/lexima.vim'
+
+" documentation generator
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
+" color scheme
+" Plug 'joshdick/onedark.vim'
+" Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'glepnir/zephyr-nvim', {'branch': 'main'}
 
 call plug#end()
 
@@ -275,6 +279,7 @@ set updatetime=100
 " let g:completion_timer_cycle = 200
 " let g:completion_enable_auto_signature = 0
 
+let g:rainbow_active = 1
 
 " set tex flavor:
 let g:tex_flavor = 'latex'
@@ -638,8 +643,6 @@ augroup replacegJ
 	nnoremap J :call JoinSpaceless()<CR>
 augroup end
 
-let g:rainbow_active = 1
-
 " tag closing
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
@@ -684,10 +687,6 @@ let g:indent_guides_color_change_percent = 20
 " for vim-slash
 " noremap <plug>(slash-after) zz
 "
-
-
-" disable csv
-let g:polyglot_disabled = ['csv', 'latex']
 
 " syntax ranges:
 augroup syntax_ranges
@@ -736,7 +735,8 @@ end
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = { "jedi_language_server", "jsonls", "vimls", "bashls", "html", "sqlls"}
+-- local servers = { "jedi_language_server", "jsonls", "vimls", "bashls", "html", "sqlls"}
+local servers = { "pyright", "jsonls", "vimls", "bashls", "html", "sqlls"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
@@ -759,12 +759,17 @@ lspconfig.html.setup{
 
 -- treesitter
 require'nvim-treesitter.configs'.setup {
+	-- rainbow = {
+	  --   enable = true
+	-- },
 	indent = {
-   	 	enable = false
-   	 },
+		enable = false
+	},
     highlight = {
       enable = true,                    -- false will disable the whole extension
-      disable = { "rust" },        -- list of language that will be disabled
+      disable = {
+	--      "rust"
+      },        -- list of language that will be disabled
       custom_captures = {               -- mapping of user defined captures to highlight groups
         -- ["foo.bar"] = "Identifier"   -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
       },
@@ -793,11 +798,7 @@ require'nvim-treesitter.configs'.setup {
         }
       },
       navigation = {
-        enable = true,
-        keymaps = {
-          goto_definition = "gnd",      -- mapping to go to definition of symbol under cursor
-          list_definitions = "gnD"      -- mapping to list all definitions in current file
-        }
+        enable = false,
       }
     },
     textobjects = {
@@ -857,6 +858,14 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = "all"
     }
 }
+
+-- the following is required to get rainbow parens working
+require "nvim-treesitter.highlight"
+require"nvim-treesitter.highlight"
+local hlmap = vim.treesitter.highlighter.hl_map
+hlmap.error = nil
+hlmap["punctuation.delimiter"] = "Delimiter"
+hlmap["punctuation.bracket"] = nil
 
 -- lsp fzf integration
 require('lspfuzzy').setup {}
