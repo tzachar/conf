@@ -1032,6 +1032,13 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 EOF
 
+lua << EOF
+function add_ignore_type()
+	vim.fn.setline('.', vim.fn.getline('.') .. ' # type: ignore')
+end
+
+EOF
+autocmd FileType python nnoremap <C-i> :lua add_ignore_type()<cr>
 
 " highlight whitespace
 let g:better_whitespace_ctermcolor='red'
