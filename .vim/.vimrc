@@ -25,8 +25,8 @@ if has('nvim')
 endif
 set noswapfile
 
-set t_8f=^[[38;2;%lu;%lu;%lum
-set t_8b=^[[48;2;%lu;%lu;%lum
+" set t_8f=^[[38;2;%lu;%lu;%lum
+" set t_8b=^[[48;2;%lu;%lu;%lum
 
 let mapleader=","
 
@@ -52,10 +52,13 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'hrsh7th/nvim-compe'
 Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+" Plug 'freehaha/compe-tabnine', { 'do': './install.sh' }
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'p00f/nvim-ts-rainbow'
 
 " Plug 'nvim-lua/completion-nvim'
 " Plug 'aca/completion-tabnine', { 'do': './install.sh' }
@@ -130,8 +133,6 @@ Plug 'rking/ag.vim'
 " Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
 
-Plug 'luochen1990/rainbow'
-" Plug 'p00f/nvim-ts-rainbow'
 
 " true color
 " Plug 'MaxSt/FlatColor'
@@ -219,6 +220,9 @@ Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 " Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'glepnir/zephyr-nvim', {'branch': 'main'}
 
+" properly handle numbers with <C-a>
+Plug 'zegervdv/nrpattern.nvim'
+
 call plug#end()
 
 set nocompatible	" Use Vim defaults (much better!)
@@ -279,7 +283,7 @@ set updatetime=100
 " let g:completion_timer_cycle = 200
 " let g:completion_enable_auto_signature = 0
 
-let g:rainbow_active = 1
+" let g:rainbow_active = 1
 
 " set tex flavor:
 let g:tex_flavor = 'latex'
@@ -526,12 +530,6 @@ nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 "source up .vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
 
-inoremap jj <esc>
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-
 "for glowshi
 let g:glowshi_ft_no_default_key_mappings=1
 map <unique>f <plug>(glowshi-ft-f)
@@ -588,15 +586,16 @@ call TextTransform#MakeMappings('', '<Leader>fp', 'PerlFormat')
 " set background=dark
 " colorscheme gruvbox
 " colorscheme candycode
-let g:onedark_color_overrides = {
-\ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0" },
-\ "white": { "gui": "wheat", "cterm": "145", "cterm16": "7" },
-\}
+" let g:onedark_color_overrides = {
+" \ "black": {"gui": "#000000", "cterm": "0", "cterm16": "0" },
+" \ "white": { "gui": "wheat", "cterm": "145", "cterm16": "7" },
+" \}
 let g:nvcode_termcolors=256
 " colorscheme onedark
 colorscheme zephyr
 " colorscheme highlite
 highlight Normal guibg=black guifg=wheat
+highlight MatchParen guibg=lightblue
 "for highlight text
 highlight Search guibg=red
 
@@ -697,8 +696,7 @@ augroup end
 
 lua << EOF
 
-local lspconfig = require'lspconfig'
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
 
 local on_attach = function(client)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -738,7 +736,7 @@ end
 -- local servers = { "jedi_language_server", "jsonls", "vimls", "bashls", "html", "sqlls"}
 local servers = { "pyright", "jsonls", "vimls", "bashls", "html", "sqlls"}
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+  lspconfig[lsp].setup { on_attach = on_attach }
 end
 
 lspconfig.bashls.setup{
@@ -759,9 +757,12 @@ lspconfig.html.setup{
 
 -- treesitter
 require'nvim-treesitter.configs'.setup {
-	-- rainbow = {
-	  --   enable = true
-	-- },
+	context_commentstring = {
+	   enable = true
+	},
+	rainbow = {
+	  enable = true
+	},
 	indent = {
 		enable = false
 	},
@@ -859,14 +860,6 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 
--- the following is required to get rainbow parens working
-require "nvim-treesitter.highlight"
-require"nvim-treesitter.highlight"
-local hlmap = vim.treesitter.highlighter.hl_map
-hlmap.error = nil
-hlmap["punctuation.delimiter"] = "Delimiter"
-hlmap["punctuation.bracket"] = nil
-
 -- lsp fzf integration
 require('lspfuzzy').setup {}
 
@@ -961,7 +954,7 @@ let g:compe.preselect = 'enable'
 let g:compe.throttle_time = 100
 let g:compe.source_timeout = 400
 let g:compe.incomplete_delay = 500
-let g:compe.allow_prefix_unmatch = v:false
+let g:compe.allow_prefix_unmatch = v:true
 
 let g:compe.source = {}
 let g:compe.source.path = v:true
@@ -972,12 +965,16 @@ let g:compe.source.nvim_lsp = v:true
 let g:compe.source.nvim_lua = v:true
 let g:compe.source.spell = v:true
 let g:compe.source.tags = v:true
+let g:compe.source.emoji = v:true
 let g:compe.source.snippets_nvim = v:false
 " let g:compe.source.tabnine = v:true
 let g:compe.source.tabnine = {}
 let g:compe.source.tabnine.max_line = 1000
 let g:compe.source.tabnine.max_num_results = 6
 let g:compe.source.tabnine.priority = 5000
+let g:compe.replace = v:true
+
+
 
 " let g:lexima_no_default_rules = v:true
 " call lexima#set_default_rules()
@@ -987,6 +984,15 @@ inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+" inoremap <silent><expr> jj 	  pumvisible() ? compe#confirm('<CR>') : '<esc>'
+
+
+inoremap jj <esc>
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
 lua << EOF
 
 local t = function(str)
@@ -1034,11 +1040,23 @@ EOF
 
 lua << EOF
 function add_ignore_type()
-	vim.fn.setline('.', vim.fn.getline('.') .. ' # type: ignore')
+	local line = vim.fn.getline('.')
+	local ignore_decl = ' # type: ignore'
+	local pos = vim.api.nvim_win_get_cursor(0)
+	local row = pos[1] - 1
+	if string.sub(line, -15, -1) == ignore_decl then
+		vim.api.nvim_buf_set_text(0, row, #line - #ignore_decl, row, #line, {})
+	else
+		vim.api.nvim_buf_set_text(0, row, #line, row, #line, {ignore_decl})
+	end
 end
 
 EOF
 autocmd FileType python nnoremap <C-i> :lua add_ignore_type()<cr>
+
+lua << EOF
+require('nrpattern').setup()
+EOF
 
 " highlight whitespace
 let g:better_whitespace_ctermcolor='red'
