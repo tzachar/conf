@@ -564,6 +564,7 @@ let g:compe.source.tabnine.max_line = 1000
 let g:compe.source.tabnine.max_num_results = 10
 let g:compe.source.tabnine.priority = 5000
 let g:compe.source.tabnine.show_prediction_strength = v:true
+let g:compe.source.tabnine.sort = v:true
 
 
 
@@ -588,7 +589,8 @@ vnoremap : ;
 
 
 " this is in misc.lua
-autocmd FileType python nnoremap <C-i> :lua add_ignore_type()<cr>
+autocmd FileType python nnoremap <silent> <C-i> :.luado add_ignore_type(line, linenr - 1)<cr>
+autocmd FileType python vnoremap <silent> <C-i> :luado add_ignore_type(line, linenr - 1)<cr>
 
 " highlight whitespace
 let g:better_whitespace_ctermcolor='red'

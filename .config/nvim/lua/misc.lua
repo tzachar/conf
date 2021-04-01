@@ -11,6 +11,11 @@ iron.core.set_config{
 }
 
 
+function dump(...)
+    local objects = vim.tbl_map(vim.inspect, {...})
+    print(unpack(objects))
+end
+
 -- this is for compe
 
 local t = function(str)
@@ -56,19 +61,37 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 
-function add_ignore_type()
-	local line = vim.fn.getline('.')
+-- should be called with luado
+function add_ignore_type(line, linenr)
 	local ignore_decl = ' # type: ignore'
-	local pos = vim.api.nvim_win_get_cursor(0)
-	local row = pos[1] - 1
-	if string.sub(line, -15, -1) == ignore_decl then
-		vim.api.nvim_buf_set_text(0, row, #line - #ignore_decl, row, #line, {})
-	else
-		vim.api.nvim_buf_set_text(0, row, #line, row, #line, {ignore_decl})
+	if #(vim.lsp.diagnostic.get_line_diagnostics(0, linenr)) > 0 then
+		vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, {ignore_decl})
+	elseif string.sub(line, -15, -1) == ignore_decl then
+		vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
 	end
 end
 
-function dump(...)
-    local objects = vim.tbl_map(vim.inspect, {...})
-    print(unpack(objects))
-end
+-- function add_ignore_type(linestart, lineend)
+-- 	if linestart ~= nil then
+-- 		dump('no line')
+-- 	end
+-- 	local ignore_decl = ' # type: ignore'
+-- 	local row = nil
+-- 	if linestart == nil then
+-- 		local pos = vim.api.nvim_win_get_cursor(0)
+-- 		linestart = pos[1] - 1
+-- 		lineend = linestart + 1
+-- 	end
+-- 	local lines = vim.api.nvim_buf_get_lines(0, linestart, lineend, false)
+-- 	for i, line in ipairs(lines) do
+-- 		local lineno = linestart + i - 1
+-- 		if #(vim.lsp.diagnostic.get_line_diagnostics(0, lineno)) > 0 then
+-- 			vim.api.nvim_buf_set_text(0, lineno, #line, lineno, #line, {ignore_decl})
+-- 		elseif string.sub(line, -15, -1) == ignore_decl then
+-- 			vim.api.nvim_buf_set_text(0, lineno, #line - #ignore_decl, lineno, #line, {})
+-- 		-- else
+-- 		-- 	vim.api.nvim_buf_set_text(0, lineno, #line, lineno, #line, {ignore_decl})
+-- 		end
+-- 	end
+-- end
+
