@@ -44,6 +44,8 @@ lua require('lsp_conf')
 lua require('ts_conf')
 lua require('misc')
 
+autocmd BufWritePost plugins.lua PackerCompile
+
 set nocompatible	" Use Vim defaults (much better!)
 set showcmd		" Show (partial) command in status line.
 set mouse=
@@ -564,23 +566,26 @@ let g:compe.source.spell = v:true
 let g:compe.source.tags = v:true
 let g:compe.source.emoji = v:true
 let g:compe.source.snippets_nvim = v:false
+" let g:compe.source.tabnine = v:false
 " let g:compe.source.tabnine = v:true
 let g:compe.source.tabnine = {}
 let g:compe.source.tabnine.max_line = 1000
-let g:compe.source.tabnine.max_num_results = 6
+let g:compe.source.tabnine.max_num_results = 10
 let g:compe.source.tabnine.priority = 5000
-let g:compe.replace = v:true
+let g:compe.source.tabnine.show_prediction_strength = v:true
 
 
 
 " let g:lexima_no_default_rules = v:true
 " call lexima#set_default_rules()
 inoremap <silent><expr> <C-Space> compe#complete()
-" inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+" inoremap <silent><expr> <CR>      compe#confirm('<CR>', { 'replace': v:true })
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+" inoremap <silent><expr> <C-l>     compe#confirm({ 'replace': v:true })
+
 " inoremap <silent><expr> jj 	  pumvisible() ? compe#confirm('<CR>') : '<esc>'
 
 

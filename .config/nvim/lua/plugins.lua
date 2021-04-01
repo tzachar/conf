@@ -16,9 +16,7 @@ return require("packer").startup(
 		use {'ojroques/nvim-lspfuzzy', branch = 'main'}
 
 		use "hrsh7th/nvim-compe" --completion
-		-- use {'tzachar/compe-tabnine', run='./install.sh' }
-		use {'freehaha/compe-tabnine', run='./install.sh' }  --but wont work either
-		use {'glepnir/zephyr-nvim', branch = 'main'}
+		use {'tzachar/compe-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-compe'}
 
 		use 'vim-airline/vim-airline'
 		use 'vim-airline/vim-airline-themes'
@@ -27,6 +25,9 @@ return require("packer").startup(
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter'}
 		use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter'}
+
+		-- zephyr-nvim requires nvim-treesitter
+		use {'glepnir/zephyr-nvim', branch = 'main', requires = 'nvim-treesitter/nvim-treesitter'}
 
 		use 'zegervdv/nrpattern.nvim'
 
@@ -138,7 +139,9 @@ return require("packer").startup(
 
 		use 'ntpeters/vim-better-whitespace'
 
-		use {'numirias/semshi', run = ':UpdateRemotePlugins', ft = 'python'}
+		-- if semshi does not work, you need to open a python file and
+		-- then :UpdateRemotePlugins
+		-- use {'numirias/semshi', run = ':UpdateRemotePlugins', ft = 'python'}
 
 		-- git
 		use 'tpope/vim-fugitive'
