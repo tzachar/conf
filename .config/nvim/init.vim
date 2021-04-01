@@ -30,15 +30,6 @@ set noswapfile
 
 let mapleader=","
 
-let g:plug_threads=8
-
-" auto install vim-plug and plugs
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 lua require('plugins')
 lua require('lsp_conf')
 lua require('ts_conf')
