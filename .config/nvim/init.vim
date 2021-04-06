@@ -30,10 +30,10 @@ set noswapfile
 
 let mapleader=","
 
+lua require('misc')
 lua require('plugins')
 lua require('lsp_conf')
 lua require('ts_conf')
-lua require('misc')
 
 autocmd BufWritePost plugins.lua PackerCompile
 
@@ -53,7 +53,7 @@ set smartindent
 set autoindent		" always set autoindenting on
 set nobackup		" do not keep a backup file
 set nonumber
-set textwidth=80	" set text width to 70 chars.
+set textwidth=80	" set text width to 80 chars.
 set tabpagemax=30       "how many tabs to allow at max
 set hlsearch
 set viminfo='50,\"100,:50,%,n~/.viminfo
@@ -64,38 +64,14 @@ set spelllang=en
 set hidden
 set modeline
 
+" do not show more than 20 completion items
+set pumheight=20
+
 " default yank to clip
 set clipboard+=unnamed
 
 " this controls saving swap and highlighting var under cursor
 set updatetime=100
-
-" deoplete:
-" let g:deoplete#enable_at_startup = 1
-" let g:LanguageClient_hasSnippetsSupport = 0
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ deoplete#manual_complete()
-
-" call deoplete#custom#option('auto_complete_delay', 100)
-" inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" completion-nvim
-" autocmd BufEnter * lua require'completion'.on_attach()
-" " Use <Tab> and <S-Tab> to navigate through popup menu
-" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" let g:completion_trigger_keyword_length = 1
-" let g:completion_trigger_on_delete = 1
-" let g:completion_timer_cycle = 200
-" let g:completion_enable_auto_signature = 0
-
-" let g:rainbow_active = 1
 
 " set tex flavor:
 let g:tex_flavor = 'latex'
@@ -131,6 +107,7 @@ augroup ftypePython
 	" autocmd BufWritePre *.py :call TrimWhitespace()
 	autocmd FileType python set textwidth=120	" set text width to 70 chars.
 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
+	autocmd FileType python command! -range=% YAPF <line1>,<line2>call yapf#YAPF()
 	" autocmd FileType python nnoremap <silent> =     :.YAPF <CR>
 	" autocmd FileType python vnoremap <silent> =     :YAPF <CR>
 
@@ -159,7 +136,7 @@ augroup ftypeOptions
 	"js
 	autocmd BufEnter *.html syntax sync fromstart
 	autocmd BufEnter *.html set ft=html.javascript
-	autocmd FileType html set textwidth=10000
+	autocmd BufEnter *.html set textwidth=10000
 
 	"latex :
 	autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
@@ -493,8 +470,8 @@ let g:indent_guides_color_change_percent = 20
 " syntax ranges:
 augroup syntax_ranges
 	autocmd!
-	autocmd FileType html,js,javascript call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
-	autocmd FileType html,js,javascript call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
+	autocmd FileType html.javascript,html,js,javascript call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
+	autocmd FileType html.javascript,html,js,javascript call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
 augroup end
 
 " function! CleverKey(key)

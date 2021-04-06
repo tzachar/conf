@@ -36,7 +36,7 @@ end
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
 -- local servers = { "jedi_language_server", "jsonls", "vimls", "bashls", "html", "sqlls"}
-local servers = { "pyright", "jsonls", "vimls", "bashls", "html", "sqlls", "sumneko_lua"}
+local servers = { "pyright", "jsonls", "vimls", "bashls", "html"}
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup { on_attach = on_attach }
 end
@@ -53,6 +53,20 @@ lspconfig.html.setup{
 	settings = {
 		html = {
 			filetypes = { "html", "css" };
+		};
+	};
+};
+
+lspconfig.pyright.setup{
+	settings = {
+		python = {
+			analysis = {
+				autoSearchPaths = true;
+				useLibraryCodeForTypes = true;
+				stubPath = vim.env.HOME .. '/.local/share/python-type-stubs';
+				typeshedPaths = vim.env.HOME .. '/.local/share/typeshed';
+				autoImportCompletions = true;
+			};
 		};
 	};
 };

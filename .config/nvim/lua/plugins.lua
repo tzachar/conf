@@ -5,6 +5,13 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.api.nvim_command 'packadd packer.nvim'
 end
 
+
+function limit_by_line_count(max_lines)
+	max_lines = max_lines or 1000
+	local lines = vim.api.nvim_buf_line_count(0)
+	return lines <= max_lines
+end
+
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 return require("packer").startup(
 	function(use)
@@ -24,7 +31,8 @@ return require("packer").startup(
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter'}
-		use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter'}
+		-- use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter'}
+		-- use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter', cond = limit_by_line_count, opt = true}
 
 		-- zephyr-nvim requires nvim-treesitter
 		use {'glepnir/zephyr-nvim', branch = 'main', requires = 'nvim-treesitter/nvim-treesitter'}

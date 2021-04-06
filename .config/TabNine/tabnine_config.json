@@ -1,0 +1,42 @@
+{
+  "version": "2.0.2",
+  "hide_promotional_message": false,
+  "beta_enabled": "No",
+  "ignore_all_lsp": true,
+  "creation_time": "2019-08-20T06:21:57.391673379Z",
+  "guuid": "4e643b70d4e80efd892afa62fd0e140cf4c8fdb9f9f56bb9d5b5ee2005acbcec",
+  "semantic_status": {
+    "python": "Enabled"
+  },
+  "enable_telemetry": false,
+  "user_understands_that_enabling_tabnine_cloud_sends_code_to_tabnine_servers": true,
+  "hosted_deep_completions_enabled": "Disabled",
+  "tabnine_cloud_host": null,
+  "tabnine_cloud_certificate_domain": null,
+  "tabnine_cloud_port": null,
+  "cloud_whitelist": [],
+  "num_of_suggestions": 5,
+  "multiline_suggestions": true,
+  "api_key": "ogtpnwedtygdwzeniguqmtletzttuk",
+  "api_base_url": null,
+  "binary_update_interval_seconds": null,
+  "local_enabled": "Yes",
+  "disable_local_when_using_battery": false,
+  "hide_deep_information_message": false,
+  "enable_power_saving_mode": false,
+  "rate_limit_interval_seconds": null,
+  "rate_limit_amount": null,
+  "generation": 0,
+  "local_model_size": null,
+  "model_hash_override": null,
+  "local_indexing": null,
+  "heartbeat_interval_seconds": null,
+  "last_service_level": null,
+  "override_beams": null,
+  "override_context_length": null,
+  "onboarding": {
+    "model_type": null,
+    "skipped_login": false,
+    "completed": false
+  }
+}
