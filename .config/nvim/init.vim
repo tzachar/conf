@@ -572,3 +572,6 @@ autocmd FileType python vnoremap <silent> <C-i> :luado add_ignore_type(line, lin
 " highlight whitespace
 let g:better_whitespace_ctermcolor='red'
 let g:better_whitespace_guicolor='red'
+
+" doge
+let g:doge_comment_jump_modes = ['n', 's']

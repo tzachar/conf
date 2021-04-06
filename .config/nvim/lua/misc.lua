@@ -70,28 +70,3 @@ function add_ignore_type(line, linenr)
 		vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
 	end
 end
-
--- function add_ignore_type(linestart, lineend)
--- 	if linestart ~= nil then
--- 		dump('no line')
--- 	end
--- 	local ignore_decl = ' # type: ignore'
--- 	local row = nil
--- 	if linestart == nil then
--- 		local pos = vim.api.nvim_win_get_cursor(0)
--- 		linestart = pos[1] - 1
--- 		lineend = linestart + 1
--- 	end
--- 	local lines = vim.api.nvim_buf_get_lines(0, linestart, lineend, false)
--- 	for i, line in ipairs(lines) do
--- 		local lineno = linestart + i - 1
--- 		if #(vim.lsp.diagnostic.get_line_diagnostics(0, lineno)) > 0 then
--- 			vim.api.nvim_buf_set_text(0, lineno, #line, lineno, #line, {ignore_decl})
--- 		elseif string.sub(line, -15, -1) == ignore_decl then
--- 			vim.api.nvim_buf_set_text(0, lineno, #line - #ignore_decl, lineno, #line, {})
--- 		-- else
--- 		-- 	vim.api.nvim_buf_set_text(0, lineno, #line, lineno, #line, {ignore_decl})
--- 		end
--- 	end
--- end
-

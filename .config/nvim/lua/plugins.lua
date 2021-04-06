@@ -6,10 +6,24 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 
+inspected_buffers = {}
 function limit_by_line_count(max_lines)
+	local fname = vim.fn.expand("%:p")
+	local cache = inspected_buffers[fname]
+	if cache ~= nil then
+		return cache
+	end
+
 	max_lines = max_lines or 1000
-	local lines = vim.api.nvim_buf_line_count(0)
-	return lines <= max_lines
+	local lines = 0
+	for _ in io.lines(fname) do
+		lines = lines + 1
+		if lines > max_lines then
+			break
+		end
+	end
+	inspected_buffers[fname] = (lines <= max_lines)
+	return inspected_buffers[fname]
 end
 
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
@@ -31,8 +45,16 @@ return require("packer").startup(
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter'}
+		-- use { 'nvim-treesitter/nvim-tree-docs', requires = {
+		-- 		'nvim-treesitter/nvim-treesitter',
+		-- 		'Olical/aniseed',
+		-- 		'bakpakin/fennel.vim'
+		-- 	},
+		-- }
 		-- use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter'}
-		-- use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter', cond = limit_by_line_count, opt = true}
+		use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter', cond = limit_by_line_count, opt = true}
+		-- documentation
+		use { 'kkoomen/vim-doge', run = ':call doge#install()'}
 
 		-- zephyr-nvim requires nvim-treesitter
 		use {'glepnir/zephyr-nvim', branch = 'main', requires = 'nvim-treesitter/nvim-treesitter'}
