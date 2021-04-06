@@ -10,7 +10,12 @@
 	editor = nvim
 [diff]
 	tool = meld
+	colorMoved = zebra
 [pager]
 	status = true
 [submodule]
 	recurse = true
+[pull]
+	rebase = true
+[fetch]
+	prune = true
