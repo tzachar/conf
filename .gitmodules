@@ -1,9 +1,9 @@
 [submodule "fzf"]
 	path = fzf
 	url = https://github.com/junegunn/fzf.git
-[submodule "/home/tzachar/.local/share/typeshed"]
-	path = /home/tzachar/.local/share/typeshed
-	url = git@github.com:python/typeshed.git
-[submodule "/home/tzachar/.local/share/python-type-stubs"]
-	path = /home/tzachar/.local/share/python-type-stubs
-	url = git@github.com:microsoft/python-type-stubs.git
+[submodule ".local/share/typeshed"]
+	path = .local/share/typeshed
+	url = https://github.com/python/typeshed
+[submodule ".local/share/python-type-stubs"]
+	path = .local/share/python-type-stubs
+	url = https://github.com/microsoft/python-type-stubs
