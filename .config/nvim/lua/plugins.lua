@@ -9,6 +9,9 @@ end
 inspected_buffers = {}
 function limit_by_line_count(max_lines)
 	local fname = vim.fn.expand("%:p")
+	if fname ~= nil then
+		return true
+	end
 	local cache = inspected_buffers[fname]
 	if cache ~= nil then
 		return cache

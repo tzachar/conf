@@ -1,5 +1,5 @@
 {
-  "version": "2.0.2",
+  "version": "3.3.0",
   "hide_promotional_message": false,
   "beta_enabled": "No",
   "ignore_all_lsp": true,
@@ -15,7 +15,7 @@
   "tabnine_cloud_certificate_domain": null,
   "tabnine_cloud_port": null,
   "cloud_whitelist": [],
-  "num_of_suggestions": 5,
+  "num_of_suggestions": 7,
   "multiline_suggestions": true,
   "api_key": "ogtpnwedtygdwzeniguqmtletzttuk",
   "api_base_url": null,

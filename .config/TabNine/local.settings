@@ -16,7 +16,7 @@
     },
     "run": {
       "is_enabled": true,
-      "multiline_suggestions": false,
+      "multiline_suggestions": true,
       "omit_prefix_suggestions": false
     },
     "tune": {

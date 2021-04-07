@@ -63,6 +63,7 @@ set so=5 "cursor cant get closer than 5 lines to end of screen
 set spelllang=en
 set hidden
 set modeline
+set tagstack
 
 " do not show more than 20 completion items
 set pumheight=20
@@ -506,9 +507,6 @@ command -nargs=* Glg Git --paginate lg <args>
 
 " vim sneak
 let g:sneak#s_next=1
-
-" semshi
-let g:semshi#mark_selected_nodes=0
 
 " compe
 set completeopt=menuone,noselect
