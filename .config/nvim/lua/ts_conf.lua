@@ -3,7 +3,8 @@ require'nvim-treesitter.configs'.setup {
 		enable = true
 	},
 	rainbow = {
-		enable = true
+		enable = true,
+		max_file_lines = 800,
 	},
 	indent = {
 		enable = false
@@ -15,51 +16,51 @@ require'nvim-treesitter.configs'.setup {
 		},        -- list of language that will be disabled
 		custom_captures = {               -- mapping of user defined captures to highlight groups
 		-- ["foo.bar"] = "Identifier"   -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
+		},
 	},
-},
-incremental_selection = {
-	enable = true,
-	disable = { "lua" },
-	keymaps = {                       -- mappings for incremental selection (visual mappings)
-	init_selection = "gnn",         -- maps in normal mode to init the node/scope selection
-	node_incremental = "grn",       -- increment to the upper named parent
-	scope_incremental = "grc",      -- increment to the upper scope (as defined in locals.scm)
-	node_decremental = "grm",       -- decrement to the previous node
-}
-    },
-    refactor = {
-	    highlight_definitions = {
-		    enable = true
-	    },
-	    highlight_current_scope = {
-		    enable = false
-	    },
-	    smart_rename = {
-		    enable = true,
-		    keymaps = {
-			    smart_rename = "gt"          -- mapping to rename reference under cursor
-		    }
-	    },
-	    navigation = {
-		    enable = false,
-	    }
-    },
-    textobjects = {
-	    lsp_interop = {
-		    enable = true,
-		    peek_definition_code = {
-			    ["df"] = "@function.outer",
-			    ["dF"] = "@class.outer",
-		    },
-	    },
-	    select = {
-		    enable = true,
-		    keymaps = {
-			    -- You can use the capture groups defined in textobjects.scm
-			    ["af"] = "@function.outer",
-			    ["if"] = "@function.inner",
-			    ["ac"] = "@class.outer",
-			    ["ic"] = "@class.inner",
+	incremental_selection = {
+		enable = true,
+		disable = { "lua" },
+		keymaps = {                       -- mappings for incremental selection (visual mappings)
+			init_selection = "gnn",         -- maps in normal mode to init the node/scope selection
+			node_incremental = "grn",       -- increment to the upper named parent
+			scope_incremental = "grc",      -- increment to the upper scope (as defined in locals.scm)
+			node_decremental = "grm",       -- decrement to the previous node
+		}
+	},
+	refactor = {
+		highlight_definitions = {
+			enable = true
+		},
+		highlight_current_scope = {
+			enable = false
+		},
+		smart_rename = {
+			enable = true,
+			keymaps = {
+				smart_rename = "gt"          -- mapping to rename reference under cursor
+			}
+		},
+		navigation = {
+			enable = false,
+		}
+	},
+	textobjects = {
+		lsp_interop = {
+			enable = true,
+			peek_definition_code = {
+				["df"] = "@function.outer",
+				["dF"] = "@class.outer",
+			},
+		},
+		select = {
+			enable = true,
+			keymaps = {
+				-- You can use the capture groups defined in textobjects.scm
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
 
 			    -- Or you can define your own textobjects like this
 			    ["iF"] = {

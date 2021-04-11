@@ -54,8 +54,8 @@ return require("packer").startup(
 		-- 		'bakpakin/fennel.vim'
 		-- 	},
 		-- }
-		-- use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter'}
-		use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter', cond = limit_by_line_count, opt = true}
+		use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter'}
+		-- use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter', cond = limit_by_line_count, opt = true}
 		-- documentation
 		use { 'kkoomen/vim-doge', run = ':call doge#install()'}
 

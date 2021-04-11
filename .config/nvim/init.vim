@@ -241,11 +241,11 @@ command! -bang Colors
 "
 "   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
 "   :Ag! - Start fzf in fullscreen and display the preview window above
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
+" command! -bang -nargs=* Ag
+"   \ call fzf#vim#ag(<q-args>,
+"   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+"   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+"   \                 <bang>0)
 " Default fzf layout
 " - down / up / left / right
 " let g:fzf_layout = { 'down': '~40%' }
@@ -520,6 +520,7 @@ let g:compe.throttle_time = 100
 let g:compe.source_timeout = 400
 let g:compe.incomplete_delay = 500
 let g:compe.allow_prefix_unmatch = v:true
+let g:compe.sort = v:false
 
 let g:compe.source = {}
 let g:compe.source.path = v:true
@@ -539,7 +540,7 @@ let g:compe.source.tabnine.max_line = 1000
 let g:compe.source.tabnine.max_num_results = 10
 let g:compe.source.tabnine.priority = 5000
 let g:compe.source.tabnine.show_prediction_strength = v:true
-let g:compe.source.tabnine.sort = v:true
+let g:compe.source.tabnine.sort = v:false
 
 
 
