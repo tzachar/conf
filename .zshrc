@@ -152,7 +152,7 @@ export MANPATH=${MANPATH}:${HOME}/man
 if [[ -f ~/.config/hosts/${HOSTNAME}.conf ]]; then . ~/.config/hosts/${HOSTNAME}.conf; fi
 
 #control the terminal:
-stty -ixon
+# stty -ixon
 
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
