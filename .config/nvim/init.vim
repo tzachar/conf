@@ -373,6 +373,16 @@ function! PerlFormat(str)
 endfunction
 call TextTransform#MakeMappings('', '<Leader>fp', 'PerlFormat')
 
+function! ReverseJ(text)
+	let l:text = substitute(a:text, "(", "(\n", "")
+	let l:text = substitute(l:text, ",", ",\n", "g")
+	let l:text = substitute(l:text, ")", "\n)", "g")
+	return l:text
+endfunction
+
+call TextTransform#MakeMappings('', 'gj', 'ReverseJ')
+
+
 let g:nvcode_termcolors=256
 colorscheme zephyr
 highlight Normal guibg=black guifg=wheat
