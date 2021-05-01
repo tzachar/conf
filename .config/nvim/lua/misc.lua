@@ -70,3 +70,21 @@ function add_ignore_type(line, linenr)
 		vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
 	end
 end
+local kconfig = require('kommentary.config')
+
+function yank_and_comment(...)
+	local args = {...}
+	-- local configuration = config.get_config(0)
+	local start_line = args[1]
+	local end_line = args[2]
+	vim.api.nvim_command(tostring(start_line) .. ',' .. tostring(end_line) .. 'y')
+	require('kommentary.kommentary').toggle_comment_range(...)
+end
+
+-- kconfig.add_keymap("n", "kommentary_yank_and_comment", kconfig.context.line, {}, "yank_and_comment")
+kconfig.add_keymap("v", "kommentary_yank_and_comment_visual", kconfig.context.visual, {}, "yank_and_comment")
+kconfig.add_keymap("n", "kommentary_yank_and_comment_motion", kconfig.context.init, {expr = true}, "yank_and_comment")
+-- Set up a regular keymapping to the new <Plug> mapping
+-- vim.api.nvim_set_keymap('n', 'gcyy', '<Plug>kommentary_yank_and_comment', { silent = true })
+vim.api.nvim_set_keymap('n', 'gcy', '<Plug>kommentary_yank_and_comment_motion', { silent = true })
+vim.api.nvim_set_keymap('v', 'gcy', '<Plug>kommentary_yank_and_comment_visual', { silent = true })

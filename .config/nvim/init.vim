@@ -321,13 +321,13 @@ nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 nnoremap <leader>vs :source $MYVIMRC<cr>
 
 "for glowshi
-let g:glowshi_ft_no_default_key_mappings=1
-map <unique>f <plug>(glowshi-ft-f)
-map <unique>F <plug>(glowshi-ft-F)
-map <unique>t <plug>(glowshi-ft-t)
-map <unique>T <plug>(glowshi-ft-T)
-"map : <plug>(glowshi-ft-repeat)
-"map <unique>, <plug>(glowshi-ft-opposite)
+" let g:glowshi_ft_no_default_key_mappings=1
+" map <unique>f <plug>(glowshi-ft-f)
+" map <unique>F <plug>(glowshi-ft-F)
+" map <unique>t <plug>(glowshi-ft-t)
+" map <unique>T <plug>(glowshi-ft-T)
+" "map : <plug>(glowshi-ft-repeat)
+" "map <unique>, <plug>(glowshi-ft-opposite)
 
 "add a ; at the end of the line
 function! ToggleEndChar(charToMatch)
@@ -551,6 +551,7 @@ let g:compe.source.tabnine.max_num_results = 10
 let g:compe.source.tabnine.priority = 5000
 let g:compe.source.tabnine.show_prediction_strength = v:true
 let g:compe.source.tabnine.sort = v:false
+let g:compe.source.tabnine.ignore_pattern = '[%s%c]'
 
 
 
@@ -558,10 +559,9 @@ let g:compe.source.tabnine.sort = v:false
 " call lexima#set_default_rules()
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-" inoremap <silent><expr> <CR>      compe#confirm('<CR>', { 'replace': v:true })
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+" inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+" inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 " inoremap <silent><expr> <C-l>     compe#confirm({ 'replace': v:true })
 
 " inoremap <silent><expr> jj 	  pumvisible() ? compe#confirm('<CR>') : '<esc>'

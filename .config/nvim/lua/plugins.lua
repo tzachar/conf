@@ -48,6 +48,7 @@ return require("packer").startup(
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter'}
+		use { 'nvim-treesitter/playground', requires = 'nvim-treesitter/nvim-treesitter'}
 		-- use { 'nvim-treesitter/nvim-tree-docs', requires = {
 		-- 		'nvim-treesitter/nvim-treesitter',
 		-- 		'Olical/aniseed',
@@ -119,7 +120,8 @@ return require("packer").startup(
 		use { 'sjl/splice.vim', cmd = 'SpliceInit' }
 		use 'wellle/targets.vim'
 
-		use 'jeetsukumaran/vim-commentary'
+		-- use 'jeetsukumaran/vim-commentary'
+		use 'b3nj5m1n/kommentary'
 
 		use 'vim-scripts/ingo-library'
 		use 'vim-scripts/TextTransform'
