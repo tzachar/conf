@@ -81,11 +81,11 @@ function yank_and_comment(...)
 	require('kommentary.kommentary').toggle_comment_range(...)
 end
 
-kconfig.add_keymap("n", "kommentary_yank_and_comment", kconfig.context.line, {}, "yank_and_comment")
+kconfig.add_keymap("n", "kommentary_yank_and_comment_line", kconfig.context.line, {}, "yank_and_comment")
 kconfig.add_keymap("v", "kommentary_yank_and_comment_visual", kconfig.context.visual, {}, "yank_and_comment")
 kconfig.add_keymap("n", "kommentary_yank_and_comment_motion", kconfig.context.init, {expr = true}, "yank_and_comment")
 -- Set up a regular keymapping to the new <Plug> mapping
-vim.api.nvim_set_keymap('n', 'gcyy', '<Plug>kommentary_yank_and_comment', { silent = true })
+vim.api.nvim_set_keymap('n', 'gcyy', '<Plug>kommentary_yank_and_comment_line', { silent = true })
 vim.api.nvim_set_keymap('n', 'gcy', '<Plug>kommentary_yank_and_comment_motion', { silent = true })
 vim.api.nvim_set_keymap('v', 'gcy', '<Plug>kommentary_yank_and_comment_visual', { silent = true })
 

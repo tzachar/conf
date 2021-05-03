@@ -30,7 +30,6 @@ local on_attach = function(client, bufnr)
 	elseif client.resolved_capabilities.document_range_formatting then
 		buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 	end
-
 	-- Set autocommands conditional on server_capabilities
 	-- if client.resolved_capabilities.document_highlight then
 	-- 	vim.api.nvim_exec([[
