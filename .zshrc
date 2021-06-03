@@ -194,6 +194,7 @@ if [ -d ~/.pyenv ] ; then
 	export PATH="/home/${USER}/.pyenv/bin:$PATH"
 	export PATH="/home/${USER}/.pyenv/shims:$PATH"
 	eval "$(pyenv init -)"
+	eval "$(pyenv init --path)"
 fi
 
 

@@ -1,13 +1,14 @@
 require'nvim-treesitter.configs'.setup {
 	context_commentstring = {
-		enable = true
+		enable = true,
 	},
 	rainbow = {
 		enable = true,
 		max_file_lines = 800,
 	},
 	indent = {
-		enable = false
+		enable = true,
+		disable = {'py', 'python'},
 	},
 	highlight = {
 		enable = true,                    -- false will disable the whole extension

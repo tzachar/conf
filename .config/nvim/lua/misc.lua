@@ -70,15 +70,28 @@ function add_ignore_type(line, linenr)
 		vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
 	end
 end
+
+
+-- zephyr override
+vim.g.zephyr = {
+	override = {
+		TSVariable = {fg='wheat'};
+	};
+}
+
 local kconfig = require('kommentary.config')
+local kommentary = require('kommentary.kommentary')
 
 function yank_and_comment(...)
 	local args = {...}
-	-- local configuration = config.get_config(0)
 	local start_line = args[1]
 	local end_line = args[2]
+	if start_line > end_line then
+		start_line, end_line = end_line, start_line
+	end
 	vim.api.nvim_command(tostring(start_line) .. ',' .. tostring(end_line) .. 'y')
-	require('kommentary.kommentary').toggle_comment_range(...)
+	kommentary.toggle_comment_range(start_line, end_line, kconfig.get_modes().normal)
+	vim.fn.feedkeys('<ctrl-c>')
 end
 
 kconfig.add_keymap("n", "kommentary_yank_and_comment_line", kconfig.context.line, {}, "yank_and_comment")
@@ -89,6 +102,11 @@ vim.api.nvim_set_keymap('n', 'gcyy', '<Plug>kommentary_yank_and_comment_line', {
 vim.api.nvim_set_keymap('n', 'gcy', '<Plug>kommentary_yank_and_comment_motion', { silent = true })
 vim.api.nvim_set_keymap('v', 'gcy', '<Plug>kommentary_yank_and_comment_visual', { silent = true })
 
+vim.api.nvim_set_keymap("n", "gcc", "<Plug>kommentary_line_default", {})
+vim.api.nvim_set_keymap("n", "gc", "<Plug>kommentary_motion_default", {})
+vim.api.nvim_set_keymap("v", "gc", "<Plug>kommentary_visual_default<esc>", {})
+
+
 require'nvim-treesitter.configs'.setup {
 	rainbow = {
 		enable = true;
@@ -96,4 +114,5 @@ require'nvim-treesitter.configs'.setup {
 		max_file_lines = 800;
 	}
 }
+
 

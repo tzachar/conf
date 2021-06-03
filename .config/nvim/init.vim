@@ -30,10 +30,8 @@ set noswapfile
 
 let mapleader=","
 
-lua require('misc')
-lua require('plugins')
-lua require('lsp_conf')
-lua require('ts_conf')
+" do this b4 loading plugins
+let g:kommentary_create_default_mappings=0
 
 autocmd BufWritePost plugins.lua PackerCompile
 
@@ -84,7 +82,7 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " set filetypes
 filetype on
-" filetype plugin indent on
+filetype plugin indent on
 
 syntax on		" Default to no syntax highlightning
 
@@ -135,9 +133,11 @@ augroup ftypeOptions
 	" autocmd BufEnter *.tex nnoremap <buffer> =  <ESC>:call FormatLatexPar(0)<CR>
 
 	"js
+	autocmd BufEnter *.html set ft=html
 	autocmd BufEnter *.html syntax sync fromstart
-	autocmd BufEnter *.html set ft=html.javascript
+	" autocmd BufEnter *.html set ft=html.javascript
 	autocmd BufEnter *.html set textwidth=10000
+	au FileType html setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
 
 	"latex :
 	autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
@@ -584,3 +584,9 @@ let g:better_whitespace_guicolor='red'
 
 " doge
 let g:doge_comment_jump_modes = ['n', 's']
+
+lua require('misc')
+lua require('plugins')
+lua require('lsp_conf')
+lua require('ts_conf')
+
