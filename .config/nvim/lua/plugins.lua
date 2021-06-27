@@ -1,3 +1,4 @@
+local vim = vim
 local install_path = vim.fn.stdpath('data') ..  '/site/pack/packer/start/packer.nvim'
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -36,7 +37,7 @@ return require("packer").startup(
 
 		use "neovim/nvim-lspconfig"
 		-- update language servers
-		use 'alexaandru/nvim-lspupdate'
+		use {'kabouzeid/nvim-lspinstall'}
 		use {'ojroques/nvim-lspfuzzy', branch = 'main'}
 
 		use "hrsh7th/nvim-compe" --completion
@@ -49,6 +50,7 @@ return require("packer").startup(
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/playground', requires = 'nvim-treesitter/nvim-treesitter'}
+		use { 'RRethy/nvim-treesitter-textsubjects', requires = 'nvim-treesitter/nvim-treesitter'}
 		-- use { 'nvim-treesitter/nvim-tree-docs', requires = {
 		-- 		'nvim-treesitter/nvim-treesitter',
 		-- 		'Olical/aniseed',
@@ -73,7 +75,7 @@ return require("packer").startup(
 
 		use 'jeetsukumaran/vim-buffergator'
 
-		use 'justinmk/vim-sneak'
+		use 'ggandor/lightspeed.nvim'
 
 		use { '~/fzf', run = './install --all' }
 		use { 'junegunn/fzf.vim', requires = '~/fzf' }
@@ -184,5 +186,7 @@ return require("packer").startup(
 		-- iron, repr integration
 		use 'hkupty/iron.nvim'
 
+		-- quickfix magic
+		use 'kevinhwang91/nvim-bqf'
 	end
 )

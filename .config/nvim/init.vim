@@ -23,6 +23,7 @@ endif
 if has('nvim')
 	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
+set guifont=Fira\ Code:h14
 set noswapfile
 
 " set t_8f=^[[38;2;%lu;%lu;%lum
@@ -67,7 +68,7 @@ set tagstack
 set pumheight=20
 
 " default yank to clip
-set clipboard+=unnamed
+set clipboard=unnamedplus
 
 " this controls saving swap and highlighting var under cursor
 set updatetime=100
@@ -208,7 +209,6 @@ noremap cc :wa<cr>:!gen_ctags<cr>:cs reset<cr>
 
 nnoremap <C-N> :cn<CR>
 nnoremap <C-@><C-N> :cN<CR>
-
 
 "for Switch:
 let g:switch_mapping = "-"
@@ -514,9 +514,6 @@ command TSReload :call Tsreload()
 
 " git fugitive commands
 command -nargs=* Glg Git --paginate lg <args>
-
-" vim sneak
-let g:sneak#s_next=1
 
 " compe
 set completeopt=menuone,noselect

@@ -102,4 +102,11 @@ require'nvim-treesitter.configs'.setup {
 	    },
 	    ensure_installed = "all"
     },
+    textsubjects = {
+        enable = true,
+        keymaps = {
+            ['<leader>;'] = 'textsubjects-big',
+            ['<leader>"'] = 'textsubjects-smart',
+        }
+    },
 }
