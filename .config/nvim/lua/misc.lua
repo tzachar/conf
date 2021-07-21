@@ -8,7 +8,10 @@ iron.core.set_config{
 		python = "ipython",
 	},
 	memory_management = 'singleton',
+	highlight_last = false,
 }
+vim.api.nvim_set_keymap("n", "<leader>c", "<Plug>(iron-send-motion)", {})
+-- vim.api.nvim_set_keymap("v", "<leader>c", ":lua require('iron').core.visual_send()<cr>", {})
 
 
 function dump(...)
@@ -124,3 +127,18 @@ require'lightspeed'.setup {
 	limit_ft_matches = 5,
 	full_inclusive_prefix_key = '<c-x>',
 }
+
+
+require("which-key").setup {
+	-- your configuration comes here
+	-- or leave it empty to use the default settings
+	-- refer to the configuration section below
+}
+
+-- fzf setup
+require("fzf-lua").setup({
+	-- fzf_layout = 'reverse',
+	files = {
+		cmd = 'fd -t file',
+	},
+})

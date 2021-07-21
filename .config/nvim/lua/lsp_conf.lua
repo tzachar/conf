@@ -49,13 +49,20 @@ local on_attach = function(client, bufnr)
 	-- end
 end
 
+local DebounceRate = 400
 
 lspconfig.vimls.setup{
 	on_attach = on_attach;
+	flags = {
+		debounce_text_changes = DebounceRate;
+	}
 };
 
 lspconfig.lua.setup{
 	on_attach = on_attach;
+	flags = {
+		debounce_text_changes = DebounceRate;
+	}
 };
 
 lspconfig.jsonls.setup{
@@ -65,6 +72,9 @@ lspconfig.jsonls.setup{
 			filetypes = { "json", };
 		};
 	};
+	flags = {
+		debounce_text_changes = DebounceRate;
+	}
 };
 
 lspconfig.bashls.setup{
@@ -74,6 +84,9 @@ lspconfig.bashls.setup{
 			filetypes = { "sh", "zsh" };
 		};
 	};
+	flags = {
+		debounce_text_changes = DebounceRate;
+	}
 };
 
 lspconfig.html.setup{
@@ -83,6 +96,9 @@ lspconfig.html.setup{
 			filetypes = { "html", "css" };
 		};
 	};
+	flags = {
+		debounce_text_changes = DebounceRate;
+	}
 };
 
 lspconfig.pyright.setup{
@@ -98,6 +114,9 @@ lspconfig.pyright.setup{
 			};
 		};
 	};
+	flags = {
+		debounce_text_changes = DebounceRate;
+	}
 };
 
 

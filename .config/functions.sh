@@ -11,12 +11,6 @@ function _calc()
 	return
 }
 
-function pine()
-{
-	/usr/local/bin/pine -p $HOME/.config/pinerc $@
-	return
-}
-
 function _exit()        # function to run upon exit of shell
 {
     echo -e "${RED}Hasta la vista, baby${NC}"
@@ -176,4 +170,11 @@ function update_nvim()
 	\mv nvim.appimage nvim
 	chmod a+rx nvim
 	popd
+}
+
+function to_cmd()
+{
+	fname=$1; shift
+	prefix=$1
+	cat $fname | paste -d, -s | sed "s/^\|,/ $prefix /"g
 }

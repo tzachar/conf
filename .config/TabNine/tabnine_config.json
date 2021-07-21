@@ -15,8 +15,9 @@
   "tabnine_cloud_certificate_domain": null,
   "tabnine_cloud_port": null,
   "cloud_whitelist": [],
-  "num_of_suggestions": 7,
-  "multiline_suggestions": true,
+  "num_of_suggestions": 5,
+  "multiline_suggestions": false,
+  "omit_prefix_suggestions": false,
   "api_key": "ogtpnwedtygdwzeniguqmtletzttuk",
   "api_base_url": null,
   "binary_update_interval_seconds": null,
@@ -31,12 +32,17 @@
   "model_hash_override": null,
   "local_indexing": null,
   "heartbeat_interval_seconds": null,
-  "last_service_level": null,
+  "last_service_level": "Cloud",
   "override_beams": null,
   "override_context_length": null,
   "onboarding": {
     "model_type": null,
     "skipped_login": false,
     "completed": false
-  }
+  },
+  "has_git_repos": null,
+  "gusr": {
+    "dgc": "4e643b70d4e80efd892afa62fd0e140cf4c8fdb9f9f56bb9d5b5ee2005acbcec"
+  },
+  "exclude_file_masks": null
 }

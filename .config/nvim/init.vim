@@ -221,54 +221,36 @@ let g:airline_theme = 'angr'
 "gundo
 nnoremap <F5> :GundoToggle<CR>
 
-" fzf config
-nnoremap <Leader>pb :Buffers<cr>
-nnoremap <Leader>pp :Files<cr>
-nnoremap <Leader>pf :BTags<cr>
-
 " Override Colors command. You can safely do this in your .vimrc as fzf.vim
 " will not override existing commands.
 command! -bang Colors
   \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
 
-" Augmenting Ag command using fzf#vim#with_preview function
-"   * fzf#vim#with_preview([[options], [preview window], [toggle keys...]])
-"     * For syntax-highlighting, Ruby and any of the following tools are required:
-"       - Bat: https://github.com/sharkdp/bat
-"       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
-"       - CodeRay: http://coderay.rubychan.de/
-"       - Rouge: https://github.com/jneen/rouge
-"
-"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
-"   :Ag! - Start fzf in fullscreen and display the preview window above
-" command! -bang -nargs=* Ag
-"   \ call fzf#vim#ag(<q-args>,
-"   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-"   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-"   \                 <bang>0)
-" Default fzf layout
-" - down / up / left / right
-" let g:fzf_layout = { 'down': '~40%' }
+" let $FZF_DEFAULT_OPTS='--layout=reverse'
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-let $FZF_DEFAULT_OPTS='--layout=reverse'
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+" function! FloatingFZF()
+"   " creates a scratch, unlisted, new, empty, unnamed buffer
+"   " to be used in the floating window
+"   let buf = nvim_create_buf(v:false, v:true)
+"   call setbufvar(buf, '&signcolumn', 'no')
 
-function! FloatingFZF()
-  " creates a scratch, unlisted, new, empty, unnamed buffer
-  " to be used in the floating window
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
+"   let opts = {
+"         \ 'relative': 'cursor',
+"   	\ 'col': 0,
+" 	\ 'row': 1,
+"         \ 'width': 120,
+"         \ 'height': 20,
+"         \ }
 
-  let opts = {
-        \ 'relative': 'cursor',
-  	\ 'col': 0,
-	\ 'row': 1,
-        \ 'width': 120,
-        \ 'height': 20,
-        \ }
+"   call nvim_open_win(buf, v:true, opts)
+" endfunction
 
-  call nvim_open_win(buf, v:true, opts)
-endfunction
+" fzf config
+nnoremap <Leader>pb <cmd>lua require('fzf-lua').buffers()<CR>
+nnoremap <Leader>pp <cmd>lua require('fzf-lua').files()<CR>
+nnoremap <Leader>pt <cmd>lua require('fzf-lua').loclist()<CR>
+nnoremap <Leader>pg <cmd>lua require('fzf-lua').grep()<CR>
 
 "multipage editing
 nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
@@ -581,6 +563,17 @@ let g:better_whitespace_guicolor='red'
 
 " doge
 let g:doge_comment_jump_modes = ['n', 's']
+
+"iron
+let g:iron_map_defaults = 0
+let g:iron_map_extended = 0
+
+" nnoremap <leader>c <Plug>(iron-send-motion)
+vnoremap <leader>c :lua require('iron').core.visual_send()<cr>
+
+" highligh on yank
+au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=350, on_visual=true}
+
 
 lua require('misc')
 lua require('plugins')

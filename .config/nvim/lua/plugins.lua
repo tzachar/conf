@@ -78,7 +78,12 @@ return require("packer").startup(
 		use 'ggandor/lightspeed.nvim'
 
 		use { '~/fzf', run = './install --all' }
-		use { 'junegunn/fzf.vim', requires = '~/fzf' }
+		-- use { 'junegunn/fzf.vim', requires = '~/fzf' }
+		use { 'ibhagwan/fzf-lua',
+			requires = {
+				'vijaymarupudi/nvim-fzf',
+			}
+		}
 
 		use {
 			'vim-scripts/ExtractMatches',
@@ -132,9 +137,9 @@ return require("packer").startup(
 		use 'tommcdo/vim-exchange'
 		use { 'vim-scripts/dbext.vim', ft = 'sql' }
 		use 'tpope/vim-surround'
-		use 'rking/ag.vim'
+		-- use 'rking/ag.vim'
 		use { 'jelera/vim-javascript-syntax', ft = {'js', 'javascript', 'html', 'html.javascript'}}
-		use 'machakann/vim-highlightedyank'
+		-- use 'machakann/vim-highlightedyank'
 		use { 'alvan/vim-closetag', ft = { 'html' , 'html.javascript' }}
 		-- show changes in vcs
 		use 'mhinz/vim-signify'
@@ -166,7 +171,9 @@ return require("packer").startup(
 		}
 
 		-- show mappings
-		-- use 'liuchengxu/vim-which-key'
+		use {
+			"folke/which-key.nvim",
+		}
 
 		-- syntax ranges
 		use 'vim-scripts/SyntaxRange'
@@ -188,5 +195,8 @@ return require("packer").startup(
 
 		-- quickfix magic
 		use 'kevinhwang91/nvim-bqf'
+
+		-- change commentstring based on location in file
+		use 'JoosepAlviste/nvim-ts-context-commentstring'
 	end
 )
