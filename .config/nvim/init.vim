@@ -94,12 +94,6 @@ augroup filetype
   au! FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 augroup end
 
-" fun! TrimWhitespace()
-"     let l:save = winsaveview()
-"     keeppatterns %s/\s\+$//e
-"     call winrestview(l:save)
-" endfun
-
 augroup ftypePython
 	autocmd!
 	au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
@@ -214,37 +208,12 @@ nnoremap <C-@><C-N> :cN<CR>
 let g:switch_mapping = "-"
 
 " airline
-let g:airline#extensions#nvimlsp#enabled = 0
+let g:airline#extensions#nvimlsp#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'angr'
 
 "gundo
 nnoremap <F5> :GundoToggle<CR>
-
-" Override Colors command. You can safely do this in your .vimrc as fzf.vim
-" will not override existing commands.
-command! -bang Colors
-  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
-
-" let $FZF_DEFAULT_OPTS='--layout=reverse'
-" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-" function! FloatingFZF()
-"   " creates a scratch, unlisted, new, empty, unnamed buffer
-"   " to be used in the floating window
-"   let buf = nvim_create_buf(v:false, v:true)
-"   call setbufvar(buf, '&signcolumn', 'no')
-
-"   let opts = {
-"         \ 'relative': 'cursor',
-"   	\ 'col': 0,
-" 	\ 'row': 1,
-"         \ 'width': 120,
-"         \ 'height': 20,
-"         \ }
-
-"   call nvim_open_win(buf, v:true, opts)
-" endfunction
 
 " fzf config
 nnoremap <Leader>pb <cmd>lua require('fzf-lua').buffers()<CR>
@@ -282,34 +251,10 @@ hi Folded term=standout ctermfg=LightBlue ctermbg=DarkGrey
 "localvimrc
 let g:localvimrc_sandbox=0
 
-" This rewires n and N to do the highlighing...
-"nnoremap <silent> n   n:call HLNext(0.2)<cr>
-"nnoremap <silent> N   N:call HLNext(0.2)<cr>
-"highlight MyGroup ctermbg=white ctermfg=red
-"function! HLNext (blinktime)
-	"let [bufnum, lnum, col, off] = getpos('.')
-	"let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-	"let target_pat = '\c\%#'.@/
-	"let ring = matchadd('MyGroup', target_pat, 101)
-	"redraw
-	"exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-	"call matchdelete(ring)
-	"redraw
-"endfunction
-
 "open up .vimrc
 nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 "source up .vimrc
 nnoremap <leader>vs :source $MYVIMRC<cr>
-
-"for glowshi
-" let g:glowshi_ft_no_default_key_mappings=1
-" map <unique>f <plug>(glowshi-ft-f)
-" map <unique>F <plug>(glowshi-ft-F)
-" map <unique>t <plug>(glowshi-ft-t)
-" map <unique>T <plug>(glowshi-ft-T)
-" "map : <plug>(glowshi-ft-repeat)
-" "map <unique>, <plug>(glowshi-ft-opposite)
 
 "add a ; at the end of the line
 function! ToggleEndChar(charToMatch)
@@ -580,3 +525,59 @@ lua require('plugins')
 lua require('lsp_conf')
 lua require('ts_conf')
 
+
+" wilder setup
+call wilder#enable_cmdline_enter()
+set wildcharm=<Tab>
+cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
+cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+call wilder#set_option('modes', ['/', '?', ':'])
+
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#python_file_finder_pipeline({
+      \       'file_command': {_, arg -> stridx(arg, '.') != -1 ? ['fd', '-tf', '-H'] : ['fd', '-tf']},
+      \       'dir_command': ['fd', '-td'],
+      \       'filters': ['cpsm_filter'],
+      \       'cache_timestamp': {-> 1},
+      \     }),
+      \     wilder#cmdline_pipeline({
+      \       'fuzzy': 1,
+      \       'fuzzy_filter': wilder#python_cpsm_filter(),
+      \       'set_pcre2_pattern': 0,
+      \     }),
+      \     wilder#python_search_pipeline({
+      \       'pattern': wilder#python_fuzzy_pattern({
+      \         'start_at_boundary': 0,
+      \       }),
+      \     }),
+      \   ),
+      \ ])
+
+highlight WilderMatch guifg=wheat gui=bold gui=underline
+let s:highlighters = [
+      \ wilder#pcre2_highlighter(),
+      \ wilder#lua_fzy_highlighter(),
+      \ ]
+
+call wilder#set_option('renderer', wilder#renderer_mux({
+      \ ':': wilder#popupmenu_renderer({
+      \   'highlighter': s:highlighters,
+      \   'left': [
+      \     wilder#popupmenu_devicons(),
+      \   ],
+      \   'right': [
+      \     ' ',
+      \     wilder#popupmenu_scrollbar(),
+      \   ],
+      \   'highlights': {
+      \      'accent': 'WilderMatch',
+      \   },
+      \ }),
+      \ '/': wilder#wildmenu_renderer({
+      \   'highlighter': s:highlighters,
+      \   'highlights': {
+      \      'accent': 'WilderMatch',
+      \   },
+      \ }),
+      \ }))

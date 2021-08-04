@@ -1,7 +1,6 @@
 local vim = vim
-require'lspinstall'.setup()
-
 local lspconfig = require('lspconfig')
+require'lspinstall'.setup()
 
 local on_attach = function(client, bufnr)
 	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -51,73 +50,83 @@ end
 
 local DebounceRate = 400
 
-lspconfig.vimls.setup{
-	on_attach = on_attach;
-	flags = {
-		debounce_text_changes = DebounceRate;
-	}
-};
-
-lspconfig.lua.setup{
-	on_attach = on_attach;
-	flags = {
-		debounce_text_changes = DebounceRate;
-	}
-};
-
-lspconfig.jsonls.setup{
-	on_attach = on_attach;
-	settings = {
-		jsonls = {
-			filetypes = { "json", };
-		};
+local function setup_servers()
+	lspconfig.vimls.setup{
+		on_attach = on_attach;
+		flags = {
+			debounce_text_changes = DebounceRate;
+		}
 	};
-	flags = {
-		debounce_text_changes = DebounceRate;
-	}
-};
 
-lspconfig.bashls.setup{
-	on_attach = on_attach;
-	settings = {
-		bashls = {
-			filetypes = { "sh", "zsh" };
-		};
+	lspconfig.lua.setup{
+		on_attach = on_attach;
+		flags = {
+			debounce_text_changes = DebounceRate;
+		}
 	};
-	flags = {
-		debounce_text_changes = DebounceRate;
-	}
-};
 
-lspconfig.html.setup{
-	on_attach = on_attach;
-	settings = {
-		html = {
-			filetypes = { "html", "css" };
-		};
-	};
-	flags = {
-		debounce_text_changes = DebounceRate;
-	}
-};
-
-lspconfig.pyright.setup{
-	on_attach = on_attach;
-	settings = {
-		python = {
-			analysis = {
-				autoSearchPaths = true;
-				useLibraryCodeForTypes = true;
-				stubPath = vim.env.HOME .. '/.local/share/python-type-stubs';
-				typeshedPaths = vim.env.HOME .. '/.local/share/typeshed';
-				autoImportCompletions = true;
+	lspconfig.json.setup{
+		on_attach = on_attach;
+		settings = {
+			jsonls = {
+				filetypes = { "json", };
 			};
 		};
+		flags = {
+			debounce_text_changes = DebounceRate;
+		}
 	};
-	flags = {
-		debounce_text_changes = DebounceRate;
-	}
-};
+
+	lspconfig.bash.setup{
+		on_attach = on_attach;
+		settings = {
+			bashls = {
+				filetypes = { "sh", "zsh" };
+			};
+		};
+		flags = {
+			debounce_text_changes = DebounceRate;
+		}
+	};
+
+	lspconfig.html.setup{
+		on_attach = on_attach;
+		settings = {
+			html = {
+				filetypes = { "html", "css" };
+			};
+		};
+		flags = {
+			debounce_text_changes = DebounceRate;
+		}
+	};
+
+	lspconfig.python.setup{
+		on_attach = on_attach;
+		settings = {
+			python = {
+				analysis = {
+					autoSearchPaths = true;
+					useLibraryCodeForTypes = true;
+					stubPath = vim.env.HOME .. '/.local/share/python-type-stubs';
+					typeshedPaths = vim.env.HOME .. '/.local/share/typeshed';
+					autoImportCompletions = true;
+				};
+			};
+		};
+		flags = {
+			debounce_text_changes = DebounceRate;
+		}
+	};
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+	setup_servers() -- reload installed servers
+	vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
 
 
 -- lsp fzf integration

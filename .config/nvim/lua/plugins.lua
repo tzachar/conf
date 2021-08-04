@@ -198,5 +198,16 @@ return require("packer").startup(
 
 		-- change commentstring based on location in file
 		use 'JoosepAlviste/nvim-ts-context-commentstring'
+
+		-- wildmenu
+		use {
+			'gelguy/wilder.nvim',
+			requires = {
+				{'nixprime/cpsm', run='./install.sh'},
+				'romgrk/fzy-lua-native',
+				'kyazdani42/nvim-web-devicons',
+			}
+		}
+
 	end
 )

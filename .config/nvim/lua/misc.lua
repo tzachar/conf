@@ -142,3 +142,8 @@ require("fzf-lua").setup({
 		cmd = 'fd -t file',
 	},
 })
+
+-- load devicons
+require'nvim-web-devicons'.setup {
+	default = true;
+}
