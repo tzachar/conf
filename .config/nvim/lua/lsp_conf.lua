@@ -52,7 +52,7 @@ local DebounceRate = 400
 
 local function setup_servers()
 	local configs = {}
-	configs['vimls'] = {
+	configs['vim'] = {
 			on_attach = on_attach;
 			flags = {
 				debounce_text_changes = DebounceRate;
@@ -62,7 +62,12 @@ local function setup_servers()
 			on_attach = on_attach;
 			flags = {
 				debounce_text_changes = DebounceRate;
-			}
+			},
+			settings = {
+				lua = {
+					filetypes = { "lua", };
+				};
+			};
 		}
 	configs['json'] = {
 			on_attach = on_attach;
@@ -114,11 +119,17 @@ local function setup_servers()
 				debounce_text_changes = DebounceRate;
 			}
 		}
-	for server, config in ipairs(configs) do
+	local nvim_lsp = require('lspconfig')
+	for server, config in pairs(configs) do
 		if nvim_lsp[server] ~= nil then
-			require'lspinstall'.install_server(server)
+			nvim_lsp[server].setup{
+				on_attach = config.on_attach;
+				settings = config.settings;
+				flags = config.flags;
+			}
+		else
+			dump(server .. ' not installed')
 		end
-		nvim_lsp[server].setup(table.unpack(config))
 	end
 end
 
