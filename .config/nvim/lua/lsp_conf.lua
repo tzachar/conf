@@ -51,73 +51,75 @@ end
 local DebounceRate = 400
 
 local function setup_servers()
-	lspconfig.vimls.setup{
-		on_attach = on_attach;
-		flags = {
-			debounce_text_changes = DebounceRate;
+	local configs = {}
+	configs['vimls'] = {
+			on_attach = on_attach;
+			flags = {
+				debounce_text_changes = DebounceRate;
+			}
 		}
-	};
-
-	lspconfig.lua.setup{
-		on_attach = on_attach;
-		flags = {
-			debounce_text_changes = DebounceRate;
+	configs['lua'] = {
+			on_attach = on_attach;
+			flags = {
+				debounce_text_changes = DebounceRate;
+			}
 		}
-	};
-
-	lspconfig.json.setup{
-		on_attach = on_attach;
-		settings = {
-			jsonls = {
-				filetypes = { "json", };
-			};
-		};
-		flags = {
-			debounce_text_changes = DebounceRate;
-		}
-	};
-
-	lspconfig.bash.setup{
-		on_attach = on_attach;
-		settings = {
-			bashls = {
-				filetypes = { "sh", "zsh" };
-			};
-		};
-		flags = {
-			debounce_text_changes = DebounceRate;
-		}
-	};
-
-	lspconfig.html.setup{
-		on_attach = on_attach;
-		settings = {
-			html = {
-				filetypes = { "html", "css" };
-			};
-		};
-		flags = {
-			debounce_text_changes = DebounceRate;
-		}
-	};
-
-	lspconfig.python.setup{
-		on_attach = on_attach;
-		settings = {
-			python = {
-				analysis = {
-					autoSearchPaths = true;
-					useLibraryCodeForTypes = true;
-					stubPath = vim.env.HOME .. '/.local/share/python-type-stubs';
-					typeshedPaths = vim.env.HOME .. '/.local/share/typeshed';
-					autoImportCompletions = true;
+	configs['json'] = {
+			on_attach = on_attach;
+			settings = {
+				jsonls = {
+					filetypes = { "json", };
 				};
 			};
-		};
-		flags = {
-			debounce_text_changes = DebounceRate;
+			flags = {
+				debounce_text_changes = DebounceRate;
+			}
 		}
-	};
+	configs['bash'] = {
+			on_attach = on_attach;
+			settings = {
+				bashls = {
+					filetypes = { "sh", "zsh" };
+				};
+			};
+			flags = {
+				debounce_text_changes = DebounceRate;
+			}
+		}
+	configs['html'] = {
+			on_attach = on_attach;
+			settings = {
+				html = {
+					filetypes = { "html", "css" };
+				};
+			};
+			flags = {
+				debounce_text_changes = DebounceRate;
+			}
+		}
+	configs['python'] = {
+			on_attach = on_attach;
+			settings = {
+				python = {
+					analysis = {
+						autoSearchPaths = true;
+						useLibraryCodeForTypes = true;
+						stubPath = vim.env.HOME .. '/.local/share/python-type-stubs';
+						typeshedPaths = vim.env.HOME .. '/.local/share/typeshed';
+						autoImportCompletions = true;
+					};
+				};
+			};
+			flags = {
+				debounce_text_changes = DebounceRate;
+			}
+		}
+	for server, config in ipairs(configs) do
+		if nvim_lsp[server] ~= nil then
+			require'lspinstall'.install_server(server)
+		end
+		nvim_lsp[server].setup(table.unpack(config))
+	end
 end
 
 setup_servers()
