@@ -581,3 +581,17 @@ call wilder#set_option('renderer', wilder#renderer_mux({
       \   },
       \ }),
       \ }))
+
+
+"magma setup
+nnoremap <expr><silent> <Leader>r  nvim_exec('MagmaEvaluateOperator', v:true)
+nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
+xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
+nnoremap <silent> <Leader>ro :MagmaShowOutput<CR>
+nnoremap <silent> <Leader>re :MagmaReevaluateCell<CR>
+nnoremap <silent> <Leader>rd :MagmaDelete<CR>
+nnoremap <silent> <Leader>ri :MagmaInit<CR>
+
+
+
+let g:magma_automatically_open_output = v:true

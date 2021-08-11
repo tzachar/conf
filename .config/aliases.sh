@@ -40,8 +40,8 @@ if ! type "exa" > /dev/null; then
 	alias ls='ls -hF --color'
 	alias ll='ls -al'
 else
-	alias ls='exa'
-	alias ll='exa -al -snew'
+	alias ls='exa --icons'
+	alias ll='exa -al -snew --icons'
 fi
 
 alias tree='tree -Csu'   
