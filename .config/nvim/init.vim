@@ -584,6 +584,27 @@ call wilder#set_option('renderer', wilder#renderer_mux({
 
 
 "magma setup
+let g:magma_save_path = stdpath("data") .. "/magma/"
+function! MyMagmaInit()
+	PackerLoad 'magma-nvim'
+	setlocal filetype=python
+	set syntax=python
+	let l:mangled_fname = expand('%:p') .. '.json'
+	let l:mangled_fname = substitute(l:mangled_fname, '%', '%%', 'g')
+	let l:mangled_fname = substitute(l:mangled_fname, '/', '%', 'g')
+	let l:save_file = g:magma_save_path .. l:mangled_fname
+	if filereadable(l:save_file)
+		MagmaLoad
+	else
+		MagmaInit python3
+	endif
+endfunction
+
+augroup magma
+  au! BufRead,BufNewFile *.jupyter call MyMagmaInit()
+  au! BufWrite *.jupyter MagmaSave
+augroup end
+
 nnoremap <expr><silent> <Leader>r  nvim_exec('MagmaEvaluateOperator', v:true)
 nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
 xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
@@ -591,6 +612,8 @@ nnoremap <silent> <Leader>ro :MagmaShowOutput<CR>
 nnoremap <silent> <Leader>re :MagmaReevaluateCell<CR>
 nnoremap <silent> <Leader>rd :MagmaDelete<CR>
 nnoremap <silent> <Leader>ri :MagmaInit<CR>
+nnoremap <silent> <Leader>rs :MagmaSave<CR>
+nnoremap <silent> <Leader>rl :MagmaLoad<CR>
 
 
 
