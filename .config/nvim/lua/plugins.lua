@@ -212,8 +212,8 @@ return require("packer").startup(
 		-- magma:
 		use {
 			'dccsillag/magma-nvim',
-			run = ':UpdateRemotePlugins',
-			cmd = { 'MagmaInit', },
+			opt = true,
+			config = 'vim.cmd [[UpdateRemotePlugins]]',
 		}
 
 		use { 'dstein64/vim-startuptime' }

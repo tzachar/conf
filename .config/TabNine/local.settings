@@ -9,13 +9,18 @@
     },
     "download": {
       "api_key": "ogtpnwedtygdwzeniguqmtletzttuk",
-      "base_url": "https://api.tabnine.com",
-      "cdn_url": "https://update.tabnine.com",
-      "model_hash_override": null,
-      "model_size": "Small"
+      "meta_data_base_url": "https://api.tabnine.com",
+      "model": {
+        "Model": {
+          "base_url": "https://update.tabnine.com",
+          "model_hash_override": null,
+          "model_size": "Small"
+        }
+      }
     },
     "run": {
       "is_enabled": true,
+      "line_suggestions": false,
       "multiline_suggestions": false,
       "omit_prefix_suggestions": false
     },
