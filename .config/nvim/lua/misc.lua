@@ -19,51 +19,6 @@ function dump(...)
     print(unpack(objects))
 end
 
--- this is for compe
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  -- elseif vim.fn.call("vsnip#available", {1}) == 1 then
---  return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
- -- elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
- --   return t "<Plug>(vsnip-jump-prev)"
-  else
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
-
 -- should be called with luado
 function add_ignore_type(line, linenr)
 	local ignore_decl = ' # type: ignore'
@@ -149,3 +104,69 @@ require'nvim-web-devicons'.setup {
 }
 
 -- require'hologram'.setup{ }
+local lspkind = require('lspkind')
+local cmp = require('cmp')
+local compare = require('cmp.config.compare')
+cmp.setup {
+	--[[ confirmation = {
+		default_behavior = cmp.types.cmp.ConfirmBehavior.Replace,
+	}, ]]
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			compare.offset,
+			compare.exact,
+			compare.score,
+			compare.kind,
+			compare.sort_text,
+			compare.length,
+			compare.order,
+		}
+	},
+
+
+	-- You must set mapping.
+	mapping = {
+		['<C-p>'] = cmp.mapping.prev_item(),
+		['<C-n>'] = cmp.mapping.next_item(),
+		['<C-d>'] = cmp.mapping.scroll(-4),
+		['<C-f>'] = cmp.mapping.scroll(4),
+		['<C-Space>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.close(),
+		['<CR>'] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = true,
+		}),
+		['<Tab>'] = cmp.mapping.mode({ 'i', 's' }, function(core, fallback)
+			if vim.fn.pumvisible() == 1 then
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+			else
+				fallback()
+			end
+		end),
+		['<S-Tab>'] = cmp.mapping.mode({ 'i', 's' }, function(core, fallback)
+			if vim.fn.pumvisible() == 1 then
+				vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+			else
+				fallback()
+			end
+		end),
+	},
+
+	formatting = {
+		format = function(entry, vim_item)
+			vim_item.kind = lspkind.presets.default[vim_item.kind]
+			return vim_item
+		end
+	},
+
+	-- You should specify your *installed* sources.
+	sources = {
+		{ name = 'cmp-tabnine' },
+		{ name = 'cmp-nvim-lsp' },
+		{ name = 'buffer' },
+		{ name = 'path' },
+		{ name = 'emoji' },
+		{ name = 'calc' },
+	},
+}
