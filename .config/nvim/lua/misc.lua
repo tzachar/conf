@@ -147,3 +147,5 @@ require("fzf-lua").setup({
 require'nvim-web-devicons'.setup {
 	default = true;
 }
+
+-- require'hologram'.setup{ }

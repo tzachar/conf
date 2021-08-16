@@ -217,6 +217,7 @@ return require("packer").startup(
 		}
 
 		use { 'dstein64/vim-startuptime' }
+		-- use { 'edluffy/hologram.nvim' }
 
 	end
 )
