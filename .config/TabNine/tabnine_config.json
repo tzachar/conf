@@ -16,6 +16,7 @@
   "tabnine_cloud_port": null,
   "cloud_whitelist": [],
   "num_of_suggestions": 5,
+  "line_suggestions": null,
   "multiline_suggestions": false,
   "omit_prefix_suggestions": false,
   "api_key": "ogtpnwedtygdwzeniguqmtletzttuk",
@@ -44,5 +45,6 @@
   "gusr": {
     "dgc": "4e643b70d4e80efd892afa62fd0e140cf4c8fdb9f9f56bb9d5b5ee2005acbcec"
   },
-  "exclude_file_masks": null
+  "exclude_file_masks": null,
+  "inline_suggestions_mode": null
 }
