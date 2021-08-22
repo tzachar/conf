@@ -75,13 +75,6 @@ function add_ignore_type(line, linenr)
 end
 
 
--- zephyr override
-vim.g.zephyr = {
-	override = {
-		TSVariable = {fg='wheat'};
-	};
-}
-
 local kconfig = require('kommentary.config')
 local kommentary = require('kommentary.kommentary')
 
@@ -148,4 +141,8 @@ require'nvim-web-devicons'.setup {
 	default = true;
 }
 
--- require'hologram'.setup{ }
+-- colorscheme setup
+vim.g.tokyonight_style = "night"
+vim.g.tokyonight_italic_functions = true
+vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+vim.cmd[[colorscheme tokyonight]]

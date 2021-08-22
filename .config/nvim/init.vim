@@ -137,7 +137,6 @@ augroup ftypeOptions
 	"latex :
 	autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
 	autocmd BufEnter *.tex inoremap <buffer> \i \item
-	"autocmd BufEnter *.tex colorscheme twilight
 
 	autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 	autocmd BufEnter *.heb.tex setlocal rightleft
@@ -206,11 +205,6 @@ nnoremap <C-@><C-N> :cN<CR>
 
 "for Switch:
 let g:switch_mapping = "-"
-
-" airline
-let g:airline#extensions#nvimlsp#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'angr'
 
 "gundo
 nnoremap <F5> :GundoToggle<CR>
@@ -311,13 +305,6 @@ call TextTransform#MakeMappings('', 'gj', 'ReverseJ')
 
 
 let g:nvcode_termcolors=256
-colorscheme zephyr
-highlight Normal guibg=black guifg=wheat
-highlight MatchParen guibg=lightblue
-"for highlight text
-highlight Search guibg=red
-
-set background=dark
 
 "for dbext
 let g:dbext_default_profile_Vault = 'type=SQLITE:dbname=/home/' . $USER . '/work/vault/db/vault.sqlite'
@@ -524,6 +511,7 @@ lua require('misc')
 lua require('plugins')
 lua require('lsp_conf')
 lua require('ts_conf')
+lua require('neoline')
 
 
 " wilder setup
@@ -617,3 +605,17 @@ nnoremap <silent> <Leader>rl :MagmaLoad<CR>
 
 let g:magma_automatically_open_output = v:true
 let g:magma_image_provider = 'kitty'
+let g:magma_show_mimetype_debug = v:true
+
+
+" for David-Kunz/treesitter-unit
+vnoremap t :lua require"treesitter-unit".select()<CR>
+onoremap t :<c-u>lua require"treesitter-unit".select()<CR>
+
+
+highlight Normal guibg=black guifg=wheat
+highlight MatchParen guibg=lightblue
+"for highlight text
+highlight Search guibg=red
+" set background=dark
+

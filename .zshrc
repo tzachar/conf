@@ -171,11 +171,11 @@ fi
 
 # pyenv
 export PYTHON_CONFIGURE_OPTS="--enable-shared --enable-loadable-sqlite-extensions"
-export PYENV_ROOT="$HOME/.pyenv"
-if [ -d ~/.pyenv ] ; then
-	export PATH="/home/${USER}/.pyenv/bin:$PATH"
-	export PATH="/home/${USER}/.pyenv/shims:$PATH"
-	eval "$(pyenv init -)"
+export PYENV_ROOT="${HOME}/.pyenv"
+if [ -d ${PYENV_ROOT} ] ; then
+	export PATH="${PYENV_ROOT}/bin:$PATH"
+	eval "$(pyenv init --path)"
+	# eval "$(pyenv init -)"
 fi
 
 

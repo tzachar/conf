@@ -43,9 +43,10 @@ return require("packer").startup(
 		use "hrsh7th/nvim-compe" --completion
 		use {'tzachar/compe-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-compe'}
 
-		use 'vim-airline/vim-airline'
-		use 'vim-airline/vim-airline-themes'
-
+		use {
+			'glepnir/galaxyline.nvim',
+			branch = 'main',
+		}
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter'}
@@ -63,7 +64,8 @@ return require("packer").startup(
 		use { 'kkoomen/vim-doge', run = ':call doge#install()'}
 
 		-- zephyr-nvim requires nvim-treesitter
-		use {'glepnir/zephyr-nvim', branch = 'main', requires = 'nvim-treesitter/nvim-treesitter'}
+		-- use {'glepnir/zephyr-nvim', branch = 'main', requires = 'nvim-treesitter/nvim-treesitter'}
+		use { 'folke/tokyonight.nvim' }
 
 		use 'zegervdv/nrpattern.nvim'
 
@@ -169,6 +171,13 @@ return require("packer").startup(
 			"SudoWrite",
 			}
 		}
+		
+		use { 'Numkil/ag.nvim',
+			opt = true,
+			cmd = {
+				'Ag', 'AgAdd', 'LAg', 'LAgAdd',
+			}
+		}
 
 		-- show mappings
 		use {
@@ -212,12 +221,12 @@ return require("packer").startup(
 		-- magma:
 		use {
 			'dccsillag/magma-nvim',
-			opt = true,
-			config = 'vim.cmd [[UpdateRemotePlugins]]',
+			run = ':UpdateRemotePlugins',
+			-- config = 'vim.cmd [[UpdateRemotePlugins]]',
 		}
 
 		use { 'dstein64/vim-startuptime' }
-		-- use { 'edluffy/hologram.nvim' }
 
+		use { 'David-Kunz/treesitter-unit' }
 	end
 )
