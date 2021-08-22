@@ -616,4 +616,4 @@ nnoremap <silent> <Leader>rs :MagmaSave<CR>
 nnoremap <silent> <Leader>rl :MagmaLoad<CR>
 
 let g:magma_automatically_open_output = v:true
-" let g:magma_image_provider = 'hologram'
+let g:magma_image_provider = 'kitty'
