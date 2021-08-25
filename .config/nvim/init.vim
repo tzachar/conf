@@ -45,8 +45,6 @@ set ignorecase		" Do case insensitive matching
 set incsearch		" Incremental search
 set autowrite		" Automatically save before commands like :next and :make
 set history=10000
-" use Q for formatting, not ex-mode:
-noremap Q gq
 set backspace=2		" allow backspacing over everything in insert mode
 set smartindent
 set autoindent		" always set autoindenting on
@@ -63,6 +61,10 @@ set spelllang=en
 set hidden
 set modeline
 set tagstack
+set guicursor=
+" dont paste toggle
+set pastetoggle=
+
 
 " do not show more than 20 completion items
 set pumheight=20
@@ -78,8 +80,6 @@ let g:tex_flavor = 'latex'
 
 "search for tags first in the file dir, then current dir, then boost:
 set tags=./tags,tags,/usr/local/boost/tags,/home/tzachar/.vim/tags/stl_tags
-
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " set filetypes
 filetype on
@@ -102,12 +102,6 @@ augroup ftypePython
 	autocmd FileType python set textwidth=120	" set text width to 70 chars.
 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
 	autocmd FileType python command! -range=% YAPF <line1>,<line2>call yapf#YAPF()
-	" autocmd FileType python nnoremap <silent> =     :.YAPF <CR>
-	" autocmd FileType python vnoremap <silent> =     :YAPF <CR>
-
-" 	autocmd FileType python nnoremap <Leader>j :<C-U>YAPF<Cr>
-" 	autocmd FileType python vnoremap <Leader>j :YAPF<Cr>
-" 	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
 augroup end
 
 augroup ftypeOptions
@@ -158,28 +152,15 @@ augroup END
 
 " vim -b : edit binary using xxd-format!
 augroup Binary
-au!
-au BufReadPre  *.bin let &bin=1
-au BufReadPost *.bin if &bin | %!xxd
-au BufReadPost *.bin set ft=xxd | endif
-au BufWritePre *.bin if &bin | %!xxd -r
-au BufWritePre *.bin endif
-au BufWritePost *.bin if &bin | %!xxd
-au BufWritePost *.bin set nomod | endif
+	au!
+	au BufReadPre  *.bin let &bin=1
+	au BufReadPost *.bin if &bin | %!xxd
+	au BufReadPost *.bin set ft=xxd | endif
+	au BufWritePre *.bin if &bin | %!xxd -r
+	au BufWritePre *.bin endif
+	au BufWritePost *.bin if &bin | %!xxd
+	au BufWritePost *.bin set nomod | endif
 augroup END
-
-noremap mm :make -j4 <cr>
-
-"noremap <C-k> :tabnew
-"noremap <C-h> :tabprev <cr>
-"noremap <C-j> :tabclose <cr>
-"noremap <C-l> :tabnext <cr>
-noremap <C-l> :bnext<cr>
-noremap <C-j> :bprev<cr>
-noremap <C-k> :b#<cr>
-"noremap <leader>bn :bNext <cr>
-"noremap <leader>bp :bprevious <cr>
-"noremap <leader>bl :ls <cr>
 
 "buffergatror oftions
 let g:buffergator_viewport_split_policy="B"
@@ -191,39 +172,12 @@ hi SpellCap guifg=#ffffff guibg=#7f007f
 hi SpellRare guifg=#ffffff guibg=#00007f gui=underline
 hi SpellLocal term=reverse ctermfg=black ctermbg=darkgreen guifg=#ffffff guibg=#7f0000 gui=underline
 
-noremap <C-F11> :wa<cr>:!gen_ctags<cr>:cs reset<cr>
-noremap cc :wa<cr>:!gen_ctags<cr>:cs reset<cr>
-
-" augroup popups
-" 	au!
-" 	autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-" 	autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-" augroup end
-
-nnoremap <C-N> :cn<CR>
-nnoremap <C-@><C-N> :cN<CR>
-
 "for Switch:
 let g:switch_mapping = "-"
-
-"gundo
-nnoremap <F5> :GundoToggle<CR>
-
-" fzf config
-nnoremap <Leader>pb <cmd>lua require('fzf-lua').buffers()<CR>
-nnoremap <Leader>pp <cmd>lua require('fzf-lua').files()<CR>
-nnoremap <Leader>pt <cmd>lua require('fzf-lua').loclist()<CR>
-nnoremap <Leader>pg <cmd>lua require('fzf-lua').grep()<CR>
-
-"multipage editing
-nnoremap <silent> <Leader>ef :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
 
 
 "FSwitch
 "Switch to the file and load it into the current window >
-nnoremap <silent> <Leader>of :FSHere<cr>
-nnoremap <silent> <Leader>oo :FSHere<cr>
-nnoremap <silent> <Leader>ol :FSRight<cr>
 augroup mycppfiles
 	au!
 	au BufEnter *.h,*.hpp let b:fswitchdst  = 'cpp,cc,C'
@@ -231,24 +185,16 @@ augroup mycppfiles
 	au BufEnter *.c,*.cpp let b:fswitchdst = 'h,hpp'
 	au BufEnter *.c,*.cpp let b:fswitchlocs = 'reg:|src|include/**|'
 	au BufEnter *.c,*.cpp abbrev autp auto
+	au FileType c,cpp nnoremap <silent> <Leader>of :FSHere<cr>
+	au FileType c,cpp nnoremap <silent> <Leader>oo :FSHere<cr>
+	au FileType c,cpp nnoremap <silent> <Leader>ol :FSRight<cr>
 augroup END
-
-if has('nvim')
-	augroup nvimTerminal
-		tnoremap jj <C-\><C-n>
-	augroup END
-endif
 
 "folding highlight
 hi Folded term=standout ctermfg=LightBlue ctermbg=DarkGrey
 
 "localvimrc
 let g:localvimrc_sandbox=0
-
-"open up .vimrc
-nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
-"source up .vimrc
-nnoremap <leader>vs :source $MYVIMRC<cr>
 
 "add a ; at the end of the line
 function! ToggleEndChar(charToMatch)
@@ -258,18 +204,6 @@ function! ToggleEndChar(charToMatch)
 	call winrestview(l:winview)
 endfunction
 nnoremap <Leader>; :call ToggleEndChar(';')<CR>
-
-cnoremap <C-a>  <Home>
-cnoremap <C-b>  <Left>
-cnoremap <C-f>  <Right>
-cnoremap <C-d>  <Delete>
-cnoremap <M-b>  <S-Left>
-cnoremap <M-f>  <S-Right>
-cnoremap <M-d>  <S-right><Delete>
-cnoremap <Esc>b <S-Left>
-cnoremap <Esc>f <S-Right>
-cnoremap <Esc>d <S-right><Delete>
-cnoremap <C-g>  <C-c>
 
 " The Silver Searcher
 if executable('ag')
@@ -303,7 +237,6 @@ endfunction
 
 call TextTransform#MakeMappings('', 'gj', 'ReverseJ')
 
-
 let g:nvcode_termcolors=256
 
 "for dbext
@@ -329,7 +262,6 @@ augroup project_vault
 augroup end
 
 augroup replacegJ
-
 	fun! JoinSpaceless()
 		if getline('.')[-1:-1] == '(' || getline('.')[-1:-1] == '['
 			execute 'normal! gJ'
@@ -352,45 +284,20 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
 " vimtex
 let g:vimtex_compiler_enabled = 0
-if !exists('g:ycm_semantic_triggers')
-	let g:ycm_semantic_triggers = {}
-endif
-
-
-set guicursor=
 
 " for vim-surround:
 " when surrounding with 'e', ask for a wrapper
 let g:surround_101 = "\1wrapper:\1(\r)"
 
-" dont paste toggle
-set pastetoggle=
-
 " config for vim-signify
 let g:signify_vcs_list = [ 'git', 'hg' ]
 
-
-augroup tabularShorts
-autocmd!
-	nnoremap <Leader>t= :Tabularize /=<CR>
-	vnoremap <Leader>t= :Tabularize /=<CR>
-	nnoremap <Leader>t: :Tabularize /:\zs<CR>
-	vnoremap <Leader>t: :Tabularize /:\zs<CR>
-	nnoremap <Leader>t, :Tabularize /,\zs<CR>
-	vnoremap <Leader>t, :Tabularize /,\zs<CR>
-	nnoremap <Leader>t> :Tabularize /=>\zs<CR>
-	vnoremap <Leader>t> :Tabularize /=>\zs<CR>
-augroup end
 
 " indentguide
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_color_change_percent = 20
-
-" for vim-slash
-" noremap <plug>(slash-after) zz
-"
 
 " syntax ranges:
 augroup syntax_ranges
@@ -465,30 +372,6 @@ let g:compe.source.tabnine.sort = v:false
 let g:compe.source.tabnine.ignore_pattern = '[%s%c]'
 
 
-
-" let g:lexima_no_default_rules = v:true
-" call lexima#set_default_rules()
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-" inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-" inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-" inoremap <silent><expr> <C-l>     compe#confirm({ 'replace': v:true })
-
-" inoremap <silent><expr> jj 	  pumvisible() ? compe#confirm('<CR>') : '<esc>'
-
-
-inoremap jj <esc>
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-
-
-" this is in misc.lua
-autocmd FileType python nnoremap <silent> <C-i> :.luado add_ignore_type(line, linenr - 1)<cr>
-autocmd FileType python vnoremap <silent> <C-i> :luado add_ignore_type(line, linenr - 1)<cr>
-
 " highlight whitespace
 let g:better_whitespace_ctermcolor='red'
 let g:better_whitespace_guicolor='red'
@@ -500,18 +383,15 @@ let g:doge_comment_jump_modes = ['n', 's']
 let g:iron_map_defaults = 0
 let g:iron_map_extended = 0
 
-" nnoremap <leader>c <Plug>(iron-send-motion)
-vnoremap <leader>c :lua require('iron').core.visual_send()<cr>
-
 " highligh on yank
 au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=350, on_visual=true}
-
 
 lua require('misc')
 lua require('plugins')
 lua require('lsp_conf')
 lua require('ts_conf')
 lua require('neoline')
+lua require('keymaps')
 
 
 " wilder setup
@@ -593,24 +473,9 @@ augroup magma
   au! BufWrite *.jupyter MagmaSave
 augroup end
 
-nnoremap <expr><silent> <Leader>r  nvim_exec('MagmaEvaluateOperator', v:true)
-nnoremap <silent>       <Leader>rr :MagmaEvaluateLine<CR>
-xnoremap <silent>       <Leader>r  :<C-u>MagmaEvaluateVisual<CR>
-nnoremap <silent> <Leader>ro :MagmaShowOutput<CR>
-nnoremap <silent> <Leader>re :MagmaReevaluateCell<CR>
-nnoremap <silent> <Leader>rd :MagmaDelete<CR>
-nnoremap <silent> <Leader>ri :MagmaInit<CR>
-nnoremap <silent> <Leader>rs :MagmaSave<CR>
-nnoremap <silent> <Leader>rl :MagmaLoad<CR>
-
 let g:magma_automatically_open_output = v:true
 let g:magma_image_provider = 'kitty'
 let g:magma_show_mimetype_debug = v:true
-
-
-" for David-Kunz/treesitter-unit
-vnoremap t :lua require"treesitter-unit".select()<CR>
-onoremap t :<c-u>lua require"treesitter-unit".select()<CR>
 
 
 highlight Normal guibg=black guifg=wheat

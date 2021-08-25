@@ -10,9 +10,6 @@ iron.core.set_config{
 	memory_management = 'singleton',
 	highlight_last = false,
 }
-vim.api.nvim_set_keymap("n", "<leader>c", "<Plug>(iron-send-motion)", {})
--- vim.api.nvim_set_keymap("v", "<leader>c", ":lua require('iron').core.visual_send()<cr>", {})
-
 
 function dump(...)
     local objects = vim.tbl_map(vim.inspect, {...})
@@ -73,6 +70,15 @@ function add_ignore_type(line, linenr)
 		vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
 	end
 end
+local nest = require('nest')
+nest.applyKeymaps({
+	{ mode = 'n', {
+		{ '<C-i>', '<cmd>.luado add_ignore_type(line, linenr - 1)<cr>', options = { silent = true } },
+	}},
+	{ mode = 'v', {
+		{ '<C-i>', '<cmd>luado add_ignore_type(line, linenr - 1)<cr>', options = { silent = true } },
+	}},
+})
 
 
 local kconfig = require('kommentary.config')

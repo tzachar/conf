@@ -6,7 +6,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.api.nvim_command 'packadd packer.nvim'
 end
 
-
+--[[
 inspected_buffers = {}
 function limit_by_line_count(max_lines)
 	local fname = vim.fn.expand("%:p")
@@ -29,6 +29,7 @@ function limit_by_line_count(max_lines)
 	inspected_buffers[fname] = (lines <= max_lines)
 	return inspected_buffers[fname]
 end
+ ]]
 
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 return require("packer").startup(
@@ -171,7 +172,7 @@ return require("packer").startup(
 			"SudoWrite",
 			}
 		}
-		
+
 		use { 'Numkil/ag.nvim',
 			opt = true,
 			cmd = {
@@ -228,5 +229,8 @@ return require("packer").startup(
 		use { 'dstein64/vim-startuptime' }
 
 		use { 'David-Kunz/treesitter-unit' }
+
+		-- for keymappings
+		use { 'LionC/nest.nvim' }
 	end
 )

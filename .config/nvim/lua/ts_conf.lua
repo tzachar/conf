@@ -50,10 +50,10 @@ require'nvim-treesitter.configs'.setup {
 	textobjects = {
 		lsp_interop = {
 			enable = true,
-			peek_definition_code = {
+			--[[ peek_definition_code = {
 				["df"] = "@function.outer",
 				["dF"] = "@class.outer",
-			},
+			}, ]]
 		},
 		select = {
 			enable = true,
