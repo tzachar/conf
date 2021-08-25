@@ -356,6 +356,7 @@ lua require('lsp_conf')
 lua require('ts_conf')
 lua require('neoline')
 lua require('keymaps')
+lua require('cmp_setup')
 
 
 " wilder setup
