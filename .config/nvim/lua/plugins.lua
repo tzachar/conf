@@ -41,8 +41,14 @@ return require("packer").startup(
 		use {'kabouzeid/nvim-lspinstall'}
 		use {'ojroques/nvim-lspfuzzy', branch = 'main'}
 
-		use "hrsh7th/nvim-compe" --completion
-		use {'tzachar/compe-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-compe'}
+		use "onsails/lspkind-nvim"
+		use "hrsh7th/nvim-cmp" --completion
+		use {"hrsh7th/cmp-nvim-lsp", requires = 'onsails/lspkind-nvim' }
+		use "hrsh7th/cmp-buffer" --completion
+		use "hrsh7th/cmp-calc" --completion
+		use "hrsh7th/cmp-path" --completion
+		use "hrsh7th/cmp-emoji" --completion
+		use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
 		use {
 			'glepnir/galaxyline.nvim',

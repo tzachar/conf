@@ -336,42 +336,6 @@ command TSReload :call Tsreload()
 " git fugitive commands
 command -nargs=* Glg Git --paginate lg <args>
 
-" compe
-set completeopt=menuone,noselect
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.autocomplete = v:true
-let g:compe.debug = v:false
-let g:compe.min_length = 1
-let g:compe.preselect = 'enable'
-let g:compe.throttle_time = 100
-let g:compe.source_timeout = 400
-let g:compe.incomplete_delay = 500
-let g:compe.allow_prefix_unmatch = v:true
-let g:compe.sort = v:false
-
-let g:compe.source = {}
-let g:compe.source.path = v:true
-let g:compe.source.buffer = v:true
-let g:compe.source.calc = v:true
-let g:compe.source.vsnip = v:false
-let g:compe.source.nvim_lsp = v:true
-let g:compe.source.nvim_lua = v:true
-let g:compe.source.spell = v:true
-let g:compe.source.tags = v:true
-let g:compe.source.emoji = v:true
-let g:compe.source.snippets_nvim = v:false
-" let g:compe.source.tabnine = v:false
-" let g:compe.source.tabnine = v:true
-let g:compe.source.tabnine = {}
-let g:compe.source.tabnine.max_line = 1000
-let g:compe.source.tabnine.max_num_results = 10
-let g:compe.source.tabnine.priority = 5000
-let g:compe.source.tabnine.show_prediction_strength = v:true
-let g:compe.source.tabnine.sort = v:false
-let g:compe.source.tabnine.ignore_pattern = '[%s%c]'
-
-
 " highlight whitespace
 let g:better_whitespace_ctermcolor='red'
 let g:better_whitespace_guicolor='red'
