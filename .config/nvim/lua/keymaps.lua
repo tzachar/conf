@@ -22,12 +22,6 @@ nest.applyKeymaps({
 
 	{ mode = 'i', {
 		{ 'jj', '<c-\\><c-n>' },
-		-- compe
-		{ options = { silent = true, expr = true },
-			{ '<C-Space>', 'compe#complete()'},
-			{ '<cr>', "compe#confirm('<CR>')"},
-			{ '<C-e>', "compe#close('<C-e>')"},
-		},
 	}},
 
 	{ mode = 'n', {
