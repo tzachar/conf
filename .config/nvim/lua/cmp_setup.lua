@@ -12,6 +12,15 @@ tabnine:setup({
 	show_prediction_strength = true;
 })
 
+local source_mapping = {
+	buffer = "[Buffer]",
+	nvim_lsp = "[LSP]",
+	nvim_lua = "[Lua]",
+	cmp_tabnine = "[TN]",
+	path = "[Path]",
+	calc = "[calc]",
+}
+
 cmp.setup {
 	completion = {
 		completeopt = 'menu,menuone,noinsert',
@@ -67,6 +76,11 @@ cmp.setup {
 	formatting = {
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind.presets.default[vim_item.kind]
+			local menu = source_mapping[entry.source.name]
+			if entry.source.name == 'cmp_tabnine' and entry.completion_item.data ~= nil and entry.completion_item.data.details ~= nil then
+				menu = entry.data.details .. ' ' .. menu
+			end
+			vim_item.menu = menu
 			return vim_item
 		end
 	},
