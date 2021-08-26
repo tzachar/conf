@@ -23,7 +23,7 @@ local source_mapping = {
 
 cmp.setup {
 	completion = {
-		completeopt = 'menu,menuone,noinsert',
+		completeopt = 'menu,menuone,noselect,noinsert',
 		autocomplete = {types.cmp.TriggerEvent.InsertEnter, types.cmp.TriggerEvent.TextChanged},
 		keyword_length = 1,
 	},
@@ -54,7 +54,7 @@ cmp.setup {
 		['<C-e>'] = cmp.mapping.close(),
 		['<CR>'] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
+			select = false,
 		}),
 		['<Tab>'] = function(fallback)
 			if vim.fn.pumvisible() == 1 then
