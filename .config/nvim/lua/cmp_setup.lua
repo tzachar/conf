@@ -21,6 +21,22 @@ local source_mapping = {
 	calc = "[calc]",
 }
 
+local compare_priority = function(entry1, entry2)
+	if not entry1.source.name == 'cmp_tabnine' then
+		return false
+	elseif not entry2.source.name == 'cmp_tabnine' then
+		return true
+	end
+
+	if not entry1.completion_item.priority then
+		return false
+	elseif not entry2.completion_item.priority then
+		return true
+	else
+		return (entry1.completion_item.priority > entry2.completion_item.priority)
+	end
+end
+
 cmp.setup {
 	completion = {
 		completeopt = 'menu,menuone,noselect,noinsert',
@@ -33,6 +49,7 @@ cmp.setup {
 	sorting = {
 		priority_weight = 2,
 		comparators = {
+			compare_priority,
 			compare.offset,
 			compare.exact,
 			compare.score,
@@ -77,8 +94,11 @@ cmp.setup {
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind.presets.default[vim_item.kind]
 			local menu = source_mapping[entry.source.name]
-			if entry.source.name == 'cmp_tabnine' and entry.completion_item.data ~= nil and entry.completion_item.data.details ~= nil then
-				menu = entry.data.details .. ' ' .. menu
+			if entry.source.name == 'cmp_tabnine' then
+				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+					menu = entry.completion_item.data.detail .. ' ' .. menu
+				end
+				vim_item.kind = ''
 			end
 			vim_item.menu = menu
 			return vim_item
