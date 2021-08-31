@@ -95,10 +95,12 @@ require("fzf-lua").setup({
 	files = {
 		cmd = 'fd -t file',
 	},
-	builtin = {
-		syntax_limit_l = 0,
-		syntax_limit_b = 1024*1024,
-		expand = true,
+	previewers = {
+		builtin = {
+			syntax_limit_l = 0,
+			syntax_limit_b = 1024*1024,
+			expand = true,
+		},
 	}
 })
 
