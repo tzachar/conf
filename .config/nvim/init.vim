@@ -138,17 +138,17 @@ augroup ftypeOptions
 
 augroup end
 
-function! UpdateTimeStamp()
-	let l:winview = winsaveview()
-	%s/LAST_CHANGE "\zs[^"]*/\= strftime("%c")/e
-	%s/LAST_CHANGE_DATE "\zs[^"]*/\= strftime("%Y%m%d")/e
-	call winrestview(l:winview)
-endfunction
+" function! UpdateTimeStamp()
+" 	let l:winview = winsaveview()
+" 	%s/LAST_CHANGE "\zs[^"]*/\= strftime("%c")/e
+" 	%s/LAST_CHANGE_DATE "\zs[^"]*/\= strftime("%Y%m%d")/e
+" 	call winrestview(l:winview)
+" endfunction
 
-augroup TimeStamp
-	au!
-	au! BufWritePre,FileWritePre,FileAppendPre *.cpp,*.c,*.py,*.h,*.hpp :call UpdateTimeStamp()
-augroup END
+" augroup TimeStamp
+" 	au!
+" 	au! BufWritePre,FileWritePre,FileAppendPre *.cpp,*.c,*.py,*.h,*.hpp :call UpdateTimeStamp()
+" augroup END
 
 " vim -b : edit binary using xxd-format!
 augroup Binary
@@ -350,6 +350,7 @@ let g:iron_map_extended = 0
 " highligh on yank
 au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=350, on_visual=true}
 
+lua require('impatient')
 lua require('misc')
 lua require('plugins')
 lua require('lsp_conf')

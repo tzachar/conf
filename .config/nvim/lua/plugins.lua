@@ -36,6 +36,9 @@ return require("packer").startup(
 	function(use)
 		use 'wbthomason/packer.nvim'
 
+		-- faster plugins loader
+		use {'lewis6991/impatient.nvim', rocks = 'mpack'}
+
 		use "neovim/nvim-lspconfig"
 		-- update language servers
 		use {'kabouzeid/nvim-lspinstall'}
