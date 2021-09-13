@@ -18,7 +18,8 @@ local source_mapping = {
 	nvim_lua = "[Lua]",
 	cmp_tabnine = "[TN]",
 	path = "[Path]",
-	calc = "[calc]",
+	calc = "[Calc]",
+	treesitter = "[TS]",
 }
 
 local compare_priority = function(entry1, entry2)
@@ -39,7 +40,8 @@ end
 
 cmp.setup {
 	completion = {
-		completeopt = 'menu,menuone,noselect,noinsert',
+		-- completeopt = 'menu,menuone,noselect,noinsert',
+		completeopt = 'menu,menuone,noinsert',
 		autocomplete = {types.cmp.TriggerEvent.InsertEnter, types.cmp.TriggerEvent.TextChanged},
 		keyword_length = 1,
 	},
@@ -75,14 +77,14 @@ cmp.setup {
 		}),
 		['<Tab>'] = function(fallback)
 			if vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n', true)
 			else
 				fallback()
 			end
 		end,
 		['<S-Tab>'] = function(fallback)
 			if vim.fn.pumvisible() == 1 then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n', true)
 			else
 				fallback()
 			end
@@ -110,10 +112,16 @@ cmp.setup {
 		{ name = 'cmp_tabnine' },
 		{ name = 'nvim_lsp' },
 		{ name = 'nvim_lua' },
+		{ name = 'treesitter' },
 		{ name = 'buffer' },
 		{ name = 'path' },
 		{ name = 'emoji' },
 		{ name = 'calc' },
+	},
+	experimental = {
+		ghost_text = {
+			hl_group = 'Comment',
+		},
 	},
 }
 

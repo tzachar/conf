@@ -53,6 +53,7 @@ return require("packer").startup(
 		use "hrsh7th/cmp-emoji" --completion
 		use "hrsh7th/cmp-nvim-lua" --completion
 		use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+		use 'ray-x/cmp-treesitter'
 
 		use {
 			'glepnir/galaxyline.nvim',
