@@ -1,29 +1,16 @@
 local nest = require('nest')
 
-local function map_all_modes(modes, ...)
-	for _, mode in ipairs(modes) do
-		nest.applyKeymaps({{ mode = mode, ... }})
-	end
-end
-
-map_all_modes(
-	{'n', 'v'}, {
+nest.applyKeymaps({
+	{ mode = 'nv', {
 		-- Remove silent from ; : mapping, so that : shows up in command mode
 		{ ';', ':' , options = { silent = false }},
 		{ ':', ';' },
 		-- Tabularize
 		{ '<Leader>t', ':Tabularize /', options = { silent = false }},
-	})
-
-nest.applyKeymaps({
-	{ mode = 't', {
+	}},
+	{ mode = 'ti', {
 		{ 'jj', '<c-\\><c-n>' },
 	}},
-
-	{ mode = 'i', {
-		{ 'jj', '<c-\\><c-n>' },
-	}},
-
 	{ mode = 'n', {
 		-- remove search highlight
 		{ '<space>', '<Cmd>nohlsearch<cr>', options = { silent = true }},
@@ -55,10 +42,6 @@ nest.applyKeymaps({
 
 		-- open init.vim
 		{ '<leader>ve', '<cmd>vsplit $MYVIMRC<cr>G'},
-
-		--[[ { '<leader>', {
-
-		}}, ]]
 	}},
 	{ mode = 'c', {
 		options = { silent = false },
@@ -93,13 +76,9 @@ nest.applyKeymaps({
 	}},
 
 	-- David-Kunz/treesitter-unit
-	{ mode = 'x', {
+	{ mode = 'xo', {
 		{ 'iu', ':lua require"treesitter-unit".select()<CR>'},
 		{ 'au', ':lua require"treesitter-unit".select(true)<CR>'},
-	}},
-	{ mode = 'o', {
-		{ 'iu', ':<C-u>lua require"treesitter-unit".select()<CR>'},
-		{ 'au', ':<C-u>lua require"treesitter-unit".select(true)<CR>'},
 	}},
 	
 	-- Iron
@@ -109,6 +88,4 @@ nest.applyKeymaps({
 	{ mode = 'n', {
 		{'<leader>c', "<plug>(iron-send-motion)"},
 	}},
-
-
 })
