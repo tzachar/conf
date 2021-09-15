@@ -91,7 +91,7 @@ syntax on		" Default to no syntax highlightning
 augroup filetype
   au! BufRead,BufNewFile *.proto setfiletype proto
   au! BufRead,BufNewFile *.pp setfiletype puppet
-  au! FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+  au! FileType yaml,lua setlocal ts=2 sts=2 sw=2
 augroup end
 
 augroup ftypePython
@@ -355,7 +355,6 @@ lua require('misc')
 lua require('plugins')
 lua require('lsp_conf')
 lua require('ts_conf')
-lua require('neoline')
 lua require('keymaps')
 lua require('cmp_setup')
 

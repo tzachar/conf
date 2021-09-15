@@ -114,3 +114,5 @@ vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 vim.cmd[[colorscheme tokyonight]]
 
+-- load	lualine
+require('lualine').setup()

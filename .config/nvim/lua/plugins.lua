@@ -2,8 +2,8 @@ local vim = vim
 local install_path = vim.fn.stdpath('data') ..  '/site/pack/packer/start/packer.nvim'
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-    vim.api.nvim_command 'packadd packer.nvim'
+  vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  vim.api.nvim_command 'packadd packer.nvim'
 end
 
 --[[
@@ -33,8 +33,8 @@ end
 
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 return require("packer").startup(
-	function(use)
-		use 'wbthomason/packer.nvim'
+  function(use)
+    use 'wbthomason/packer.nvim'
 
 		-- faster plugins loader
 		use {'lewis6991/impatient.nvim', rocks = 'mpack'}
@@ -55,10 +55,11 @@ return require("packer").startup(
 		use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 		use 'ray-x/cmp-treesitter'
 
-		use {
+		--[[ use {
 			'glepnir/galaxyline.nvim',
 			branch = 'main',
-		}
+		} ]]
+		use { 'shadmansaleh/lualine.nvim' }
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter'}
