@@ -38,10 +38,27 @@ local compare_priority = function(entry1, entry2)
 	end
 end
 
+local has_words_before = function()
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+		return false
+	end
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local feedkey = function(key, mode)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
 cmp.setup {
+	snippet = {
+		expand = function(args)
+			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+		end
+	},
 	completion = {
-		-- completeopt = 'menu,menuone,noselect,noinsert',
-		completeopt = 'menu,menuone,noinsert',
+		completeopt = 'menu,menuone,noselect,noinsert',
+		-- completeopt = 'menu,menuone,noinsert',
 		autocomplete = {types.cmp.TriggerEvent.InsertEnter, types.cmp.TriggerEvent.TextChanged},
 		keyword_length = 1,
 	},
@@ -110,6 +127,7 @@ cmp.setup {
 	-- You should specify your *installed* sources.
 	sources = {
 		{ name = 'cmp_tabnine' },
+		{ name = 'vsnip' },
 		{ name = 'nvim_lsp' },
 		{ name = 'nvim_lua' },
 		{ name = 'treesitter' },
