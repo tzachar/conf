@@ -32,7 +32,7 @@ end
  ]]
 
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
-return require("packer").startup(
+return require("packer").startup({
   function(use)
     use 'wbthomason/packer.nvim'
 
@@ -247,5 +247,10 @@ return require("packer").startup(
 
 		-- for keymappings
 		use { 'LionC/nest.nvim' }
-	end
+	end,
+	config = {
+		-- Move to lua dir so impatient.nvim can cache it
+		compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
+	}
+	}
 )

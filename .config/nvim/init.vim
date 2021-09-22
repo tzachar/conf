@@ -352,6 +352,7 @@ au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=350, o
 
 lua require('impatient')
 lua require('misc')
+lua require('packer_compiled')
 lua require('plugins')
 lua require('lsp_conf')
 lua require('ts_conf')
