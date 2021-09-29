@@ -4,6 +4,14 @@ local compare = require('cmp.config.compare')
 local types = require('cmp.types')
 local tabnine = require('cmp_tabnine.config')
 
+-- add highligh groups
+vim.cmd[[
+highlight CmpItemMenu guifg=wheat
+highlight CmpItemAbbr guifg=#868272
+highlight CmpItemAbbrMatch guifg=wheat gui=bold gui=underline
+highlight CmpItemAbbrMatchFuzzy guifg=wheat gui=bold gui=underline
+]]
+
 tabnine:setup({
 	max_lines = 1000;
 	max_num_results = 20;
@@ -61,7 +69,7 @@ cmp.setup {
 		end
 	},
 	completion = {
-		completeopt = 'menu,menuone,noselect,noinsert',
+		-- completeopt = 'menu,menuone,noselect,noinsert',
 		-- completeopt = 'menu,menuone,noinsert',
 		autocomplete = {types.cmp.TriggerEvent.InsertEnter, types.cmp.TriggerEvent.TextChanged},
 		keyword_length = 1,
@@ -86,31 +94,24 @@ cmp.setup {
 
 	-- You must set mapping.
 	mapping = {
-		['<C-p>'] = cmp.mapping.select_prev_item(),
-		['<C-n>'] = cmp.mapping.select_next_item(),
+		['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+		['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 		['<C-d>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.close(),
+		['<C-e>'] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = true,
+		}),
+		--[[ ['<C-c>'] = function (fallback)
+			require('cmp').close()
+		end, ]]
 		['<CR>'] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
-			select = false,
+			select = true,
 		}),
-		['<Tab>'] = function(fallback)
-			if vim.fn.pumvisible() == 1 then
-				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n', true)
-			else
-				fallback()
-			end
-		end,
-		['<S-Tab>'] = function(fallback)
-			if vim.fn.pumvisible() == 1 then
-				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n', true)
-			else
-				fallback()
-			end
-		end,
-
+		['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
+		['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
 	},
 
 	formatting = {
@@ -140,7 +141,11 @@ cmp.setup {
 		{ name = 'emoji' },
 		{ name = 'calc' },
 	},
+
+	preselect = cmp.PreselectMode.None,
+
 	experimental = {
+		custom_menu = true,
 		ghost_text = {
 			hl_group = 'Comment',
 		},
