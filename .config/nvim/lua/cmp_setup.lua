@@ -18,6 +18,8 @@ tabnine:setup({
 	sort = true;
 	priority = 5000;
 	show_prediction_strength = true;
+	run_on_every_keystroke = true;
+	snippet_placeholder = '';
 })
 
 local source_mapping = {
@@ -103,7 +105,10 @@ cmp.setup {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
-		['<CR>'] = cmp.mapping.close(),
+		['<CR>'] = cmp.mapping.confirm({
+					behavior = cmp.ConfirmBehavior.Replace,
+					select = false,
+				}),
 		['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
 		['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
 	},

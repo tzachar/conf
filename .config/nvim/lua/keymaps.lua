@@ -88,4 +88,10 @@ nest.applyKeymaps({
 	{ mode = 'n', {
 		{'<leader>c', "<plug>(iron-send-motion)"},
 	}},
+
+	-- vsnip
+	--[[ { mode = 'is', {
+		{'<Tab>',   "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'",   options = {expr = true}},
+		{'<S-Tab>', "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", options = {expr = true}},
+	}}, ]]
 })
