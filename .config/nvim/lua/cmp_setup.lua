@@ -109,13 +109,31 @@ cmp.setup {
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = false,
 				}),
-		['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
-		['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 's' }),
+		['jj'] = function(fallback)
+      if cmp.visible() then
+				require('cmp').close()
+			end
+			fallback()
+		end,
+		['<Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+		['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
 	},
 
 	formatting = {
 		format = function(entry, vim_item)
-			vim_item.kind = lspkind.presets.default[vim_item.kind]
+			vim_item.kind = lspkind.symbolic(vim_item.kind, {with_text = false})
 			local menu = source_mapping[entry.source.name]
 			if entry.source.name == 'cmp_tabnine' then
 				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
