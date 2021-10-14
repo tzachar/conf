@@ -39,7 +39,7 @@ nest.applyKeymaps({
 local kconfig = require('kommentary.config')
 local kommentary = require('kommentary.kommentary')
 
-function yank_and_comment(...)
+local function yank_and_comment(...)
 	local args = {...}
 	local start_line = args[1]
 	local end_line = args[2]
@@ -51,9 +51,9 @@ function yank_and_comment(...)
 	vim.fn.feedkeys('<ctrl-c>')
 end
 
-kconfig.add_keymap("n", "kommentary_yank_and_comment_line", kconfig.context.line, {}, "yank_and_comment")
-kconfig.add_keymap("v", "kommentary_yank_and_comment_visual", kconfig.context.visual, {}, "yank_and_comment")
-kconfig.add_keymap("n", "kommentary_yank_and_comment_motion", kconfig.context.init, {expr = true}, "yank_and_comment")
+kconfig.add_keymap("n", "kommentary_yank_and_comment_line", kconfig.context.line, {expr = true}, yank_and_comment)
+kconfig.add_keymap("v", "kommentary_yank_and_comment_visual", kconfig.context.visual, {}, yank_and_comment)
+kconfig.add_keymap("n", "kommentary_yank_and_comment_motion", kconfig.context.motion, {expr = true}, yank_and_comment)
 -- Set up a regular keymapping to the new <Plug> mapping
 vim.api.nvim_set_keymap('n', 'gcyy', '<Plug>kommentary_yank_and_comment_line', { silent = true })
 vim.api.nvim_set_keymap('n', 'gcy', '<Plug>kommentary_yank_and_comment_motion', { silent = true })
@@ -100,7 +100,13 @@ require("fzf-lua").setup({
 			syntax_limit_l = 0,
 			syntax_limit_b = 1024*1024,
 		},
-	}
+	},
+	keymap = {
+		fzf = {
+			["tab"]      = "down",
+			["btab"]     = "up",
+		}
+	},
 })
 
 -- load devicons
@@ -116,3 +122,5 @@ vim.cmd[[colorscheme tokyonight]]
 
 -- load	lualine
 require('lualine').setup()
+
+vim.lsp.set_log_level("debug")
