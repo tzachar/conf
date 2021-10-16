@@ -69,6 +69,8 @@ set pastetoggle=
 " do not show more than 20 completion items
 set pumheight=20
 
+set completeopt=menu,menuone,noselect
+
 " default yank to clip
 set clipboard=unnamedplus
 
