@@ -97,6 +97,12 @@ cmp.setup {
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = false,
 				}),
+		['<C-c>'] = function(fallback)
+      if cmp.visible() then
+				require('cmp').close()
+			end
+			fallback()
+		end,
 		['jj'] = function(fallback)
       if cmp.visible() then
 				require('cmp').close()
@@ -105,14 +111,14 @@ cmp.setup {
 		end,
 		['<Tab>'] = function(fallback)
       if cmp.visible() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
       else
         fallback()
       end
     end,
 		['<S-Tab>'] = function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
       else
         fallback()
       end
