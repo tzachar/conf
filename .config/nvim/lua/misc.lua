@@ -124,5 +124,5 @@ vim.cmd[[colorscheme tokyonight]]
 require('lualine').setup()
 
 -- mundo
-vim.cmd('set undofile')
-vim.cmd('set undodir=' .. vim.fn.stdpath('data') .. '/undo')
+vim.o.undofile = true
+vim.o.undodir = vim.fn.stdpath('data') .. '/undo'
