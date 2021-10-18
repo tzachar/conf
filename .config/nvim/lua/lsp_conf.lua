@@ -1,6 +1,5 @@
 local vim = vim
 local lspconfig = require('lspconfig')
-require'lspinstall'.setup()
 require('cmp_nvim_lsp').setup {}
 
 
@@ -88,13 +87,15 @@ local function setup_servers()
 
 
 	local configs = {}
-	configs['vim'] = {
+	configs['cssls'] = {
+	}
+	configs['vimls'] = {
 			on_attach = on_attach;
 			flags = {
 				debounce_text_changes = DebounceRate;
 			}
 		}
-	configs['lua'] = {
+	configs['sumneko_lua'] = {
 			on_attach = on_attach;
 			flags = {
 				debounce_text_changes = DebounceRate;
@@ -118,7 +119,7 @@ local function setup_servers()
 				};
 			};
 		}
-	configs['json'] = {
+	configs['jsonls'] = {
 			on_attach = on_attach;
 			settings = {
 				jsonls = {
@@ -129,7 +130,7 @@ local function setup_servers()
 				debounce_text_changes = DebounceRate;
 			}
 		}
-	configs['bash'] = {
+	configs['bashls'] = {
 			on_attach = on_attach;
 			settings = {
 				bashls = {
@@ -151,7 +152,7 @@ local function setup_servers()
 				debounce_text_changes = DebounceRate;
 			}
 		}
-	configs['python'] = {
+	configs['pyright'] = {
 			on_attach = on_attach;
 			settings = {
 				python = {
@@ -168,29 +169,32 @@ local function setup_servers()
 				debounce_text_changes = DebounceRate;
 			}
 		}
-	local nvim_lsp = require('lspconfig')
-	for server, config in pairs(configs) do
-		if nvim_lsp[server] ~= nil then
-			nvim_lsp[server].setup{
-				on_attach = config.on_attach;
-				settings = config.settings;
-				flags = config.flags;
-				capabilities = capabilities;
-			}
-		else
-			dump(server .. ' not installed')
-		end
+	return configs
+end
+
+local lsp_configs = setup_servers()
+
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function(server)
+	if lsp_configs[server.name] == nil then
+		vim.notify('cannot find config for server:' .. server.name)
+	end
+	local opts = lsp_configs[server.name] or {}
+	opts['capabilities'] = capabilities
+	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+	server:setup(opts)
+	vim.cmd [[ do User LspAttachBuffers ]]
+end)
+
+local lsp_installer_servers = require'nvim-lsp-installer.servers'
+for server, _ in pairs(lsp_configs) do
+	local ok, lsp_server = lsp_installer_servers.get_server(server)
+	if ok then
+    if not lsp_server:is_installed() then
+        lsp_server:install()
+    end
 	end
 end
-
-setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-	setup_servers() -- reload installed servers
-	vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
-
 
 -- lsp fzf integration
 require('lspfuzzy').setup {}

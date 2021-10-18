@@ -41,7 +41,7 @@ return require("packer").startup({
 
 		use "neovim/nvim-lspconfig"
 		-- update language servers
-		use {'kabouzeid/nvim-lspinstall'}
+		use 'williamboman/nvim-lsp-installer'
 		use {'ojroques/nvim-lspfuzzy', branch = 'main'}
 
 		use "onsails/lspkind-nvim"
