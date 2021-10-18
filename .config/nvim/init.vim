@@ -77,6 +77,9 @@ set clipboard=unnamedplus
 " this controls saving swap and highlighting var under cursor
 set updatetime=100
 
+" how much to wait for key sequence to complete
+set timeoutlen=500
+
 " set tex flavor:
 let g:tex_flavor = 'latex'
 

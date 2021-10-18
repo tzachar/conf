@@ -97,12 +97,6 @@ cmp.setup {
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = false,
 				}),
-		['<C-c>'] = function(fallback)
-      if cmp.visible() then
-				require('cmp').close()
-			end
-			fallback()
-		end,
 		['jj'] = function(fallback)
       if cmp.visible() then
 				require('cmp').close()

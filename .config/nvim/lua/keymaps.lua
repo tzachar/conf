@@ -10,6 +10,7 @@ nest.applyKeymaps({
 	}},
 	{ mode = 'ti', {
 		{ 'jj', '<c-\\><c-n>' },
+		{ '<C-c>', '<c-\\><c-n>' },
 	}},
 	{ mode = 'n', {
 		-- remove search highlight
