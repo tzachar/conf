@@ -85,7 +85,7 @@ return require("packer").startup({
 
 		use 'zegervdv/nrpattern.nvim'
 
-		use { 'sjl/gundo.vim', opt = true, cmd = {'GundoToggle', 'GundoHide', 'GundoShow'}}
+		use { 'simnalamburt/vim-mundo' }
 		use { 'mileszs/ack.vim', opt = true, cmd = {'Ack'}}
 
 		-- jump to last place

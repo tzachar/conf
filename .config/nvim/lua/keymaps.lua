@@ -26,7 +26,7 @@ nest.applyKeymaps({
 		{ '<C-@><C-N>', '<Cmd>cN<cr>' },
 
 		-- undo
-		{ '<F5>', '<Cmd>GundoToggle<cr>' },
+		{ '<F5>', '<Cmd>MundoToggle<cr>' },
 
 		-- fzf
 		{ '<leader>', {

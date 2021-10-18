@@ -6,7 +6,6 @@
 " disable python2
 let g:loaded_python_provider = 1
 let g:python_host_prog = ""
-let g:gundo_prefer_python3 = 1
 let g:python3_host_prog = "/home/" . $USER . "/.pyenv/shims/python3"
 " let g:python3_host_prog = "/usr/bin/python3"
 

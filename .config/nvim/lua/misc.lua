@@ -123,4 +123,6 @@ vim.cmd[[colorscheme tokyonight]]
 -- load	lualine
 require('lualine').setup()
 
-vim.lsp.set_log_level("debug")
+-- mundo
+vim.cmd('set undofile')
+vim.cmd('set undodir=' .. vim.fn.stdpath('data') .. '/undo')
