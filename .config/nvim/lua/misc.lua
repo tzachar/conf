@@ -125,4 +125,4 @@ require('lualine').setup()
 
 -- mundo
 vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath('data') .. '/undo'
+vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
