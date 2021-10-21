@@ -4,14 +4,6 @@ local compare = require('cmp.config.compare')
 local types = require('cmp.types')
 local tabnine = require('cmp_tabnine.config')
 
--- add highligh groups
-vim.cmd[[
-highlight CmpItemMenu guifg=wheat
-highlight CmpItemAbbr guifg=#868272
-highlight CmpItemAbbrMatch guifg=wheat gui=bold gui=underline
-highlight CmpItemAbbrMatchFuzzy guifg=wheat gui=bold gui=underline
-]]
-
 tabnine:setup({
 	max_lines = 1000;
 	max_num_results = 20;

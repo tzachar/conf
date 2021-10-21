@@ -100,7 +100,7 @@ HOME_LIB=${HOME}/lib
 HOME_BIN=${HOME}/bin
 #########################################
 
-export PATH=${PATH:=""}:/sbin:${HOME_BIN}:~/.local/kitty.app/bin/:${HOME}/.dotnet:${HOME}/.cargo/bin
+export PATH=${HOME_BIN}:${PATH:=""}:/sbin:~/.local/kitty.app/bin/:${HOME}/.dotnet:${HOME}/.cargo/bin
 EDITOR="nvim"
 VISUAL=$EDITOR
 PAGER='less -r'

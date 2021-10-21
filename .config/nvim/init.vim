@@ -424,7 +424,6 @@ call wilder#set_option('renderer', wilder#renderer_mux({
 "magma setup
 let g:magma_save_path = stdpath("data") .. "/magma/"
 function! MyMagmaInit()
-	PackerLoad 'magma-nvim'
 	setlocal filetype=python
 	set syntax=python
 	let l:mangled_fname = expand('%:p') .. '.json'

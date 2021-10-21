@@ -6,35 +6,11 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.api.nvim_command 'packadd packer.nvim'
 end
 
---[[
-inspected_buffers = {}
-function limit_by_line_count(max_lines)
-	local fname = vim.fn.expand("%:p")
-	if fname ~= nil then
-		return true
-	end
-	local cache = inspected_buffers[fname]
-	if cache ~= nil then
-		return cache
-	end
-
-	max_lines = max_lines or 1000
-	local lines = 0
-	for _ in io.lines(fname) do
-		lines = lines + 1
-		if lines > max_lines then
-			break
-		end
-	end
-	inspected_buffers[fname] = (lines <= max_lines)
-	return inspected_buffers[fname]
-end
- ]]
 
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 return require("packer").startup({
   function(use)
-    use 'wbthomason/packer.nvim'
+		use 'wbthomason/packer.nvim'
 
 		-- faster plugins loader
 		use {'lewis6991/impatient.nvim', rocks = 'mpack'}
@@ -248,6 +224,7 @@ return require("packer").startup({
 		-- for keymappings
 		use { 'LionC/nest.nvim' }
 	end,
+
 	config = {
 		-- Move to lua dir so impatient.nvim can cache it
 		compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
