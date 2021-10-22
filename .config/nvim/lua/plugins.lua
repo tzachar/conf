@@ -38,7 +38,7 @@ return require("packer").startup({
 			'glepnir/galaxyline.nvim',
 			branch = 'main',
 		} ]]
-		use { 'shadmansaleh/lualine.nvim' }
+		use { 'nvim-lualine/lualine.nvim' }
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter'}
