@@ -127,7 +127,7 @@ cmp.setup {
 	},
 
 	-- You should specify your *installed* sources.
-	sources = {
+	sources = cmp.config.sources({
 		{ name = 'cmp_tabnine' },
 		{ name = 'vsnip' },
 		{ name = 'nvim_lsp' },
@@ -137,7 +137,7 @@ cmp.setup {
 		{ name = 'path' },
 		{ name = 'emoji' },
 		{ name = 'calc' },
-	},
+	}),
 
 	preselect = cmp.PreselectMode.None,
 
