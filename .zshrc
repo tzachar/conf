@@ -17,6 +17,7 @@ antigen bundle history
 antigen bundle ssh
 antigen bundle ssh-agent
 antigen bundle tmux
+antigen bundle pipenv
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle Aloxaf/fzf-tab
