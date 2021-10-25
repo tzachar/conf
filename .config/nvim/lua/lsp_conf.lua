@@ -40,22 +40,17 @@ local on_attach = function(client, bufnr)
 	elseif client.resolved_capabilities.document_range_formatting then
 		buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 	end
-	-- Set autocommands conditional on server_capabilities
-	-- if client.resolved_capabilities.document_highlight then
-	-- 	vim.api.nvim_exec([[
-	-- 	hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-	-- 	hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-	-- 	hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-	-- 	augroup lsp_document_highlight
-	-- 	autocmd! * <buffer>
-	-- 	autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-	-- 	autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-	-- 	augroup END
-	-- 	]], false)
-	-- end
+
+	vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+		vim.lsp.diagnostic.on_publish_diagnostics, {
+			virtual_text = true,
+			signs = true,
+			underline = true,
+			update_in_insert = true,
+		})
 end
 
-local DebounceRate = 400
+local DebounceRate = 2000
 
 local function setup_servers()
 
@@ -230,3 +225,15 @@ vim.g.lsp_utils_symbols_opts = {
 	}
 }
 
+-- highlight line numbers on error
+vim.cmd [[
+  highlight LspDiagnosticsLineNrError guibg=#51202A guifg=#FF0000 gui=bold
+  highlight LspDiagnosticsLineNrWarning guibg=#51412A guifg=#FFA500 gui=bold
+  highlight LspDiagnosticsLineNrInformation guibg=#1E535D guifg=#00FFFF gui=bold
+  highlight LspDiagnosticsLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
+
+  sign define DiagnosticSignError text= texthl=LspDiagnosticsSignError linehl= numhl=LspDiagnosticsLineNrError
+  sign define DiagnosticSignWarn text= texthl=LspDiagnosticsSignWarning linehl= numhl=LspDiagnosticsLineNrWarning
+  sign define DiagnosticSignInfo text= texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsLineNrInformation
+  sign define DiagnosticSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsLineNrHint
+]]

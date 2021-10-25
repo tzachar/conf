@@ -95,20 +95,8 @@ cmp.setup {
 			end
 			fallback()
 		end,
-		['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-      else
-        fallback()
-      end
-    end,
-		['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-      else
-        fallback()
-      end
-    end,
+		['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+		['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 	},
 
 	formatting = {
@@ -148,3 +136,15 @@ cmp.setup {
 	},
 }
 
+--[[ cmp.setup.cmdline('/', {
+	sources = {
+		{ name = 'buffer' },
+	}
+})
+cmp.setup.cmdline(':', {
+	sources = {
+		{ name = 'cmdline' },
+		{ name = 'path' },
+	}
+})
+ ]]
