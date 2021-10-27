@@ -28,7 +28,7 @@ return require("packer").startup({
 		use "hrsh7th/cmp-path" --completion
 		use "hrsh7th/cmp-emoji" --completion
 		use "hrsh7th/cmp-nvim-lua" --completion
-		-- use "hrsh7th/cmp-cmdline" --completion
+		use "hrsh7th/cmp-cmdline" --completion
 		use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 		use 'ray-x/cmp-treesitter'
 		use 'hrsh7th/cmp-vsnip'
@@ -202,14 +202,16 @@ return require("packer").startup({
 		use 'JoosepAlviste/nvim-ts-context-commentstring'
 
 		-- wildmenu
-		use {
+		--[[ use {
 			'gelguy/wilder.nvim',
 			requires = {
 				{'nixprime/cpsm', run='./install.sh'},
 				'romgrk/fzy-lua-native',
 				'kyazdani42/nvim-web-devicons',
 			}
-		}
+		} ]]
+		-- dev icons
+		use 'kyazdani42/nvim-web-devicons'
 
 		-- magma:
 		use {
