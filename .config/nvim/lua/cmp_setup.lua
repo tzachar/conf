@@ -22,6 +22,7 @@ local source_mapping = {
 	path = "[Path]",
 	calc = "[Calc]",
 	treesitter = "[TS]",
+	fzy_buffer = "[FZ]",
 }
 
 local compare_priority = function(entry1, entry2)
@@ -66,6 +67,7 @@ cmp.setup {
 			compare.offset,
 			compare.exact,
 			compare.score,
+			compare.recently_used,
 			compare.kind,
 			compare.sort_text,
 			compare.length,
@@ -107,7 +109,7 @@ cmp.setup {
 	formatting = {
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind.symbolic(vim_item.kind, {with_text = false})
-			local menu = source_mapping[entry.source.name]
+			local menu = source_mapping[entry.source.name] or '[' .. entry.source.name .. ']'
 			if entry.source.name == 'cmp_tabnine' then
 				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
 					menu = entry.completion_item.data.detail .. ' ' .. menu
@@ -121,12 +123,13 @@ cmp.setup {
 
 	-- You should specify your *installed* sources.
 	sources = cmp.config.sources({
+		{ name = 'fzy_buffer' },
 		{ name = 'cmp_tabnine' },
 		{ name = 'vsnip' },
 		{ name = 'nvim_lsp' },
 		{ name = 'nvim_lua' },
-		{ name = 'treesitter' },
-		{ name = 'buffer' },
+		-- { name = 'treesitter' },
+		-- { name = 'buffer' },
 		{ name = 'path' },
 		{ name = 'emoji' },
 		{ name = 'calc' },
@@ -141,15 +144,20 @@ cmp.setup {
 	},
 }
 
+-- cmp.register_source('cmdline_buffer', require('cmp_buffer').new())
 cmp.setup.cmdline('/', {
-	sources = {
-		{ name = 'buffer' },
-	}
-})
-cmp.setup.cmdline(':', {
 	sources = cmp.config.sources({
-		{ name = 'path' }
-	}, {
-			{ name = 'cmdline' }
-		})
+			-- { name = 'cmdline_buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] }  },
+			-- { name = 'buffer' }
+			{ name = 'fzy_buffer' }
+		}
+	)
+})
+
+cmp.setup.cmdline(':', {
+	sources = cmp.config.sources(
+		{ { name = 'path' } },
+		{ { name = 'cmdline' } }
+		-- { { name = 'fzy_path' } }
+	)
 })

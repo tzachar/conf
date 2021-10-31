@@ -13,7 +13,8 @@ return require("packer").startup({
 		use 'wbthomason/packer.nvim'
 
 		-- faster plugins loader
-		use {'lewis6991/impatient.nvim', rocks = 'mpack'}
+		-- use {'lewis6991/impatient.nvim', rocks = 'mpack'}
+		use {'lewis6991/impatient.nvim', commit = '561b86e5'}
 
 		use "neovim/nvim-lspconfig"
 		-- update language servers
@@ -34,6 +35,7 @@ return require("packer").startup({
 		use 'hrsh7th/cmp-vsnip'
 		use 'hrsh7th/vim-vsnip'
 		use 'hrsh7th/vim-vsnip-integ'
+		use {'tzachar/cmp-fzy-buffer', requires = {'hrsh7th/nvim-cmp', 'romgrk/fzy-lua-native'}}
 
 		--[[ use {
 			'glepnir/galaxyline.nvim',
@@ -210,6 +212,9 @@ return require("packer").startup({
 				'kyazdani42/nvim-web-devicons',
 			}
 		} ]]
+
+		use { 'romgrk/fzy-lua-native', run = 'make' }
+		use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 		-- dev icons
 		use 'kyazdani42/nvim-web-devicons'
 
