@@ -23,6 +23,7 @@ local source_mapping = {
 	calc = "[Calc]",
 	treesitter = "[TS]",
 	fzy_buffer = "[FZ]",
+	fzy_path = "[FZ]",
 }
 
 local compare_priority = function(entry1, entry2)
@@ -133,6 +134,7 @@ cmp.setup {
 		{ name = 'path' },
 		{ name = 'emoji' },
 		{ name = 'calc' },
+		{ name = 'fuzzy_path'},
 	}),
 
 	preselect = cmp.PreselectMode.None,
@@ -155,9 +157,9 @@ cmp.setup.cmdline('/', {
 })
 
 cmp.setup.cmdline(':', {
-	sources = cmp.config.sources(
-		{ { name = 'path' } },
-		{ { name = 'cmdline' } }
-		-- { { name = 'fzy_path' } }
-	)
+	sources = cmp.config.sources({
+		{ name = 'fuzzy_path' }
+	}, {
+			{ name = 'cmdline' }
+		})
 })

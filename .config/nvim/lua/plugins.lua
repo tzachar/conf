@@ -35,12 +35,11 @@ return require("packer").startup({
 		use 'hrsh7th/cmp-vsnip'
 		use 'hrsh7th/vim-vsnip'
 		use 'hrsh7th/vim-vsnip-integ'
-		use {'tzachar/cmp-fzy-buffer', requires = {'hrsh7th/nvim-cmp', 'romgrk/fzy-lua-native'}}
+		use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+		use {'tzachar/fuzzy.nvim', requires = {'nvim-telescope/telescope-fzf-native.nvim'}}
+		use {'tzachar/cmp-fzy-buffer', requires = {'hrsh7th/nvim-cmp', 'tzachar/fuzzy.nvim'}}
+		use {'tzachar/cmp-fuzzy-path', requires = {'hrsh7th/nvim-cmp', 'tzachar/fuzzy.nvim'}}
 
-		--[[ use {
-			'glepnir/galaxyline.nvim',
-			branch = 'main',
-		} ]]
 		use { 'nvim-lualine/lualine.nvim' }
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 		use { 'nvim-treesitter/nvim-treesitter-refactor', requires = 'nvim-treesitter/nvim-treesitter'}
@@ -203,17 +202,7 @@ return require("packer").startup({
 		-- change commentstring based on location in file
 		use 'JoosepAlviste/nvim-ts-context-commentstring'
 
-		-- wildmenu
-		--[[ use {
-			'gelguy/wilder.nvim',
-			requires = {
-				{'nixprime/cpsm', run='./install.sh'},
-				'romgrk/fzy-lua-native',
-				'kyazdani42/nvim-web-devicons',
-			}
-		} ]]
-
-		use { 'romgrk/fzy-lua-native', run = 'make' }
+		-- use { 'romgrk/fzy-lua-native', run = 'make' }
 		use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 		-- dev icons
 		use 'kyazdani42/nvim-web-devicons'
