@@ -167,9 +167,14 @@ export TF_CPP_MIN_LOG_LEVEL=3
 unalias -m ag
 
 export FZF_DEFAULT_OPTS='--tiebreak=end'
-if type ag &> /dev/null; then
-    export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
+if type fd &> /dev/null; then
+	export FZF_DEFAULT_COMMAND="fd --type file --color=always"
+	export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --ansi"
+elif type ag &> /dev/null; then
+	export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
 fi
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # pyenv
