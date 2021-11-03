@@ -85,17 +85,9 @@ cmp.setup {
 		['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
 		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 		['<C-e>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true, }),{ 'i', 'c' }),
-		['<CR>'] = cmp.mapping({
-			i = cmp.mapping.confirm({
+		['<CR>'] = cmp.mapping.confirm({
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = false,
-				}),
-			c = function(fallback)
-				if cmp.visible() then
-					cmp.mapping.confirm({ select = false })
-				end
-				fallback()
-			end,
 		}),
 		['jj'] = function(fallback)
       if cmp.visible() then
