@@ -25,7 +25,9 @@ antigen bundle Aloxaf/fzf-tab
 # antigen theme denysdovhan/spaceship-prompt
 
 # these are last
-antigen bundle zsh-users/zsh-syntax-highlighting
+# antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zdharma-continuum/fast-syntax-highlighting
+
 antigen bundle zsh-users/zsh-history-substring-search
 
 antigen theme romkatv/powerlevel10k
