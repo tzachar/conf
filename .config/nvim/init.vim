@@ -354,6 +354,7 @@ let g:iron_map_extended = 0
 " highligh on yank
 au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=350, on_visual=true}
 
+lua _G.use_cachepack = true
 lua require('impatient')
 lua require('misc')
 lua require('packer_compiled')
