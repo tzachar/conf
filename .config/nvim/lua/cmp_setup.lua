@@ -22,8 +22,8 @@ local source_mapping = {
 	path = "[Path]",
 	calc = "[Calc]",
 	treesitter = "[TS]",
-	fzy_buffer = "[FZ]",
-	fzy_path = "[FZ]",
+	fuzzy_buffer = "[FZ]",
+	fuzzy_path = "[FZ]",
 }
 
 local compare_priority = function(entry1, entry2)
@@ -124,7 +124,7 @@ cmp.setup {
 
 	-- You should specify your *installed* sources.
 	sources = cmp.config.sources({
-		{ name = 'fzy_buffer' },
+		{ name = 'fuzzy_buffer' },
 		{ name = 'cmp_tabnine' },
 		{ name = 'vsnip' },
 		{ name = 'nvim_lsp' },
@@ -151,7 +151,7 @@ cmp.setup.cmdline('/', {
 	sources = cmp.config.sources({
 			-- { name = 'cmdline_buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] }  },
 			-- { name = 'buffer' }
-			{ name = 'fzy_buffer' }
+			{ name = 'fuzzy_buffer' }
 		}
 	)
 })
