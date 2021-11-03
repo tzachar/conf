@@ -202,8 +202,6 @@ return require("packer").startup({
 		-- change commentstring based on location in file
 		use 'JoosepAlviste/nvim-ts-context-commentstring'
 
-		-- use { 'romgrk/fzy-lua-native', run = 'make' }
-		use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 		-- dev icons
 		use 'kyazdani42/nvim-web-devicons'
 
