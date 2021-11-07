@@ -116,7 +116,21 @@ cmp.setup {
 
 	-- You should specify your *installed* sources.
 	sources = cmp.config.sources({
-		{ name = 'fuzzy_buffer' },
+		{
+			name = 'fuzzy_buffer',
+			opts = {
+				get_bufnrs = function()
+					local bufs = {}
+					for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+						local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
+						if buftype ~= 'nofile' and buftype ~= 'prompt' then
+							bufs[#bufs + 1] = buf
+						end
+					end
+					return bufs
+				end
+			},
+		},
 		{ name = 'cmp_tabnine' },
 		{ name = 'vsnip' },
 		{ name = 'nvim_lsp' },

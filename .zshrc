@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export TERMINFO=/home/tzachar/.local/kitty.app/lib/kitty/terminfo
+export TERMINFO=${HOME}/.local/kitty.app/lib/kitty/terminfo
 
 source ~/antigen.zsh
 antigen use oh-my-zsh

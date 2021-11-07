@@ -186,10 +186,6 @@ return require("packer").startup({
 
 		use 'ntpeters/vim-better-whitespace'
 
-		-- if semshi does not work, you need to open a python file and
-		-- then :UpdateRemotePlugins
-		-- use {'numirias/semshi', run = ':UpdateRemotePlugins', ft = 'python'}
-
 		-- git
 		use 'tpope/vim-fugitive'
 
