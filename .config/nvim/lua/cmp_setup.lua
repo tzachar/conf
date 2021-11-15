@@ -65,6 +65,7 @@ cmp.setup {
 		priority_weight = 2,
 		comparators = {
 			compare_priority,
+			require('cmp_fuzzy_buffer.compare'),
 			compare.offset,
 			compare.exact,
 			compare.score,
@@ -102,7 +103,7 @@ cmp.setup {
 	formatting = {
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind.symbolic(vim_item.kind, {with_text = false})
-			local menu = source_mapping[entry.source.name] or '[' .. entry.source.name .. ']'
+			local menu = source_mapping[entry.source.name] or ('[' .. entry.source.name .. ']')
 			if entry.source.name == 'cmp_tabnine' then
 				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
 					menu = entry.completion_item.data.detail .. ' ' .. menu
@@ -137,7 +138,7 @@ cmp.setup {
 		{ name = 'nvim_lua' },
 		-- { name = 'treesitter' },
 		-- { name = 'buffer' },
-		{ name = 'path' },
+		-- { name = 'path' },
 		{ name = 'emoji' },
 		{ name = 'calc' },
 		{ name = 'fuzzy_path'},
@@ -152,13 +153,27 @@ cmp.setup {
 	},
 }
 
--- cmp.register_source('cmdline_buffer', require('cmp_buffer').new())
 cmp.setup.cmdline('/', {
 	sources = cmp.config.sources({
-			-- { name = 'cmdline_buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] }  },
-			-- { name = 'buffer' }
-			{ name = 'fuzzy_buffer' }
-		}
+		{ name = 'fuzzy_buffer', opts = {
+			get_bufnrs = function()
+				return { vim.api.nvim_get_current_buf() }
+			end,
+
+		} }
+	}
+	)
+})
+
+cmp.setup.cmdline('?', {
+	sources = cmp.config.sources({
+		{ name = 'fuzzy_buffer', opts = {
+			get_bufnrs = function()
+				return { vim.api.nvim_get_current_buf() }
+			end,
+
+		} }
+	}
 	)
 })
 

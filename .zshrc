@@ -7,6 +7,8 @@ fi
 
 export TERMINFO=${HOME}/.local/kitty.app/lib/kitty/terminfo
 
+export HISTORY_SUBSTRING_SEARCH_FUZZY=true
+
 source ~/antigen.zsh
 antigen use oh-my-zsh
 
@@ -19,8 +21,8 @@ antigen bundle ssh-agent
 antigen bundle tmux
 antigen bundle pipenv
 antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle Aloxaf/fzf-tab
+antigen bundle zsh-users/zsh-autosuggestions
 
 # antigen theme denysdovhan/spaceship-prompt
 
@@ -35,6 +37,11 @@ antigen theme romkatv/powerlevel10k
 antigen apply
 
 # zstyle ':fzf-tab:complete:*' fzf-bindings 'tab:accept'
+
+if [ ! -f ${HOME}/.antigen/bundles/Aloxaf/fzf-tab/modules/Src/aloxaf/fzftab.so ]; then
+	build-fzf-tab-module
+fi
+
 
 DISABLE_AUTO_TITLE="true"
 ZSH_TMUX_FIXTERM="false"
