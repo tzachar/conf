@@ -119,7 +119,7 @@ cmp.setup {
 	sources = cmp.config.sources({
 		{
 			name = 'fuzzy_buffer',
-			opts = {
+			options = {
 				get_bufnrs = function()
 					local bufs = {}
 					for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -155,7 +155,7 @@ cmp.setup {
 
 cmp.setup.cmdline('/', {
 	sources = cmp.config.sources({
-		{ name = 'fuzzy_buffer', opts = {
+		{ name = 'fuzzy_buffer', options = {
 			get_bufnrs = function()
 				return { vim.api.nvim_get_current_buf() }
 			end,
@@ -167,7 +167,7 @@ cmp.setup.cmdline('/', {
 
 cmp.setup.cmdline('?', {
 	sources = cmp.config.sources({
-		{ name = 'fuzzy_buffer', opts = {
+		{ name = 'fuzzy_buffer', options = {
 			get_bufnrs = function()
 				return { vim.api.nvim_get_current_buf() }
 			end,

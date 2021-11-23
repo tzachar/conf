@@ -14,7 +14,7 @@ return require("packer").startup({
 
 		-- faster plugins loader
 		-- use {'lewis6991/impatient.nvim', rocks = 'mpack'}
-		use {'lewis6991/impatient.nvim', commit = '561b86e5'}
+		use {'lewis6991/impatient.nvim'}
 
 		use "neovim/nvim-lspconfig"
 		-- update language servers
