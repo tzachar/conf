@@ -132,13 +132,16 @@ return require("packer").startup({
 		use 'AndrewRadev/switch.vim'
 		use 'tommcdo/vim-exchange'
 		use { 'vim-scripts/dbext.vim', ft = 'sql' }
-		use 'tpope/vim-surround'
+
+		use { "blackCauldron7/surround.nvim" }
+		-- use 'tpope/vim-surround'
 		-- use 'rking/ag.vim'
 		use { 'jelera/vim-javascript-syntax', ft = {'js', 'javascript', 'html', 'html.javascript'}}
 		-- use 'machakann/vim-highlightedyank'
 		use { 'alvan/vim-closetag', ft = { 'html' , 'html.javascript' }}
 		-- show changes in vcs
-		use 'mhinz/vim-signify'
+		use 'airblade/vim-gitgutter'
+		-- use 'mhinz/vim-signify'
 
 		-- python formatter
 		use {'google/yapf', rtp = 'plugins/vim', ft = 'python' }

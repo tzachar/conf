@@ -176,6 +176,23 @@ hi SpellCap guifg=#ffffff guibg=#7f007f
 hi SpellRare guifg=#ffffff guibg=#00007f gui=underline
 hi SpellLocal term=reverse ctermfg=black ctermbg=darkgreen guifg=#ffffff guibg=#7f0000 gui=underline
 
+" cmp items highlighting" gray
+highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+" blue
+highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+" light blue
+highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+" pink
+highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+" front
+highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+
 "for Switch:
 let g:switch_mapping = "-"
 
@@ -291,10 +308,15 @@ let g:vimtex_compiler_enabled = 0
 
 " for vim-surround:
 " when surrounding with 'e', ask for a wrapper
-let g:surround_101 = "\1wrapper:\1(\r)"
+" let g:surround_101 = "\1wrapper:\1(\r)"
 
 " config for vim-signify
-let g:signify_vcs_list = [ 'git', 'hg' ]
+" let g:signify_vcs_list = [ 'git', 'hg' ]
+
+" gitgutter config
+let g:gitgutter_set_sign_backgrounds = 1
+let g:gitgutter_highlight_linenrs = 1
+let g:gitgutter_preview_win_floating = 1
 
 
 " indentguide
