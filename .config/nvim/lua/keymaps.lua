@@ -70,6 +70,7 @@ nest.applyKeymaps({
 		{ '<leader>ri', '<cmd>MagmaInit<CR>' },
 		{ '<leader>rs', '<cmd>MagmaSave<CR>' },
 		{ '<leader>rl', '<cmd>MagmaLoad<CR>' },
+		{ '<leader>rq', '<cmd>noautocmd MagmaEnterOutput<CR>' },
 	}},
 	{ mode = 'x', {
 		options = { silent = true },

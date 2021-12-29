@@ -1,3 +1,4 @@
 -- make sure to sudo apt-get install sqlite3-pcre
 .load /usr/lib/sqlite3/pcre.so
 .load /home/tzachar/sqlite/inflate.so
+.load /home/tzachar/sqlite/libsqlitefunctions.so

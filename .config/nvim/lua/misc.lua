@@ -106,10 +106,23 @@ require'nvim-web-devicons'.setup {
 }
 
 -- colorscheme setup
-vim.g.tokyonight_style = "night"
+--[[ vim.g.tokyonight_style = "night"
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd("colorscheme tokyonight") ]]
+
+-- gitSigns taken from tokyonight
+local gitSigns = { change = "#6183bb", add = "#449dab", delete = "#914c54", conflict = "#bb7a61" }
+require('kanagawa').setup({
+	overrides = {
+		GitGutterAddLineNR = { fg = gitSigns.add }, -- diff mode: Added line |diff.txt|
+    GitGutterChangeLineNR = { fg = gitSigns.change }, -- diff mode: Changed line |diff.txt|
+    GitGutterDeleteLineNR = { fg = gitSigns.delete }, -- diff mode: Deleted line |diff.txt|
+    GitGutterChangeDeleteLineNR = { fg = gitSigns.delete }, -- diff mode: Deleted line |diff.txt|
+	}
+})
+vim.cmd("colorscheme kanagawa")
+
 
 -- load	lualine
 require('lualine').setup()

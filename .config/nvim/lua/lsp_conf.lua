@@ -136,6 +136,17 @@ local function setup_servers()
 				debounce_text_changes = DebounceRate;
 			}
 		}
+	configs['tsserver'] = {
+			on_attach = on_attach;
+			settings = {
+				tsserver = {
+					-- filetypes = { "sh", "zsh" };
+				};
+			};
+			flags = {
+				debounce_text_changes = DebounceRate;
+			}
+		}
 	configs['html'] = {
 			on_attach = on_attach;
 			settings = {

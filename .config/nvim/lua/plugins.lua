@@ -60,6 +60,7 @@ return require("packer").startup({
 		-- zephyr-nvim requires nvim-treesitter
 		-- use {'glepnir/zephyr-nvim', branch = 'main', requires = 'nvim-treesitter/nvim-treesitter'}
 		use { 'folke/tokyonight.nvim' }
+		use { 'rebelot/kanagawa.nvim' }
 
 		use 'zegervdv/nrpattern.nvim'
 
