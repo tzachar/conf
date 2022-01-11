@@ -72,8 +72,6 @@ return require("packer").startup({
 
 		use 'jeetsukumaran/vim-buffergator'
 
-		use 'ggandor/lightspeed.nvim'
-
 		use { '~/fzf', run = './install --all' }
 		-- use { 'junegunn/fzf.vim', requires = '~/fzf' }
 		use { 'ibhagwan/fzf-lua',
@@ -218,6 +216,14 @@ return require("packer").startup({
 
 		-- for keymappings
 		use { 'LionC/nest.nvim' }
+
+		-- user defined text objects
+		use { 'kana/vim-textobj-user'}
+		use { 'Julian/vim-textobj-variable-segment', requires = { 'kana/vim-textobj-user' }}
+
+		-- split join lines
+		use 'AndrewRadev/splitjoin.vim'
+
 	end,
 
 	config = {

@@ -250,15 +250,6 @@ function! PerlFormat(str)
 endfunction
 call TextTransform#MakeMappings('', '<Leader>fp', 'PerlFormat')
 
-function! ReverseJ(text)
-	let l:text = substitute(a:text, "(", "(\n", "")
-	let l:text = substitute(l:text, ",", ",\n", "g")
-	let l:text = substitute(l:text, ")", "\n)", "g")
-	return l:text
-endfunction
-
-call TextTransform#MakeMappings('', 'gj', 'ReverseJ')
-
 let g:nvcode_termcolors=256
 
 "for dbext
@@ -434,3 +425,12 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" configuration for splitjoin
+let g:splitjoin_align = 1
+let g:splitjoin_curly_brace_padding = 1
+let g:splitjoin_trailing_comma = 1
+let g:splitjoin_ruby_hanging_args = 0
+let g:splitjoin_python_brackets_on_separate_lines = 1
+let g:splitjoin_split_mapping = 'cs'
+let g:splitjoin_join_mapping  = 'cj'

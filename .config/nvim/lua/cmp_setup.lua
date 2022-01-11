@@ -90,12 +90,6 @@ cmp.setup {
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = false,
 		}),
-		['jj'] = function(fallback)
-      if cmp.visible() then
-				require('cmp').close()
-			end
-			fallback()
-		end,
 		['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
 		['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
 	},
@@ -159,7 +153,6 @@ cmp.setup.cmdline('/', {
 			get_bufnrs = function()
 				return { vim.api.nvim_get_current_buf() }
 			end,
-
 		} }
 	}
 	)

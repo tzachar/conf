@@ -189,12 +189,11 @@ lsp_installer.on_server_ready(function(server)
 	opts['capabilities'] = capabilities
 	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
 	server:setup(opts)
-	vim.cmd [[ do User LspAttachBuffers ]]
+	-- vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
-local lsp_installer_servers = require'nvim-lsp-installer.servers'
 for server, _ in pairs(lsp_configs) do
-	local ok, lsp_server = lsp_installer_servers.get_server(server)
+	local ok, lsp_server = lsp_installer.get_server(server)
 	if ok then
     if not lsp_server:is_installed() then
         lsp_server:install()
