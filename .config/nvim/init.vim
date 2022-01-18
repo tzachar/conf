@@ -95,7 +95,7 @@ syntax on		" Default to no syntax highlightning
 augroup filetype
   au! BufRead,BufNewFile *.proto setfiletype proto
   au! BufRead,BufNewFile *.pp setfiletype puppet
-  au! FileType yaml,lua setlocal ts=2 sts=2 sw=2
+  au! FileType yaml,lua setlocal ts=2 sts=2 sw=2 expandtab number
 augroup end
 
 augroup ftypePython
@@ -400,9 +400,11 @@ augroup magma
   au! BufWrite *.jupyter MagmaSave
 augroup end
 
+highligh MagmaCellBG guibg=#222222
 let g:magma_automatically_open_output = v:true
 let g:magma_image_provider = 'kitty'
 let g:magma_show_mimetype_debug = v:true
+let g:magma_cell_highlight_group = 'MagmaCellBG'
 
 
 highlight Normal guibg=black guifg=wheat
