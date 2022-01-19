@@ -434,5 +434,5 @@ let g:splitjoin_curly_brace_padding = 1
 let g:splitjoin_trailing_comma = 1
 let g:splitjoin_ruby_hanging_args = 0
 let g:splitjoin_python_brackets_on_separate_lines = 1
-let g:splitjoin_split_mapping = 'cs'
-let g:splitjoin_join_mapping  = 'cj'
+let g:splitjoin_split_mapping = '<leader>s'
+let g:splitjoin_join_mapping  = '<leader>j'
