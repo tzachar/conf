@@ -16,22 +16,27 @@ function dump(...)
   print(unpack(objects))
 end
 
--- should be called with luado
-function add_ignore_type(line, linenr)
-  local ignore_decl = ' # type: ignore'
-  if #(vim.lsp.diagnostic.get_line_diagnostics(0, linenr)) > 0 then
-    vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
-  elseif string.sub(line, -15, -1) == ignore_decl then
-    vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
+local function add_ignore_type(options)
+  local comment_str = require('kommentary.config').get_config(0)[1]
+  local ignore_decl = ' ' .. comment_str .. ' type: ignore'
+  for linenr = (options.line1 - 1 or vim.fn.line('.') - 1), (options.line2 - 1 or vim.fn.line('.') - 1) do
+    local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
+    if string.sub(line, -#ignore_decl, -1) == ignore_decl then
+      vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
+    elseif #(vim.diagnostic.get(0, { lnum = linenr })) > 0 then
+      vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
+    end
   end
 end
+vim.api.nvim_add_user_command('AddIgnoreType', add_ignore_type, { range = true })
+
 local nest = require('nest')
 nest.applyKeymaps({
   { mode = 'n', {
-    { '<C-i>', '<cmd>.luado add_ignore_type(line, linenr - 1)<cr>', options = { silent = true } },
+    { '<C-i>', '<cmd>AddIgnoreType<cr>', options = { silent = true } },
   } },
   { mode = 'v', {
-    { '<C-i>', '<cmd>luado add_ignore_type(line, linenr - 1)<cr>', options = { silent = true } },
+    { '<C-i>', ':AddIgnoreType<cr>', options = { silent = true } },
   } },
 })
 
