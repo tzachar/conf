@@ -232,6 +232,8 @@ vim.g.lsp_utils_symbols_opts = {
   },
 }
 
+require("fidget").setup({ })
+
 -- highlight line numbers on error
 vim.cmd([[
   highlight LspDiagnosticsLineNrError guibg=#51202A guifg=#FF0000 gui=bold

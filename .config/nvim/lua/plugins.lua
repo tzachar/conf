@@ -19,6 +19,8 @@ return require('packer').startup({
     -- update language servers
     use('williamboman/nvim-lsp-installer')
     use({ 'ojroques/nvim-lspfuzzy', branch = 'main' })
+    -- ls progress
+    use('j-hui/fidget.nvim')
 
     use('onsails/lspkind-nvim')
     use('hrsh7th/nvim-cmp') --completion
@@ -219,6 +221,7 @@ return require('packer').startup({
 
     -- split join lines
     use('AndrewRadev/splitjoin.vim')
+
   end,
 
   config = {
