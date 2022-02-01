@@ -124,11 +124,17 @@ cmp.setup({
     ghost_text = {
       hl_group = 'Comment',
     },
-    horizontal_search = true,
   },
+
+  view = {
+    entries = 'custom'
+  }
 })
 
 cmp.setup.cmdline('/', {
+  view = {
+    entries = {name = 'wildmenu', separator = '|' }
+  },
   sources = cmp.config.sources({
     { name = 'fuzzy_buffer', options = {
       get_bufnrs = function()
@@ -139,6 +145,9 @@ cmp.setup.cmdline('/', {
 })
 
 cmp.setup.cmdline('?', {
+  view = {
+    entries = {name = 'wildmenu', separator = '|' }
+  },
   sources = cmp.config.sources({
     { name = 'fuzzy_buffer', options = {
       get_bufnrs = function()

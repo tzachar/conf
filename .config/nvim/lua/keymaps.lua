@@ -95,6 +95,13 @@ nest.applyKeymaps({
     { '<leader>c', '<plug>(iron-send-motion)' },
   } },
 
+  -- neogen documentation
+  { mode = 'n', {
+    {'<leader>nf', "<cmd>lua require('neogen').generate({ type = 'func'  })<cr>" },
+    {'<leader>nc', "<cmd>lua require('neogen').generate({ type = 'class' })<cr>" },
+    {'<leader>nt', "<cmd>lua require('neogen').generate({ type = 'type' })<cr>" },
+  } }
+
   -- vsnip
   --[[ { mode = 'is', {
 		{'<Tab>',   "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'",   options = {expr = true}},

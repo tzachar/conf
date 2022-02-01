@@ -47,16 +47,25 @@ return require('packer').startup({
     use({ 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter/nvim-treesitter' })
     use({ 'nvim-treesitter/playground', requires = 'nvim-treesitter/nvim-treesitter' })
     use({ 'RRethy/nvim-treesitter-textsubjects', requires = 'nvim-treesitter/nvim-treesitter' })
-    -- use { 'nvim-treesitter/nvim-tree-docs', requires = {
-    -- 		'nvim-treesitter/nvim-treesitter',
-    -- 		'Olical/aniseed',
-    -- 		'bakpakin/fennel.vim'
-    -- 	},
-    -- }
-    -- use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter'}
-    -- use {'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter/nvim-treesitter', cond = limit_by_line_count, opt = true}
+
     -- documentation
-    use({ 'kkoomen/vim-doge', run = ':call doge#install()' })
+    use {
+      "danymat/neogen",
+      config = function()
+        require('neogen').setup {
+          enabled = true,
+          languages = {
+            lua = {},
+            python = {
+              template = {
+                annotation_convention = 'annotation_convention '
+              }
+            }
+          }
+        }
+      end,
+      requires = "nvim-treesitter/nvim-treesitter"
+    }
 
     -- zephyr-nvim requires nvim-treesitter
     -- use {'glepnir/zephyr-nvim', branch = 'main', requires = 'nvim-treesitter/nvim-treesitter'}
