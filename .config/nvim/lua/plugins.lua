@@ -231,6 +231,9 @@ return require('packer').startup({
     -- split join lines
     use('AndrewRadev/splitjoin.vim')
 
+    -- endwise
+    use('RRethy/nvim-treesitter-endwise')
+
   end,
 
   config = {

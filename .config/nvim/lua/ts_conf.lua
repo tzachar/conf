@@ -50,9 +50,9 @@ require('nvim-treesitter.configs').setup({
     lsp_interop = {
       enable = true,
       --[[ peek_definition_code = {
-				["df"] = "@function.outer",
-				["dF"] = "@class.outer",
-			}, ]]
+        ["df"] = "@function.outer",
+        ["dF"] = "@class.outer",
+      }, ]]
     },
     select = {
       enable = true,
@@ -100,5 +100,9 @@ require('nvim-treesitter.configs').setup({
       ['<leader>;'] = 'textsubjects-big',
       ['<leader>"'] = 'textsubjects-smart',
     },
+  },
+
+  endwise = {
+    enable = true,
   },
 })
