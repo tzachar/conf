@@ -234,6 +234,14 @@ return require('packer').startup({
     -- endwise
     use('RRethy/nvim-treesitter-endwise')
 
+    -- null-ls
+    use({'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' }})
+
+    -- trouble
+    use ({'folke/trouble.nvim', requires = {'kyazdani42/nvim-web-devicons'},
+      config = function()
+        require("trouble").setup {}
+      end,})
   end,
 
   config = {

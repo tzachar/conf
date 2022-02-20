@@ -248,7 +248,7 @@ function! PerlFormat(str)
   let out = system('perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"', a:str)
   return out
 endfunction
-call TextTransform#MakeMappings('', '<Leader>fp', 'PerlFormat')
+call TextTransform#MakeMappings('', '<Leader>pf', 'PerlFormat')
 
 let g:nvcode_termcolors=256
 
@@ -377,6 +377,7 @@ lua require('lsp_conf')
 lua require('ts_conf')
 lua require('keymaps')
 lua require('cmp_setup')
+lua require('null_ls')
 
 
 "magma setup
