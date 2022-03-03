@@ -11,20 +11,29 @@ iron.core.set_config({
   highlight_last = false,
 })
 
-function dump(...)
+function dump(...)  ---@diagnostic disable-line
   local objects = vim.tbl_map(vim.inspect, { ... })
   print(unpack(objects))
 end
 
+local ignore_decl_per_source = {
+  ['Pyright'] = ' type: ignore',
+  ['flake8']  = ' noqa:',
+  ['Lua Diagnostics.'] = '-@diagnostic disable-line',
+}
+
 local function add_ignore_type(options)
   local comment_str = require('kommentary.config').get_config(0)[1]
-  local ignore_decl = '  ' .. comment_str .. ' type: ignore'
-  for linenr = (options.line1 - 1 or vim.fn.line('.') - 1), (options.line2 - 1 or vim.fn.line('.') - 1) do
-    local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
-    if string.sub(line, -#ignore_decl, -1) == ignore_decl then
-      vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
-    elseif #(vim.diagnostic.get(0, { lnum = linenr })) > 0 then
-      vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
+  for source, ignore_decl in pairs(ignore_decl_per_source) do
+    ignore_decl = '  ' .. comment_str .. ignore_decl
+    for linenr = (options.line1 - 1 or vim.fn.line('.') - 1), (options.line2 - 1 or vim.fn.line('.') - 1) do
+      local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
+      local diag = vim.diagnostic.get(0, { lnum = linenr })
+      if string.sub(line, -#ignore_decl, -1) == ignore_decl then
+        vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
+      elseif #diag > 0 and diag[1].source == source then
+        vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
+      end
     end
   end
 end
