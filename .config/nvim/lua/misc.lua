@@ -18,7 +18,7 @@ end
 
 local ignore_decl_per_source = {
   ['Pyright'] = ' type: ignore',
-  ['flake8']  = ' noqa:',
+  ['flake8']  = ' noqa',
   ['Lua Diagnostics.'] = '-@diagnostic disable-line',
 }
 

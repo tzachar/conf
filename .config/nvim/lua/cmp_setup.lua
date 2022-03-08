@@ -172,12 +172,14 @@ cmp.setup.cmdline('?', {
 })
 
 cmp.setup.cmdline(':', {
-  sources = cmp.config.sources({
+  sources = cmp.config.sources(
+  {
     { name = 'fuzzy_path', options = {
       fd_cmd = { 'fd', '-d', '20', '-p', '-i' },
       must_start_with_first_character = false,
     } },
-  }, {
+  },
+  {
     { name = 'cmdline' },
   }),
   sorting = {

@@ -33,8 +33,6 @@ let mapleader=","
 " do this b4 loading plugins
 let g:kommentary_create_default_mappings=0
 
-autocmd BufWritePost plugins.lua PackerCompile
-
 set nocompatible	" Use Vim defaults (much better!)
 set showcmd		" Show (partial) command in status line.
 set mouse=
@@ -91,23 +89,6 @@ filetype plugin indent on
 
 syntax on		" Default to no syntax highlightning
 
-
-augroup filetype
-  au! BufRead,BufNewFile *.proto setfiletype proto
-  au! BufRead,BufNewFile *.pp setfiletype puppet
-  au! FileType yaml,lua setlocal ts=2 sts=2 sw=2 expandtab number
-augroup end
-
-augroup ftypePython
-	autocmd!
-	au FileType python setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4 number
-	au FileType python setlocal number
-	" autocmd BufWritePre *.py :call TrimWhitespace()
-	autocmd FileType python set textwidth=120	" set text width to 70 chars.
-	autocmd FileType python nnoremap <Leader>fs :FToggle<Cr>
-	autocmd FileType python command! -range=% YAPF <line1>,<line2>call yapf#YAPF()
-augroup end
-
 augroup ftypeOptions
 	autocmd!
 	autocmd BufEnter *.cpp,*.h,*.c,*.cu,*.proto,*.hpp set cinoptions=:0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case formatoptions=tcqrl cinkeys=0{,0},0),0#,!^F,o,O,e,: cindent showmatch noexpandtab tabstop=8
@@ -138,8 +119,6 @@ augroup ftypeOptions
 
 	autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 	autocmd BufEnter *.heb.tex setlocal rightleft
-
-
 augroup end
 
 " function! UpdateTimeStamp()
@@ -317,13 +296,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_color_change_percent = 20
 
-" syntax ranges:
-augroup syntax_ranges
-	autocmd!
-	autocmd FileType html.javascript,html,js,javascript call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
-	autocmd FileType html.javascript,html,js,javascript call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
-augroup end
-
 " function! CleverKey(key)
 " 	if col('.') <= 0
 " 		return a:key
@@ -365,11 +337,9 @@ let g:doge_comment_jump_modes = ['n', 's']
 let g:iron_map_defaults = 0
 let g:iron_map_extended = 0
 
-" highligh on yank
-au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=350, on_visual=true}
-
 lua _G.use_cachepack = true
 lua require('impatient')
+lua require('au')
 lua require('misc')
 lua require('packer_compiled')
 lua require('plugins')
@@ -395,11 +365,6 @@ function! MyMagmaInit()
 		MagmaInit python3
 	endif
 endfunction
-
-augroup magma
-  au! BufRead,BufNewFile *.jupyter call MyMagmaInit()
-  au! BufWrite *.jupyter MagmaSave
-augroup end
 
 highligh MagmaCellBG guibg=#222222
 let g:magma_automatically_open_output = v:true
