@@ -3,7 +3,11 @@ local misc = vim.api.nvim_create_augroup("Misc", {clear = true})
 vim.api.nvim_create_autocmd('BufWritePost', {
   group = misc,
   pattern = 'plugins.lua',
-  callback = 'PackerCompile',
+  callback = function()
+    vim.cmd([[
+      PackerCompile
+    ]])
+  end
 })
 
 -- highligh on yank
