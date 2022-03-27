@@ -253,23 +253,23 @@ augroup project_vault
 	endfunction
 augroup end
 
-" augroup replacegJ
-" 	fun! JoinSpaceless()
-" 		if getline('.')[-1:-1] == '(' || getline('.')[-1:-1] == '['
-" 			execute 'normal! gJ'
-" 			" Character under cursor is whitespace?
-" 			if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
-" 				" Then remove it!
-" 				execute 'normal dw'
-" 			endif
-" 		else
-" 			execute 'normal! J'
-" 		endif
-" 	endfun
+augroup replacegJ
+	fun! JoinSpaceless()
+		if getline('.')[-1:-1] == '(' || getline('.')[-1:-1] == '[' || getline('.')[-1:-1] == '{'
+			execute 'normal! gJ'
+			" Character under cursor is whitespace?
+			if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
+				" Then remove it!
+				execute 'normal dw'
+			endif
+		else
+			execute 'normal! J'
+		endif
+	endfun
 
-" 	" Map it to a key
-" 	nnoremap J :call JoinSpaceless()<CR>
-" augroup end
+	" Map it to a key
+	nnoremap J :call JoinSpaceless()<CR>
+augroup end
 
 " tag closing
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"

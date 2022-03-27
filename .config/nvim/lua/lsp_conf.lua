@@ -171,7 +171,13 @@ local function setup_servers()
       debounce_text_changes = DebounceRate,
     },
   }
-  configs['pyright'] = {
+  configs['pylsp'] = {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = DebounceRate,
+    },
+  }
+  --[[ configs['pyright'] = {
     on_attach = on_attach,
     settings = {
       python = {
@@ -187,7 +193,7 @@ local function setup_servers()
     flags = {
       debounce_text_changes = DebounceRate,
     },
-  }
+  } ]]
   return configs
 end
 

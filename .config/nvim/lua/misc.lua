@@ -19,20 +19,28 @@ end
 local ignore_decl_per_source = {
   ['Pyright'] = ' type: ignore',
   ['flake8']  = ' noqa',
+  ['pyflakes']  = ' noqa',
+  ['pycodestyle']  = ' noqa',
+  ['pylsp']  = ' noqa',
   ['Lua Diagnostics.'] = '-@diagnostic disable-line',
 }
 
 local function add_ignore_type(options)
   local comment_str = require('kommentary.config').get_config(0)[1]
-  for source, ignore_decl in pairs(ignore_decl_per_source) do
-    ignore_decl = '  ' .. comment_str .. ignore_decl
-    for linenr = (options.line1 - 1 or vim.fn.line('.') - 1), (options.line2 - 1 or vim.fn.line('.') - 1) do
-      local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
-      local diag = vim.diagnostic.get(0, { lnum = linenr })
+  for linenr = (options.line1 - 1 or vim.fn.line('.') - 1), (options.line2 - 1 or vim.fn.line('.') - 1) do
+    local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
+    local diag = vim.diagnostic.get(0, { lnum = linenr })
+    if #diag > 0 and ignore_decl_per_source[diag[1].source] == nil then
+      dump('cannot find ignore type: ', diag[1].source)
+    end
+    for source, ignore_decl in pairs(ignore_decl_per_source) do
+      ignore_decl = '  ' .. comment_str .. ignore_decl
       if string.sub(line, -#ignore_decl, -1) == ignore_decl then
         vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
+        return
       elseif #diag > 0 and diag[1].source == source then
         vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
+        return
       end
     end
   end
@@ -43,9 +51,11 @@ local nest = require('nest')
 nest.applyKeymaps({
   { mode = 'n', {
     { '<C-i>', '<cmd>AddIgnoreType<cr>', options = { silent = true } },
+    { '<TAB>', '<cmd>AddIgnoreType<cr>', options = { silent = true } },
   } },
   { mode = 'v', {
     { '<C-i>', ':AddIgnoreType<cr>', options = { silent = true } },
+    { '<TAB>', ':AddIgnoreType<cr>', options = { silent = true } },
   } },
 })
 
@@ -76,11 +86,7 @@ vim.api.nvim_set_keymap('n', 'gcc', '<Plug>kommentary_line_default', {})
 vim.api.nvim_set_keymap('n', 'gc', '<Plug>kommentary_motion_default', {})
 vim.api.nvim_set_keymap('v', 'gc', '<Plug>kommentary_visual_default<esc>', {})
 
-require('which-key').setup({
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  -- refer to the configuration section below
-})
+require('which-key').setup({ })
 
 -- fzf setup
 require('fzf-lua').setup({
@@ -126,10 +132,13 @@ require('kanagawa').setup({
 vim.cmd('colorscheme kanagawa')
 
 -- load	lualine
-require('lualine').setup()
+require('lualine').setup({
+      options = {
+        globalstatus = true
+    },
+})
 
 -- mundo
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
 
--- require"surround".setup {mappings_style = "surround"}
