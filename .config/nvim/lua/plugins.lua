@@ -36,6 +36,7 @@ return require('packer').startup({
     use('hrsh7th/cmp-vsnip')
     use('hrsh7th/vim-vsnip')
     use('hrsh7th/vim-vsnip-integ')
+    use('hrsh7th/cmp-nvim-lsp-signature-help')
     use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
     use({ 'tzachar/fuzzy.nvim', requires = { 'nvim-telescope/telescope-fzf-native.nvim' } })
     use({ 'tzachar/cmp-fuzzy-buffer', requires = { 'hrsh7th/nvim-cmp', 'tzachar/fuzzy.nvim' } })

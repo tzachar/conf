@@ -124,6 +124,7 @@ cmp.setup({
     { name = 'vsnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
+    { name = 'nvim_lsp_signature_help' },
     -- { name = 'treesitter' },
     -- { name = 'buffer' },
     -- { name = 'path' },
