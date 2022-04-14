@@ -1,5 +1,4 @@
 require('nvim-treesitter.configs').setup({
-  ensure_installed = 'maintained',
   context_commentstring = {
     enable = true,
   },
@@ -92,7 +91,16 @@ require('nvim-treesitter.configs').setup({
         ['[]'] = '@class.outer',
       },
     },
-    ensure_installed = 'all',
+    ensure_installed = {
+      'python',
+      'c',
+      'cpp',
+      'json',
+      'bash',
+      'html',
+      'css',
+      'lua',
+    },
   },
   textsubjects = {
     enable = true,
@@ -104,6 +112,11 @@ require('nvim-treesitter.configs').setup({
 
   endwise = {
     enable = true,
+  },
+
+  matchup = {
+    enable = true,              -- mandatory, false will disable the whole extension
+    disable = {},  -- optional, list of language that will be disabled
   },
 })
 

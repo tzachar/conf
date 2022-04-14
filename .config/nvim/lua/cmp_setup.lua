@@ -37,10 +37,12 @@ local comparators = {
   require('cmp_tabnine.compare'),
   require('cmp_fuzzy_path.compare'),
   require('cmp_fuzzy_buffer.compare'),
-  compare.recently_used,
   compare.offset,
   compare.exact,
+  -- compare.scopes,
   compare.score,
+  compare.recently_used,
+  compare.locality,
   compare.kind,
   compare.sort_text,
   compare.length,
@@ -94,7 +96,7 @@ cmp.setup({
       local menu = source_mapping[entry.source.name] or ('[' .. entry.source.name .. ']')
       if entry.source.name == 'cmp_tabnine' then
         if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-          menu = entry.completion_item.data.detail .. ' ' .. menu
+          menu = menu .. ' ' .. entry.completion_item.data.detail
         end
         vim_item.kind = ''
       end
@@ -142,7 +144,7 @@ cmp.setup({
   },
 
   view = {
-    entries = 'custom'
+    entries = {name = 'custom', selection_order = 'near_cursor' }
   }
 })
 
@@ -173,6 +175,9 @@ cmp.setup.cmdline('?', {
 })
 
 cmp.setup.cmdline(':', {
+  view = {
+    entries = {name = 'custom', selection_order = 'near_cursor' }
+  },
   sources = cmp.config.sources(
   {
     { name = 'fuzzy_path', options = {
@@ -183,7 +188,7 @@ cmp.setup.cmdline(':', {
   {
     { name = 'cmdline' },
   }),
-  sorting = {
+  --[[ sorting = {
     priority_weight = 2,
     comparators = reverse_comparators,
   },
@@ -200,6 +205,6 @@ cmp.setup.cmdline(':', {
     }),
     ['<Tab>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
     ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-  },
+  }, ]]
 
 })

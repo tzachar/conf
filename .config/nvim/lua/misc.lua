@@ -18,6 +18,7 @@ end
 
 local ignore_decl_per_source = {
   ['Pyright'] = ' type: ignore',
+  ['mypy'] = ' type: ignore',
   ['flake8']  = ' noqa',
   ['pyflakes']  = ' noqa',
   ['pycodestyle']  = ' noqa',
@@ -45,7 +46,7 @@ local function add_ignore_type(options)
     end
   end
 end
-vim.api.nvim_add_user_command('AddIgnoreType', add_ignore_type, { range = true })
+vim.api.nvim_create_user_command('AddIgnoreType', add_ignore_type, { range = true })
 
 local nest = require('nest')
 nest.applyKeymaps({

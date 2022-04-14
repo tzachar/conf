@@ -243,6 +243,9 @@ return require('packer').startup({
       config = function()
         require("trouble").setup {}
       end,})
+
+    -- matchit
+    use "andymass/vim-matchup"
   end,
 
   config = {

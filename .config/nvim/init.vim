@@ -374,7 +374,7 @@ let g:magma_cell_highlight_group = 'MagmaCellBG'
 
 
 highlight Normal guibg=black guifg=wheat
-highlight MatchParen guibg=lightblue
+highlight MatchParen ctermbg=darkblue guibg=#a0a0a0 cterm=italic gui=italic
 "for highlight text
 highlight Search guibg=red
 " set background=dark
@@ -402,3 +402,6 @@ let g:splitjoin_ruby_hanging_args = 0
 let g:splitjoin_python_brackets_on_separate_lines = 1
 let g:splitjoin_split_mapping = '<leader>s'
 let g:splitjoin_join_mapping  = '<leader>j'
+
+" matchup
+let g:matchup_matchparen_deferred = 5
