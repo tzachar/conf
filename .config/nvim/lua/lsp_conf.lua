@@ -1,4 +1,7 @@
 local vim = vim
+local lspconfig = require("lspconfig")
+local lsp_installer = require('nvim-lsp-installer')
+
 require('cmp_nvim_lsp').setup({})
 
 function Format_range_operator(...)
@@ -95,17 +98,9 @@ local function setup_servers()
 
   local configs = {}
   configs['cssls'] = {}
-  configs['vimls'] = {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = DebounceRate,
-    },
-  }
+  configs['vimls'] = {}
+  configs['pylsp'] = {}
   configs['sumneko_lua'] = {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = DebounceRate,
-    },
     settings = {
       Lua = {
         filetypes = { 'lua' },
@@ -126,57 +121,34 @@ local function setup_servers()
     },
   }
   configs['jsonls'] = {
-    on_attach = on_attach,
     settings = {
       jsonls = {
         filetypes = { 'json' },
       },
     },
-    flags = {
-      debounce_text_changes = DebounceRate,
-    },
   }
   configs['bashls'] = {
-    on_attach = on_attach,
     settings = {
       bashls = {
         filetypes = { 'sh', 'zsh' },
       },
     },
-    flags = {
-      debounce_text_changes = DebounceRate,
-    },
   }
   configs['tsserver'] = {
-    on_attach = on_attach,
     settings = {
       tsserver = {
         -- filetypes = { "sh", "zsh" };
       },
     },
-    flags = {
-      debounce_text_changes = DebounceRate,
-    },
   }
   configs['html'] = {
-    on_attach = on_attach,
     settings = {
       html = {
         filetypes = { 'html', 'css' },
       },
     },
-    flags = {
-      debounce_text_changes = DebounceRate,
-    },
-  }
-  configs['pylsp'] = {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = DebounceRate,
-    },
   }
   --[[ configs['pyright'] = {
-    on_attach = on_attach,
     settings = {
       python = {
         analysis = {
@@ -188,34 +160,23 @@ local function setup_servers()
         },
       },
     },
-    flags = {
-      debounce_text_changes = DebounceRate,
-    },
   } ]]
   return configs
 end
 
 local lsp_configs = setup_servers()
 
-local lsp_installer = require('nvim-lsp-installer')
-lsp_installer.on_server_ready(function(server)
-  if lsp_configs[server.name] == nil then
-    vim.notify('cannot find config for server:' .. server.name)
-  end
-  local opts = lsp_configs[server.name] or {}
-  opts['capabilities'] = capabilities
-  -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-  server:setup(opts)
-  -- vim.cmd [[ do User LspAttachBuffers ]]
-end)
+require("nvim-lsp-installer").setup{
+  ensure_installed = vim.tbl_keys(lsp_configs)
+}
 
-for server, _ in pairs(lsp_configs) do
-  local ok, lsp_server = lsp_installer.get_server(server)
-  if ok then
-    if not lsp_server:is_installed() then
-      lsp_server:install()
-    end
-  end
+for server, opts in pairs(lsp_configs) do
+  opts['capabilities'] = capabilities
+  opts['on_attach'] = on_attach
+  opts['flags'] = {
+    debounce_text_changes = DebounceRate,
+  }
+  lspconfig[server].setup(opts)
 end
 
 -- lsp fzf integration
