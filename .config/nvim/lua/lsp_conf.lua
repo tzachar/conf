@@ -54,11 +54,11 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>f', '<cmd>lua Format_range_operator()<CR>', opts)
   buf_set_keymap('v', '<leader>f', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
 
-  -- disable formatting for pyright
+  --[[ -- disable formatting for pyright
   if client.name == 'pyright' then
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
-  end
+  end ]]
 
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = true,
