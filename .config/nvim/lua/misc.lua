@@ -1,15 +1,6 @@
 local vim = vim
 -- iron conf
 require('nrpattern').setup()
-local iron = require('iron')
-
-iron.core.set_config({
-  preferred = {
-    python = 'ipython',
-  },
-  memory_management = 'singleton',
-  highlight_last = false,
-})
 
 function dump(...)  ---@diagnostic disable-line
   local objects = vim.tbl_map(vim.inspect, { ... })
@@ -123,11 +114,13 @@ vim.cmd("colorscheme tokyonight") ]]
 -- gitSigns taken from tokyonight
 local gitSigns = { change = '#6183bb', add = '#449dab', delete = '#914c54', conflict = '#bb7a61' }
 require('kanagawa').setup({
+  undercurl = true,           -- enable undercurls
   overrides = {
     GitGutterAddLineNR = { fg = gitSigns.add }, -- diff mode: Added line |diff.txt|
     GitGutterChangeLineNR = { fg = gitSigns.change }, -- diff mode: Changed line |diff.txt|
     GitGutterDeleteLineNR = { fg = gitSigns.delete }, -- diff mode: Deleted line |diff.txt|
     GitGutterChangeDeleteLineNR = { fg = gitSigns.delete }, -- diff mode: Deleted line |diff.txt|
+    TSVariable = {fg = 'wheat'},
   },
 })
 vim.cmd('colorscheme kanagawa')

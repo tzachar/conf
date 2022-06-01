@@ -17,7 +17,10 @@ return require('packer').startup({
 
     use('neovim/nvim-lspconfig')
     -- update language servers
-    use('williamboman/nvim-lsp-installer')
+    use({
+      'williamboman/nvim-lsp-installer',
+      requires = "neovim/nvim-lspconfig",
+    })
     use({ 'ojroques/nvim-lspfuzzy', branch = 'main' })
     -- ls progress
     use('j-hui/fidget.nvim')
@@ -200,7 +203,7 @@ return require('packer').startup({
     use('tpope/vim-fugitive')
 
     -- iron, repr integration
-    use('hkupty/iron.nvim')
+    -- use('hkupty/iron.nvim')
 
     -- quickfix magic
     use('kevinhwang91/nvim-bqf')
@@ -246,6 +249,9 @@ return require('packer').startup({
 
     -- matchit
     use "andymass/vim-matchup"
+
+    -- graphql support
+    use "jparise/vim-graphql"
   end,
 
   config = {

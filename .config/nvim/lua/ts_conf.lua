@@ -157,3 +157,32 @@ local toggle_fstring = function()
 end
 
 vim.keymap.set('n', 'F', toggle_fstring, { noremap = true })
+
+
+local ask_install = {}
+function EnsureTSParserInstalled()
+  local parsers = require('nvim-treesitter.parsers')
+  local lang = parsers.get_buf_lang()
+  if parsers.get_parser_configs()[lang] and not parsers.has_parser(lang) and ask_install[lang] ~= false then
+    vim.schedule_wrap(function()
+      local res = vim.fn.confirm(
+        'Install treesitter parser for ' .. lang ,
+        '&Yes\n&No',
+        1)
+      if res == 1 then
+        vim.cmd('TSInstall ' .. lang)
+      else
+        ask_install[lang] = false
+      end
+    end)()
+  end
+end
+
+local ts_au = vim.api.nvim_create_augroup("TsAu", {clear = true})
+vim.api.nvim_create_autocmd('FileType', {
+  group = ts_au,
+  pattern = '*',
+  callback = function()
+    EnsureTSParserInstalled()
+  end
+})

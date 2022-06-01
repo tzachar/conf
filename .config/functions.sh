@@ -176,5 +176,5 @@ function to_cmd()
 {
 	fname=$1; shift
 	prefix=$1
-	cat $fname | paste -d, -s | sed "s/^\|,/ $prefix /"g
+	cat $fname | sed 's/^\|$/"/g' | paste -d, -s | sed "s/^\|,/ $prefix /"g
 }

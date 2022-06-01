@@ -60,9 +60,11 @@ cmp.setup({
       vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` user.
     end,
   },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   completion = {
-    -- completeopt = 'menu,menuone,noselect,noinsert',
-    -- completeopt = 'menu,menuone,noinsert',
     autocomplete = { types.cmp.TriggerEvent.InsertEnter, types.cmp.TriggerEvent.TextChanged },
     keyword_length = 1,
   },
@@ -77,7 +79,7 @@ cmp.setup({
   -- You must set mapping.
   mapping = {
     ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
+    -- ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
@@ -92,15 +94,22 @@ cmp.setup({
 
   formatting = {
     format = function(entry, vim_item)
-      vim_item.kind = lspkind.symbolic(vim_item.kind, { with_text = false })
-      local menu = source_mapping[entry.source.name] or ('[' .. entry.source.name .. ']')
-      if entry.source.name == 'cmp_tabnine' then
-        if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-          menu = menu .. ' ' .. entry.completion_item.data.detail
-        end
-        vim_item.kind = ''
+      local maxwidth = 40
+      if vim.api.nvim_get_mode().mode:sub(1, 1) == 'c' then
+        maxwidth = 80
       end
+      vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol_text"})
+
+      local menu = source_mapping[entry.source.name]
       vim_item.menu = menu
+      if entry.source.name == "cmp_tabnine" then
+        if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+          menu = entry.completion_item.data.detail .. " " .. menu
+        end
+        vim_item.kind = ""
+      end
+
+      vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
       return vim_item
     end,
   },
@@ -208,3 +217,45 @@ cmp.setup.cmdline(':', {
   }, ]]
 
 })
+
+local ns_id = vim.api.nvim_create_namespace('arrows')
+local function remove_marks()
+    local all = vim.api.nvim_buf_get_extmarks(0, ns_id, 0, -1, {})
+    for _, mark in ipairs(all) do
+      vim.api.nvim_buf_del_extmark(0, ns_id, mark[1])
+    end
+end
+
+cmp.event:on('view_closed',
+  function()
+    remove_marks()
+  end
+)
+
+cmp.event:on('view_opened',
+  function(evt)
+    if vim.api.nvim_get_mode().mode:sub(1, 1) == 'c' then
+      return
+    end
+    local character
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local row = cursor[1] - 1
+    local col = cursor[2]
+
+    remove_marks()
+
+    if evt.window.bottom_up then
+      character = "↑"
+    else
+      character = "↓"
+    end
+    local opts = {
+      id = 1,
+      virt_text = {{character, "IncSearch"}},
+      virt_text_pos = 'overlay',
+      priority = 10005,
+    }
+
+    vim.api.nvim_buf_set_extmark(0, ns_id, row, col, opts)
+  end
+)
