@@ -100,6 +100,7 @@ local function setup_servers()
   configs['cssls'] = {}
   configs['vimls'] = {}
   configs['pylsp'] = {}
+  configs['sqlls'] = {}
   configs['graphql'] = {}
   configs['sumneko_lua'] = {
     settings = {

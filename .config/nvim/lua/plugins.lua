@@ -232,9 +232,6 @@ return require('packer').startup({
     use({ 'kana/vim-textobj-user' })
     use({ 'Julian/vim-textobj-variable-segment', requires = { 'kana/vim-textobj-user' } })
 
-    -- split join lines
-    use('AndrewRadev/splitjoin.vim')
-
     -- endwise
     use('RRethy/nvim-treesitter-endwise')
 

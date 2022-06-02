@@ -135,7 +135,7 @@ local toggle_fstring = function()
     return
   end
 
-  local srow, scol, ecol, erow = ts_utils.get_vim_range({ node:range() })
+  local srow, scol, erow, ecol = ts_utils.get_vim_range({ node:range() })
   vim.fn.setcursorcharpos(srow, scol)
   local char = vim.api.nvim_get_current_line():sub(scol, scol)
   local is_fstring = (char == "f")
@@ -157,6 +157,69 @@ local toggle_fstring = function()
 end
 
 vim.keymap.set('n', 'F', toggle_fstring, { noremap = true })
+
+local split_join = function(split)
+  local org_node = ts_utils.get_node_at_cursor()
+  local arguments = {
+    "arguments",
+    "argument_list",
+    "parameter_list",
+    "parameters",
+    "list",
+    "tuple",
+    "dictionary",
+  }
+
+  while (org_node ~= nil) do
+    local node = org_node
+    while (node ~= nil) and (not vim.tbl_contains(arguments, node:type())) do
+      node = node:parent()
+    end
+    if node == nil then
+      -- print("cannot find argument list :(")
+      -- return
+      org_node = org_node:next_named_sibling()
+    else
+      org_node = node
+      break
+    end
+  end
+  if org_node == nil then
+    print("cannot find argument list :(")
+    return
+  end
+
+  if org_node:child_count() == 0 then
+    return
+  end
+
+  local replacement_text = {''}
+  for argument_node in org_node:iter_children() do
+    if argument_node:named() then
+      dump(argument_node:type())
+
+      table.insert(
+        replacement_text,
+        vim.treesitter.query.get_node_text(argument_node, 0).. ','
+      )
+    end
+  end
+  table.insert(replacement_text, '')
+
+  if not split then
+    replacement_text = table.concat(replacement_text, ' ')
+    replacement_text = replacement_text:sub(2, -3)
+    replacement_text = {replacement_text}
+  end
+
+  local srow, scol, erow, ecol = org_node:range()
+  vim.api.nvim_buf_set_text(0, srow, scol + 1, erow, ecol - 1, replacement_text)
+  vim.api.nvim_win_set_cursor(0, {srow + 1, scol})
+  vim.cmd("normal " .. #replacement_text .. '==')
+end
+
+vim.keymap.set('n', '<leader>s', function() split_join(true) end, { noremap = true })
+vim.keymap.set('n', '<leader>d', function() split_join(false) end, { noremap = true })
 
 
 local ask_install = {}

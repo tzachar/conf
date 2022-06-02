@@ -220,7 +220,7 @@ function MapToggle(key, opt)
 endfunction
 command -nargs=+ MapToggle call MapToggle(<f-args>)
 
-MapToggle <Leader>ss spell
+" MapToggle <Leader>ss spell
 MapToggle <Leader>a paste
 
 function! PerlFormat(str)
