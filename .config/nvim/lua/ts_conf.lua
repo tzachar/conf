@@ -1,3 +1,5 @@
+local ts_utils = require("nvim-treesitter.ts_utils")
+
 require('nvim-treesitter.configs').setup({
   context_commentstring = {
     enable = true,
@@ -120,16 +122,46 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
+local function get_node_at_position(row, col)
+  local root = ts_utils.get_root_for_position(row, col)
+  if root == nil then
+    return
+  end
+  return root:named_descendant_for_range(row, col, row, col)
+end
 
-local ts_utils = require("nvim-treesitter.ts_utils")
+local zoom_out = function(node, types)
+    while (node ~= nil) and (not vim.tbl_contains(types, node:type())) do
+      node = node:parent()
+    end
+  return node
+end
+
+local function find_node_type_zoom_out_first(types)
+  local target_node = nil
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local max_col = #vim.api.nvim_get_current_line()
+
+  for i=cursor[2], max_col do
+    target_node = get_node_at_position(cursor[1] - 1, i)
+    if target_node and vim.tbl_contains(types, target_node:type()) then
+      break
+    elseif target_node then
+      -- try zooming out
+      target_node = zoom_out(target_node, types)
+    end
+    if target_node and vim.tbl_contains(types, target_node:type()) then
+      break
+    end
+  end
+  return target_node
+end
+
 
 local toggle_fstring = function()
   local cursor = vim.api.nvim_win_get_cursor(0)
-  local node = ts_utils.get_node_at_cursor()
 
-  while (node ~= nil) and (node:type() ~= "string") do
-    node = node:parent()
-  end
+  local node = find_node_type_zoom_out_first({"string"})
   if node == nil then
     print("f-string: not in string node :(")
     return
@@ -159,7 +191,7 @@ end
 vim.keymap.set('n', 'F', toggle_fstring, { noremap = true })
 
 local split_join = function(split)
-  local org_node = ts_utils.get_node_at_cursor()
+  -- local target_node = ts_utils.get_node_at_cursor()
   local arguments = {
     "arguments",
     "argument_list",
@@ -170,34 +202,20 @@ local split_join = function(split)
     "dictionary",
   }
 
-  while (org_node ~= nil) do
-    local node = org_node
-    while (node ~= nil) and (not vim.tbl_contains(arguments, node:type())) do
-      node = node:parent()
-    end
-    if node == nil then
-      -- print("cannot find argument list :(")
-      -- return
-      org_node = org_node:next_named_sibling()
-    else
-      org_node = node
-      break
-    end
-  end
-  if org_node == nil then
+  local target_node = find_node_type_zoom_out_first(arguments)
+
+  if target_node == nil then
     print("cannot find argument list :(")
     return
   end
 
-  if org_node:child_count() == 0 then
+  if target_node:child_count() == 0 then
     return
   end
 
   local replacement_text = {''}
-  for argument_node in org_node:iter_children() do
+  for argument_node in target_node:iter_children() do
     if argument_node:named() then
-      dump(argument_node:type())
-
       table.insert(
         replacement_text,
         vim.treesitter.query.get_node_text(argument_node, 0).. ','
@@ -212,14 +230,14 @@ local split_join = function(split)
     replacement_text = {replacement_text}
   end
 
-  local srow, scol, erow, ecol = org_node:range()
+  local srow, scol, erow, ecol = target_node:range()
   vim.api.nvim_buf_set_text(0, srow, scol + 1, erow, ecol - 1, replacement_text)
   vim.api.nvim_win_set_cursor(0, {srow + 1, scol})
   vim.cmd("normal " .. #replacement_text .. '==')
 end
 
-vim.keymap.set('n', '<leader>s', function() split_join(true) end, { noremap = true })
-vim.keymap.set('n', '<leader>d', function() split_join(false) end, { noremap = true })
+vim.keymap.set('n', '<leader>ss', function() split_join(true) end, { noremap = true })
+vim.keymap.set('n', '<leader>sd', function() split_join(false) end, { noremap = true })
 
 
 local ask_install = {}
