@@ -38,10 +38,10 @@ require('nvim-treesitter.configs').setup({
       enable = false,
     },
     smart_rename = {
-      enable = true,
-      keymaps = {
+      enable = false,
+      --[[ keymaps = {
         smart_rename = 'gt',          -- mapping to rename reference under cursor
-      },
+      }, ]]
     },
     navigation = {
       enable = false,

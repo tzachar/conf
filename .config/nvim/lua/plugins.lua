@@ -249,6 +249,9 @@ return require('packer').startup({
 
     -- graphql support
     use "jparise/vim-graphql"
+
+    -- nvim 0.8 smart rename
+    use "smjonas/inc-rename.nvim"
   end,
 
   config = {
