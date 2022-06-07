@@ -216,10 +216,12 @@ local split_join = function(split)
   local replacement_text = {''}
   for argument_node in target_node:iter_children() do
     if argument_node:named() then
-      table.insert(
-        replacement_text,
-        vim.treesitter.query.get_node_text(argument_node, 0).. ','
-      )
+    -- remove new line
+      local s, _ = string.gsub(
+          vim.treesitter.query.get_node_text(argument_node, 0).. ',',
+          '\n',
+          '')
+      table.insert(replacement_text, s)
     end
   end
   table.insert(replacement_text, '')
