@@ -18,6 +18,8 @@ nest.applyKeymaps({
   {
     mode = 'n',
     {
+      -- when moving to next search, center and open folds
+      { 'n', 'nzzzv', options = { noremap = true, silent = true } },
       -- remove search highlight
       { '<space>', '<Cmd>nohlsearch<cr>', options = { silent = true } },
 

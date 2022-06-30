@@ -226,13 +226,13 @@ local function remove_marks()
     end
 end
 
-cmp.event:on('view_closed',
+cmp.event:on('menu_closed',
   function()
     remove_marks()
   end
 )
 
-cmp.event:on('view_opened',
+cmp.event:on('menu_opened',
   function(evt)
     if vim.api.nvim_get_mode().mode:sub(1, 1) == 'c' then
       return

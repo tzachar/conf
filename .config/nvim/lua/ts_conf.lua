@@ -200,6 +200,7 @@ local split_join = function(split)
     "list",
     "tuple",
     "dictionary",
+    "array",
   }
 
   local target_node = find_node_type_zoom_out_first(arguments)
