@@ -62,7 +62,7 @@ return require('packer').startup({
             lua = {},
             python = {
               template = {
-                annotation_convention = 'annotation_convention '
+                annotation_convention = 'google_docstrings'
               }
             }
           }
@@ -144,8 +144,27 @@ return require('packer').startup({
     use('tommcdo/vim-exchange')
     use({ 'vim-scripts/dbext.vim', ft = 'sql' })
 
-    -- use { "blackCauldron7/surround.nvim" }
-    use('tpope/vim-surround')
+    -- use('tpope/vim-surround')
+    use ({
+      'kylechui/nvim-surround',
+      config = function()
+        require("nvim-surround").setup({
+          delimiters = {
+            pairs = {
+              ["f"] = function()
+                return {
+                  require("nvim-surround.utils").get_input(
+                    "Enter the function name: "
+                  ) .. "(",
+                  ")"
+                }
+              end,
+            },
+          }
+
+        })
+      end
+    })
     -- use 'rking/ag.vim'
     use({ 'jelera/vim-javascript-syntax', ft = { 'js', 'javascript', 'html', 'html.javascript' } })
     -- use 'machakann/vim-highlightedyank'

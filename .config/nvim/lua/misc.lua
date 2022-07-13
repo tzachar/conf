@@ -20,13 +20,16 @@ local ignore_decl_per_source = {
 
 local function add_ignore_type(options)
   local comment_str = require('kommentary.config').get_config(0)[1]
+  if not comment_str then
+    return
+  end
   for linenr = (options.line1 - 1 or vim.fn.line('.') - 1), (options.line2 - 1 or vim.fn.line('.') - 1) do
-    local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
     local diag = vim.diagnostic.get(0, { lnum = linenr })
     if #diag > 0 and ignore_decl_per_source[diag[1].source] == nil then
       dump('cannot find ignore type: ', diag[1].source)
     end
     for source, ignore_decl in pairs(ignore_decl_per_source) do
+      local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
       ignore_decl = '  ' .. comment_str .. ignore_decl
       if string.sub(line, -#ignore_decl, -1) == ignore_decl then
         vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
@@ -135,3 +138,34 @@ require('lualine').setup({
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
 
+--[[
+-- lspsaga winbar
+local ns_prefix = '%#MyWinbar#test%*'
+local lspkind = require('lspkind')
+local kind = require('lspsaga.lspkind')
+for _, k in ipairs(kind) do
+  local name = k[1]
+  local lspk = lspkind.symbolic(name)
+  if lspk then
+    k[2] = lspk .. ' '
+  end
+end
+
+local function config_winbar()
+  local ok,lspsaga = pcall(require,'lspsaga.symbolwinbar')
+  local sym
+  if ok then
+    sym = lspsaga.get_symbol_node()
+  end
+  local win_val = ''
+  win_val = ns_prefix
+  if sym ~= nil then
+    win_val = win_val .. sym
+  end
+  vim.api.nvim_win_set_option(0,'winbar',win_val)
+end
+
+vim.api.nvim_create_autocmd({'BufEnter','BufWinEnter','CursorMoved'},{
+  pattern = '*.lua',
+  callback = config_winbar
+}) ]]
