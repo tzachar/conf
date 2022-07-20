@@ -145,26 +145,7 @@ return require('packer').startup({
     use({ 'vim-scripts/dbext.vim', ft = 'sql' })
 
     -- use('tpope/vim-surround')
-    use ({
-      'kylechui/nvim-surround',
-      config = function()
-        require("nvim-surround").setup({
-          delimiters = {
-            pairs = {
-              ["f"] = function()
-                return {
-                  require("nvim-surround.utils").get_input(
-                    "Enter the function name: "
-                  ) .. "(",
-                  ")"
-                }
-              end,
-            },
-          }
-
-        })
-      end
-    })
+    use ({'kylechui/nvim-surround', })
     -- use 'rking/ag.vim'
     use({ 'jelera/vim-javascript-syntax', ft = { 'js', 'javascript', 'html', 'html.javascript' } })
     -- use 'machakann/vim-highlightedyank'

@@ -277,13 +277,6 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 " vimtex
 let g:vimtex_compiler_enabled = 0
 
-" for vim-surround:
-" when surrounding with 'e', ask for a wrapper
-" let g:surround_101 = "\1wrapper:\1(\r)"
-
-" config for vim-signify
-" let g:signify_vcs_list = [ 'git', 'hg' ]
-
 " gitgutter config
 let g:gitgutter_set_sign_backgrounds = 1
 let g:gitgutter_highlight_linenrs = 1
