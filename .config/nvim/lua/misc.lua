@@ -189,3 +189,9 @@ vim.api.nvim_create_autocmd({'BufEnter','BufWinEnter','CursorMoved'},{
   pattern = '*.lua',
   callback = config_winbar
 }) ]]
+
+-- indend-guides setup
+require("indent_blankline").setup {
+    show_current_context = true,
+    show_current_context_start = false,
+}

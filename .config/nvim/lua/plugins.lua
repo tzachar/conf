@@ -160,7 +160,8 @@ return require('packer').startup({
     use({ 'Vimjas/vim-python-pep8-indent', ft = 'python' })
 
     use('godlygeek/tabular')
-    use('nathanaelkane/vim-indent-guides')
+    -- use('nathanaelkane/vim-indent-guides')
+    use "lukas-reineke/indent-blankline.nvim"
 
     -- add cmd utils as vim commands
     use({ 'tpope/vim-eunuch', cmd = {
@@ -252,6 +253,14 @@ return require('packer').startup({
 
     -- nvim 0.8 smart rename
     use "smjonas/inc-rename.nvim"
+
+    -- diagnostic lines
+    use({
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      config = function()
+        require("lsp_lines").setup()
+      end,
+    })
   end,
 
   config = {
