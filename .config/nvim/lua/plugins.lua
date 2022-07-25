@@ -18,8 +18,12 @@ return require('packer').startup({
     use('neovim/nvim-lspconfig')
     -- update language servers
     use({
-      'williamboman/nvim-lsp-installer',
+      'williamboman/mason.nvim',
       requires = "neovim/nvim-lspconfig",
+    })
+    use({
+      'williamboman/mason-lspconfig.nvim',
+      requires = "williamboman/mason.nvim",
     })
     use({ 'ojroques/nvim-lspfuzzy', branch = 'main' })
     -- ls progress

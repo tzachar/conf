@@ -1,6 +1,5 @@
 local vim = vim
 local lspconfig = require("lspconfig")
-local lsp_installer = require('nvim-lsp-installer')
 
 require('cmp_nvim_lsp').setup({})
 
@@ -151,25 +150,13 @@ local function setup_servers()
       },
     },
   }
-  --[[ configs['pyright'] = {
-    settings = {
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
-          stubPath = vim.env.HOME .. '/.local/share/python-type-stubs',
-          typeshedPaths = vim.env.HOME .. '/.local/share/typeshed',
-          autoImportCompletions = true,
-        },
-      },
-    },
-  } ]]
   return configs
 end
 
 local lsp_configs = setup_servers()
 
-require("nvim-lsp-installer").setup{
+require("mason").setup()
+require("mason-lspconfig").setup {
   ensure_installed = vim.tbl_keys(lsp_configs)
 }
 
