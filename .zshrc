@@ -98,11 +98,12 @@ setopt magic_equal_subst
 #specify which chars to skip over:
 export WORDCHARS='*?_-.[]~/&;!#$%^(){}<>'
 
-#make zsh not expand wildcards in ssh,scp commands:
+#make zsh not expand wildcards in ssh, scp, rsync commands:
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
+expand_wildcard_commands=(scp ssh rsync)
 zstyle -e :urlglobber url-other-schema \
-'[[ $words[1] == scp ]] && reply=("*") || reply=(http https ftp rsync)'
+'[[ (($expand_wildcard_commands[(I)$words[1]])) ]] && reply=("*") || reply=(http https ftp rsync)'
 
 ############### HOME CONF ###############
 HOME_CONF=${HOME}/.config
