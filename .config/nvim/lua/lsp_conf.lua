@@ -68,7 +68,7 @@ local on_attach = function(client, bufnr)
   })
 end
 
-local DebounceRate = 2000
+local DebounceRate = 5000
 
 local function setup_servers()
   local library = {}

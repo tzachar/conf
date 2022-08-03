@@ -48,6 +48,10 @@ nest.applyKeymaps({
 
       -- open init.vim
       { '<leader>ve', '<cmd>vsplit $MYVIMRC<cr>G' },
+
+      -- swap ts node under cursor
+      { '<leader>gs', '<cmd>ISwapNodeWithRight<cr>' },
+      { '<leader>gS', '<cmd>ISwapNodeWithLeft<cr>' },
     },
   },
   { mode = 'c', {

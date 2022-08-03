@@ -265,6 +265,9 @@ return require('packer').startup({
         require("lsp_lines").setup()
       end,
     })
+
+    -- swap ts nodes
+    use 'mizlan/iswap.nvim'
   end,
 
   config = {
