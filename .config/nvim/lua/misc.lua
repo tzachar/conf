@@ -145,16 +145,17 @@ local function get_input(prompt)
   end
   return result
 end
+
 require("nvim-surround").setup({
-  delimiters = {
-    pairs = {
-      ["f"] = function()
-        local result = get_input("Enter the function name: ")
+  surrounds = {
+    ["f"] = {
+      add = function()
+        local result = require("nvim-surround.config").get_input("Enter the function name: ")
         if result then
-          return { result .. "(", ")" }
+          return { { result .. "(" }, { ")" } }
         end
       end,
-    },
+    }
   }
 })
 
