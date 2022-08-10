@@ -138,19 +138,12 @@ require('lualine').setup({
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
 
-local function get_input(prompt)
-  local ok, result = pcall(vim.fn.input, { prompt = prompt })
-  if not ok then
-    return nil
-  end
-  return result
-end
-
+local surround = require("nvim-surround.config")
 require("nvim-surround").setup({
   surrounds = {
     ["f"] = {
       add = function()
-        local result = require("nvim-surround.config").get_input("Enter the function name: ")
+        local result = surround.get_input("Enter the function name: ")
         if result then
           return { { result .. "(" }, { ")" } }
         end
@@ -159,40 +152,70 @@ require("nvim-surround").setup({
   }
 })
 
---[[
--- lspsaga winbar
-local ns_prefix = '%#MyWinbar#test%*'
-local lspkind = require('lspkind')
-local kind = require('lspsaga.lspkind')
-for _, k in ipairs(kind) do
-  local name = k[1]
-  local lspk = lspkind.symbolic(name)
-  if lspk then
-    k[2] = lspk .. ' '
-  end
-end
+local surround_print = {
+  lua = 'dump',
+  python = 'print',
+  js = 'console.log',
+  html = 'console.log',
+}
 
-local function config_winbar()
-  local ok,lspsaga = pcall(require,'lspsaga.symbolwinbar')
-  local sym
-  if ok then
-    sym = lspsaga.get_symbol_node()
-  end
-  local win_val = ''
-  win_val = ns_prefix
-  if sym ~= nil then
-    win_val = win_val .. sym
-  end
-  vim.api.nvim_win_set_option(0,'winbar',win_val)
-end
+surround.buffer_setup({
+  surrounds = {
+    ["p"] = {
+      add = function()
+        local print = surround_print[vim.bo.filetype] or 'print'
+        return { { print .. "(" }, { ")" } }
+      end,
+      find = function()
+        local print = surround_print[vim.bo.filetype] or 'print'
+        return surround.get_selection({pattern = print .. "%b()"})
+      end,
+      delete = function()
+        local print = surround_print[vim.bo.filetype] or 'print'
+        return surround.get_selections({char = "p", pattern = "^(" .. print .. "%()().-(%))()$"})
+      end,
+      change = {
+        target = function()
+          local print = surround_print[vim.bo.filetype] or 'print'
+          return surround.get_selections({char = "p", pattern = "^(" .. print .. "%()().-(%))()$"})
+        end
+      },
+    },
+  }
+})
 
-vim.api.nvim_create_autocmd({'BufEnter','BufWinEnter','CursorMoved'},{
-  pattern = '*.lua',
-  callback = config_winbar
-}) ]]
+require('nest').applyKeymaps({
+  {
+    mode = 'n',
+    {
+      {
+        'yp',
+        function()
+          vim.fn.feedkeys('yy')
+          vim.fn.feedkeys('yssp')
+          vim.fn.feedkeys('p')
+        end,
+        buffer = true,
+        options = { silent = false }
+      },
+      {
+        'yP',
+        function()
+          vim.fn.feedkeys('yy')
+          vim.fn.feedkeys('yssp')
+          vim.fn.feedkeys('P')
+        end,
+        buffer = true,
+        options = { silent = false }
+      },
+    }
+  }
+})
 
 -- indend-guides setup
 require("indent_blankline").setup {
     show_current_context = true,
     show_current_context_start = false,
 }
+
+
