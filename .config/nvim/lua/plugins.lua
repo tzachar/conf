@@ -268,6 +268,16 @@ return require('packer').startup({
 
     -- swap ts nodes
     use 'mizlan/iswap.nvim'
+
+    -- debug prints
+    use({
+      "andrewferrier/debugprint.nvim",
+      config = function()
+        require("debugprint").setup({
+          create_keymaps = false,
+        })
+      end,
+    })
   end,
 
   config = {
