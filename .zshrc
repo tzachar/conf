@@ -12,7 +12,7 @@ export HISTORY_SUBSTRING_SEARCH_FUZZY=true
 source ~/antigen.zsh
 antigen use oh-my-zsh
 
-antigen bundle z
+antigen bundle agkozak/zsh-z
 antigen bundle git
 antigen bundle sudo
 antigen bundle ubuntu
