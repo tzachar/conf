@@ -70,7 +70,7 @@ nest.applyKeymaps({
   } },
 
   -- magma
-  { mode = 'n', {
+  --[[ { mode = 'n', {
     options = { silent = true },
     { '<leader>r', "nvim_exec('MagmaEvaluateOperator', v:true)", options = { expr = true } },
     { '<leader>rr', '<cmd>MagmaEvaluateLine<CR>' },
@@ -85,7 +85,7 @@ nest.applyKeymaps({
   { mode = 'x', {
     options = { silent = true },
     { '<leader>r', ':<C-u>MagmaEvaluateVisual<CR>' },
-  } },
+  } }, ]]
 
   -- David-Kunz/treesitter-unit
   { mode = 'xo', {
@@ -99,6 +99,7 @@ nest.applyKeymaps({
   } },
   { mode = 'n', {
     { '<leader>c', '<plug>(iron-send-motion)' },
+    { '<leader>rq', '<cmd>IronFocus<cr>' },
   } },
 
   -- neogen documentation

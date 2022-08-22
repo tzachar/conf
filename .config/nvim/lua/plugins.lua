@@ -208,7 +208,7 @@ return require('packer').startup({
     use('tpope/vim-fugitive')
 
     -- iron, repr integration
-    -- use('hkupty/iron.nvim')
+    use('hkupty/iron.nvim')
 
     -- quickfix magic
     use('kevinhwang91/nvim-bqf')
@@ -220,11 +220,11 @@ return require('packer').startup({
     use('kyazdani42/nvim-web-devicons')
 
     -- magma:
-    use({
-      'dccsillag/magma-nvim',
-      run = ':UpdateRemotePlugins',
-      -- config = 'vim.cmd [[UpdateRemotePlugins]]',
-    })
+    -- use({
+    --   'dccsillag/magma-nvim',
+    --   run = ':UpdateRemotePlugins',
+    --   -- config = 'vim.cmd [[UpdateRemotePlugins]]',
+    -- })
 
     use({ 'dstein64/vim-startuptime' })
 
@@ -278,6 +278,9 @@ return require('packer').startup({
         })
       end,
     })
+
+    -- highlight var under cursor
+    -- use "RRethy/vim-illuminate"
   end,
 
   config = {

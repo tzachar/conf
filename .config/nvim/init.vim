@@ -119,6 +119,7 @@ augroup ftypeOptions
 
 	autocmd BufEnter *.heb.tex setlocal spell spelllang=he
 	autocmd BufEnter *.heb.tex setlocal rightleft
+	autocmd BufEnter *.jupyter setlocal filetype=python
 augroup end
 
 " function! UpdateTimeStamp()
@@ -344,26 +345,26 @@ lua require('null_ls')
 
 
 "magma setup
-let g:magma_save_path = stdpath("data") .. "/magma/"
-function! MyMagmaInit()
-	setlocal filetype=python
-	set syntax=python
-	let l:mangled_fname = expand('%:p') .. '.json'
-	let l:mangled_fname = substitute(l:mangled_fname, '%', '%%', 'g')
-	let l:mangled_fname = substitute(l:mangled_fname, '/', '%', 'g')
-	let l:save_file = g:magma_save_path .. l:mangled_fname
-	if filereadable(l:save_file)
-		MagmaLoad
-	else
-		MagmaInit python3
-	endif
-endfunction
+" let g:magma_save_path = stdpath("data") .. "/magma/"
+" function! MyMagmaInit()
+" 	setlocal filetype=python
+" 	set syntax=python
+" 	let l:mangled_fname = expand('%:p') .. '.json'
+" 	let l:mangled_fname = substitute(l:mangled_fname, '%', '%%', 'g')
+" 	let l:mangled_fname = substitute(l:mangled_fname, '/', '%', 'g')
+" 	let l:save_file = g:magma_save_path .. l:mangled_fname
+" 	if filereadable(l:save_file)
+" 		MagmaLoad
+" 	else
+" 		MagmaInit python3
+" 	endif
+" endfunction
 
-highligh MagmaCellBG guibg=#222222
-let g:magma_automatically_open_output = v:true
-let g:magma_image_provider = 'kitty'
-let g:magma_show_mimetype_debug = v:true
-let g:magma_cell_highlight_group = 'MagmaCellBG'
+" highligh MagmaCellBG guibg=#222222
+" let g:magma_automatically_open_output = v:true
+" let g:magma_image_provider = 'kitty'
+" let g:magma_show_mimetype_debug = v:true
+" let g:magma_cell_highlight_group = 'MagmaCellBG'
 
 
 highlight Normal guibg=black guifg=wheat

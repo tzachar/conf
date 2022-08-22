@@ -60,7 +60,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 
-local magma = vim.api.nvim_create_augroup("magma", {clear = true})
+--[[ local magma = vim.api.nvim_create_augroup("magma", {clear = true})
 
 vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
   group = magma,
@@ -73,4 +73,14 @@ vim.api.nvim_create_autocmd('BufWrite', {
   callback = function()
     vim.cmd('MagmaSave')
   end
+}) ]]
+
+-- iron
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = misc,
+  pattern = '*.jupyter',
+  callback = function()
+    require('iron.core').repl_for('python')
+  end
 })
+
