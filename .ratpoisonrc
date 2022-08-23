@@ -1,3 +1,4 @@
 exec xsetroot -solid black -cursor_name left_ptr
-bind C-c exec gnome-terminal
-bind c-c exec gnome-terminal
+bind C-c exec /home/tzachar/.local/kitty.app/bin//kitty
+bind c-c exec /home/tzachar/.local/kitty.app/bin//kitty
+bind C-g exec /usr/bin/google-chrome --force-device-scale-factor=2
