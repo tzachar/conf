@@ -130,7 +130,7 @@ vim.cmd('colorscheme kanagawa')
 -- load	lualine
 require('lualine').setup({
       options = {
-        globalstatus = true
+        globalstatus = false
     },
 })
 
