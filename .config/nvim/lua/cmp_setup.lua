@@ -191,7 +191,6 @@ cmp.setup.cmdline(':', {
   {
     { name = 'fuzzy_path', options = {
       fd_cmd = { 'fd', '-d', '20', '-p', '-i' },
-      must_start_with_first_character = false,
     } },
   },
   {

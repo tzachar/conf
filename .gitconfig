@@ -14,6 +14,10 @@
 [diff]
 	tool = meld
 	colorMoved = zebra
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
 [pager]
 	status = true
 [submodule]
@@ -22,3 +26,9 @@
 	rebase = true
 [fetch]
 	prune = true
+[merge]
+    tool = meld
+[mergetool "meld"]
+    # Choose one of these 2 lines (not both!) explained below.
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+    cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"

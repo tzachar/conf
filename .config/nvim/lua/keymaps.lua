@@ -3,6 +3,10 @@ local nest = require('nest')
 nest.applyKeymaps({
   {
     mode = 'nv',
+    {'<C-b>', '<cmd>pop<cr>'},
+  },
+  {
+    mode = 'nv',
     {
       -- Remove silent from ; : mapping, so that : shows up in command mode
       { ';', ':', options = { silent = false } },
