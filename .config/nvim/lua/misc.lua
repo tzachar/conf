@@ -227,6 +227,7 @@ iron.setup {
     -- Whether a repl should be discarded or not
     scratch_repl = false,
     -- Your repl definitions come here
+    scope = require("iron.scope").path_based,
     repl_definition = {
       sh = {
         command = {"zsh"}

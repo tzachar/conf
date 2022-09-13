@@ -94,21 +94,21 @@ cmp.setup({
 
   formatting = {
     format = function(entry, vim_item)
-      local maxwidth = 40
-      if vim.api.nvim_get_mode().mode:sub(1, 1) == 'c' then
-        maxwidth = 80
-      end
-      vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol_text"})
-
-      local menu = source_mapping[entry.source.name]
-      vim_item.menu = menu
+      vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
+      vim_item.menu = source_mapping[entry.source.name]
       if entry.source.name == "cmp_tabnine" then
-        if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-          menu = entry.completion_item.data.detail .. " " .. menu
-        end
+        local detail = (entry.completion_item.data or {}).detail
         vim_item.kind = ""
+        if detail and detail:find('.*%%.*') then
+          vim_item.kind = vim_item.kind .. ' ' .. detail
+        end
+
+        if (entry.completion_item.data or {}).multiline then
+          vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
+        end
       end
 
+      local maxwidth = 80
       vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
       return vim_item
     end,
@@ -118,7 +118,7 @@ cmp.setup({
   sources = cmp.config.sources({
     {
       name = 'fuzzy_buffer',
-      options = {
+      option = {
         get_bufnrs = function()
           local bufs = {}
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -162,7 +162,7 @@ cmp.setup.cmdline('/', {
     entries = {name = 'wildmenu', separator = '|' }
   },
   sources = cmp.config.sources({
-    { name = 'fuzzy_buffer', options = {
+    { name = 'fuzzy_buffer', option = {
       get_bufnrs = function()
         return { vim.api.nvim_get_current_buf() }
       end,
@@ -175,7 +175,7 @@ cmp.setup.cmdline('?', {
     entries = {name = 'wildmenu', separator = '|' }
   },
   sources = cmp.config.sources({
-    { name = 'fuzzy_buffer', options = {
+    { name = 'fuzzy_buffer', option = {
       get_bufnrs = function()
         return { vim.api.nvim_get_current_buf() }
       end,
@@ -189,7 +189,7 @@ cmp.setup.cmdline(':', {
   },
   sources = cmp.config.sources(
   {
-    { name = 'fuzzy_path', options = {
+    { name = 'fuzzy_path', option = {
       fd_cmd = { 'fd', '-d', '20', '-p', '-i' },
     } },
   },

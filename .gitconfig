@@ -11,6 +11,7 @@
 	ssp = !"git stash pop; git submodule foreach 'git stash pop'"
 [core]
 	editor = nvim
+	pager = less -FX
 [diff]
 	tool = meld
 	colorMoved = zebra

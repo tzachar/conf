@@ -60,6 +60,15 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 
+vim.api.nvim_create_autocmd('BufRead', {
+  group = ftypes,
+  pattern = '*.py',
+  callback = function()
+    require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
+  end
+})
+
+
 --[[ local magma = vim.api.nvim_create_augroup("magma", {clear = true})
 
 vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
@@ -76,7 +85,7 @@ vim.api.nvim_create_autocmd('BufWrite', {
 }) ]]
 
 -- iron
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd('BufWinEnter', {
   group = misc,
   pattern = '*.jupyter',
   callback = function()
