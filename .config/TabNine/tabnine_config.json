@@ -10,6 +10,7 @@
   },
   "enable_telemetry": false,
   "user_understands_that_enabling_tabnine_cloud_sends_code_to_tabnine_servers": true,
+  "deep_completions_work_mode": "LocalOnly",
   "hosted_deep_completions_enabled": "Disabled",
   "tabnine_cloud_host": null,
   "tabnine_cloud_certificate_domain": null,
@@ -46,7 +47,12 @@
     "dgc": "4e643b70d4e80efd892afa62fd0e140cf4c8fdb9f9f56bb9d5b5ee2005acbcec"
   },
   "exclude_file_masks": null,
-  "inline_suggestions_mode": false,
-  "use_specialized_model_if_available": null,
-  "snippets_auto_trigger_enabled": null
+  "inline_suggestions_mode": true,
+  "use_specialized_model_if_available": true,
+  "empty_line_suggestions": false,
+  "snippets_enabled_v2": true,
+  "inline_suggestions_mode_clients": null,
+  "tabnine_hub_port": null,
+  "manually_selected_model": null,
+  "hybrid_rendering_mode": null
 }

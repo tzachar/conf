@@ -8,7 +8,10 @@ function Format_range_operator(...)
   _G.op_func_formatting = function()
     local start = vim.api.nvim_buf_get_mark(0, '[')
     local finish = vim.api.nvim_buf_get_mark(0, ']')
-    vim.lsp.buf.range_formatting({}, start, finish)
+    vim.lsp.buf.format({
+      range={start=start, ['end']=finish},
+      name='null-ls',
+    })
     vim.go.operatorfunc = old_func
     _G.op_func_formatting = nil
   end
@@ -51,7 +54,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
   buf_set_keymap('n', '<leader>f', '<cmd>lua Format_range_operator()<CR>', opts)
-  buf_set_keymap('v', '<leader>f', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
+  buf_set_keymap('v', '<leader>f', '<cmd>lua Format_range_operator()<CR>', opts)
+  -- buf_set_keymap('v', '<leader>f', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
 
   --[[ -- disable formatting for pyright
   if client.name == 'pyright' then

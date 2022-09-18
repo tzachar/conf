@@ -178,3 +178,10 @@ function to_cmd()
 	prefix=$1
 	cat $fname | sed 's/^\|$/"/g' | paste -d, -s | sed "s/^\|,/ $prefix /"g
 }
+
+function to_cmd_no_q()
+{
+	fname=$1; shift
+	prefix=$1
+	cat $fname | paste -d, -s | sed "s/^\|,/ $prefix /"g
+}
