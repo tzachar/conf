@@ -10,7 +10,7 @@ function Format_range_operator(...)
     local finish = vim.api.nvim_buf_get_mark(0, ']')
     vim.lsp.buf.format({
       range={start=start, ['end']=finish},
-      name='null-ls',
+      -- name='null-ls',
     })
     vim.go.operatorfunc = old_func
     _G.op_func_formatting = nil

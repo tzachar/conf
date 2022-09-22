@@ -62,6 +62,10 @@ set guicursor=
 " dont paste toggle
 set pastetoggle=
 
+" set splitscroll=off
+
+" always show the sign column. prevent smoothcursor from jumping the window
+set signcolumn=yes
 
 " do not show more than 20 completion items
 set pumheight=20
@@ -342,6 +346,7 @@ lua require('ts_conf')
 lua require('keymaps')
 lua require('cmp_setup')
 lua require('null_ls')
+lua require('winbar')
 
 
 "magma setup

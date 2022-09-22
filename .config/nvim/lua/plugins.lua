@@ -279,8 +279,17 @@ return require('packer').startup({
       end,
     })
 
+    use ({
+      "AckslD/nvim-FeMaco.lua",
+      config = function()
+        require("femaco").setup()
+      end,
+    })
     -- highlight var under cursor
     -- use "RRethy/vim-illuminate"
+
+    -- smooth cursor
+    use "gen740/SmoothCursor.nvim"
   end,
 
   config = {
