@@ -1,6 +1,4 @@
 local vim = vim
--- iron conf
-require('nrpattern').setup()
 
 function dump(...)  ---@diagnostic disable-line
   local objects = vim.tbl_map(vim.inspect, { ... })
@@ -218,6 +216,7 @@ require("indent_blankline").setup {
     show_current_context_start = false,
 }
 
+-- iron conf
 local iron = require("iron.core")
 
 iron.setup {
@@ -312,3 +311,24 @@ require('smoothcursor').setup({
   timeout = 3000,
 })
 
+-- live command setup
+require("live-command").setup({
+  commands = {
+    Norm = { cmd = "norm" },
+  }
+})
+
+
+-- dial
+local augend = require("dial.augend")
+require("dial.config").augends:register_group{
+  default = {
+    augend.integer.alias.decimal_int,
+    augend.integer.alias.hex,
+    augend.date.alias["%Y/%m/%d"],
+    augend.constant.alias.alpha,
+    augend.constant.alias.Alpha,
+    augend.integer.alias.binary,
+    augend.constant.alias.bool,
+  },
+}

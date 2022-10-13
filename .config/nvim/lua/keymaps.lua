@@ -137,9 +137,16 @@ nest.applyKeymaps({
       return require('debugprint').debugprint({ variable = true, above = true })
     end, options = {expr = true} },
   } },
-  -- vsnip
-  --[[ { mode = 'is', {
-		{'<Tab>',   "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'",   options = {expr = true}},
-		{'<S-Tab>', "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", options = {expr = true}},
-	}}, ]]
+
+  -- dial
+  { mode = 'n', {
+    {'<C-a>', require("dial.map").inc_normal(), options = {noremap = true} },
+    {'<C-x>', require("dial.map").dec_normal(), options = {noremap = true} },
+  } },
+  { mode = 'v', {
+    {'<C-a>', require("dial.map").inc_visual(), options = {noremap = true} },
+    {'<C-x>', require("dial.map").dec_visual(), options = {noremap = true} },
+    {'g<C-a>', require("dial.map").inc_gvisual(), options = {noremap = true} },
+    {'g<C-x>', require("dial.map").dec_gvisual(), options = {noremap = true} },
+  } },
 })

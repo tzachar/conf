@@ -77,10 +77,8 @@ return require('packer').startup({
 
     -- zephyr-nvim requires nvim-treesitter
     -- use {'glepnir/zephyr-nvim', branch = 'main', requires = 'nvim-treesitter/nvim-treesitter'}
-    use({ 'folke/tokyonight.nvim' })
+    -- use({ 'folke/tokyonight.nvim' })
     use({ 'rebelot/kanagawa.nvim' })
-
-    use('zegervdv/nrpattern.nvim')
 
     use({ 'simnalamburt/vim-mundo' })
     use({ 'mileszs/ack.vim', opt = true, cmd = { 'Ack' } })
@@ -144,7 +142,6 @@ return require('packer').startup({
     use('vim-scripts/ingo-library')
     use('vim-scripts/TextTransform')
     use({ 'vimoutliner/vimoutliner', ft = 'otl' })
-    use('AndrewRadev/switch.vim')
     use('tommcdo/vim-exchange')
     use({ 'vim-scripts/dbext.vim', ft = 'sql' })
 
@@ -285,11 +282,31 @@ return require('packer').startup({
         require("femaco").setup()
       end,
     })
+
+    --[[ use ({
+      "AckslD/nvim-trevJ.lua",
+      config = function()
+        require("trevj").setup()
+      end,
+    })
+ ]]
     -- highlight var under cursor
     -- use "RRethy/vim-illuminate"
 
     -- smooth cursor
     use "gen740/SmoothCursor.nvim"
+
+    -- live command preview
+    use "smjonas/live-command.nvim"
+
+    -- auto list:
+    use "gaoDean/autolist.nvim"
+
+    -- inc dec
+    -- use('AndrewRadev/switch.vim')
+    -- use('zegervdv/nrpattern.nvim')
+    use('monaqa/dial.nvim')
+
   end,
 
   config = {

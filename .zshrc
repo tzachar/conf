@@ -24,6 +24,7 @@ antigen bundle pipenv
 antigen bundle zsh-users/zsh-completions
 antigen bundle Aloxaf/fzf-tab
 antigen bundle zsh-users/zsh-autosuggestions
+# antigen bundle yuki-yano/zeno.zsh@main
 
 # antigen theme denysdovhan/spaceship-prompt
 
@@ -228,6 +229,14 @@ forward-word-dir () {
 }
 zle -N forward-word-dir
 bindkey "^[[1;3C" forward-word-dir
+
+# deno
+if [ ! -f ${HOME}/.deno/bin/deno ]; then
+	curl -fsSL https://deno.land/install.sh | sh
+fi
+export DENO_INSTALL="${HOME}/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 #
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
