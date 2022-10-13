@@ -87,6 +87,8 @@ let g:tex_flavor = 'latex'
 "search for tags first in the file dir, then current dir, then boost:
 set tags=./tags,tags,/usr/local/boost/tags,/home/tzachar/.vim/tags/stl_tags
 
+set splitkeep=screen
+
 " set filetypes
 filetype on
 filetype plugin indent on
