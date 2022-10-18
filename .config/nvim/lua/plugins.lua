@@ -276,13 +276,6 @@ return require('packer').startup({
       end,
     })
 
-    use ({
-      "AckslD/nvim-FeMaco.lua",
-      config = function()
-        require("femaco").setup()
-      end,
-    })
-
     --[[ use ({
       "AckslD/nvim-trevJ.lua",
       config = function()
