@@ -330,5 +330,6 @@ require("dial.config").augends:register_group{
     augend.constant.alias.Alpha,
     augend.integer.alias.binary,
     augend.constant.alias.bool,
+    augend.constant.new{ elements = {"True", "False"} }
   },
 }

@@ -142,6 +142,8 @@ nest.applyKeymaps({
   { mode = 'n', {
     {'<C-a>', require("dial.map").inc_normal(), options = {noremap = true} },
     {'<C-x>', require("dial.map").dec_normal(), options = {noremap = true} },
+    {'+', require("dial.map").inc_normal(), options = {noremap = true} },
+    {'-', require("dial.map").dec_normal(), options = {noremap = true} },
   } },
   { mode = 'v', {
     {'<C-a>', require("dial.map").inc_visual(), options = {noremap = true} },
