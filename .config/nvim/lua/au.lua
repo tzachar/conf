@@ -56,6 +56,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.api.nvim_buf_set_option(0, 'expandtab', true)
     vim.api.nvim_buf_set_option(0, 'textwidth', 120)
     vim.api.nvim_win_set_option(0, 'number', true)
+    vim.api.nvim_set_hl(
+      0,
+      '@sql',
+      { bg='#282828' }
+    )
   end
 })
 
