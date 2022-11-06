@@ -89,6 +89,8 @@ set tags=./tags,tags,/usr/local/boost/tags,/home/tzachar/.vim/tags/stl_tags
 
 set splitkeep=screen
 
+set diffopt+=linematch:60
+
 " set filetypes
 filetype on
 filetype plugin indent on
