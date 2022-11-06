@@ -64,6 +64,9 @@ zstyle :omz:plugins:ssh-agent identities id_rsa google_compute_engine
 # ignore double slashes in file completion
 zstyle :completion:\* squeeze-slashes true
 
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+
 # set autosuggest color
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=245,underline,bold"
 
