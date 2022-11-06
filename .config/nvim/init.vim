@@ -288,6 +288,15 @@ let g:vimtex_compiler_enabled = 0
 let g:gitgutter_set_sign_backgrounds = 1
 let g:gitgutter_highlight_linenrs = 1
 let g:gitgutter_preview_win_floating = 1
+let g:gitgutter_floating_window_options = {
+        \ 'relative': 'cursor',
+        \ 'row': 1,
+        \ 'col': 0,
+        \ 'width': 60,
+        \ 'height': &previewheight,
+        \ 'style': 'minimal',
+	\ 'border': 'rounded',
+	\}
 
 
 " indentguide
