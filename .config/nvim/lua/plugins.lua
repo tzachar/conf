@@ -137,7 +137,7 @@ return require('packer').startup({
     use('wellle/targets.vim')
 
     -- use 'jeetsukumaran/vim-commentary'
-    use('b3nj5m1n/kommentary')
+    use({'numToStr/Comment.nvim'})
 
     use('vim-scripts/ingo-library')
     use('vim-scripts/TextTransform')
@@ -299,6 +299,10 @@ return require('packer').startup({
     -- use('AndrewRadev/switch.vim')
     -- use('zegervdv/nrpattern.nvim')
     use('monaqa/dial.nvim')
+
+
+    -- ts query builder
+    use("ziontee113/query-secretary")
 
   end,
 

@@ -148,7 +148,13 @@ nest.applyKeymaps({
   { mode = 'v', {
     {'<C-a>', require("dial.map").inc_visual(), options = {noremap = true} },
     {'<C-x>', require("dial.map").dec_visual(), options = {noremap = true} },
-    {'g<C-a>', require("dial.map").inc_gvisual(), options = {noremap = true} },
-    {'g<C-x>', require("dial.map").dec_gvisual(), options = {noremap = true} },
+    -- these are buggy for now!
+    -- {'g<C-a>', require("dial.map").inc_gvisual(), options = {noremap = true} },
+    -- {'g<C-x>', require("dial.map").dec_gvisual(), options = {noremap = true} },
+  } },
+
+  -- /query-secretary
+  { mode = 'n', {
+    {'<leader>z', function() require("query-secretary").query_window_initiate() end, options = {noremap = true} },
   } },
 })
