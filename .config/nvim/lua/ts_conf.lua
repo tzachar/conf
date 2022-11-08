@@ -162,7 +162,7 @@ end
 local toggle_fstring = function()
   local cursor = vim.api.nvim_win_get_cursor(0)
 
-  local node = find_node_type_zoom_out_first({"string"})
+  local node = find_node_type_zoom_out_first({"string", "program"})
   if node == nil then
     print("f-string: not in string node :(")
     return
