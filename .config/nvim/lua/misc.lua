@@ -58,6 +58,11 @@ require('Comment').setup({
   sticky = true,
   mappings = { basic = true, extra = true, },
 })
+nest.applyKeymaps({
+  { mode = 'n', {
+    { 'gc<space>', '<Plug>(comment_toggle_linewise_current)', options = { silent = true } },
+  } }
+})
 
 require('which-key').setup({ })
 
