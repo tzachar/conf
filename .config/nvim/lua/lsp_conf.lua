@@ -20,7 +20,7 @@ function Format_range_operator(...)
 end
 
 -- Add additional capabilities supported by nvim-cmp
-local capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
