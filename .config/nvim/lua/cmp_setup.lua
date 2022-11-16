@@ -119,19 +119,25 @@ cmp.setup({
     {
       name = 'fuzzy_buffer',
       option = {
+        max_match_length = 150,
         get_bufnrs = function()
-          local bufs = {}
+          local bufs = { vim.api.nvim_get_current_buf() }
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
-            if buftype ~= 'nofile' and buftype ~= 'prompt' then
-              bufs[#bufs + 1] = buf
+            if vim.api.nvim_buf_is_loaded(buf) and buf ~= bufs[1] then
+              local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
+              if buftype ~= 'nofile' and buftype ~= 'prompt' then
+                bufs[#bufs + 1] = buf
+              end
             end
           end
           return bufs
         end,
       },
     },
-    { name = 'cmp_tabnine' },
+    {
+      name = 'cmp_tabnine',
+      keyword_pattern = [=[[^[:blank:]]\+]=],
+    },
     { name = 'vsnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },

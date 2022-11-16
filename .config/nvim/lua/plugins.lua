@@ -6,7 +6,6 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.api.nvim_command('packadd packer.nvim')
 end
 
-vim.cmd('autocmd BufWritePost plugins.lua PackerCompile') -- Auto compile when there are changes in plugins.lua
 return require('packer').startup({
   function(use)
     use('wbthomason/packer.nvim')
@@ -303,6 +302,25 @@ return require('packer').startup({
 
     -- ts query builder
     use("ziontee113/query-secretary")
+
+    -- ssr
+    use {
+      "cshuaimin/ssr.nvim",
+      module = "ssr",
+      -- Calling setup is optional.
+      config = function()
+        require("ssr").setup {
+          min_width = 50,
+          min_height = 5,
+          keymaps = {
+            close = "q",
+            next_match = "n",
+            prev_match = "N",
+            replace_all = "<leader><cr>",
+          },
+        }
+      end
+    }
 
   end,
 

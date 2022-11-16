@@ -4,9 +4,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = misc,
   pattern = 'plugins.lua',
   callback = function()
-    vim.cmd([[
-      PackerCompile
-    ]])
+    require('packer').compile()
+    dump('compiled packer')
   end
 })
 

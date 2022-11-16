@@ -157,4 +157,9 @@ nest.applyKeymaps({
   { mode = 'n', {
     {'<leader>z', function() require("query-secretary").query_window_initiate() end, options = {noremap = true} },
   } },
+
+  -- ssr
+  { mode = 'nx', {
+    {'<leader>sr', function() require("ssr").open()  end, options = {noremap = true} },
+  } },
 })

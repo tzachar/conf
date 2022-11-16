@@ -1094,3 +1094,7 @@
 
 # Pyflyby
 c.InteractiveShellApp.extensions.append("pyflyby")
+
+# reload
+c.InteractiveShellApp.extensions.append("autoreload")
+c.InteractiveShellApp.exec_lines.append('%autoreload 2')

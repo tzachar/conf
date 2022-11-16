@@ -130,17 +130,17 @@ function pss() { ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command ; }
 
 function psa() { ps -auxwww | more ;}
 
-function ii()   # get current host related info
-{
-	echo -e "\nYou are logged on ${RED}$HOST"
-	echo -e "\nAdditionnal information:$NC " ; uname -a
-	echo -e "\n${RED}Users logged on:$NC " ; w -h
-	echo -e "\n${RED}Current date :$NC " ; date
-	echo -e "\n${RED}Machine stats :$NC " ; uptime
-	echo -e "\n${RED}Memory stats :$NC " ; free
-	echo
-}
-
+# function ii()   # get current host related info
+# {
+# 	echo -e "\nYou are logged on ${RED}$HOST"
+# 	echo -e "\nAdditionnal information:$NC " ; uname -a
+# 	echo -e "\n${RED}Users logged on:$NC " ; w -h
+# 	echo -e "\n${RED}Current date :$NC " ; date
+# 	echo -e "\n${RED}Machine stats :$NC " ; uptime
+# 	echo -e "\n${RED}Memory stats :$NC " ; free
+# 	echo
+# }
+#
 
 
 # Misc utilities:
