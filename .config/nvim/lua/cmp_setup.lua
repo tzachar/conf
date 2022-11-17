@@ -136,7 +136,6 @@ cmp.setup({
     },
     {
       name = 'cmp_tabnine',
-      keyword_pattern = [=[[^[:blank:]]\+]=],
     },
     { name = 'vsnip' },
     { name = 'nvim_lsp' },

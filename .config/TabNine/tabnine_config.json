@@ -19,7 +19,6 @@
   "num_of_suggestions": 5,
   "line_suggestions": true,
   "omit_prefix_suggestions": true,
-  "team_ai_local_collection": null,
   "api_key": "ogtpnwedtygdwzeniguqmtletzttuk",
   "api_base_url": null,
   "binary_update_interval_seconds": null,

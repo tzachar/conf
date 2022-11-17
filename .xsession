@@ -13,5 +13,9 @@ eval `ssh-agent -s`
 # unity-settings-daemon&
 xscreensaver &
 # xbindkeys&
+# set mouse hi res scrolling
+if [[ -f /usr/bin/solaar ]]; then
+	solaar config 'MX Master 2S' hires-smooth-resolution True
+fi
 exec ratpoison
 # exec awesome
