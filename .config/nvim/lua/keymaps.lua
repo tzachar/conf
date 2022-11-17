@@ -15,9 +15,13 @@ nest.applyKeymaps({
       { '<Leader>t', ':Tabularize /', options = { silent = false } },
     },
   },
-  { mode = 'ti', {
+  { mode = 'i', {
     { 'jj', '<c-\\><c-n>' },
     { '<C-c>', '<c-\\><c-n>' },
+  } },
+  { mode = 't', {
+    { 'jj', '<c-\\><c-n>' },
+    { '<c-w><c-w>', '<c-\\><c-n><c-w><c-w>' },
   } },
   {
     mode = 'n',
