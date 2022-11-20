@@ -155,36 +155,14 @@ augroup Binary
 augroup END
 
 "buffergatror oftions
-let g:buffergator_viewport_split_policy="B"
-let g:buffergator_split_size="10"
+" let g:buffergator_viewport_split_policy="B"
+" let g:buffergator_split_size="10"
 
 "spelling highlight
 hi SpellBad term=reverse ctermfg=white ctermbg=darkred guifg=#ffffff guibg=#7f0000 gui=underline
 hi SpellCap guifg=#ffffff guibg=#7f007f
 hi SpellRare guifg=#ffffff guibg=#00007f gui=underline
 hi SpellLocal term=reverse ctermfg=black ctermbg=darkgreen guifg=#ffffff guibg=#7f0000 gui=underline
-
-" cmp highlighting is done by colorscheme
-" " cmp items highlighting" gray
-" highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
-" " blue
-" highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
-" highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
-" " light blue
-" highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
-" highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
-" highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
-" " pink
-" highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
-" highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
-" " front
-" highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
-" highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
-" highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
-
-"for Switch:
-let g:switch_mapping = "-"
-
 
 "FSwitch
 "Switch to the file and load it into the current window >
@@ -352,7 +330,6 @@ lua _G.use_cachepack = true
 lua require('impatient')
 lua require('au')
 lua require('misc')
-lua require('packer_compiled')
 lua require('plugins')
 lua require('lsp_conf')
 lua require('ts_conf')
@@ -360,29 +337,7 @@ lua require('keymaps')
 lua require('cmp_setup')
 lua require('null_ls')
 lua require('winbar')
-
-
-"magma setup
-" let g:magma_save_path = stdpath("data") .. "/magma/"
-" function! MyMagmaInit()
-" 	setlocal filetype=python
-" 	set syntax=python
-" 	let l:mangled_fname = expand('%:p') .. '.json'
-" 	let l:mangled_fname = substitute(l:mangled_fname, '%', '%%', 'g')
-" 	let l:mangled_fname = substitute(l:mangled_fname, '/', '%', 'g')
-" 	let l:save_file = g:magma_save_path .. l:mangled_fname
-" 	if filereadable(l:save_file)
-" 		MagmaLoad
-" 	else
-" 		MagmaInit python3
-" 	endif
-" endfunction
-
-" highligh MagmaCellBG guibg=#222222
-" let g:magma_automatically_open_output = v:true
-" let g:magma_image_provider = 'kitty'
-" let g:magma_show_mimetype_debug = v:true
-" let g:magma_cell_highlight_group = 'MagmaCellBG'
+lua require('packer_compiled')
 
 
 highlight Normal guibg=black guifg=wheat
@@ -405,15 +360,6 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" configuration for splitjoin
-let g:splitjoin_align = 1
-let g:splitjoin_curly_brace_padding = 1
-let g:splitjoin_trailing_comma = 1
-let g:splitjoin_ruby_hanging_args = 0
-let g:splitjoin_python_brackets_on_separate_lines = 1
-let g:splitjoin_split_mapping = '<leader>s'
-let g:splitjoin_join_mapping  = '<leader>j'
 
 " matchup
 let g:matchup_matchparen_deferred = 5

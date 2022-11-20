@@ -47,7 +47,7 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   -- buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', opts)
   buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', 'dp', '<cmd>lua vim.diagnostic.goto_prev({float = false})<CR>', opts)
   buf_set_keymap('n', 'dn', '<cmd>lua vim.diagnostic.goto_next({float = false})<CR>', opts)
@@ -172,9 +172,6 @@ for server, opts in pairs(lsp_configs) do
   }
   lspconfig[server].setup(opts)
 end
-
--- lsp fzf integration
-require('lspfuzzy').setup({})
 
 vim.g.lsp_utils_location_opts = {
   height = 24,

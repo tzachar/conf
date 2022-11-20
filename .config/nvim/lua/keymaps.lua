@@ -44,11 +44,17 @@ nest.applyKeymaps({
       { '<F5>', '<Cmd>MundoToggle<cr>' },
 
       -- fzf
+      -- { '<leader>', {
+      --   { 'b', '<cmd>lua require("fzf-lua").buffers()<cr>' },
+      --   { 'pp', '<cmd>lua require("fzf-lua").files()<cr>' },
+      --   { 'pt', '<cmd>lua require("fzf-lua").loclist()<cr>' },
+      --   { 'pg', '<cmd>lua require("fzf-lua").grep()<cr>' },
+      -- } },
+
+      -- telescope
       { '<leader>', {
-        { 'pb', '<cmd>lua require("fzf-lua").buffers()<cr>' },
-        { 'pp', '<cmd>lua require("fzf-lua").files()<cr>' },
-        { 'pt', '<cmd>lua require("fzf-lua").loclist()<cr>' },
-        { 'pg', '<cmd>lua require("fzf-lua").grep()<cr>' },
+        { 'b', '<cmd>lua require("telescope.builtin").buffers()<cr>' },
+        { 'pp', '<cmd>lua require("telescope.builtin").find_files()<cr>' },
       } },
 
       -- multipage editing

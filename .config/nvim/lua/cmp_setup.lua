@@ -26,13 +26,6 @@ local source_mapping = {
   fuzzy_path = '[FZ]',
 }
 
-local function flip(f)
-  local function foo(a, b)
-    return f(b, a)
-  end
-  return foo
-end
-
 local comparators = {
   require('cmp_tabnine.compare'),
   require('cmp_fuzzy_path.compare'),
@@ -48,11 +41,6 @@ local comparators = {
   compare.length,
   compare.order,
 }
-
-local reverse_comparators = {}
-for i=1, #comparators do
-  table.insert(reverse_comparators, flip(comparators[i]))
-end
 
 cmp.setup({
   snippet = {
@@ -201,25 +189,6 @@ cmp.setup.cmdline(':', {
   {
     { name = 'cmdline' },
   }),
-  --[[ sorting = {
-    priority_weight = 2,
-    comparators = reverse_comparators,
-  },
-  mapping = {
-    ['<C-p>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-    ['<C-n>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-e>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), { 'i', 'c' }),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = false,
-    }),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-  }, ]]
-
 })
 
 local ns_id = vim.api.nvim_create_namespace('arrows')

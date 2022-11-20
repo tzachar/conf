@@ -1,10 +1,17 @@
 local vim = vim
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.api.nvim_command('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  vim.api.nvim_command('packadd packer.nvim')
+local ensure_packer = function()
+  local fn = vim.fn
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
+
+local packer_bootstrap = ensure_packer()
 
 return require('packer').startup({
   function(use)
@@ -24,7 +31,6 @@ return require('packer').startup({
       'williamboman/mason-lspconfig.nvim',
       requires = "williamboman/mason.nvim",
     })
-    use({ 'ojroques/nvim-lspfuzzy', branch = 'main' })
     -- ls progress
     use('j-hui/fidget.nvim')
 
@@ -85,13 +91,17 @@ return require('packer').startup({
     -- jump to last place
     use('farmergreg/vim-lastplace')
 
-    use('jeetsukumaran/vim-buffergator')
+    -- use('jeetsukumaran/vim-buffergator')
 
-    use({ '~/fzf', run = './install --all' })
-    -- use { 'junegunn/fzf.vim', requires = '~/fzf' }
-    use({ 'ibhagwan/fzf-lua', requires = {
-      'vijaymarupudi/nvim-fzf',
-    } })
+    -- use({ '~/fzf', run = './install --all' })
+    -- -- use { 'junegunn/fzf.vim', requires = '~/fzf' }
+    -- use({ 'ibhagwan/fzf-lua', requires = {
+    --   'vijaymarupudi/nvim-fzf',
+    -- } })
+    use {
+      'nvim-telescope/telescope.nvim', tag = '0.1.0',
+      requires = { {'nvim-lua/plenary.nvim'} }
+    }
 
     use({
       'vim-scripts/ExtractMatches',
@@ -322,6 +332,12 @@ return require('packer').startup({
       end
     }
 
+    -- sqlite lua
+    use ('kkharji/sqlite.lua')
+
+    if packer_bootstrap then
+      require('packer').sync()
+    end
   end,
 
   config = {
