@@ -124,13 +124,18 @@ require('telescope').setup({
       i = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
-        -- clear input line, dont scroll the preview
-        ["<C-u>"] = false,
-      }
+        ["<C-d>"] = actions.delete_buffer,
+      },
+      n = {
+        ["<d>"] = actions.delete_buffer,
+      },
     },
     pickers = {
       find_files = {
         find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+      },
+      buffers = {
+        sort_lastused = true,
       },
     },
     extensions = {

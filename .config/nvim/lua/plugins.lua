@@ -314,7 +314,7 @@ return require('packer').startup({
     use("ziontee113/query-secretary")
 
     -- ssr
-    use {
+    use({
       "cshuaimin/ssr.nvim",
       module = "ssr",
       -- Calling setup is optional.
@@ -330,10 +330,19 @@ return require('packer').startup({
           },
         }
       end
-    }
+    })
 
     -- sqlite lua
-    use ('kkharji/sqlite.lua')
+    use('kkharji/sqlite.lua')
+
+    -- tre climber
+    use({
+      'Dkendal/nvim-treeclimber',
+      requires = 'rktjmp/lush.nvim',
+      config = function()
+        require('nvim-treeclimber').setup()
+      end
+    })
 
     if packer_bootstrap then
       require('packer').sync()
