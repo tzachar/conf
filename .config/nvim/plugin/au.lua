@@ -35,9 +35,16 @@ vim.api.nvim_create_autocmd('FileType', {
   group = misc,
   pattern = {'html.javascript', 'html', 'js', 'javascript'},
   callback = function()
-    vim.cmd([[
-    call jinja#AdjustFiletype()
-  ]])
+    if vim.o.filetype:match('.jinja$') then
+      return
+    end
+    local regex = vim.regex([=[{%.*%}\|{{.*}}]=])
+    for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, 100, false)) do
+      if regex:match_str(line) then
+        vim.o.filetype = vim.o.filetype .. '.jinja'
+        return
+      end
+    end
   end
 })
 
@@ -107,4 +114,3 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     require('iron.core').repl_for('python')
   end
 })
-
