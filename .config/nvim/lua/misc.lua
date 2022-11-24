@@ -89,8 +89,6 @@ nest.applyKeymaps({
 })
 
 
-
-
 require('which-key').setup({ })
 
 -- fzf setup
@@ -116,65 +114,11 @@ require('which-key').setup({ })
 --   },
 -- })
 
--- telescope
-local actions = require("telescope.actions")
-require('telescope').setup({
-  defaults = {
-    mappings = {
-      i = {
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-d>"] = actions.delete_buffer,
-      },
-      n = {
-        ["<d>"] = actions.delete_buffer,
-      },
-    },
-    pickers = {
-      find_files = {
-        find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
-      },
-      buffers = {
-        sort_lastused = true,
-      },
-    },
-    extensions = {
-      fzf = {
-        fuzzy = true,                    -- false will only do exact matching
-        override_generic_sorter = true,  -- override the generic sorter
-        override_file_sorter = true,     -- override the file sorter
-        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-        -- the default case_mode is "smart_case"
-      }
-    },
-  }
-})
-require('telescope').load_extension('fzf')
-
-
 -- load devicons
 require('nvim-web-devicons').setup({
   default = true,
 })
 
--- colorscheme setup
---[[ vim.g.tokyonight_style = "night"
-vim.g.tokyonight_italic_functions = true
-vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
-vim.cmd("colorscheme tokyonight") ]]
-
--- gitSigns taken from tokyonight
-local gitSigns = { change = '#6183bb', add = '#449dab', delete = '#914c54', conflict = '#bb7a61' }
-require('kanagawa').setup({
-  undercurl = true,           -- enable undercurls
-  overrides = {
-    GitGutterAddLineNR = { fg = gitSigns.add }, -- diff mode: Added line |diff.txt|
-    GitGutterChangeLineNR = { fg = gitSigns.change }, -- diff mode: Changed line |diff.txt|
-    GitGutterDeleteLineNR = { fg = gitSigns.delete }, -- diff mode: Deleted line |diff.txt|
-    GitGutterChangeDeleteLineNR = { fg = gitSigns.delete }, -- diff mode: Deleted line |diff.txt|
-    TSVariable = {fg = 'wheat'},
-  },
-})
 vim.cmd('colorscheme kanagawa')
 
 -- load	lualine
@@ -267,101 +211,6 @@ require("indent_blankline").setup {
     show_current_context = true,
     show_current_context_start = false,
 }
-
--- iron conf
-local iron = require("iron.core")
-
-iron.setup {
-  config = {
-    -- If iron should expose `<plug>(...)` mappings for the plugins
-    should_map_plug = false,
-    -- Whether a repl should be discarded or not
-    scratch_repl = false,
-    -- Your repl definitions come here
-    scope = require("iron.scope").path_based,
-    repl_definition = {
-      sh = {
-        command = {"zsh"}
-      },
-      python = require("iron.fts.python").ipython,
-    },
-    -- repl_open_cmd = require('iron.view').curry.right(60),
-    repl_open_cmd = 'rightbelow vsplit',
-    buflisted = false,
-  },
-  -- Iron doesn't set keymaps by default anymore. Set them here
-  -- or use `should_map_plug = true` and map from you vim files
-  keymaps = {
-    send_motion = "<leader>r",
-    visual_send = "<leader>r",
-    send_file = "<leader>rf",
-    send_line = "<leader>rr",
-    send_mark = "<leader>rm",
-    mark_motion = "<leader>rc",
-    mark_visual = "<leader>rc",
-    remove_mark = "<leader>rd",
-    cr = "<leader>r<cr>",
-    interrupt = "<leader>r<leader>",
-    exit = "<leader>rq",
-    clear = "<leader>rl",
-  },
-  -- If the highlight is on, you can change how it looks
-  -- For the available options, check nvim_set_hl
-  highlight = {
-    italic = false
-  }
-}
-
-local smooth_colors = {
-  Smooth1 = '#A10100',
-  Smooth2 = '#DA1F05',
-  Smooth3 = '#F33C04',
-  Smooth4 = '#FE650D',
-  Smooth5 = '#FFC11F',
-  Smooth6 = '#FFF75D',
-}
-
-for name, fg in pairs(smooth_colors) do
-  vim.api.nvim_set_hl(
-    0,
-    name,
-    { fg = fg }
-  )
-
-end
-
-require('smoothcursor').setup({
-  autostart = true,
-  cursor = "",             -- cursor shape (need nerd font)
-  intervals = 35,           -- tick interval
-  linehl = nil,             -- highlight sub-cursor line like 'cursorline', "CursorLine" recommended
-  type = "default",         -- define cursor movement calculate function, "default" or "exp" (exponential).
-  fancy = {
-    enable = true,       -- enable fancy mode
-    head = { cursor = "▷", texthl = "SmoothCursor", linehl = nil },
-    body = {
-      --[[ { cursor = "", texthl = "SmoothCursorRed" },
-      { cursor = "", texthl = "SmoothCursorOrange" },
-      { cursor = "●", texthl = "SmoothCursorYellow" },
-      { cursor = "●", texthl = "SmoothCursorGreen" },
-      { cursor = "•", texthl = "SmoothCursorAqua" },
-      { cursor = ".", texthl = "SmoothCursorBlue" },
-      { cursor = ".", texthl = "SmoothCursorPurple" }, ]]
-      { cursor = "", texthl = "Smooth1" },
-      { cursor = "", texthl = "Smooth2" },
-      { cursor = "●", texthl = "Smooth3" },
-      { cursor = "•", texthl = "Smooth4" },
-      { cursor = ".", texthl = "Smooth5" },
-      { cursor = ".", texthl = "Smooth6" },
-    },
-    tail = { cursor = nil, texthl = "SmoothCursor" }
-  },
-  priority = 10,            -- set marker priority
-  speed = 25,               -- max is 100 to stick to your current position
-  texthl = "SmoothCursor",  -- highlight group, default is { bg = nil, fg = "#FFD400" }
-  threshold = 3,
-  timeout = 3000,
-})
 
 -- live command setup
 require("live-command").setup({

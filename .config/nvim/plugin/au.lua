@@ -30,6 +30,17 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+-- jinja
+vim.api.nvim_create_autocmd('FileType', {
+  group = misc,
+  pattern = {'html.javascript', 'html', 'js', 'javascript'},
+  callback = function()
+    vim.cmd([[
+    call jinja#AdjustFiletype()
+  ]])
+  end
+})
+
 
 local ftypes = vim.api.nvim_create_augroup("ftypes", {clear = true})
 

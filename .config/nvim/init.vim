@@ -328,15 +328,7 @@ let g:iron_map_extended = 0
 
 lua _G.use_cachepack = true
 lua require('impatient')
-lua require('au')
 lua require('misc')
-lua require('plugins')
-lua require('lsp_conf')
-lua require('ts_conf')
-lua require('keymaps')
-lua require('cmp_setup')
-lua require('null_ls')
-lua require('winbar')
 lua require('packer_compiled')
 
 

@@ -240,8 +240,8 @@ local split_join = function(split)
   vim.cmd("normal " .. #replacement_text .. '==')
 end
 
-vim.keymap.set('n', '<leader>ss', function() split_join(true) end, { noremap = true })
-vim.keymap.set('n', '<leader>sd', function() split_join(false) end, { noremap = true })
+-- vim.keymap.set('n', '<leader>ss', function() split_join(true) end, { noremap = true })
+-- vim.keymap.set('n', '<leader>sd', function() split_join(false) end, { noremap = true })
 
 
 local ask_install = {}

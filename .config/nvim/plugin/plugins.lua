@@ -344,6 +344,15 @@ return require('packer').startup({
       end
     })
 
+    -- jinja support
+    use "HiPhish/jinja.vim"
+
+    -- tree sj
+    use({
+      'Wansmer/treesj',
+      requires = { 'nvim-treesitter' },
+    })
+
     if packer_bootstrap then
       require('packer').sync()
     end
