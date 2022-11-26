@@ -191,44 +191,51 @@ cmp.setup.cmdline(':', {
   }),
 })
 
-local ns_id = vim.api.nvim_create_namespace('arrows')
-local function remove_marks()
-    local all = vim.api.nvim_buf_get_extmarks(0, ns_id, 0, -1, {})
-    for _, mark in ipairs(all) do
-      vim.api.nvim_buf_del_extmark(0, ns_id, mark[1])
-    end
-end
-
-cmp.event:on('menu_closed',
-  function()
-    remove_marks()
-  end
-)
+-- local ns_id = vim.api.nvim_create_namespace('arrows')
+-- local function remove_marks()
+--     local all = vim.api.nvim_buf_get_extmarks(0, ns_id, 0, -1, {})
+--     for _, mark in ipairs(all) do
+--       vim.api.nvim_buf_del_extmark(0, ns_id, mark[1])
+--     end
+-- end
+--
+-- cmp.event:on('menu_closed',
+--   function()
+--     remove_marks()
+--   end
+-- )
 
 cmp.event:on('menu_opened',
   function(evt)
     if vim.api.nvim_get_mode().mode:sub(1, 1) == 'c' then
       return
     end
-    local character
-    local cursor = vim.api.nvim_win_get_cursor(0)
-    local row = cursor[1] - 1
-    local col = cursor[2]
+    -- local character
+    local border
+    -- local cursor = vim.api.nvim_win_get_cursor(0)
+    -- local row = cursor[1] - 1
+    -- local col = cursor[2]
 
-    remove_marks()
+    -- remove_marks()
 
     if evt.window.bottom_up then
-      character = "↑"
+      border = {"╭", "─" ,"╮", "|", "╯", "↑", "╰", "|"}
     else
-      character = "↓"
+      border = {"╭", "↓" ,"╮", "|", "╯", "─", "╰", "|"}
     end
-    local opts = {
-      id = 1,
-      virt_text = {{character, "IncSearch"}},
-      virt_text_pos = 'overlay',
-      priority = 10005,
-    }
-
-    vim.api.nvim_buf_set_extmark(0, ns_id, row, col, opts)
+    vim.api.nvim_win_set_config(
+      evt.window.entries_win.win,
+      {
+        border = border,
+      }
+    )
+    -- local opts = {
+    --   id = 1,
+    --   virt_text = {{character, "IncSearch"}},
+    --   virt_text_pos = 'overlay',
+    --   priority = 10005,
+    -- }
+    --
+    -- vim.api.nvim_buf_set_extmark(0, ns_id, row, col, opts)
   end
 )

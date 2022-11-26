@@ -17,5 +17,9 @@ xscreensaver &
 if [[ -f /usr/bin/solaar ]]; then
 	solaar config 'MX Master 2S' hires-smooth-resolution True
 fi
+
+# smooth scrolling
+nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+
 exec ratpoison
 # exec awesome
