@@ -1,23 +1,54 @@
 -- telescope
 local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+
+local select_buffer = function (_)
+  local entry = action_state.get_selected_entry()
+  if not entry then
+    return
+  end
+  local buffers = vim.tbl_filter(
+    function (b)
+      if 1 ~= vim.fn.buflisted(b) then
+        return false
+      end
+
+      return true
+    end
+    , vim.api.nvim_list_bufs())
+  table.sort(buffers, function(a, b)
+    return vim.fn.getbufinfo(a)[1].lastused > vim.fn.getbufinfo(b)[1].lastused
+  end)
+  vim.cmd(string.format("buffer! %s", vim.api.nvim_buf_get_name(entry.bufnr)))
+  vim.fn.setreg('#', vim.api.nvim_buf_get_name(buffers[1]))
+  return false
+end
+
 require('telescope').setup({
   defaults = {
     mappings = {
       i = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
-        ["<C-d>"] = actions.delete_buffer,
       },
-      n = {
-        ["<d>"] = actions.delete_buffer,
-      },
+      n = {},
     },
-    pickers = {
-      find_files = {
-        find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
-      },
-      buffers = {
-        sort_lastused = true,
+  },
+  pickers = {
+    find_files = {
+      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+    },
+    buffers = {
+      show_all_buffers = true,
+      sort_lastused = true,
+      mappings = {
+        i = {
+          ["<C-d>"] = 'delete_buffer',
+          ["<cr>"] = select_buffer,
+        },
+        n = {
+          ["<d>"] = 'delete_buffer',
+        }
       },
     },
     extensions = {
@@ -32,6 +63,3 @@ require('telescope').setup({
   }
 })
 require('telescope').load_extension('fzf')
-
-
-
