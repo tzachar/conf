@@ -89,13 +89,7 @@ return require('packer').startup({
     use({ 'mileszs/ack.vim', opt = true, cmd = { 'Ack' } })
 
     -- jump to last place
-    -- use('farmergreg/vim-lastplace')
-    use({
-      'ethanholz/nvim-lastplace',
-      config = function()
-        require('nvim-lastplace').setup()
-      end
-    })
+    use('farmergreg/vim-lastplace')
 
     -- use('jeetsukumaran/vim-buffergator')
 
