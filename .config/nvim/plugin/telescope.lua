@@ -20,7 +20,7 @@ local select_buffer = function (_)
     return vim.fn.getbufinfo(a)[1].lastused > vim.fn.getbufinfo(b)[1].lastused
   end)
   vim.cmd(string.format("buffer! %s", vim.api.nvim_buf_get_name(entry.bufnr)))
-  vim.fn.setreg('#', vim.api.nvim_buf_get_name(buffers[1]))
+  vim.fn.setreg('#', buffers[1])
   return false
 end
 
