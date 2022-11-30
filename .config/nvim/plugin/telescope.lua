@@ -47,7 +47,7 @@ require('telescope').setup({
           ["<cr>"] = select_buffer,
         },
         n = {
-          ["<d>"] = 'delete_buffer',
+          ["d"] = 'delete_buffer',
         }
       },
     },
