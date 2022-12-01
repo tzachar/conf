@@ -31,7 +31,9 @@ require('telescope').setup({
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
       },
-      n = {},
+      n = {
+        ["q"] = actions.close,
+      },
     },
   },
   pickers = {
