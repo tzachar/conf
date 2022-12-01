@@ -131,7 +131,7 @@ local function setup_servers()
           pylint = {enabled = false},
           pydocstyle = {enabled = false},
           mccabe = {
-            enabled = true,
+            enabled = false,
             threshold = 25,
           },
           preload = {enabled = false},
