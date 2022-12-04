@@ -41,6 +41,7 @@ require('telescope').setup({
       find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
     },
     buffers = {
+      initial_mode = "normal",
       show_all_buffers = true,
       sort_lastused = true,
       mappings = {

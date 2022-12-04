@@ -124,7 +124,7 @@ local function setup_servers()
             ignore = {},
             maxLineLength = 160
           },
-          mypy = {enabled = true},
+          mypy = {enabled = false},
           pyflakes = {enabled = false},
           isort = {enabled = true},
           yapf = {enabled = false},
@@ -136,6 +136,7 @@ local function setup_servers()
           },
           preload = {enabled = false},
           rope_completion = {enabled = false},
+          rope_autoimport = {enabled = false},
         }
       }
     },

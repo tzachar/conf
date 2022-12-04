@@ -53,13 +53,7 @@ nest.applyKeymaps({
 
       -- telescope
       { '<leader>', {
-        -- { 'b', '<cmd>lua require("telescope.builtin").buffers()<cr>' },
-        { 'b',
-          function()
-            require("telescope.builtin").buffers()
-            vim.api.nvim_feedkeys('<esc>', 'i', {})
-          end
-        },
+        { 'b', '<cmd>lua require("telescope.builtin").buffers()<cr>' },
         { 'pp', '<cmd>lua require("telescope.builtin").find_files()<cr>' },
       } },
 
