@@ -114,3 +114,11 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     require('iron.core').repl_for('python')
   end
 })
+
+vim.api.nvim_create_autocmd('BufWinLeave', {
+  group = misc,
+  pattern = '*.jupyter',
+  callback = function()
+    require('iron.core').hide_repl()
+  end
+})
