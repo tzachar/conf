@@ -120,7 +120,7 @@ local function setup_servers()
           autopep8 = {enabled = true},
           flake8 = {
             -- setting this to true causes double error reporting
-            enabled = false,
+            enabled = true,
             ignore = {},
             maxLineLength = 160
           },
