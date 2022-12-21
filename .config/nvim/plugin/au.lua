@@ -1,14 +1,15 @@
 
 local misc = vim.api.nvim_create_augroup("Misc", {clear = true})
-vim.api.nvim_create_autocmd('BufWritePost', {
-  group = misc,
-  pattern = 'plugins.lua',
-  callback = function()
-    require('packer').compile()
-    dump('compiled packer')
-  end
-})
 
+-- vim.api.nvim_create_autocmd('BufWritePost', {
+--   group = misc,
+--   pattern = 'plugins.lua',
+--   callback = function()
+--     require('packer').compile()
+--     dump('compiled packer')
+--   end
+-- })
+--
 -- highligh on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = misc,
@@ -16,18 +17,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 350, on_visual = true })
   end,
-})
-
--- syntax ranges
-vim.api.nvim_create_autocmd('FileType', {
-  group = misc,
-  pattern = {'html.javascript', 'html', 'js', 'javascript'},
-  callback = function()
-    vim.cmd([[
-    call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
-    call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
-  ]])
-  end
 })
 
 -- jinja
@@ -120,5 +109,58 @@ vim.api.nvim_create_autocmd('BufWinLeave', {
   pattern = '*.jupyter',
   callback = function()
     require('iron.core').hide_repl()
+  end
+})
+
+
+local filetypes = vim.api.nvim_create_augroup("FileTypes", {clear = true})
+vim.api.nvim_create_autocmd('FileType', {
+  group = filetypes,
+  pattern = {'cpp', 'h', 'c', 'cu', 'proto', 'hpp' },
+  callback = function()
+    vim.bo.cinoptions=":0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case"
+    vim.bo.formatoptions="tcqrl"
+    vim.bo.cinkeys="0{,0},0),0#,!^F,o,O,e,:"
+    vim.bo.cindent = true
+    vim.bo.showmatch = true
+    vim.bo.expandtab = false
+    vim.bo.tabstop=8
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = filetypes,
+  pattern = {'java'},
+  callback = function()
+    vim.cmd("ab <buffer> sop System.out.println")
+    vim.bo.formatoptions="tcqr"
+    vim.bo.cindent = true
+    vim.bo.showmatch = true
+    vim.bo.expandtab = false
+    vim.bo.tabstop=8
+  end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = filetypes,
+  pattern = {'html.javascript', 'html', 'js', 'javascript'},
+  callback = function()
+    vim.cmd([[
+    call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
+    call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
+  ]])
+  vim.bo.tabstop=4
+  vim.bo.expandtab = true
+  vim.bo.shiftwidth=4
+  vim.bo.softtabstop=4
+  vim.bo.textwidth=10000
+  end
+})
+
+vim.api.nvim_create_autocmd('BufRead', {
+  group = filetypes,
+  pattern = {'*.jupyter'},
+  callback = function()
+    vim.bo.filetype='python'
   end
 })

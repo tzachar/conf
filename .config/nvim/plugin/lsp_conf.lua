@@ -85,6 +85,7 @@ local function setup_servers()
   local function add(lib)
     for _, p in pairs(vim.fn.expand(lib, false, true)) do
       p = vim.loop.fs_realpath(p)
+      dump(library, p)
       library[p] = true
     end
   end
@@ -97,8 +98,7 @@ local function setup_servers()
 
   -- add plugins
   -- if you're not using packer, then you might need to change the paths below
-  add('~/.local/share/nvim/site/pack/packer/opt/*')
-  add('~/.local/share/nvim/site/pack/packer/start/*')
+  add('~/.local/share/nvim/lazy/*')
 
   local configs = {}
   configs['cssls'] = {}

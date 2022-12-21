@@ -1,10 +1,5 @@
 local vim = vim
 
-function dump(...)  ---@diagnostic disable-line
-  local objects = vim.tbl_map(vim.inspect, { ... })
-  print(unpack(objects))
-end
-
 local ignore_decl_per_source = {
   ['Pyright'] = 'type: ignore',
   ['mypy'] = 'type: ignore',

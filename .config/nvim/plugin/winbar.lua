@@ -39,7 +39,7 @@ function Winbar:update()
     transform_fn = function(line) return self:transform(line) end,
     separator = ' -> ',
   })
-  if #winbar == 0 then
+  if winbar == nil or #winbar == 0 then
     winbar = 'there be dragons'
   end
   vim.wo.winbar = winbar
