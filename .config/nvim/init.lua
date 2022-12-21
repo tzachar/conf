@@ -375,7 +375,9 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
  vim.opt.runtimepath:prepend(lazypath)
 
 require("plugins")
+require("impatient")
 require("misc")
+
 vim.api.nvim_set_hl(0, "Normal", {
 	fg = "wheat",
 	bg = "black",

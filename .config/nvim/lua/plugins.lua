@@ -60,7 +60,8 @@ require('lazy').setup({
         }
       }
     end,
-    dependencies = "nvim-treesitter/nvim-treesitter"
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    cmd = {'Neogen'},
   },
 
   -- zephyr-nvim dependencies nvim-treesitter
@@ -122,7 +123,7 @@ require('lazy').setup({
   { 'DeonPoncini/includefixer', ft = { 'c', 'cpp' } },
 
   { "tpope/vim-repeat" },
-  { "jamessan/vim-gnupg" },
+  { "jamessan/vim-gnupg", ft = { 'gnupg' } },
 
   { 'lervag/vimtex', ft = { 'tex', 'latex' } },
   { 'sjl/splice.vim', cmd = 'SpliceInit' },
@@ -131,7 +132,7 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim' },
 
   { 'vimoutliner/vimoutliner', ft = 'otl' },
-  { 'vim-scripts/dbext.vim', ft = 'sql' },
+  { 'vim-scripts/dbext.vim', ft = 'sql' , enabled=false},
 
   -- 'tpope/vim-surround',
   { 'kylechui/nvim-surround' },
@@ -189,13 +190,13 @@ require('lazy').setup({
   { "ntpeters/vim-better-whitespace" },
 
   -- git
-  { "tpope/vim-fugitive" },
+  { "tpope/vim-fugitive" , cmd = {'G', 'Git'}, },
 
   -- iron, repr integration
-  { "hkupty/iron.nvim" },
+  { "hkupty/iron.nvim", lazy=true},
 
   -- quickfix magic
-  { "kevinhwang91/nvim-bqf" },
+  { "kevinhwang91/nvim-bqf", lazy=true,},
 
   -- change commentstring based on location in file
   { "JoosepAlviste/nvim-ts-context-commentstring" },
@@ -203,9 +204,9 @@ require('lazy').setup({
   -- dev icons
   { "kyazdani42/nvim-web-devicons" },
 
-  { 'dstein64/vim-startuptime' },
+  { 'dstein64/vim-startuptime', cmd = {'StartupTime'} },
 
-  { 'David-Kunz/treesitter-unit' },
+  { 'David-Kunz/treesitter-unit', lazy=true},
 
   -- for keymappings
   { 'LionC/nest.nvim' },
@@ -292,7 +293,7 @@ require('lazy').setup({
   },
 
   -- sqlite lua
-  { 'kkharji/sqlite.lua' },
+  { 'kkharji/sqlite.lua', lazy=true },
 
   -- tre climber
   {
@@ -308,9 +309,7 @@ require('lazy').setup({
   { "HiPhish/jinja.vim" },
 
   -- tree sj
-  {
-    'Wansmer/treesj',
-  },
+  {'Wansmer/treesj' },
 
   -- useless
   -- {
@@ -334,4 +333,5 @@ require('lazy').setup({
       "nvim-telescope/telescope.nvim"
     },
   },
+  { "lewis6991/impatient.nvim" },
 })
