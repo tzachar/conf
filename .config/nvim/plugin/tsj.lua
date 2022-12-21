@@ -1,26 +1,26 @@
 local tsj = require('treesj')
 local tsj_utils = require('treesj.langs.utils')
 
-local python_presets = {
-  both = {
-  },
-  join = {
-    space_in_brackets = false,
-    last_separator = false,
-  },
-  split = {
-    last_separator = true,
-  },
-}
+-- local python_presets = {
+--   both = {
+--   },
+--   join = {
+--     space_in_brackets = false,
+--     last_separator = false,
+--   },
+--   split = {
+--     last_separator = true,
+--   },
+-- }
 local langs = {
-  python = {
-    set = tsj_utils.set_preset_for_list(python_presets),
-    dictionary = tsj_utils.set_preset_for_dict(python_presets),
-    list = tsj_utils.set_preset_for_list(python_presets),
-    parameters = tsj_utils.set_preset_for_list(python_presets),
-    argument_list = tsj_utils.set_preset_for_list(python_presets),
-    tuple = tsj_utils.set_preset_for_list(python_presets),
-  }
+  -- python = {
+  --   set = tsj_utils.set_preset_for_list(python_presets),
+  --   dictionary = tsj_utils.set_preset_for_dict(python_presets),
+  --   list = tsj_utils.set_preset_for_list(python_presets),
+  --   parameters = tsj_utils.set_preset_for_list(python_presets),
+  --   argument_list = tsj_utils.set_preset_for_list(python_presets),
+  --   tuple = tsj_utils.set_preset_for_list(python_presets),
+  -- }
 }
 
 tsj.setup({
