@@ -2,7 +2,7 @@
 
 (
    (string) @sql
-   (#match? @sql "(select|SELECT).*(from|FROM)")
+   (#match? @sql "((select|SELECT).*(from|FROM))|((insert|INSERT).*(into|INTO))")
 )
 
 (
