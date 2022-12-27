@@ -156,7 +156,7 @@ return {
   { "ntpeters/vim-better-whitespace" },
 
   -- git
-  { "tpope/vim-fugitive" , cmd = {'G', 'Git'}, },
+  { "tpope/vim-fugitive" , lazy = true, cmd = {'G', 'Git'}, },
 
   -- quickfix magic
   { "kevinhwang91/nvim-bqf", lazy=true,},
