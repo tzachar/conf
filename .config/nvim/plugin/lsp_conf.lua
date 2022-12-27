@@ -242,10 +242,6 @@ vim.g.lsp_utils_symbols_opts = {
 }
 
 require("fidget").setup({ })
-require("inc_rename").setup()
-vim.keymap.set('n', 'gt', function()
-  return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true })
 
 -- highlight line numbers on error
 vim.cmd([[

@@ -48,42 +48,6 @@ nest.applyKeymaps({
   } },
 })
 
-require('Comment').setup({
-  padding = true,
-  sticky = true,
-  mappings = { basic = true, extra = true, },
-})
-nest.applyKeymaps({
-  { mode = 'n', {
-    { 'gc<space>', '<Plug>(comment_toggle_linewise_current)', options = { silent = true } },
-  } }
-})
-
-local function yank_and_comment(options)
-  local comment_api = require('Comment.api')
-  local start_line = (options.line1 or vim.fn.line('.')) - 1
-  local end_line = options.line2 or vim.fn.line('.')
-  local original_text = vim.api.nvim_buf_get_lines(
-    0,
-    start_line,
-    end_line,
-    false)
-  comment_api.comment.linewise.count(end_line - start_line)
-  vim.fn.setreg('', original_text)
-  vim.fn.setreg('+', original_text)
-end
-
-vim.api.nvim_create_user_command('YankAndComment', yank_and_comment, { range = true })
-nest.applyKeymaps({
-  { mode = 'n', {
-    { 'gcy', '<cmd>YankAndComment<cr>', options = { silent = true } },
-  } },
-  { mode = 'v', {
-    { 'gcy', ':YankAndComment<cr>', options = { silent = true } },
-  } },
-})
-
-
 require('which-key').setup({ })
 
 -- fzf setup
@@ -127,52 +91,6 @@ require('lualine').setup({
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
 
-local surround = require("nvim-surround.config")
-require("nvim-surround").setup({
-  surrounds = {
-    ["f"] = {
-      add = function()
-        local result = surround.get_input("Enter the function name: ")
-        if result then
-          return { { result .. "(" }, { ")" } }
-        end
-      end,
-    }
-  }
-})
-
-local surround_print = {
-  lua = 'dump',
-  python = 'print',
-  js = 'console.log',
-  html = 'console.log',
-}
-
-surround.buffer_setup({
-  surrounds = {
-    ["p"] = {
-      add = function()
-        local print = surround_print[vim.bo.filetype] or 'print'
-        return { { print .. "(" }, { ")" } }
-      end,
-      find = function()
-        local print = surround_print[vim.bo.filetype] or 'print'
-        return surround.get_selection({pattern = print .. "%b()"})
-      end,
-      delete = function()
-        local print = surround_print[vim.bo.filetype] or 'print'
-        return surround.get_selections({char = "p", pattern = "^(" .. print .. "%()().-(%))()$"})
-      end,
-      change = {
-        target = function()
-          local print = surround_print[vim.bo.filetype] or 'print'
-          return surround.get_selections({char = "p", pattern = "^(" .. print .. "%()().-(%))()$"})
-        end
-      },
-    },
-  }
-})
-
 require('nest').applyKeymaps({
   {
     mode = 'n',
@@ -214,18 +132,3 @@ require("live-command").setup({
   }
 })
 
-
--- dial
-local augend = require("dial.augend")
-require("dial.config").augends:register_group{
-  default = {
-    augend.integer.alias.decimal_int,
-    augend.integer.alias.hex,
-    augend.date.alias["%Y/%m/%d"],
-    augend.constant.alias.alpha,
-    augend.constant.alias.Alpha,
-    augend.integer.alias.binary,
-    augend.constant.alias.bool,
-    augend.constant.new{ elements = {"True", "False"} }
-  },
-}

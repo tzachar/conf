@@ -63,9 +63,6 @@ nest.applyKeymaps({
       -- open init.vim
       { '<leader>ve', '<cmd>vsplit $MYVIMRC<cr>G' },
 
-      -- swap ts node under cursor
-      { '<leader>gs', '<cmd>ISwapNodeWithRight<cr>' },
-      { '<leader>gS', '<cmd>ISwapNodeWithLeft<cr>' },
     },
   },
   { mode = 'c', {
@@ -148,28 +145,4 @@ nest.applyKeymaps({
     end, options = {expr = true} },
   } },
 
-  -- dial
-  { mode = 'n', {
-    {'<C-a>', require("dial.map").inc_normal(), options = {noremap = true} },
-    {'<C-x>', require("dial.map").dec_normal(), options = {noremap = true} },
-    {'+', require("dial.map").inc_normal(), options = {noremap = true} },
-    {'-', require("dial.map").dec_normal(), options = {noremap = true} },
-  } },
-  { mode = 'v', {
-    {'<C-a>', require("dial.map").inc_visual(), options = {noremap = true} },
-    {'<C-x>', require("dial.map").dec_visual(), options = {noremap = true} },
-    -- these are buggy for now!
-    -- {'g<C-a>', require("dial.map").inc_gvisual(), options = {noremap = true} },
-    -- {'g<C-x>', require("dial.map").dec_gvisual(), options = {noremap = true} },
-  } },
-
-  -- /query-secretary
-  { mode = 'n', {
-    {'<leader>z', function() require("query-secretary").query_window_initiate() end, options = {noremap = true} },
-  } },
-
-  -- ssr
-  { mode = 'nx', {
-    {'<leader>sr', function() require("ssr").open()  end, options = {noremap = true} },
-  } },
 })
