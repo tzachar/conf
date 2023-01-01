@@ -48,44 +48,7 @@ nest.applyKeymaps({
   } },
 })
 
-require('which-key').setup({ })
-
--- fzf setup
--- require('fzf-lua').setup({
---   -- fzf_layout = 'reverse',
---   buffers = {
---     sort_lastused = false,
---   },
---   files = {
---     cmd = 'fd -t file',
---   },
---   previewers = {
---     builtin = {
---       syntax_limit_l = 0,
---       syntax_limit_b = 1024 * 1024,
---     },
---   },
---   keymap = {
---     fzf = {
---       ['tab'] = 'down',
---       ['btab'] = 'up',
---     },
---   },
--- })
-
--- load devicons
-require('nvim-web-devicons').setup({
-  default = true,
-})
-
 vim.cmd('colorscheme kanagawa')
-
--- load	lualine
-require('lualine').setup({
-      options = {
-        globalstatus = false
-    },
-})
 
 -- mundo
 vim.o.undofile = true
@@ -118,17 +81,3 @@ require('nest').applyKeymaps({
     }
   }
 })
-
--- indend-guides setup
-require("indent_blankline").setup {
-    show_current_context = true,
-    show_current_context_start = false,
-}
-
--- live command setup
-require("live-command").setup({
-  commands = {
-    Norm = { cmd = "norm" },
-  }
-})
-

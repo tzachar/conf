@@ -79,6 +79,8 @@ vim.opt.splitkeep = "screen"
 
 vim.opt.diffopt = vim.opt.diffopt + "linematch:60"
 
+vim.opt.pastetoggle = '<leader>a'
+
 -- set filetypes
 -- filetype on
 -- filetype plugin indent on
@@ -189,26 +191,13 @@ function! ToggleEndChar(charToMatch)
 	call winrestview(l:winview)
 endfunction
 ]])
-vim.api.nvim_set_keymap("n", "<Leader>;", ":call ToggleEndChar(';')<CR>", {})
+vim.keymap.set("n", "<Leader>;", ":call ToggleEndChar(';')<CR>", {});
 
 -- The Silver Searcher
 if vim.fn.executable("ag") then
 	-- Use ag over grep
 	vim.o.grepprg = "ag --nogroup --nocolor"
 end
-
--- Map key to toggle opt
-vim.cmd([[
-function MapToggle(key, opt)
-  let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
-  exec 'nnoremap '.a:key.' '.cmd
-  "exec 'inoremap '.a:key." \<C-O>".cmd
-endfunction
-command -nargs=+ MapToggle call MapToggle(<f-args>)
-
-" MapToggle <Leader>ss spell
-MapToggle <Leader>a paste
-]])
 
 -- function! PerlFormat(str)
 --   let out = system('perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"', a:str)

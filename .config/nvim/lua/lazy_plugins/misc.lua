@@ -1,5 +1,22 @@
 return {
-  { 'nvim-lualine/lualine.nvim' },
+  {
+    'nvim-lualine/lualine.nvim',
+    config = function()
+      -- load	lualine
+      require('lualine').setup({
+        options = {
+          globalstatus = false
+        },
+        sections = {
+          lualine_a = {
+            { 'mode', fmt = function(mode) return vim.go.paste == true and mode .. ' (paste)' or mode end },
+          },
+        },
+      })
+
+
+    end
+  },
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   { 'nvim-treesitter/nvim-treesitter-refactor', dependencies = 'nvim-treesitter/nvim-treesitter' },
   { 'nvim-treesitter/nvim-treesitter-textobjects', dependencies = 'nvim-treesitter/nvim-treesitter' },
@@ -104,7 +121,16 @@ return {
   },
   { 'Vimjas/vim-python-pep8-indent', ft = 'python' },
   { 'godlygeek/tabular', cmd = 'Tabularize'},
-  { "lukas-reineke/indent-blankline.nvim" },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      -- indend-guides setup
+      require("indent_blankline").setup {
+        show_current_context = true,
+        show_current_context_start = false,
+      }
+    end
+  },
 
   -- add cmd utils as vim commands
   { 'tpope/vim-eunuch', cmd = {
@@ -131,7 +157,12 @@ return {
   } },
 
   -- show mappings
-  { 'folke/which-key.nvim' },
+  {
+    'folke/which-key.nvim',
+    config = function()
+      require('which-key').setup({ })
+    end
+  },
 
   -- syntax ranges
   { "vim-scripts/SyntaxRange", ft = {'html.javascript', 'html', 'js', 'javascript'}},
@@ -157,7 +188,19 @@ return {
   { "JoosepAlviste/nvim-ts-context-commentstring" },
 
   -- dev icons
-  { "kyazdani42/nvim-web-devicons" },
+  {
+    "kyazdani42/nvim-web-devicons",
+    config = function()
+      -- load devicons
+      require('nvim-web-devicons').setup({
+        default = true,
+      })
+
+
+    end
+    
+
+  },
 
   { 'dstein64/vim-startuptime', cmd = {'StartupTime'} },
 
@@ -243,7 +286,18 @@ return {
   { "gen740/SmoothCursor.nvim" },
 
   -- live command preview
-  { "smjonas/live-command.nvim" },
+  {
+    "smjonas/live-command.nvim",
+    config = function()
+      -- live command setup
+      require("live-command").setup({
+        commands = {
+          Norm = { cmd = "norm" },
+        }
+      })
+    end,
+
+  },
 
   -- auto list:
   { "gaoDean/autolist.nvim" },
