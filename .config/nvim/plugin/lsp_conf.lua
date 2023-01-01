@@ -85,7 +85,6 @@ local function setup_servers()
   local function add(lib)
     for _, p in pairs(vim.fn.expand(lib, false, true)) do
       p = vim.loop.fs_realpath(p)
-      dump(library, p)
       library[p] = true
     end
   end
