@@ -221,9 +221,9 @@ local function setup()
       -- remove_marks()
 
       if evt.window.bottom_up then
-        border = { "╭", "─", "╮", "|", "╯", "↑", "╰", "|" }
+        border = { "╭", "─", "╮", "│", "╯", "↑", "╰", "│" }
       else
-        border = { "╭", "↓", "╮", "|", "╯", "─", "╰", "|" }
+        border = { "╭", "↓", "╮", "│", "╯", "─", "╰", "│" }
       end
       vim.api.nvim_win_set_config(
         evt.window.entries_win.win,

@@ -53,30 +53,17 @@ return {
     'vim-scripts/ExtractMatches',
     cmd = {
       'GrepToReg',
-      'GrepToReg',
-      'GrepRangeToReg',
       'GrepRangeToReg',
       'YankMatches',
-      'YankMatches',
-      'YankMatches',
-      'YankUniqueMatches',
-      'YankUniqueMatches',
       'YankUniqueMatches',
       'PrintMatches',
-      'PrintMatches',
-      'PrintMatches',
-      'PrintUniqueMatches',
-      'PrintUniqueMatches',
       'PrintUniqueMatches',
       'SubstituteAndYank',
       'SubstituteAndYankUnique',
       'PutMatches',
-      'PutMatches',
-      'PutMatches',
-      'PutUniqueMatches',
-      'PutUniqueMatches',
       'PutUniqueMatches',
     },
+    dependencies = { "vim-scripts/ingo-library" },
   },
 
   -- c cpp stuff
@@ -105,11 +92,16 @@ return {
     "tommcdo/vim-exchange",
     keys = {'cx', nil, mode = {'n', 'v'}},
   },
-  -- { "vim-scripts/ingo-library" },
   -- { "vim-scripts/TextTransform" },
 
   -- python formatter
-  { 'google/yapf', rtp = 'plugins/vim', ft = 'python' },
+  {
+    'google/yapf',
+    ft = 'python',
+    config = function(plugin)
+      vim.opt.rtp:append(plugin.dir .. "/plugins/vim")
+    end
+  },
   { 'Vimjas/vim-python-pep8-indent', ft = 'python' },
   { 'godlygeek/tabular', cmd = 'Tabularize'},
   { "lukas-reineke/indent-blankline.nvim" },
@@ -343,7 +335,11 @@ return {
   --   }
   -- },
 
-  { "aduros/ai.vim" },
+  {
+    "aduros/ai.vim",
+    lazy = true,
+    cmd = { 'AI' },
+  },
   {
     "jackMort/ChatGPT.nvim",
     config = function()
@@ -355,6 +351,12 @@ return {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
+    },
+    lazy = true,
+    cmd = {
+      'ChatGPT',
+      'ChatGPTActAs',
+      'ChatGPTEditWithInstructions',
     },
   },
   { "lewis6991/impatient.nvim" },
