@@ -81,6 +81,8 @@ vim.opt.diffopt = vim.opt.diffopt + "linematch:60"
 
 vim.opt.pastetoggle = '<leader>a'
 
+vim.opt.shada = [[!,'100,<50,s10,h,%]]
+
 -- set filetypes
 -- filetype on
 -- filetype plugin indent on
