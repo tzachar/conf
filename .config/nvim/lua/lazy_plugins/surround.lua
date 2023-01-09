@@ -1,5 +1,4 @@
 local function setup()
-  dump('loaded')
   local surround = require("nvim-surround.config")
   require("nvim-surround").setup({
     surrounds = {

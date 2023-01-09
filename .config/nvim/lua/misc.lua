@@ -26,10 +26,8 @@ local function add_ignore_type(options)
       ignore_decl = '  ' .. comment_str .. ignore_decl
       if string.sub(line, -#ignore_decl, -1) == ignore_decl then
         vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
-        return
       elseif #diag > 0 and diag[1].source == source then
         vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
-        return
       end
     end
   end

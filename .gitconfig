@@ -9,6 +9,8 @@
 	stp = stash pop
 	ss = !"git stash; git submodule foreach 'git stash'"
 	ssp = !"git stash pop; git submodule foreach 'git stash pop'"
+	sws = switch staging
+	swm = switch master
 [core]
 	editor = nvim
 	pager = less -FX
