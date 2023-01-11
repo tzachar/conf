@@ -220,7 +220,9 @@ return {
   { 'folke/trouble.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function()
       require("trouble").setup {}
-    end, },
+    end,
+    cmd = { 'TroubleToggle' },
+  },
 
   -- matchit
   { "andymass/vim-matchup" },
@@ -278,9 +280,6 @@ return {
       })
     end,
   },
-
-  -- smooth cursor
-  { "gen740/SmoothCursor.nvim" },
 
   -- live command preview
   {
