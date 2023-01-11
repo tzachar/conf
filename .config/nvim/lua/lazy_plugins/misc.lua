@@ -216,9 +216,6 @@ return {
   -- endwise
   { "RRethy/nvim-treesitter-endwise" },
 
-  -- null-ls
-  { 'jose-elias-alvarez/null-ls.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
-
   -- trouble
   { 'folke/trouble.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function()
