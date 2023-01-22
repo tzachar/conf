@@ -1092,9 +1092,47 @@
 #  Default: False
 # c.StoreMagics.autorestore = False
 
-# Pyflyby
-c.InteractiveShellApp.extensions.append("pyflyby")
 
-# reload
-c.InteractiveShellApp.extensions.append("autoreload")
-c.InteractiveShellApp.exec_lines.append('%autoreload 2')
+import os
+import socket
+import IPython
+
+
+def _get_history_file():
+    return '~/.ipython/profile_default/history.sqlite'
+
+
+if IPython.version_info[0] >= 5:
+    c.Application.log_format = '%(asctime)s %(levelname)s [%(filename)s:%(lineno)d] %(message)s'
+
+    c.TerminalIPythonApp.display_banner = False
+
+    c.InteractiveShell.history_length = 1000000
+    c.InteractiveShell.history_load_length = 1000
+    # c.HistoryAccessor.hist_file = _get_history_file()
+
+    # Enabling greedy completion prevents filename completion, so we disable it.
+    # See https://github.com/ipython/ipython/issues/5646 for details.
+    # Also, this option is expected to be removed, and the behavior seems to be
+    # included now that jedi is the default completer.
+    # c.Completer.greedy = False
+
+    c.TerminalInteractiveShell.editor = 'vim-in-ipython'
+
+    # Enable Ctrl-x Ctrl-e to open editor (like in readline/zsh).
+    c.TerminalInteractiveShell.extra_open_editor_shortcuts = True
+
+    # Enable 24 bit true color.
+    c.TerminalInteractiveShell.true_color = True
+    # c.TerminalInteractiveShell.highlighting_style = 'solarized-dark'
+
+if IPython.version_info[0] >= 8:
+    c.TerminalInteractiveShell.autoformatter = 'yapf'
+
+    # As of IPython 8.2 and 2022-04-26, this can cause IPython to hang with 100%
+    # CPU usage when quotes are inserted in existing text. See:
+    # https://github.com/ipython/ipython/issues/13654
+    # As of IPython 8.5, this is fixed:
+    # https://github.com/ipython/ipython/issues/13654#issuecomment-1231475950
+    if IPython.version_info >= (8, 5, 0):
+        c.TerminalInteractiveShell.auto_match = True
