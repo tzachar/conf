@@ -62,11 +62,6 @@ return {
   --   'vijaymarupudi/nvim-fzf',
   -- } })
   {
-    'nvim-telescope/telescope.nvim',
-    dependencies = { { 'nvim-lua/plenary.nvim' } }
-  },
-
-  {
     'vim-scripts/ExtractMatches',
     cmd = {
       'GrepToReg',
@@ -198,7 +193,7 @@ return {
 
 
     end
-    
+
 
   },
 

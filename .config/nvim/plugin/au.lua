@@ -115,17 +115,19 @@ vim.api.nvim_create_autocmd('FileType', {
 
 vim.api.nvim_create_autocmd('FileType', {
   group = filetypes,
-  pattern = {'html.javascript', 'html', 'js', 'javascript'},
-  callback = function()
-    vim.cmd([[
-    call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
-    call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
-  ]])
-  vim.bo.tabstop=4
-  vim.bo.expandtab = true
-  vim.bo.shiftwidth=4
-  vim.bo.softtabstop=4
-  vim.bo.textwidth=10000
+  pattern = {'html.javascript', 'html', 'js', 'javascript', 'json'},
+  callback = function(args)
+    if args.match == 'html' or args.match == 'html.javascript' then
+      vim.cmd([[
+        call SyntaxRange#Include('@begin=js@', '@end=js@', 'javascript', 'SpecialComment')
+        call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
+      ]])
+    end
+    vim.bo.tabstop=4
+    vim.bo.expandtab = true
+    vim.bo.shiftwidth=4
+    vim.bo.softtabstop=4
+    vim.bo.textwidth=10000
   end
 })
 

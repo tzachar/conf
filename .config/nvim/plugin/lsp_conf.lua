@@ -140,7 +140,9 @@ local function setup_servers()
       }
     },
   }
-  configs['sqlls'] = {}
+  configs['sqlls'] = {
+    -- single_file_support = true,
+  }
   configs['graphql'] = {}
   configs['sumneko_lua'] = {
     settings = {
