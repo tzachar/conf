@@ -50,7 +50,7 @@ def _load_pygments_objects():
     except pygments.lexers.ClassNotFound:
         _PYGMENTS_LEXER = pygments.lexers.get_lexer_by_name('python3')
     try:
-        _PYGMENTS_STYLE = pygments.styles.get_style_by_name('solarized-dark')
+        _PYGMENTS_STYLE = pygments.styles.get_style_by_name('one-dark')
     except pygments.styles.ClassNotFound:
         _PYGMENTS_STYLE = pygments.styles.get_style_by_name('default')
     try:
@@ -140,12 +140,12 @@ def _create_fzf_process(initial_query, fifo_input_path, fifo_output_path):
     # TODO: add a file for fzf search history.
     return subprocess.Popen([
         'fzf-tmux',
-        '--no-sort',
-        '--multi',
+        # '--no-sort',
+        # '--multi',
         '-n3..,..',
         '--tiebreak=end',
         '--ansi',
-        '--bind=ctrl-r:toggle-sort',
+        '--bind=ctrl-r:toggle-sort,tab:down,btab:up',
         '--query={}'.format(initial_query),
         '--preview={}'.format(_FZF_PREVIEW_SCRIPT %
                               (fifo_input_path, fifo_output_path)),
@@ -160,11 +160,13 @@ def _get_history_from_connection(con) -> Generator[HistoryEntry, None, None]:
             'SELECT session, start FROM sessions'):
         session_to_start_time[session] = start_time
     query = '''
-    SELECT session, source_raw FROM (
-        SELECT session, source_raw, rowid FROM history ORDER BY rowid DESC
-    )
+        SELECT session, source_raw FROM history ORDER BY rowid DESC
     '''
+    filtered = set()
     for session, source_raw in con.execute(query):
+        if source_raw in filtered:
+            continue
+        filtered.add(source_raw)
         yield (session_to_start_time[session], source_raw)
 
 
