@@ -101,8 +101,16 @@ return {
   -- use 'machakann/vim-highlightedyank'
   { 'alvan/vim-closetag', ft = { 'html', 'html.javascript' } },
 
-  -- show changes in vcs
-  { "airblade/vim-gitgutter" },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require('gitsigns').setup({
+        signcolumn = true,
+        numhl      = true,
+        linehl     = false,
+      })
+    end
+  },
   { "wellle/targets.vim" },
   {
     "tommcdo/vim-exchange",
