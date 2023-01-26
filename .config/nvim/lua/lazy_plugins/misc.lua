@@ -20,7 +20,11 @@ return {
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   { 'nvim-treesitter/nvim-treesitter-refactor', dependencies = 'nvim-treesitter/nvim-treesitter' },
   { 'nvim-treesitter/nvim-treesitter-textobjects', dependencies = 'nvim-treesitter/nvim-treesitter' },
-  { 'nvim-treesitter/playground', dependencies = 'nvim-treesitter/nvim-treesitter' },
+  {
+    'nvim-treesitter/playground',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    cmd = {'TSPlaygroundToggle'},
+  },
   { 'RRethy/nvim-treesitter-textsubjects', dependencies = 'nvim-treesitter/nvim-treesitter' },
 
   -- documentation
@@ -392,7 +396,10 @@ return {
   },
 
   -- jinja support
-  { "HiPhish/jinja.vim" },
+  {
+    "HiPhish/jinja.vim",
+    ft = { 'js', 'javascript', 'html', 'html.javascript' }
+  },
 
   -- useless
   -- {
@@ -427,4 +434,10 @@ return {
     },
   },
   { "lewis6991/impatient.nvim" },
+  {
+    "hrsh7th/nvim-insx",
+    config = function()
+      require('insx.preset.standard').setup()
+    end
+  }
 }

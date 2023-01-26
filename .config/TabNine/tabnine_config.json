@@ -1,7 +1,7 @@
 {
   "version": "3.3.0",
   "hide_promotional_message": false,
-  "beta_enabled": "No",
+  "beta_enabled": "Yes",
   "ignore_all_lsp": true,
   "creation_time": "2019-08-20T06:21:57.391673379Z",
   "guuid": "4e643b70d4e80efd892afa62fd0e140cf4c8fdb9f9f56bb9d5b5ee2005acbcec",
@@ -48,10 +48,10 @@
   "exclude_file_masks": null,
   "inline_suggestions_mode": true,
   "use_specialized_model_if_available": true,
-  "empty_line_suggestions": false,
   "snippets_enabled_v2": true,
   "inline_suggestions_mode_clients": null,
   "tabnine_hub_port": null,
   "manually_selected_model": null,
-  "hybrid_rendering_mode": null
+  "hybrid_rendering_mode": null,
+  "force_local_hub": false
 }

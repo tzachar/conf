@@ -3,14 +3,14 @@ local lspkind = require('lspkind')
 local Winbar = class('Winbar')
 
 function Winbar:initialize()
-  self.au_group = vim.api.nvim_create_augroup("Winbar", {clear = true})
-  vim.api.nvim_create_autocmd('CursorHold,CursorHoldI', {
-    group = self.au_group,
-    pattern = { '*.py' ,'*.lua', '*.js', },
-    callback = function()
-      self:update()
-    end,
-  })
+  -- self.au_group = vim.api.nvim_create_augroup("Winbar", {clear = true})
+  -- vim.api.nvim_create_autocmd('CursorHold,CursorHoldI', {
+  --   group = self.au_group,
+  --   pattern = { '*.py' ,'*.lua', '*.js', },
+  --   callback = function()
+  --     self:update()
+  --   end,
+  -- })
 
 end
 
