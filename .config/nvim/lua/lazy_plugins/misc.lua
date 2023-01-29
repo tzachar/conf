@@ -60,7 +60,11 @@ return {
       vim.api.nvim_set_hl(
         0,
         'MiniCursorwordCurrent',
-        { link = 'TSDefinitionUsage' }
+        {
+          fg = nil,
+          bg = nil,
+          nocombine = true,
+        }
       )
     end
   },
