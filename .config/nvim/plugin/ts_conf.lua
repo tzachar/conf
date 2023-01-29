@@ -4,10 +4,6 @@ require('nvim-treesitter.configs').setup({
   context_commentstring = {
     enable = true,
   },
-  rainbow = {
-    enable = true,
-    max_file_lines = 800,
-  },
   indent = {
     enable = true,
     disable = { 'py', 'python' },
@@ -32,7 +28,7 @@ require('nvim-treesitter.configs').setup({
   },
   refactor = {
     highlight_definitions = {
-      enable = true,
+      enable = false,
       clear_on_cursor_move = false,
     },
     highlight_current_scope = {

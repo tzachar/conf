@@ -47,6 +47,24 @@ return {
     cmd = {'Neogen'},
   },
 
+  {
+    'echasnovski/mini.cursorword',
+    version = false,
+    config = function()
+      require('mini.cursorword').setup()
+      vim.api.nvim_set_hl(
+        0,
+        'MiniCursorword',
+        { link = 'TSDefinition' }
+      )
+      vim.api.nvim_set_hl(
+        0,
+        'MiniCursorwordCurrent',
+        { link = 'TSDefinitionUsage' }
+      )
+    end
+  },
+
   -- zephyr-nvim dependencies nvim-treesitter
   -- use {'glepnir/zephyr-nvim', branch = 'main', dependencies = 'nvim-treesitter/nvim-treesitter'}
   -- use({ 'folke/tokyonight.nvim' })
@@ -119,13 +137,6 @@ return {
   -- { "vim-scripts/TextTransform" },
 
   -- python formatter
-  {
-    'google/yapf',
-    ft = 'python',
-    config = function(plugin)
-      vim.opt.rtp:append(plugin.dir .. "/plugins/vim")
-    end
-  },
   { 'Vimjas/vim-python-pep8-indent', ft = 'python' },
   { 'godlygeek/tabular', cmd = 'Tabularize'},
   {

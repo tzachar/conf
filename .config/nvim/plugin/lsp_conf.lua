@@ -62,6 +62,16 @@ local on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
   end ]]
+  -- if client.server_capabilities.documentHighlightProvider then
+  --       vim.api.nvim_exec([[
+  --           augroup lsp_document_highlight
+  --               autocmd! * <buffer>
+  --               autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+  --               autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  --           augroup END
+  --           ]],
+  --       false)
+  -- end
 
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   -- lsp_lines: disable virtual text for diagnostics
