@@ -25,7 +25,14 @@ return {
     dependencies = 'nvim-treesitter/nvim-treesitter',
     cmd = {'TSPlaygroundToggle'},
   },
-  { 'tzachar/local-highlight.nvim', dependencies = 'nvim-treesitter/nvim-treesitter' },
+  {
+    'tzachar/local-highlight.nvim',
+    config = function()
+      require('local-highlight').setup({
+        file_types = {'python', 'cpp', 'lua'}
+      })
+    end
+  },
   { 'RRethy/nvim-treesitter-textsubjects', dependencies = 'nvim-treesitter/nvim-treesitter' },
 
   -- documentation

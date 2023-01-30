@@ -4,9 +4,6 @@ require('nvim-treesitter.configs').setup({
   context_commentstring = {
     enable = true,
   },
-  local_highlight = {
-    enable = true,
-  },
   indent = {
     enable = true,
     disable = { 'py', 'python' },
