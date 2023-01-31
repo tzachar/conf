@@ -219,7 +219,7 @@ return {
 
   -- dev icons
   {
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
     config = function()
       -- load devicons
       require('nvim-web-devicons').setup({
@@ -247,7 +247,7 @@ return {
   { "RRethy/nvim-treesitter-endwise" },
 
   -- trouble
-  { 'folke/trouble.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' },
+  { 'folke/trouble.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require("trouble").setup {}
     end,
