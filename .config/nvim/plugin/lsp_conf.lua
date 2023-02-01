@@ -120,7 +120,7 @@ local function setup_servers()
         'setup.py',
         'setup.cfg',
         'requirements.txt',
-        'Pipfile',
+        'Pipfile'
       )(filename, bufnr)
       if root then
         return root
