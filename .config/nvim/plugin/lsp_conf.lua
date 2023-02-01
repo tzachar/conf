@@ -113,6 +113,24 @@ local function setup_servers()
   configs['cssls'] = {}
   configs['vimls'] = {}
   configs['pylsp'] = {
+    root_dir = function(filename, bufnr)
+      local util = require('lspconfig.util')
+      local root = util.root_pattern(
+        'pyproject.toml',
+        'setup.py',
+        'setup.cfg',
+        'requirements.txt',
+        'Pipfile',
+      )(filename, bufnr)
+      if root then
+        return root
+      end
+      root = util.find_git_ancestor(filename, bufnr)
+      if root then
+        return root
+      end
+      return vim.fs.dirname(filename)
+    end,
     settings = {
       pylsp = {
         configurationSources = {"flake8"},
@@ -128,7 +146,6 @@ local function setup_servers()
           pycodestyle = {enabled = false},
           autopep8 = {enabled = true},
           flake8 = {
-            -- setting this to true causes double error reporting
             enabled = true,
             ignore = {},
             maxLineLength = 160

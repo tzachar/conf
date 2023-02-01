@@ -13,8 +13,6 @@ return {
           },
         },
       })
-
-
     end
   },
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
@@ -470,5 +468,5 @@ return {
     config = function()
       require('insx.preset.standard').setup()
     end
-  }
+  },
 }
