@@ -128,17 +128,6 @@ return {
   { 'jelera/vim-javascript-syntax', ft = { 'js', 'javascript', 'html', 'html.javascript' } },
   -- use 'machakann/vim-highlightedyank'
   { 'alvan/vim-closetag', ft = { 'html', 'html.javascript' } },
-
-  {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require('gitsigns').setup({
-        signcolumn = true,
-        numhl      = true,
-        linehl     = false,
-      })
-    end
-  },
   { "wellle/targets.vim" },
   {
     "tommcdo/vim-exchange",
