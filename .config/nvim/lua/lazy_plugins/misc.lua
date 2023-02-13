@@ -448,7 +448,6 @@ return {
       'ChatGPTEditWithInstructions',
     },
   },
-  { "lewis6991/impatient.nvim" },
   {
     'altermo/ultimate-autopair.nvim',
     event={'InsertEnter','CmdlineEnter'},
