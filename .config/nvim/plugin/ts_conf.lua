@@ -109,10 +109,6 @@ require('nvim-treesitter.configs').setup({
     },
   },
 
-  endwise = {
-    enable = true,
-  },
-
   matchup = {
     enable = true,              -- mandatory, false will disable the whole extension
     disable = {},  -- optional, list of language that will be disabled

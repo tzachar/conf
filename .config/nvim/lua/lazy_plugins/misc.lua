@@ -230,9 +230,6 @@ return {
   { 'kana/vim-textobj-user' },
   { 'Julian/vim-textobj-variable-segment', dependencies = { 'kana/vim-textobj-user' } },
 
-  -- endwise
-  { "RRethy/nvim-treesitter-endwise" },
-
   -- trouble
   { 'folke/trouble.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
@@ -453,9 +450,18 @@ return {
   },
   { "lewis6991/impatient.nvim" },
   {
-    "hrsh7th/nvim-insx",
-    config = function()
-      require('insx.preset.standard').setup()
-    end
-  },
+    'altermo/ultimate-autopair.nvim',
+    event={'InsertEnter','CmdlineEnter'},
+    config=function ()
+      require('ultimate-autopair').setup({
+        --Config goes here
+        fastwarp={
+          enable=true,
+          map='<C-]>',
+          cmap='<C-]>',
+          fallback=nil,
+        },
+      })
+    end,
+  }
 }
