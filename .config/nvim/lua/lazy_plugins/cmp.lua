@@ -104,6 +104,12 @@ local function setup()
       end,
     },
 
+    matching = {
+      disallow_fuzzy_matching = false,
+      disallow_partial_fuzzy_matching = false,
+      disallow_partial_matching = false,
+      disallow_prefix_unmatching = false,
+    },
     -- You should specify your *installed* sources.
     sources = cmp.config.sources({
       {
