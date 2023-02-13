@@ -171,7 +171,7 @@ local function setup_servers()
     -- single_file_support = true,
   }
   configs['graphql'] = {}
-  configs['sumneko_lua'] = {
+  configs['lua_ls'] = {
     settings = {
       Lua = {
         filetypes = { 'lua' },
