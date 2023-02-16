@@ -458,7 +458,12 @@ return {
           enable=true,
           map='<C-]>',
           cmap='<C-]>',
+          rmap='<C-[>',
+          rcmap='<C-[>',
           fallback=nil,
+        },
+        extensions={
+          {'suround',{'"',"'", '{', '}', '[', ']', '(', ')'}},
         },
       })
     end,
