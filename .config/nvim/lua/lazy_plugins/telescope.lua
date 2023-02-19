@@ -37,11 +37,13 @@ local function config()
     pickers = {
       find_files = {
         find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
+        timeout = 2000,
       },
       buffers = {
         initial_mode = 'normal',
         show_all_buffers = true,
         sort_lastused = false,
+        timeout = 2000,
         mappings = {
           i = {
             ['<C-d>'] = 'delete_buffer',
