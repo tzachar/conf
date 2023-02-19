@@ -71,5 +71,11 @@ return {
     'nvim-telescope/telescope.nvim',
     dependencies = { { 'nvim-lua/plenary.nvim' } },
     config = config,
+    lazy = true,
+    keys = {
+      -- telescope
+      { '<leader>b', '<cmd>lua require("telescope.builtin").buffers()<cr>', mode = { 'n' } },
+      { '<leader>pp', '<cmd>lua require("telescope.builtin").find_files()<cr>', mode = { 'n' } },
+    }
   }
 }

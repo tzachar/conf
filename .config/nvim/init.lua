@@ -53,7 +53,7 @@ vim.opt.guicursor = ""
 vim.opt.pastetoggle = ""
 
 -- always show the sign column. prevent smoothcursor from jumping the window
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "auto"
 
 -- do not show more than 20 completion items
 vim.opt.pumheight = 20

@@ -51,12 +51,6 @@ nest.applyKeymaps({
       --   { 'pg', '<cmd>lua require("fzf-lua").grep()<cr>' },
       -- } },
 
-      -- telescope
-      { '<leader>', {
-        { 'b', '<cmd>lua require("telescope.builtin").buffers()<cr>' },
-        { 'pp', '<cmd>lua require("telescope.builtin").find_files()<cr>' },
-      } },
-
       -- multipage editing
       { '<leader>ef', '<cmd>vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>', options = { silent = true } },
 
