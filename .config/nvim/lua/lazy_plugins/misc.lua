@@ -63,30 +63,35 @@ return {
   --       'MiniCursorword',
   --       { link = 'TSDefinition' }
   --     )
-  --     vim.api.nvim_set_hl(
-  --       0,
-  --       'MiniCursorwordCurrent',
-  --       {
-  --         fg = nil,
-  --         bg = nil,
-  --         nocombine = true,
-  --       }
-  --     )
+  --     vim.cmd([[hi! MiniCursorwordCurrent gui=NONE guifg=NONE guibg=NONE]])
+  --     -- vim.api.nvim_set_hl(
+  --     --   0,
+  --     --   'MiniCursorwordCurrent',
+  --     --   {
+  --     --     fg = nil,
+  --     --     bg = nil,
+  --     --     nocombine = true,
+  --     --   }
+  --     -- )
   --   end
   -- },
-
+  --
   -- zephyr-nvim dependencies nvim-treesitter
   -- use {'glepnir/zephyr-nvim', branch = 'main', dependencies = 'nvim-treesitter/nvim-treesitter'}
   -- use({ 'folke/tokyonight.nvim' })
   { 'rebelot/kanagawa.nvim' },
 
-  { 'simnalamburt/vim-mundo' },
-  { 'mileszs/ack.vim', lazy = true, cmd = { 'Ack' } },
+  {
+    'simnalamburt/vim-mundo',
+    cmd = { 'MundoToggle' }
+  },
+  {
+    'mileszs/ack.vim',
+    cmd = { 'Ack' },
+  },
 
   -- jump to last place
   { "farmergreg/vim-lastplace" },
-
-  -- use('jeetsukumaran/vim-buffergator')
 
   -- use({ '~/fzf', build = './install --all' })
   -- -- use { 'junegunn/fzf.vim', dependencies = '~/fzf' }
@@ -199,7 +204,11 @@ return {
   { "tpope/vim-fugitive" , lazy = true, cmd = {'G', 'Git'}, },
 
   -- quickfix magic
-  { "kevinhwang91/nvim-bqf", lazy=true,},
+  {
+    "kevinhwang91/nvim-bqf",
+    lazy=true,
+    ft = { 'qf' },
+  },
 
   -- change commentstring based on location in file
   { "JoosepAlviste/nvim-ts-context-commentstring" },
@@ -312,6 +321,7 @@ return {
   -- auto list:
   {
     "gaoDean/autolist.nvim",
+    event = { 'InsertEnter' },
     ft = {
       "markdown",
       "text",
@@ -400,29 +410,11 @@ return {
   -- sqlite lua
   { 'kkharji/sqlite.lua', lazy=true },
 
-  -- tre climber
-  {
-    'Dkendal/nvim-treeclimber',
-    dependencies = 'rktjmp/lush.nvim',
-    config = function()
-      require('nvim-treeclimber').setup()
-    end,
-    enabled = false,
-  },
-
   -- jinja support
   {
     "HiPhish/jinja.vim",
     ft = { 'js', 'javascript', 'html', 'html.javascript' }
   },
-
-  -- useless
-  -- {
-  --   'eandrju/cellular-automaton.nvim',
-  --   cmd = {
-  --     'CellularAutomaton',
-  --   }
-  -- },
 
   {
     "aduros/ai.vim",
@@ -467,5 +459,5 @@ return {
         },
       })
     end,
-  }
+  },
 }
