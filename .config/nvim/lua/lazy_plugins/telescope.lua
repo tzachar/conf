@@ -69,7 +69,7 @@ local function config()
 end
 
 return {
-    {
+  {
     'nvim-telescope/telescope.nvim',
     dependencies = { { 'nvim-lua/plenary.nvim' } },
     config = config,
@@ -78,6 +78,6 @@ return {
       -- telescope
       { '<leader>b', '<cmd>lua require("telescope.builtin").buffers()<cr>', mode = { 'n' } },
       { '<leader>pp', '<cmd>lua require("telescope.builtin").find_files()<cr>', mode = { 'n' } },
-    }
-  }
+    },
+  },
 }

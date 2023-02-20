@@ -50,7 +50,7 @@ end
 
 return {
   {
-    "gen740/SmoothCursor.nvim",
+    'gen740/SmoothCursor.nvim',
     config = setup,
   },
 }

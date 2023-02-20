@@ -72,8 +72,7 @@ local function setup()
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-e>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-        { 'i', 'c' }),
+      ['<C-e>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
@@ -84,11 +83,11 @@ local function setup()
 
     formatting = {
       format = function(entry, vim_item)
-        vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
+        vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = 'symbol' })
         vim_item.menu = source_mapping[entry.source.name]
-        if entry.source.name == "cmp_tabnine" then
+        if entry.source.name == 'cmp_tabnine' then
           local detail = (entry.completion_item.data or {}).detail
-          vim_item.kind = ""
+          vim_item.kind = ''
           if detail and detail:find('.*%%.*') then
             vim_item.kind = vim_item.kind .. ' ' .. detail
           end
@@ -154,13 +153,13 @@ local function setup()
     },
 
     view = {
-      entries = { name = 'custom', selection_order = 'near_cursor' }
-    }
+      entries = { name = 'custom', selection_order = 'near_cursor' },
+    },
   })
 
   cmp.setup.cmdline('/', {
     view = {
-      entries = { name = 'wildmenu', separator = '|' }
+      entries = { name = 'wildmenu', separator = '|' },
     },
     sources = cmp.config.sources({
       { name = 'fuzzy_buffer', option = {
@@ -173,7 +172,7 @@ local function setup()
 
   cmp.setup.cmdline('?', {
     view = {
-      entries = { name = 'wildmenu', separator = '|' }
+      entries = { name = 'wildmenu', separator = '|' },
     },
     sources = cmp.config.sources({
       { name = 'fuzzy_buffer', option = {
@@ -186,17 +185,15 @@ local function setup()
 
   cmp.setup.cmdline(':', {
     view = {
-      entries = { name = 'custom', selection_order = 'near_cursor' }
+      entries = { name = 'custom', selection_order = 'near_cursor' },
     },
-    sources = cmp.config.sources(
-      {
-        { name = 'fuzzy_path', option = {
-          fd_cmd = { 'fd', '-d', '20', '-p', '-i' },
-        } },
-      },
-      {
-        { name = 'cmdline' },
-      }),
+    sources = cmp.config.sources({
+      { name = 'fuzzy_path', option = {
+        fd_cmd = { 'fd', '-d', '20', '-p', '-i' },
+      } },
+    }, {
+      { name = 'cmdline' },
+    }),
   })
 
   -- local ns_id = vim.api.nvim_create_namespace('arrows')
@@ -213,73 +210,66 @@ local function setup()
   --   end
   -- )
 
-  cmp.event:on('menu_opened',
-    function(evt)
-      if vim.api.nvim_get_mode().mode:sub(1, 1) == 'c' then
-        return
-      end
-      -- local character
-      local border
-      -- local cursor = vim.api.nvim_win_get_cursor(0)
-      -- local row = cursor[1] - 1
-      -- local col = cursor[2]
-
-      -- remove_marks()
-
-      if evt.window.bottom_up then
-        border = { "╭", "─", "╮", "│", "╯", "↑", "╰", "│" }
-      else
-        border = { "╭", "↓", "╮", "│", "╯", "─", "╰", "│" }
-      end
-      vim.api.nvim_win_set_config(
-        evt.window.entries_win.win,
-        {
-          border = border,
-        }
-      )
-      -- local opts = {
-      --   id = 1,
-      --   virt_text = {{character, "IncSearch"}},
-      --   virt_text_pos = 'overlay',
-      --   priority = 10005,
-      -- }
-      --
-      -- vim.api.nvim_buf_set_extmark(0, ns_id, row, col, opts)
+  cmp.event:on('menu_opened', function(evt)
+    if vim.api.nvim_get_mode().mode:sub(1, 1) == 'c' then
+      return
     end
-  )
+    -- local character
+    local border
+    -- local cursor = vim.api.nvim_win_get_cursor(0)
+    -- local row = cursor[1] - 1
+    -- local col = cursor[2]
 
-  local au = vim.api.nvim_create_augroup("tabnine", { clear = true })
+    -- remove_marks()
+
+    if evt.window.bottom_up then
+      border = { '╭', '─', '╮', '│', '╯', '↑', '╰', '│' }
+    else
+      border = { '╭', '↓', '╮', '│', '╯', '─', '╰', '│' }
+    end
+    vim.api.nvim_win_set_config(evt.window.entries_win.win, {
+      border = border,
+    })
+    -- local opts = {
+    --   id = 1,
+    --   virt_text = {{character, "IncSearch"}},
+    --   virt_text_pos = 'overlay',
+    --   priority = 10005,
+    -- }
+    --
+    -- vim.api.nvim_buf_set_extmark(0, ns_id, row, col, opts)
+  end)
+
+  local au = vim.api.nvim_create_augroup('tabnine', { clear = true })
 
   vim.api.nvim_create_autocmd('BufRead', {
     group = au,
     pattern = '*.py',
     callback = function()
       require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
-    end
+    end,
   })
-
 end
-
 
 return {
   {
-    "hrsh7th/nvim-cmp",
+    'hrsh7th/nvim-cmp',
     config = setup,
-    lazy= false,
+    lazy = false,
   },
   { 'hrsh7th/cmp-nvim-lsp', dependencies = 'onsails/lspkind-nvim' },
-  { "hrsh7th/cmp-buffer" },
-  { "hrsh7th/cmp-calc" },
-  { "hrsh7th/cmp-path" },
-  { "hrsh7th/cmp-emoji" },
-  { "hrsh7th/cmp-nvim-lua" },
-  { "hrsh7th/cmp-cmdline" },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-calc' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-emoji' },
+  { 'hrsh7th/cmp-nvim-lua' },
+  { 'hrsh7th/cmp-cmdline' },
   { 'tzachar/cmp-tabnine', build = './install.sh', dependencies = 'hrsh7th/nvim-cmp' },
-  { "hrsh7th/cmp-vsnip" },
-  { "hrsh7th/vim-vsnip" },
-  { "hrsh7th/vim-vsnip-integ" },
-  { "hrsh7th/cmp-nvim-lsp-signature-help" },
-  { "ray-x/cmp-treesitter" },
+  { 'hrsh7th/cmp-vsnip' },
+  { 'hrsh7th/vim-vsnip' },
+  { 'hrsh7th/vim-vsnip-integ' },
+  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+  { 'ray-x/cmp-treesitter' },
 
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   { 'tzachar/fuzzy.nvim', dependencies = { 'nvim-telescope/telescope-fzf-native.nvim' } },

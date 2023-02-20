@@ -3,7 +3,7 @@ local nest = require('nest')
 nest.applyKeymaps({
   {
     mode = 'nv',
-    {'<C-b>', '<cmd>pop<cr>'},
+    { '<C-b>', '<cmd>pop<cr>' },
   },
   {
     mode = 'nv',
@@ -56,7 +56,6 @@ nest.applyKeymaps({
 
       -- open init.vim
       { '<leader>ve', '<cmd>vsplit $MYVIMRC<cr>G' },
-
     },
   },
   { mode = 'c', {
@@ -109,34 +108,48 @@ nest.applyKeymaps({
 
   -- neogen documentation
   { mode = 'n', {
-    {'<leader>nf', "<cmd>lua require('neogen').generate({ type = 'func'  })<cr>" },
-    {'<leader>nc', "<cmd>lua require('neogen').generate({ type = 'class' })<cr>" },
-    {'<leader>nt', "<cmd>lua require('neogen').generate({ type = 'type' })<cr>" },
+    { '<leader>nf', "<cmd>lua require('neogen').generate({ type = 'func'  })<cr>" },
+    { '<leader>nc', "<cmd>lua require('neogen').generate({ type = 'class' })<cr>" },
+    { '<leader>nt', "<cmd>lua require('neogen').generate({ type = 'type' })<cr>" },
   } },
 
   { mode = 'n', {
-    {'<leader>xx', "<cmd>TroubleToggle<cr>" },
-    {'<leader>xw', "<cmd>TroubleToggle workspace_diagnostics<cr>" },
-    {'<leader>xd', "<cmd>TroubleToggle document_diagnostics<cr>" },
-    {'<leader>xq', "<cmd>TroubleToggle quickfix<cr>" },
-    {'<leader>xl', "<cmd>loclist<cr>" },
+    { '<leader>xx', '<cmd>TroubleToggle<cr>' },
+    { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>' },
+    { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>' },
+    { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>' },
+    { '<leader>xl', '<cmd>loclist<cr>' },
   } },
-
 
   -- debugprint
   { mode = 'n', {
-    { '<leader>d', function()
-      return require('debugprint').debugprint()
-    end, options = {expr = true} },
-    { '<leader>D', function()
-      return require('debugprint').debugprint({ above = true })
-    end, options = {expr = true} },
-    { '<leader>vd', function()
-      return require('debugprint').debugprint({ variable = true })
-    end, options = {expr = true} },
-    { '<leader>vD', function()
-      return require('debugprint').debugprint({ variable = true, above = true })
-    end, options = {expr = true} },
+    {
+      '<leader>d',
+      function()
+        return require('debugprint').debugprint()
+      end,
+      options = { expr = true },
+    },
+    {
+      '<leader>D',
+      function()
+        return require('debugprint').debugprint({ above = true })
+      end,
+      options = { expr = true },
+    },
+    {
+      '<leader>vd',
+      function()
+        return require('debugprint').debugprint({ variable = true })
+      end,
+      options = { expr = true },
+    },
+    {
+      '<leader>vD',
+      function()
+        return require('debugprint').debugprint({ variable = true, above = true })
+      end,
+      options = { expr = true },
+    },
   } },
-
 })

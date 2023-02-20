@@ -11,7 +11,6 @@ function Winbar:initialize()
   --     self:update()
   --   end,
   -- })
-
 end
 
 function Winbar:transform(line)
@@ -21,7 +20,7 @@ function Winbar:transform(line)
   local kind = ''
   if is_class then
     kind = lspkind.symbolic('Class')
-    elseif is_def then
+  elseif is_def then
     kind = lspkind.symbolic('Function')
   end
   line = line:gsub('class%s*', '')
@@ -30,13 +29,14 @@ function Winbar:transform(line)
   return kind .. ' ' .. line
 end
 
-
 function Winbar:update()
   local winbar = require('nvim-treesitter').statusline({
     indicator_size = 100,
-    type_patterns = {'class', 'function', 'method'},
+    type_patterns = { 'class', 'function', 'method' },
     -- transform_fn = function(line) return line:gsub('%s*[%[%(%{]*%s*$', '') end,
-    transform_fn = function(line) return self:transform(line) end,
+    transform_fn = function(line)
+      return self:transform(line)
+    end,
     separator = ' -> ',
   })
   if winbar == nil or #winbar == 0 then

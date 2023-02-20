@@ -1,5 +1,4 @@
-
-local misc = vim.api.nvim_create_augroup("Misc", {clear = true})
+local misc = vim.api.nvim_create_augroup('Misc', { clear = true })
 
 -- vim.api.nvim_create_autocmd('BufWritePost', {
 --   group = misc,
@@ -22,7 +21,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- jinja
 vim.api.nvim_create_autocmd('FileType', {
   group = misc,
-  pattern = {'html.javascript', 'html', 'js', 'javascript'},
+  pattern = { 'html.javascript', 'html', 'js', 'javascript' },
   callback = function()
     if vim.o.filetype:match('.jinja$') then
       return
@@ -34,22 +33,21 @@ vim.api.nvim_create_autocmd('FileType', {
         return
       end
     end
-  end
+  end,
 })
 
-
-local ftypes = vim.api.nvim_create_augroup("ftypes", {clear = true})
+local ftypes = vim.api.nvim_create_augroup('ftypes', { clear = true })
 
 vim.api.nvim_create_autocmd('FileType', {
   group = ftypes,
-  pattern = { 'yaml' ,'lua' },
+  pattern = { 'yaml', 'lua' },
   callback = function()
     vim.api.nvim_buf_set_option(0, 'ts', 2)
     vim.api.nvim_buf_set_option(0, 'sts', 2)
     vim.api.nvim_buf_set_option(0, 'sw', 2)
     vim.api.nvim_buf_set_option(0, 'expandtab', true)
     vim.api.nvim_win_set_option(0, 'number', true)
-  end
+  end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -62,12 +60,8 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.api.nvim_buf_set_option(0, 'expandtab', true)
     vim.api.nvim_buf_set_option(0, 'textwidth', 120)
     vim.api.nvim_win_set_option(0, 'number', true)
-    vim.api.nvim_set_hl(
-      0,
-      '@sql',
-      { bg='#282828' }
-    )
-  end
+    vim.api.nvim_set_hl(0, '@sql', { bg = '#282828' })
+  end,
 })
 
 --[[ local magma = vim.api.nvim_create_augroup("magma", {clear = true})
@@ -85,37 +79,37 @@ vim.api.nvim_create_autocmd('BufWrite', {
   end
 }) ]]
 
-local filetypes = vim.api.nvim_create_augroup("FileTypes", {clear = true})
+local filetypes = vim.api.nvim_create_augroup('FileTypes', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   group = filetypes,
-  pattern = {'cpp', 'h', 'c', 'cu', 'proto', 'hpp' },
+  pattern = { 'cpp', 'h', 'c', 'cu', 'proto', 'hpp' },
   callback = function()
-    vim.bo.cinoptions=":0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case"
-    vim.bo.formatoptions="tcqrl"
-    vim.bo.cinkeys="0{,0},0),0#,!^F,o,O,e,:"
+    vim.bo.cinoptions = ':0,p0,t0,l1,g0,(0,W8,m1 cinwords=if,else,while,do,for,switch,case'
+    vim.bo.formatoptions = 'tcqrl'
+    vim.bo.cinkeys = '0{,0},0),0#,!^F,o,O,e,:'
     vim.bo.cindent = true
     vim.bo.showmatch = true
     vim.bo.expandtab = false
-    vim.bo.tabstop=8
-  end
+    vim.bo.tabstop = 8
+  end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   group = filetypes,
-  pattern = {'java'},
+  pattern = { 'java' },
   callback = function()
-    vim.cmd("ab <buffer> sop System.out.println")
-    vim.bo.formatoptions="tcqr"
+    vim.cmd('ab <buffer> sop System.out.println')
+    vim.bo.formatoptions = 'tcqr'
     vim.bo.cindent = true
     vim.bo.showmatch = true
     vim.bo.expandtab = false
-    vim.bo.tabstop=8
-  end
+    vim.bo.tabstop = 8
+  end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   group = filetypes,
-  pattern = {'html.javascript', 'html', 'js', 'javascript', 'json'},
+  pattern = { 'html.javascript', 'html', 'js', 'javascript', 'json' },
   callback = function(args)
     if args.match == 'html' or args.match == 'html.javascript' then
       vim.cmd([[
@@ -123,18 +117,18 @@ vim.api.nvim_create_autocmd('FileType', {
         call SyntaxRange#Include('<script>', '</script>', 'javascript', 'SpecialComment')
       ]])
     end
-    vim.bo.tabstop=4
+    vim.bo.tabstop = 4
     vim.bo.expandtab = true
-    vim.bo.shiftwidth=4
-    vim.bo.softtabstop=4
-    vim.bo.textwidth=10000
-  end
+    vim.bo.shiftwidth = 4
+    vim.bo.softtabstop = 4
+    vim.bo.textwidth = 10000
+  end,
 })
 
 vim.api.nvim_create_autocmd('BufRead', {
   group = filetypes,
-  pattern = {'*.jupyter'},
+  pattern = { '*.jupyter' },
   callback = function()
-    vim.bo.filetype='python'
-  end
+    vim.bo.filetype = 'python'
+  end,
 })

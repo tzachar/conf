@@ -1,5 +1,5 @@
 local vim = vim
-local lspconfig = require("lspconfig")
+local lspconfig = require('lspconfig')
 
 require('cmp_nvim_lsp').setup({})
 
@@ -9,8 +9,8 @@ function Format_range_operator(...)
     local start = vim.api.nvim_buf_get_mark(0, '[')
     local finish = vim.api.nvim_buf_get_mark(0, ']')
     vim.lsp.buf.format({
-      range={start=start, ['end']=finish},
-      timeout_ms=3000,
+      range = { start = start, ['end'] = finish },
+      timeout_ms = 3000,
       -- name='null-ls',
     })
     vim.go.operatorfunc = old_func
@@ -74,7 +74,7 @@ local on_attach = function(client, bufnr)
   -- end
 
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  -- lsp_lines: disable virtual text for diagnostics
+    -- lsp_lines: disable virtual text for diagnostics
     virtual_text = false,
     signs = true,
     underline = true,
@@ -115,13 +115,7 @@ local function setup_servers()
   configs['pylsp'] = {
     root_dir = function(filename, bufnr)
       local util = require('lspconfig.util')
-      local root = util.root_pattern(
-        'pyproject.toml',
-        'setup.py',
-        'setup.cfg',
-        'requirements.txt',
-        'Pipfile'
-      )(filename, bufnr)
+      local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename, bufnr)
       if root then
         return root
       end
@@ -133,38 +127,38 @@ local function setup_servers()
     end,
     settings = {
       pylsp = {
-        configurationSources = {"flake8"},
+        configurationSources = { 'flake8' },
         plugins = {
           jedi_completion = {
             enabled = true,
             fuzzy = true,
           },
-          jedi_hover = {enabled = true},
-          jedi_references = {enabled = true},
-          jedi_signature_help = {enabled = true},
-          jedi_symbols = {enabled = true, all_scopes = true},
-          pycodestyle = {enabled = false},
-          autopep8 = {enabled = true},
+          jedi_hover = { enabled = true },
+          jedi_references = { enabled = true },
+          jedi_signature_help = { enabled = true },
+          jedi_symbols = { enabled = true, all_scopes = true },
+          pycodestyle = { enabled = false },
+          autopep8 = { enabled = true },
           flake8 = {
             enabled = true,
             ignore = {},
-            maxLineLength = 160
+            maxLineLength = 160,
           },
-          mypy = {enabled = false},
-          pyflakes = {enabled = false},
-          isort = {enabled = true},
-          yapf = {enabled = false},
-          pylint = {enabled = false},
-          pydocstyle = {enabled = false},
+          mypy = { enabled = false },
+          pyflakes = { enabled = false },
+          isort = { enabled = true },
+          yapf = { enabled = false },
+          pylint = { enabled = false },
+          pydocstyle = { enabled = false },
           mccabe = {
             enabled = false,
             threshold = 25,
           },
-          preload = {enabled = false},
-          rope_completion = {enabled = false},
-          rope_autoimport = {enabled = false},
-        }
-      }
+          preload = { enabled = false },
+          rope_completion = { enabled = false },
+          rope_autoimport = { enabled = false },
+        },
+      },
     },
   }
   configs['sqlls'] = {
@@ -224,10 +218,10 @@ end
 
 local lsp_configs = setup_servers()
 
-require("mason").setup()
-require("mason-lspconfig").setup {
-  ensure_installed = vim.tbl_keys(lsp_configs)
-}
+require('mason').setup()
+require('mason-lspconfig').setup({
+  ensure_installed = vim.tbl_keys(lsp_configs),
+})
 
 for server, opts in pairs(lsp_configs) do
   opts['capabilities'] = capabilities
@@ -269,7 +263,7 @@ vim.g.lsp_utils_symbols_opts = {
   },
 }
 
-require("fidget").setup({ })
+require('fidget').setup({})
 
 -- highlight line numbers on error
 vim.cmd([[

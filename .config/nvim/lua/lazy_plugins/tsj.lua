@@ -50,7 +50,13 @@ return {
   {
     'Wansmer/treesj',
     keys = {
-      { '<leader>ss', function() require('treesj').toggle() end, noremap = true },
+      {
+        '<leader>ss',
+        function()
+          require('treesj').toggle()
+        end,
+        noremap = true,
+      },
     },
     config = setup,
   },

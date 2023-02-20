@@ -3,14 +3,14 @@ return {
   -- update language servers
   {
     'williamboman/mason.nvim',
-    dependencies = "neovim/nvim-lspconfig",
+    dependencies = 'neovim/nvim-lspconfig',
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    dependencies = "williamboman/mason.nvim",
+    dependencies = 'williamboman/mason.nvim',
   },
   -- ls progress
   { 'j-hui/fidget.nvim' },
 
-  { "onsails/lspkind-nvim" },
+  { 'onsails/lspkind-nvim' },
 }

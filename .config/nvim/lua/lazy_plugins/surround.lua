@@ -1,16 +1,16 @@
 local function setup()
-  local surround = require("nvim-surround.config")
-  require("nvim-surround").setup({
+  local surround = require('nvim-surround.config')
+  require('nvim-surround').setup({
     surrounds = {
-      ["f"] = {
+      ['f'] = {
         add = function()
-          local result = surround.get_input("Enter the function name: ")
+          local result = surround.get_input('Enter the function name: ')
           if result then
-            return { { result .. "(" }, { ")" } }
+            return { { result .. '(' }, { ')' } }
           end
         end,
-      }
-    }
+      },
+    },
   })
 
   local surround_print = {
@@ -22,42 +22,40 @@ local function setup()
 
   surround.buffer_setup({
     surrounds = {
-      ["p"] = {
+      ['p'] = {
         add = function()
           local print = surround_print[vim.bo.filetype] or 'print'
-          return { { print .. "(" }, { ")" } }
+          return { { print .. '(' }, { ')' } }
         end,
         find = function()
           local print = surround_print[vim.bo.filetype] or 'print'
-          return surround.get_selection({pattern = print .. "%b()"})
+          return surround.get_selection({ pattern = print .. '%b()' })
         end,
         delete = function()
           local print = surround_print[vim.bo.filetype] or 'print'
-          return surround.get_selections({char = "p", pattern = "^(" .. print .. "%()().-(%))()$"})
+          return surround.get_selections({ char = 'p', pattern = '^(' .. print .. '%()().-(%))()$' })
         end,
         change = {
           target = function()
             local print = surround_print[vim.bo.filetype] or 'print'
-            return surround.get_selections({char = "p", pattern = "^(" .. print .. "%()().-(%))()$"})
-          end
+            return surround.get_selections({ char = 'p', pattern = '^(' .. print .. '%()().-(%))()$' })
+          end,
         },
       },
-    }
+    },
   })
 end
-
 
 return {
   {
     'kylechui/nvim-surround',
     config = setup,
     keys = {
-      { 'ys', nil, desc = 'surround', mode = {'n', 'v'} },
-      { 'cs', nil, desc = 'surround', mode = {'n', 'v'} },
-      { 'ds', nil, desc = 'surround', mode = {'n', 'v'} },
-      { '<C-g>s', nil, desc = 'Insert mode surround', mode = 'i'},
-      { 'S', nil, desc = 'Visual mode surround', mode = 'v'},
+      { 'ys', nil, desc = 'surround', mode = { 'n', 'v' } },
+      { 'cs', nil, desc = 'surround', mode = { 'n', 'v' } },
+      { 'ds', nil, desc = 'surround', mode = { 'n', 'v' } },
+      { '<C-g>s', nil, desc = 'Insert mode surround', mode = 'i' },
+      { 'S', nil, desc = 'Visual mode surround', mode = 'v' },
     },
-  }
+  },
 }
-

@@ -2,11 +2,7 @@ local function yank_and_comment(options)
   local comment_api = require('Comment.api')
   local start_line = (options.line1 or vim.fn.line('.')) - 1
   local end_line = options.line2 or vim.fn.line('.')
-  local original_text = vim.api.nvim_buf_get_lines(
-    0,
-    start_line,
-    end_line,
-    false)
+  local original_text = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
   comment_api.comment.linewise.count(end_line - start_line)
   vim.fn.setreg('', original_text)
   vim.fn.setreg('+', original_text)
@@ -18,19 +14,18 @@ return {
   {
     'numToStr/Comment.nvim',
     keys = {
-      { 'gc<space>', '<Plug>(comment_toggle_linewise_current)',  silent = true , desc = 'toggle line comment' },
-      { 'gcy', '<cmd>YankAndComment<cr>', silent = true , desc = 'yank and comment' },
-      { 'gcy', ':YankAndComment<cr>', silent = true , desc = 'yank and comment', mode = 'v'},
-      { 'gc', nil, desc = 'Toggles the current line using linewise comment', mode = {'n', 'v'}},
-      { 'gb', nil, desc = 'Toggles the current line using linewise comment', mode = {'n', 'v'}},
+      { 'gc<space>', '<Plug>(comment_toggle_linewise_current)', silent = true, desc = 'toggle line comment' },
+      { 'gcy', '<cmd>YankAndComment<cr>', silent = true, desc = 'yank and comment' },
+      { 'gcy', ':YankAndComment<cr>', silent = true, desc = 'yank and comment', mode = 'v' },
+      { 'gc', nil, desc = 'Toggles the current line using linewise comment', mode = { 'n', 'v' } },
+      { 'gb', nil, desc = 'Toggles the current line using linewise comment', mode = { 'n', 'v' } },
     },
     config = function()
       require('Comment').setup({
         padding = true,
         sticky = true,
-        mappings = { basic = true, extra = true, },
+        mappings = { basic = true, extra = true },
       })
-    end
+    end,
   },
 }
-

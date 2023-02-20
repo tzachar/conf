@@ -3,10 +3,10 @@ local vim = vim
 local ignore_decl_per_source = {
   ['Pyright'] = 'type: ignore',
   ['mypy'] = 'type: ignore',
-  ['flake8']  = 'noqa',
-  ['pyflakes']  = 'noqa',
-  ['pycodestyle']  = 'noqa',
-  ['pylsp']  = 'noqa',
+  ['flake8'] = 'noqa',
+  ['pyflakes'] = 'noqa',
+  ['pycodestyle'] = 'noqa',
+  ['pylsp'] = 'noqa',
   ['Lua Diagnostics.'] = '-@diagnostic disable-line',
   ['Lua Syntax Check.'] = '-@diagnostic disable-line',
 }
@@ -66,7 +66,7 @@ require('nest').applyKeymaps({
           vim.fn.feedkeys('p')
         end,
         buffer = true,
-        options = { silent = false }
+        options = { silent = false },
       },
       {
         'yP',
@@ -76,8 +76,8 @@ require('nest').applyKeymaps({
           vim.fn.feedkeys('P')
         end,
         buffer = true,
-        options = { silent = false }
+        options = { silent = false },
       },
-    }
-  }
+    },
+  },
 })
