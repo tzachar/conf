@@ -26,7 +26,7 @@ jobs:
         uses: JohnnyMorganz/stylua-action@v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --config-path=.config/stylua.toml ./
+          args: --config-path=.config/stylua.toml ./.config/nvim/
           version: 0.14.1
       - name: Push changes
         if: ${{ !env.ACT }}
