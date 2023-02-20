@@ -256,20 +256,6 @@ vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml'
 -- vimtex
 vim.g.vimtex_compiler_enabled = 0
 
--- gitgutter config
-vim.g.gitgutter_set_sign_backgrounds = 1
-vim.g.gitgutter_highlight_linenrs = 1
-vim.g.gitgutter_preview_win_floating = 1
-vim.g.gitgutter_floating_window_options = {
-  relative = 'cursor',
-  row = 1,
-  col = 0,
-  width = 60,
-  height = vim.o.previewheight,
-  style = 'minimal',
-  border = 'rounded',
-}
-
 -- indentguide
 vim.g.indent_guides_guide_size = 1
 vim.g.indent_guides_enable_on_vim_startup = 1
