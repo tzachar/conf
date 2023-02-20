@@ -258,4 +258,92 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- incremental selection, skip the init_selection function...
 local inc_select = require('nvim-treesitter.incremental_selection')
-vim.keymap.set('n', '<M-k>', inc_select.init_selection, { silent = true, noremap = true, desc = 'Node incremental selection' })
+vim.keymap.set(
+  'n',
+  '<M-k>',
+  inc_select.init_selection,
+  {silent = true, noremap = true, desc = 'Node incremental selection'}
+)
+
+local function format_sql(text)
+  for idx, line in ipairs(text) do
+    -- dump(text[idx])
+    text[idx] = line:gsub('^%s+', ''):gsub('%s+$', '')
+    dump(text[idx])
+  end
+  local j = require("plenary.job"):new {
+    command = "python",
+    args = {
+      '-c',
+      -- 'from sql_formatter.core import format_sql; import sys; print(format_sql(sys.stdin.read()))'
+      [[
+import sqlparse
+import sys
+print(
+      sqlparse.format(
+        sys.stdin.read(),
+        reindent=True,
+        keyword_case="upper",
+        indent_columns=True,
+        identifier_case='lower',
+        output_format='sql',
+        wrap_after=80,
+        comma_first=True,
+        reindent_aligned=True,
+      ).strip()
+)
+]],
+    },
+    writer = text,
+  }
+  local output = j:sync()
+  local filtered = {}
+  for _, line in ipairs(output) do
+    if #line > 0 then
+      filtered[#filtered+1] = line
+    end
+  end
+  dump(filtered)
+  return filtered
+end
+
+function Format_sql_operator(...)
+  local bufnr = vim.api.nvim_get_current_buf()
+  _G.op_func_sql_formatting = function()
+    local startpos = vim.api.nvim_buf_get_mark(bufnr, '[')
+    local endpos = vim.api.nvim_buf_get_mark(bufnr, ']')
+    local srow = startpos[1] - 1
+    local scol = startpos[2]
+    local erow = endpos[1] - 1
+    local ecol = endpos[2] + 1
+    local org_text = vim.api.nvim_buf_get_text(
+      bufnr,
+      srow,
+      scol,
+      erow,
+      ecol,
+      {}
+    )
+    local indentation = string.match(org_text[1], '^%s+') or ''
+    local text = format_sql(org_text)
+    for idx, line in ipairs(text) do
+      text[idx] = indentation .. line
+    end
+    vim.api.nvim_buf_set_text(
+      bufnr,
+      srow,
+      scol,
+      erow,
+      ecol,
+      text
+    )
+    -- vim.go.operatorfunc = old_func
+    -- _G.op_func_sql_formatting = nil
+  end
+  vim.go.operatorfunc = 'v:lua.op_func_sql_formatting'
+  vim.api.nvim_feedkeys('g@', 'n', false)
+end
+
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap('n', '<leader>sf', '<cmd>lua Format_sql_operator()<CR>', opts)
+vim.api.nvim_set_keymap('v', '<leader>sf', '<cmd>lua Format_sql_operator()<CR>', opts)
