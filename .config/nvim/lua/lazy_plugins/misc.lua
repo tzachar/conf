@@ -475,10 +475,10 @@ return {
         --Config goes here
         fastwarp = {
           enable = true,
-          map = '<C-]>',
-          cmap = '<C-]>',
-          rmap = '<C-[>',
-          rcmap = '<C-[>',
+          map = '<C-0>',
+          cmap = '<C-0>',
+          rmap = '<C-9>',
+          rcmap = '<C-9>',
           fallback = nil,
         },
         extensions = {
