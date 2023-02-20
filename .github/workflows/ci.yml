@@ -4,7 +4,8 @@ on:
     branches: [master]
     paths:
       - ".config/nvim/lua/**.lua"
-      - "stylua.toml"
+      - ".config/nvim/plugin/**.lua"
+      - ".config/stylua.toml"
       - ".github/workflows/*.yml"
 
 # Cancel any in-progress CI runs for a PR if it is updated
