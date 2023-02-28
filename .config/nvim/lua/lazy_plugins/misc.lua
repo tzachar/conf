@@ -16,6 +16,15 @@ return {
               end,
             },
           },
+          lualine_y = {
+            'progress',
+            function ()
+              return string.format(
+                'match count: %2d',
+                require('local-highlight').match_count()
+              )
+            end
+          },
         },
       })
     end,
