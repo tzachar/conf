@@ -73,15 +73,13 @@ local function setup()
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
       ['<C-e>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), { 'i', 'c' }),
-      ['<CR>'] = cmp.mapping(
-        function()
-          if cmp.get_active_entry() then
-            cmp.confirm()
-          else
-            require('ultimate-autopair.maps.cr').cmpnewline()
-          end
+      ['<CR>'] = cmp.mapping(function()
+        if cmp.get_active_entry() then
+          cmp.confirm()
+        else
+          require('ultimate-autopair.maps.cr').cmpnewline()
         end
-      ),
+      end),
       ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
       ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
     },
