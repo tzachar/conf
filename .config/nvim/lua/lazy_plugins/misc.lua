@@ -446,12 +446,6 @@ return {
   -- sqlite lua
   { 'kkharji/sqlite.lua', lazy = true },
 
-  -- jinja support
-  {
-    'HiPhish/jinja.vim',
-    ft = { 'js', 'javascript', 'html', 'html.javascript' },
-  },
-
   {
     'aduros/ai.vim',
     lazy = true,
