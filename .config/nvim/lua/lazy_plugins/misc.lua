@@ -57,7 +57,7 @@ return {
           },
         },
       })
-    end
+    end,
   },
 
   -- documentation
