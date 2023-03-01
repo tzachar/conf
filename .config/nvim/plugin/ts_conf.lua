@@ -101,14 +101,6 @@ require('nvim-treesitter.configs').setup({
       'lua',
     },
   },
-  textsubjects = {
-    enable = true,
-    keymaps = {
-      ['<leader>;'] = 'textsubjects-big',
-      ['<leader>"'] = 'textsubjects-smart',
-    },
-  },
-
   matchup = {
     enable = true, -- mandatory, false will disable the whole extension
     disable = {}, -- optional, list of language that will be disabled
