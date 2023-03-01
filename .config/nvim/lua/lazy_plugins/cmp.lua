@@ -74,7 +74,7 @@ local function setup()
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
       ['<C-e>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
+        if cmp.get_active_entry() then
           cmp.confirm()
         else
           require('ultimate-autopair.maps.cr').cmpnewline()
