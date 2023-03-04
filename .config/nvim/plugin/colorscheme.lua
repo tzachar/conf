@@ -1,7 +1,18 @@
 require('kanagawa').setup({
   undercurl = true, -- enable undercurls
-  overrides = {
-    TSVariable = { fg = 'wheat' },
+  overrides = function(colors)
+    return {
+      TSVariable = { fg = 'wheat' },
+    }
+  end,
+  colors = {
+    theme = {
+      all = {
+        ui = {
+          bg_gutter = "none",
+        }
+      }
+    }
   },
 })
 
