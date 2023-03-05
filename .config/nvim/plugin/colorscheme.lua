@@ -1,4 +1,4 @@
-local aaaa  = 3
+local aaaa = 3
 require('kanagawa').setup({
   undercurl = true, -- enable undercurls
   colors = {
