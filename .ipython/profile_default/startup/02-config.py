@@ -263,7 +263,7 @@ def _configure_autoreload():
     # pylint: disable=undefined-variable
     ipython.run_line_magic('reload_ext', 'autoreload')
     ipython.run_line_magic('autoreload',
-                           3 if IPython.version_info[0] >= 8 else 2)
+                           '3' if IPython.version_info[0] >= 8 else '2')
 
 
 # https://github.com/deshaw/pyflyby
