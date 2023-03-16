@@ -82,7 +82,7 @@ local on_attach = function(client, bufnr)
   })
   -- mark semantic
   local caps = client.server_capabilities
-  if client.name ~= "null-ls" and caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+  if client.name ~= 'null-ls' and caps.semanticTokensProvider and caps.semanticTokensProvider.full then
     vim.b.semantic_tokens = true
   end
 end
