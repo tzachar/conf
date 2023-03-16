@@ -80,6 +80,11 @@ local on_attach = function(client, bufnr)
     underline = true,
     update_in_insert = true,
   })
+  -- mark semantic
+  local caps = client.server_capabilities
+  if client.name ~= "null-ls" and caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+    vim.b.semantic_tokens = true
+  end
 end
 
 local DebounceRate = 5000

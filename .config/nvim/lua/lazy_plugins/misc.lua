@@ -35,6 +35,27 @@ return {
     cmd = { 'TSPlaygroundToggle' },
   },
   {
+    'm-demare/hlargs.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('hlargs').setup({
+        disable = function(_, bufnr)
+          if vim.b.semantic_tokens then
+            return true
+          end
+          local clients = vim.lsp.get_active_clients { bufnr = bufnr }
+          for _, c in pairs(clients) do
+            local caps = c.server_capabilities
+            if c.name ~= "null-ls" and caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+              vim.b.semantic_tokens = true
+              return vim.b.semantic_tokens
+            end
+          end
+        end,
+      })
+    end
+  },
+  {
     'tzachar/local-highlight.nvim',
     config = function()
       require('local-highlight').setup({
@@ -348,30 +369,30 @@ return {
   },
 
   -- auto list:
-  {
-    'gaoDean/autolist.nvim',
-    event = { 'InsertEnter' },
-    ft = {
-      'markdown',
-      'text',
-      'tex',
-      'plaintex',
-    },
-    config = function()
-      local autolist = require('autolist')
-      autolist.setup()
-      autolist.create_mapping_hook('i', '<cr>', autolist.new)
-      autolist.create_mapping_hook('i', '<tab>', autolist.indent)
-      autolist.create_mapping_hook('i', '<s-tab>', autolist.indent, '<c-d>')
-      autolist.create_mapping_hook('n', 'dd', autolist.force_recalculate)
-      autolist.create_mapping_hook('n', 'o', autolist.new)
-      autolist.create_mapping_hook('n', 'O', autolist.new_before)
-      autolist.create_mapping_hook('n', '>>', autolist.indent)
-      autolist.create_mapping_hook('n', '<<', autolist.indent)
-      autolist.create_mapping_hook('n', '<c-r>', autolist.force_recalculate)
-      autolist.create_mapping_hook('n', '<leader>x', autolist.invert_entry, '')
-    end,
-  },
+  -- {
+  --   'gaoDean/autolist.nvim',
+  --   event = { 'InsertEnter' },
+  --   ft = {
+  --     'markdown',
+  --     'text',
+  --     'tex',
+  --     'plaintex',
+  --   },
+  --   config = function()
+  --     local autolist = require('autolist')
+  --     autolist.setup()
+  --     autolist.create_mapping_hook('i', '<cr>', autolist.new)
+  --     autolist.create_mapping_hook('i', '<tab>', autolist.indent)
+  --     autolist.create_mapping_hook('i', '<s-tab>', autolist.indent, '<c-d>')
+  --     autolist.create_mapping_hook('n', 'dd', autolist.force_recalculate)
+  --     autolist.create_mapping_hook('n', 'o', autolist.new)
+  --     autolist.create_mapping_hook('n', 'O', autolist.new_before)
+  --     autolist.create_mapping_hook('n', '>>', autolist.indent)
+  --     autolist.create_mapping_hook('n', '<<', autolist.indent)
+  --     autolist.create_mapping_hook('n', '<c-r>', autolist.force_recalculate)
+  --     autolist.create_mapping_hook('n', '<leader>x', autolist.invert_entry, '')
+  --   end,
+  -- },
 
   -- inc dec
   {
