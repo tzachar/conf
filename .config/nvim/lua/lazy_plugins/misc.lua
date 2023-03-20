@@ -121,7 +121,32 @@ return {
   -- zephyr-nvim dependencies nvim-treesitter
   -- use {'glepnir/zephyr-nvim', branch = 'main', dependencies = 'nvim-treesitter/nvim-treesitter'}
   -- use({ 'folke/tokyonight.nvim' })
-  { 'rebelot/kanagawa.nvim' },
+  {
+    'rebelot/kanagawa.nvim',
+    config = function()
+      require('kanagawa').setup({
+        undercurl = true, -- enable undercurls
+        colors = {
+          theme = {
+            all = {
+              ui = {
+                bg = 'black',
+                bg_gutter = 'none',
+                fg = 'wheat',
+              },
+              syn = {
+                identifier = 'wheat',
+              },
+            },
+          },
+        },
+      })
+      vim.cmd('colorscheme kanagawa')
+    end,
+    build = function()
+      require('kanagawa').compile()
+    end
+  },
 
   {
     'simnalamburt/vim-mundo',

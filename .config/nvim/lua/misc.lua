@@ -21,17 +21,19 @@ local function add_ignore_type(options)
     if #diag > 0 and ignore_decl_per_source[diag[1].source] == nil then
       dump('cannot find ignore type: ', diag[1].source)
     end
-    for source, ignore_decl in pairs(ignore_decl_per_source) do
-      local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
-      ignore_decl = '  ' .. comment_str .. ignore_decl
-      if string.sub(line, -#ignore_decl, -1) == ignore_decl then
-        vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
-        return
-      elseif #diag > 0 and diag[1].source == source then
-        vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
-        return
+    (function ()
+      for source, ignore_decl in pairs(ignore_decl_per_source) do
+        local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
+        ignore_decl = '  ' .. comment_str .. ignore_decl
+        if string.sub(line, -#ignore_decl, -1) == ignore_decl then
+          vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
+          return
+        elseif #diag > 0 and diag[1].source == source then
+          vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
+          return
+        end
       end
-    end
+    end)()
   end
 end
 vim.api.nvim_create_user_command('AddIgnoreType', add_ignore_type, { range = true })
@@ -47,8 +49,6 @@ nest.applyKeymaps({
     { '<TAB>', ':AddIgnoreType<cr>', options = { silent = true } },
   } },
 })
-
-vim.cmd('colorscheme kanagawa')
 
 -- mundo
 vim.o.undofile = true
