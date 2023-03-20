@@ -21,7 +21,7 @@ local function add_ignore_type(options)
     if #diag > 0 and ignore_decl_per_source[diag[1].source] == nil then
       dump('cannot find ignore type: ', diag[1].source)
     end
-    (function ()
+    (function()
       for source, ignore_decl in pairs(ignore_decl_per_source) do
         local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
         ignore_decl = '  ' .. comment_str .. ignore_decl

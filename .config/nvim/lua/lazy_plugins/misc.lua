@@ -145,7 +145,7 @@ return {
     end,
     build = function()
       require('kanagawa').compile()
-    end
+    end,
   },
 
   {
