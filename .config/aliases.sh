@@ -6,7 +6,7 @@
 
 #function cd_titlebar(){
 	#cd "$@"
-	#echo -e -n "\e]0;$USER@$HOSTNAME:$PWD\007" 
+	#echo -e -n "\e]0;$USER@$HOSTNAME:$PWD\007"
 	#set +o noglob
 #}
 
@@ -44,13 +44,18 @@ else
 	alias ll='exa -al -snew --icons'
 fi
 
-alias tree='tree -Csu'   
+if ! type "erdtree" > /dev/null; then
+	echo "erdtree not installed (install using cargo). resorting to plain ls"
+	alias tree='tree -Csu'
+else
+	alias tree='et'
+fi
 # spelling typos - highly personnal :-)
 alias xs='cd'
 alias vf='cd'
 alias kk='ll'
 
-#urxvt 
+#urxvt
 alias urxvt='urxvt -fn "xft:Bitstream Vera Sans Mono:pixelsize=18" -bg black -fg wheat'
 
 #make:

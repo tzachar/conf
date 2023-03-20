@@ -129,6 +129,7 @@ export HOME_BIN PAGER
 #export LC_ALL=C
 export LC_ALL=en_US.UTF-8
 export PYTHONPATH=${PYTHONPATH}:${HOME}/python:~/work/vault/code/vault_py:~/work/vault/code/vault_py/apis:~/work/vault/code/
+export MYPYPATH=${HOME}/.local/share/python-type-stubs
 
 #export number of processors on linux
 if [ -f /proc/cpuinfo ]; then
@@ -234,11 +235,11 @@ zle -N forward-word-dir
 bindkey "^[[1;3C" forward-word-dir
 
 # deno
-if [ ! -f ${HOME}/.deno/bin/deno ]; then
-	curl -fsSL https://deno.land/install.sh | sh
-fi
-export DENO_INSTALL="${HOME}/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
+# if [ ! -f ${HOME}/.deno/bin/deno ]; then
+# 	curl -fsSL https://deno.land/install.sh | sh
+# fi
+# export DENO_INSTALL="${HOME}/.deno"
+# export PATH="$DENO_INSTALL/bin:$PATH"
 
 #
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
