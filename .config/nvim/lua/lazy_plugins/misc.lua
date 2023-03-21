@@ -22,12 +22,12 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-refactor',
     dependencies = 'nvim-treesitter/nvim-treesitter',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = 'nvim-treesitter/nvim-treesitter',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   {
     'nvim-treesitter/playground',
@@ -73,7 +73,7 @@ return {
         },
       })
     end,
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- documentation
@@ -199,7 +199,7 @@ return {
 
   {
     'tpope/vim-repeat',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   { 'jamessan/vim-gnupg', ft = { 'gnupg' } },
 
@@ -215,7 +215,7 @@ return {
   { 'alvan/vim-closetag', ft = { 'html', 'html.javascript' } },
   {
     'wellle/targets.vim',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   {
     'tommcdo/vim-exchange',
@@ -227,7 +227,7 @@ return {
   {
     'Vimjas/vim-python-pep8-indent',
     ft = 'python',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   { 'godlygeek/tabular', cmd = 'Tabularize' },
   {
@@ -274,7 +274,7 @@ return {
     config = function()
       require('which-key').setup({})
     end,
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- syntax ranges
@@ -328,7 +328,7 @@ return {
   {
     'David-Kunz/treesitter-unit',
     lazy = true,
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- for keymappings
@@ -437,7 +437,7 @@ return {
         },
       })
     end,
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- inc dec
