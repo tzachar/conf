@@ -19,8 +19,16 @@ return {
     end,
   },
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-  { 'nvim-treesitter/nvim-treesitter-refactor', dependencies = 'nvim-treesitter/nvim-treesitter' },
-  { 'nvim-treesitter/nvim-treesitter-textobjects', dependencies = 'nvim-treesitter/nvim-treesitter' },
+  {
+    'nvim-treesitter/nvim-treesitter-refactor',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    event = "VeryLazy",
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    event = "VeryLazy",
+  },
   {
     'nvim-treesitter/playground',
     dependencies = 'nvim-treesitter/nvim-treesitter',
@@ -65,6 +73,7 @@ return {
         },
       })
     end,
+    event = "VeryLazy",
   },
 
   -- documentation
@@ -175,11 +184,23 @@ return {
   },
 
   -- c cpp stuff
-  { 'vim-scripts/FSwitch', ft = { 'c', 'cpp' } },
-  { 'vim-scripts/headerguard', ft = { 'c', 'cpp' } },
-  { 'DeonPoncini/includefixer', ft = { 'c', 'cpp' } },
+  {
+    'vim-scripts/FSwitch',
+    ft = { 'c', 'cpp' },
+  },
+  {
+    'vim-scripts/headerguard',
+    ft = { 'c', 'cpp' },
+  },
+  {
+    'DeonPoncini/includefixer',
+    ft = { 'c', 'cpp' },
+  },
 
-  { 'tpope/vim-repeat' },
+  {
+    'tpope/vim-repeat',
+    event = "VeryLazy",
+  },
   { 'jamessan/vim-gnupg', ft = { 'gnupg' } },
 
   { 'lervag/vimtex', ft = { 'tex', 'latex' } },
@@ -192,7 +213,10 @@ return {
   { 'jelera/vim-javascript-syntax', ft = { 'js', 'javascript', 'html', 'html.javascript' } },
   -- use 'machakann/vim-highlightedyank'
   { 'alvan/vim-closetag', ft = { 'html', 'html.javascript' } },
-  { 'wellle/targets.vim' },
+  {
+    'wellle/targets.vim',
+    event = "VeryLazy",
+  },
   {
     'tommcdo/vim-exchange',
     keys = { 'cx', nil, mode = { 'n', 'v' } },
@@ -200,7 +224,11 @@ return {
   -- { "vim-scripts/TextTransform" },
 
   -- python formatter
-  { 'Vimjas/vim-python-pep8-indent', ft = 'python' },
+  {
+    'Vimjas/vim-python-pep8-indent',
+    ft = 'python',
+    event = "VeryLazy",
+  },
   { 'godlygeek/tabular', cmd = 'Tabularize' },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -230,12 +258,15 @@ return {
     'SudoWrite',
   } },
 
-  { 'Numkil/ag.nvim', cmd = {
-    'Ag',
-    'AgAdd',
-    'LAg',
-    'LAgAdd',
-  } },
+  {
+    'Numkil/ag.nvim',
+    cmd = {
+      'Ag',
+      'AgAdd',
+      'LAg',
+      'LAgAdd',
+    },
+  },
 
   -- show mappings
   {
@@ -243,10 +274,14 @@ return {
     config = function()
       require('which-key').setup({})
     end,
+    event = "VeryLazy",
   },
 
   -- syntax ranges
-  { 'vim-scripts/SyntaxRange', ft = { 'html.javascript', 'html', 'js', 'javascript' } },
+  {
+    'vim-scripts/SyntaxRange',
+    ft = { 'html.javascript', 'html', 'js', 'javascript' },
+  },
 
   -- align on character
   {
@@ -257,7 +292,9 @@ return {
     },
   },
 
-  { 'ntpeters/vim-better-whitespace' },
+  {
+    'ntpeters/vim-better-whitespace',
+  },
 
   -- git
   { 'tpope/vim-fugitive', lazy = true, cmd = { 'G', 'Git' } },
@@ -270,7 +307,10 @@ return {
   },
 
   -- change commentstring based on location in file
-  { 'JoosepAlviste/nvim-ts-context-commentstring' },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    lazy = true,
+  },
 
   -- dev icons
   {
@@ -285,14 +325,25 @@ return {
 
   { 'dstein64/vim-startuptime', cmd = { 'StartupTime' } },
 
-  { 'David-Kunz/treesitter-unit', lazy = true },
+  {
+    'David-Kunz/treesitter-unit',
+    lazy = true,
+    event = "VeryLazy",
+  },
 
   -- for keymappings
   { 'LionC/nest.nvim' },
 
   -- user defined text objects
-  { 'kana/vim-textobj-user' },
-  { 'Julian/vim-textobj-variable-segment', dependencies = { 'kana/vim-textobj-user' } },
+  {
+    'kana/vim-textobj-user',
+    lazy = true,
+  },
+  {
+    'Julian/vim-textobj-variable-segment',
+    dependencies = { 'kana/vim-textobj-user' },
+    lazy = true,
+  },
 
   -- trouble
   {
@@ -305,7 +356,10 @@ return {
   },
 
   -- matchit
-  { 'andymass/vim-matchup' },
+  {
+    'andymass/vim-matchup',
+    lazy = true,
+  },
 
   -- graphql support
   { 'jparise/vim-graphql', ft = { 'grapgql', 'gql' } },
@@ -336,6 +390,7 @@ return {
     config = function()
       require('lsp_lines').setup()
     end,
+    lazy = true,
   },
 
   -- swap ts nodes
@@ -364,7 +419,6 @@ return {
   -- debug prints
   {
     'andrewferrier/debugprint.nvim',
-    lazy = true,
     config = function()
       require('debugprint').setup({
         create_keymaps = false,
@@ -383,38 +437,12 @@ return {
         },
       })
     end,
+    event = "VeryLazy",
   },
-
-  -- auto list:
-  -- {
-  --   'gaoDean/autolist.nvim',
-  --   event = { 'InsertEnter' },
-  --   ft = {
-  --     'markdown',
-  --     'text',
-  --     'tex',
-  --     'plaintex',
-  --   },
-  --   config = function()
-  --     local autolist = require('autolist')
-  --     autolist.setup()
-  --     autolist.create_mapping_hook('i', '<cr>', autolist.new)
-  --     autolist.create_mapping_hook('i', '<tab>', autolist.indent)
-  --     autolist.create_mapping_hook('i', '<s-tab>', autolist.indent, '<c-d>')
-  --     autolist.create_mapping_hook('n', 'dd', autolist.force_recalculate)
-  --     autolist.create_mapping_hook('n', 'o', autolist.new)
-  --     autolist.create_mapping_hook('n', 'O', autolist.new_before)
-  --     autolist.create_mapping_hook('n', '>>', autolist.indent)
-  --     autolist.create_mapping_hook('n', '<<', autolist.indent)
-  --     autolist.create_mapping_hook('n', '<c-r>', autolist.force_recalculate)
-  --     autolist.create_mapping_hook('n', '<leader>x', autolist.invert_entry, '')
-  --   end,
-  -- },
 
   -- inc dec
   {
     'monaqa/dial.nvim',
-    lazy = true,
     config = function()
       local augend = require('dial.augend')
       require('dial.config').augends:register_group({
@@ -489,7 +517,7 @@ return {
   },
 
   -- sqlite lua
-  { 'kkharji/sqlite.lua', lazy = true },
+  -- { 'kkharji/sqlite.lua', lazy = true },
 
   {
     'aduros/ai.vim',
