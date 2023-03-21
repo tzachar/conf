@@ -308,7 +308,7 @@ return {
   -- change commentstring based on location in file
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- dev icons
@@ -326,7 +326,7 @@ return {
 
   {
     'David-Kunz/treesitter-unit',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- for keymappings
@@ -335,12 +335,12 @@ return {
   -- user defined text objects
   {
     'kana/vim-textobj-user',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
   {
     'Julian/vim-textobj-variable-segment',
     dependencies = { 'kana/vim-textobj-user' },
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- trouble
@@ -356,7 +356,7 @@ return {
   -- matchit
   {
     'andymass/vim-matchup',
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- graphql support
@@ -387,7 +387,7 @@ return {
     config = function()
       require('lsp_lines').setup()
     end,
-    event = "VeryLazy",
+    event = 'VeryLazy',
   },
 
   -- swap ts nodes
