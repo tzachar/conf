@@ -302,14 +302,13 @@ return {
   -- quickfix magic
   {
     'kevinhwang91/nvim-bqf',
-    lazy = true,
     ft = { 'qf' },
   },
 
   -- change commentstring based on location in file
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    lazy = true,
+    event = "VeryLazy",
   },
 
   -- dev icons
@@ -327,8 +326,7 @@ return {
 
   {
     'David-Kunz/treesitter-unit',
-    lazy = true,
-    event = 'VeryLazy',
+    event = "VeryLazy",
   },
 
   -- for keymappings
@@ -337,12 +335,12 @@ return {
   -- user defined text objects
   {
     'kana/vim-textobj-user',
-    lazy = true,
+    event = "VeryLazy",
   },
   {
     'Julian/vim-textobj-variable-segment',
     dependencies = { 'kana/vim-textobj-user' },
-    lazy = true,
+    event = "VeryLazy",
   },
 
   -- trouble
@@ -358,7 +356,7 @@ return {
   -- matchit
   {
     'andymass/vim-matchup',
-    lazy = true,
+    event = "VeryLazy",
   },
 
   -- graphql support
@@ -367,7 +365,6 @@ return {
   -- nvim 0.8 smart rename
   {
     'smjonas/inc-rename.nvim',
-    lazy = true,
     cmd = 'IncRename',
     keys = {
       {
@@ -390,7 +387,7 @@ return {
     config = function()
       require('lsp_lines').setup()
     end,
-    lazy = true,
+    event = "VeryLazy",
   },
 
   -- swap ts nodes
@@ -474,7 +471,6 @@ return {
   -- ts query builder
   {
     'ziontee113/query-secretary',
-    lazy = true,
     keys = {
       {
         '<leader>z',
@@ -521,7 +517,6 @@ return {
 
   {
     'aduros/ai.vim',
-    lazy = true,
     cmd = { 'AI' },
   },
   {
@@ -536,7 +531,6 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope.nvim',
     },
-    lazy = true,
     cmd = {
       'ChatGPT',
       'ChatGPTActAs',
