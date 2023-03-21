@@ -8,14 +8,6 @@ return {
           globalstatus = false,
         },
         sections = {
-          lualine_a = {
-            {
-              'mode',
-              fmt = function(mode)
-                return vim.go.paste == true and mode .. ' (paste)' or mode
-              end,
-            },
-          },
           lualine_y = {
             'progress',
             function()

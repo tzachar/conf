@@ -49,8 +49,6 @@ vim.opt.hidden = true
 vim.opt.modeline = true
 vim.opt.tagstack = true
 vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
--- dont paste toggle
-vim.opt.pastetoggle = ''
 
 -- always show the sign column. prevent smoothcursor from jumping the window
 vim.opt.signcolumn = 'yes:1'
@@ -78,8 +76,6 @@ vim.opt.tags = './tags,tags,/usr/local/boost/tags,/home/tzachar/.vim/tags/stl_ta
 vim.opt.splitkeep = 'screen'
 
 vim.opt.diffopt = vim.opt.diffopt + 'linematch:60'
-
-vim.opt.pastetoggle = '<leader>a'
 
 vim.opt.shada = [[!,'100,<50,s10,h,%]]
 
