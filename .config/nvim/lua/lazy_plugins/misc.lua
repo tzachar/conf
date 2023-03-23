@@ -18,43 +18,6 @@ return {
       })
     end,
   },
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-  {
-    'nvim-treesitter/nvim-treesitter-refactor',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    event = 'VeryLazy',
-  },
-  {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    event = 'VeryLazy',
-  },
-  {
-    'nvim-treesitter/playground',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    cmd = { 'TSPlaygroundToggle' },
-  },
-  {
-    'm-demare/hlargs.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('hlargs').setup({
-        disable = function(_, bufnr)
-          if vim.b.semantic_tokens then
-            return true
-          end
-          local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-          for _, c in pairs(clients) do
-            local caps = c.server_capabilities
-            if c.name ~= 'null-ls' and caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-              vim.b.semantic_tokens = true
-              return vim.b.semantic_tokens
-            end
-          end
-        end,
-      })
-    end,
-  },
   {
     'tzachar/local-highlight.nvim',
     config = function()
@@ -63,19 +26,6 @@ return {
       })
     end,
   },
-  {
-    'RRethy/nvim-treesitter-endwise',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require('nvim-treesitter.configs').setup({
-        endwise = {
-          enable = true,
-        },
-      })
-    end,
-    event = 'VeryLazy',
-  },
-
   -- documentation
   {
     'danymat/neogen',
@@ -323,11 +273,6 @@ return {
   },
 
   { 'dstein64/vim-startuptime', cmd = { 'StartupTime' } },
-
-  {
-    'David-Kunz/treesitter-unit',
-    event = 'VeryLazy',
-  },
 
   -- for keymappings
   { 'LionC/nest.nvim' },
