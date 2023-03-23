@@ -55,11 +55,7 @@ local on_attach = function(client, bufnr)
 
   buf_set_keymap('n', '<leader>f', '<cmd>lua Format_range_operator()<CR>', opts)
   buf_set_keymap('v', '<leader>f', '<cmd>lua Format_range_operator()<CR>', opts)
-  vim.api.nvim_buf_set_option(
-    bufnr,
-    'formatexpr',
-    'v:lua.vim.lsp.formatexpr(#{timeout_ms:3000})'
-  )
+  vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr(#{timeout_ms:3000})')
 
   -- buf_set_keymap('v', '<leader>f', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
 
