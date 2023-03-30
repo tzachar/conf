@@ -38,6 +38,8 @@ antigen theme romkatv/powerlevel10k
 
 antigen apply
 
+# add custom completions
+fpath=(${HOME}/.config/completions $fpath)
 # zstyle ':fzf-tab:complete:*' fzf-bindings 'tab:accept'
 
 if [ ! -f ${HOME}/.antigen/bundles/Aloxaf/fzf-tab/modules/Src/aloxaf/fzftab.so ]; then

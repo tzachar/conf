@@ -1,0 +1,78 @@
+#compdef et
+
+autoload -U is-at-least
+
+_et() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" \
+'-d+[Print physical or logical file size]:DISK_USAGE:((logical\:"How many bytes does a file contain"
+physical\:"How much actual space on disk, taking into account sparse files and compression"))' \
+'--disk-usage=[Print physical or logical file size]:DISK_USAGE:((logical\:"How many bytes does a file contain"
+physical\:"How much actual space on disk, taking into account sparse files and compression"))' \
+'*-g+[Include or exclude files using glob patterns]:GLOB: ' \
+'*--glob=[Include or exclude files using glob patterns]:GLOB: ' \
+'*--iglob=[Include or exclude files using glob patterns; case insensitive]:IGLOB: ' \
+'-l+[Maximum depth to display]:NUM: ' \
+'--level=[Maximum depth to display]:NUM: ' \
+'-n+[Total number of digits after the decimal to display for disk usage]:NUM: ' \
+'--scale=[Total number of digits after the decimal to display for disk usage]:NUM: ' \
+'-p+[Display disk usage as binary or SI units]:PREFIX:((bin\:"Displays disk usage using binary prefixes"
+si\:"Displays disk usage using SI prefixes"))' \
+'--prefix=[Display disk usage as binary or SI units]:PREFIX:((bin\:"Displays disk usage using binary prefixes"
+si\:"Displays disk usage using SI prefixes"))' \
+'-s+[Sort-order to display directory content]:SORT:((name\:"Sort entries by file name"
+size\:"Sort entries by size smallest to largest, top to bottom"
+size-rev\:"Sort entries by size largest to smallest, bottom to top"
+none\:"Do not sort entries"))' \
+'--sort=[Sort-order to display directory content]:SORT:((name\:"Sort entries by file name"
+size\:"Sort entries by size smallest to largest, top to bottom"
+size-rev\:"Sort entries by size largest to smallest, bottom to top"
+none\:"Do not sort entries"))' \
+'-t+[Number of threads to use; defaults to number of logical cores available]:THREADS: ' \
+'--threads=[Number of threads to use; defaults to number of logical cores available]:THREADS: ' \
+'--completions=[Print completions for a given shell to stdout]:COMPLETIONS:(bash elvish fish powershell zsh)' \
+'--glob-case-insensitive[Process all glob patterns case insensitively]' \
+'-H[Show hidden files; disabled by default]' \
+'--hidden[Show hidden files; disabled by default]' \
+'--ignore-git[Disable traversal of .git directory when traversing hidden files; disabled by default]' \
+'-I[Display file icons; disabled by default]' \
+'--icons[Display file icons; disabled by default]' \
+'-i[Ignore .gitignore; disabled by default]' \
+'--ignore-git-ignore[Ignore .gitignore; disabled by default]' \
+'-P[Disable printing of empty branches]' \
+'--prune[Disable printing of empty branches]' \
+'--dirs-first[Always sorts directories above files]' \
+'-S[Traverse symlink directories and consider their disk usage; disabled by default]' \
+'--follow-links[Traverse symlink directories and consider their disk usage; disabled by default]' \
+'--suppress-size[Omit disk usage from output; disabled by default]' \
+'--size-left[Show the size on the left, decimal aligned]' \
+'--no-config[Don'\''t read configuration file]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'::dir -- Root directory to traverse; defaults to current working directory:_files' \
+&& ret=0
+}
+
+(( $+functions[_et_commands] )) ||
+_et_commands() {
+    local commands; commands=()
+    _describe -t commands 'et commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_et" ]; then
+    _et "$@"
+else
+    compdef _et et
+fi

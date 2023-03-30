@@ -119,6 +119,13 @@ local function setup_servers()
   local configs = {}
   configs['cssls'] = {}
   configs['vimls'] = {}
+  configs['yamlls'] = {
+    settings = {
+      yaml = {
+        keyOrdering = false
+      }
+    }
+  }
   configs['pylsp'] = {
     root_dir = function(filename, bufnr)
       local util = require('lspconfig.util')
