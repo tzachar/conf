@@ -122,9 +122,9 @@ local function setup_servers()
   configs['yamlls'] = {
     settings = {
       yaml = {
-        keyOrdering = false
-      }
-    }
+        keyOrdering = false,
+      },
+    },
   }
   configs['pylsp'] = {
     root_dir = function(filename, bufnr)
