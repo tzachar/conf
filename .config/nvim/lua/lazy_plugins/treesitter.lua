@@ -130,7 +130,6 @@ local function setup()
       EnsureTSParserInstalled()
     end,
   })
-
 end
 
 return {
