@@ -246,37 +246,6 @@ for server, opts in pairs(lsp_configs) do
   lspconfig[server].setup(opts)
 end
 
-vim.g.lsp_utils_location_opts = {
-  height = 24,
-  mode = 'editor',
-  preview = {
-    title = 'Location Preview',
-    border = true,
-    coloring = true,
-  },
-  keymaps = {
-    n = {
-      ['<C-n>'] = 'j',
-      ['<C-p>'] = 'k',
-    },
-  },
-}
-vim.g.lsp_utils_symbols_opts = {
-  height = 0,
-  mode = 'editor',
-  preview = {
-    title = 'Symbol Preview',
-    border = true,
-    coloring = true,
-  },
-  keymaps = {
-    n = {
-      ['<C-n>'] = 'j',
-      ['<C-p>'] = 'k',
-    },
-  },
-}
-
 require('fidget').setup({})
 
 -- highlight line numbers on error

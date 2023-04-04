@@ -1,7 +1,7 @@
+vim.loader.enable()
 vim.g.loaded_python_provider = 1
 vim.g.python_host_prog = ''
 vim.g.python3_host_prog = vim.fn.environ()['HOME'] .. '/.pyenv/shims/python3'
-_G.use_cachepack = true
 
 vim.g.mapleader = ','
 
