@@ -487,7 +487,7 @@ return {
     event = { 'InsertEnter', 'CmdlineEnter' },
     config = function()
       require('ultimate-autopair').setup({
-        cmap=false,
+        cmap = false,
         fastwarp = {
           enable = true,
           map = '<M-]>',
@@ -505,7 +505,7 @@ return {
         },
         extensions = {
           { 'suround', { '"', "'", '{', '}', '[', ']', '(', ')' } },
-          { 'fly',{')','}',']',' ',match=nil,nofilter=false }},
+          { 'fly', { ')', '}', ']', ' ', match = nil, nofilter = false } },
         },
       })
     end,
