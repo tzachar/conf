@@ -89,7 +89,7 @@ local function setup()
         vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = 'symbol' })
         vim_item.menu = source_mapping[entry.source.name]
         if entry.source.name == 'cmp_tabnine' then
-          local detail = (entry.completion_item.data or {}).detail
+          local detail = (entry.completion_item.labelDetails or {}).detail
           vim_item.kind = ''
           if detail and detail:find('.*%%.*') then
             vim_item.kind = vim_item.kind .. ' ' .. detail
@@ -160,20 +160,7 @@ local function setup()
     },
   })
 
-  cmp.setup.cmdline('/', {
-    view = {
-      entries = { name = 'wildmenu', separator = '|' },
-    },
-    sources = cmp.config.sources({
-      { name = 'fuzzy_buffer', option = {
-        get_bufnrs = function()
-          return { vim.api.nvim_get_current_buf() }
-        end,
-      } },
-    }),
-  })
-
-  cmp.setup.cmdline('?', {
+  cmp.setup.cmdline({'/', '?'}, {
     view = {
       entries = { name = 'wildmenu', separator = '|' },
     },
