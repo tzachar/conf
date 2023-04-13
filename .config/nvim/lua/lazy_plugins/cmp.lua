@@ -160,7 +160,7 @@ local function setup()
     },
   })
 
-  cmp.setup.cmdline({'/', '?'}, {
+  cmp.setup.cmdline({ '/', '?' }, {
     view = {
       entries = { name = 'wildmenu', separator = '|' },
     },
