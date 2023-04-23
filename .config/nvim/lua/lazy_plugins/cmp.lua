@@ -171,7 +171,7 @@ local function setup()
           get_bufnrs = function()
             return { vim.api.nvim_get_current_buf() }
           end,
-        }
+        },
       },
     }),
   })
@@ -185,7 +185,7 @@ local function setup()
         name = 'fuzzy_path',
         option = {
           fd_cmd = { 'fd', '-d', '20', '-p', '-i' },
-        }
+        },
       },
     }, {
       { name = 'cmdline' },
