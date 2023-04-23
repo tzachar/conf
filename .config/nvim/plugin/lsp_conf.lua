@@ -126,14 +126,37 @@ local function setup_servers()
       },
     },
   }
+  -- configs['pylyzer'] = {
+  --   root_dir = function(filename)
+  --     local util = require('lspconfig.util')
+  --     local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename)
+  --     if root then
+  --       return root
+  --     end
+  --     root = util.find_git_ancestor(filename)
+  --     if root then
+  --       return root
+  --     end
+  --     return vim.fs.dirname(filename)
+  --   end,
+  --   settings = {
+  --     python = {
+  --       checkOnType = false,
+  --       diagnostics = true,
+  --       inlayHints = true,
+  --       smartCompletion = true
+  --     },
+  --   },
+  -- }
+  configs['rust_analyzer'] = {}
   configs['pylsp'] = {
     root_dir = function(filename, bufnr)
       local util = require('lspconfig.util')
-      local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename, bufnr)
+      local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename)
       if root then
         return root
       end
-      root = util.find_git_ancestor(filename, bufnr)
+      root = util.find_git_ancestor(filename)
       if root then
         return root
       end

@@ -165,11 +165,14 @@ local function setup()
       entries = { name = 'wildmenu', separator = '|' },
     },
     sources = cmp.config.sources({
-      { name = 'fuzzy_buffer', option = {
-        get_bufnrs = function()
-          return { vim.api.nvim_get_current_buf() }
-        end,
-      } },
+      {
+        name = 'fuzzy_buffer',
+        option = {
+          get_bufnrs = function()
+            return { vim.api.nvim_get_current_buf() }
+          end,
+        }
+      },
     }),
   })
 
@@ -178,9 +181,12 @@ local function setup()
       entries = { name = 'custom', selection_order = 'near_cursor' },
     },
     sources = cmp.config.sources({
-      { name = 'fuzzy_path', option = {
-        fd_cmd = { 'fd', '-d', '20', '-p', '-i' },
-      } },
+      {
+        name = 'fuzzy_path',
+        option = {
+          fd_cmd = { 'fd', '-d', '20', '-p', '-i' },
+        }
+      },
     }, {
       { name = 'cmdline' },
     }),

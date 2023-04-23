@@ -185,3 +185,19 @@ function to_cmd_no_q()
 	prefix=$1
 	cat $fname | paste -d, -s | sed "s/^\|,/ $prefix /"g
 }
+
+function kill-path-word()
+{
+	local words word spaces
+	zle set-mark-command                 # save current cursor position ("mark")
+	words=($(grep -Eo '(/?[a-zA-Z1-9]+[\\ /]*)|([^a-zA-Z0-9])' <<< "$LBUFFER"))
+	word=$words[-1]                       # this is the portion from cursor back to previous "/"
+	while [[ $LBUFFER[-1] == " " ]] {
+		(( CURSOR -= 1 ))                   # consume all trailing spaces - they don't get into the $word variable
+	}
+	(( CURSOR -= $#word ))                # then, jump to the previous "/"
+	zle exchange-point-and-mark           # swap "mark" and "cursor"
+	zle kill-region                       # delete marked region
+}
+zle -N kill-path-word
+bindkey "^[w" kill-path-word
