@@ -5,6 +5,7 @@ local ignore_decl_per_source = {
   ['mypy'] = 'type: ignore',
   ['flake8'] = 'noqa',
   ['pyflakes'] = 'noqa',
+  ['ruff'] = 'noqa',
   ['pycodestyle'] = 'noqa',
   ['pylsp'] = 'noqa',
   ['Lua Diagnostics.'] = '-@diagnostic disable-line',
