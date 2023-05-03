@@ -52,16 +52,17 @@ local toggle_fstring = function()
   if is_fstring then
     vim.cmd('normal x')
     -- if cursor is in the same line as text change
-    if srow == cursor[1] then
-      cursor[2] = cursor[2] - 1 -- negative offset to cursor
+    if srow == cursor[1] and cursor[2] >= scol then
+        cursor[2] = cursor[2] - 1 -- negative offset to cursor
     end
   else
     vim.cmd('normal if')
     -- if cursor is in the same line as text change
-    if srow == cursor[1] then
+    if srow == cursor[1] and cursor[2] >= scol then
       cursor[2] = cursor[2] + 1 -- positive offset to cursor
     end
   end
+  cursor[2] = math.max(cursor[2], 0)
   vim.api.nvim_win_set_cursor(0, cursor)
 end
 
