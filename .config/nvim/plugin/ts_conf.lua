@@ -53,7 +53,7 @@ local toggle_fstring = function()
     vim.cmd('normal x')
     -- if cursor is in the same line as text change
     if srow == cursor[1] and cursor[2] >= scol then
-        cursor[2] = cursor[2] - 1 -- negative offset to cursor
+      cursor[2] = cursor[2] - 1 -- negative offset to cursor
     end
   else
     vim.cmd('normal if')
