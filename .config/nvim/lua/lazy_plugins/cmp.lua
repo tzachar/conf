@@ -4,6 +4,13 @@ local function setup()
   local compare = require('cmp.config.compare')
   local types = require('cmp.types')
   local tabnine = require('cmp_tabnine.config')
+  require("cmp_ai.config"):setup(
+    {
+      -- provider = 'HF',
+      provider = 'OpenAI',
+      model = 'gpt-4',
+    }
+  )
 
   tabnine:setup({
     max_lines = 1000,
@@ -20,6 +27,7 @@ local function setup()
     nvim_lsp = '[LSP]',
     nvim_lua = '[Lua]',
     cmp_tabnine = '[TN]',
+    cmp_ai = '[AI]',
     path = '[Path]',
     calc = '[Calc]',
     treesitter = '[TS]',
@@ -29,6 +37,7 @@ local function setup()
 
   local comparators = {
     require('cmp_tabnine.compare'),
+    require('cmp_ai.compare'),
     require('cmp_fuzzy_path.compare'),
     require('cmp_fuzzy_buffer.compare'),
     compare.offset,
@@ -72,6 +81,16 @@ local function setup()
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-x>'] = cmp.mapping(
+        cmp.mapping.complete({
+          config = {
+            sources = cmp.config.sources({
+                {name = 'cmp_ai', }
+            })
+          }
+        }),
+        { 'i' }
+      ),
       ['<C-e>'] = cmp.mapping(cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), { 'i', 'c' }),
       ['<CR>'] = cmp.mapping(function(fallback)
         if cmp.get_active_entry() then
@@ -132,9 +151,7 @@ local function setup()
           end,
         },
       },
-      {
-        name = 'cmp_tabnine',
-      },
+      {name = 'cmp_tabnine', },
       { name = 'vsnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lua' },
@@ -252,23 +269,47 @@ return {
     'hrsh7th/nvim-cmp',
     config = setup,
     lazy = false,
-  },
-  { 'hrsh7th/cmp-nvim-lsp', dependencies = 'onsails/lspkind-nvim' },
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-calc' },
-  { 'hrsh7th/cmp-path' },
-  { 'hrsh7th/cmp-emoji' },
-  { 'hrsh7th/cmp-nvim-lua' },
-  { 'hrsh7th/cmp-cmdline' },
-  { 'tzachar/cmp-tabnine', build = './install.sh', dependencies = 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-vsnip' },
-  { 'hrsh7th/vim-vsnip' },
-  { 'hrsh7th/vim-vsnip-integ' },
-  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-  { 'ray-x/cmp-treesitter' },
+    dependencies = {
+      {
+        "tzachar/cmp-ai",
+        dependencies = 'nvim-lua/plenary.nvim',
+      },
+      {
+        'hrsh7th/cmp-nvim-lsp',
+        dependencies = 'onsails/lspkind-nvim',
+      },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-calc' },
+      { 'hrsh7th/cmp-path' },
+      { 'hrsh7th/cmp-emoji' },
+      { 'hrsh7th/cmp-nvim-lua' },
+      { 'hrsh7th/cmp-cmdline' },
+      {
+        'tzachar/cmp-tabnine',
+        build = './install.sh',
+      },
+      { 'hrsh7th/cmp-vsnip' },
+      { 'hrsh7th/vim-vsnip' },
+      { 'hrsh7th/vim-vsnip-integ' },
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+      { 'ray-x/cmp-treesitter' },
 
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  { 'tzachar/fuzzy.nvim', dependencies = { 'nvim-telescope/telescope-fzf-native.nvim' } },
-  { 'tzachar/cmp-fuzzy-buffer', dependencies = { 'hrsh7th/nvim-cmp', 'tzachar/fuzzy.nvim' } },
-  { 'tzachar/cmp-fuzzy-path', dependencies = { 'hrsh7th/nvim-cmp', 'tzachar/fuzzy.nvim' } },
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make',
+      },
+      {
+        'tzachar/fuzzy.nvim',
+        dependencies = { 'nvim-telescope/telescope-fzf-native.nvim' },
+      },
+      {
+        'tzachar/cmp-fuzzy-buffer',
+        dependencies = 'tzachar/fuzzy.nvim' ,
+      },
+      {
+        'tzachar/cmp-fuzzy-path',
+        dependencies = 'tzachar/fuzzy.nvim' ,
+      },
+    }
+  },
 }

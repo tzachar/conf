@@ -1,6 +1,9 @@
 return {
   {
     'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'tzachar/local-highlight.nvim',
+    },
     config = function()
       -- load	lualine
       require('lualine').setup({
@@ -244,6 +247,7 @@ return {
 
   {
     'ntpeters/vim-better-whitespace',
+    event = 'VeryLazy',
   },
 
   -- git
@@ -509,5 +513,11 @@ return {
         },
       })
     end,
+  },
+  {
+    'rcarriga/nvim-notify',
+    config = function()
+      vim.notify = require("notify")
+    end
   },
 }
