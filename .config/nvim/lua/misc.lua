@@ -13,7 +13,7 @@ local ignore_decl_per_source = {
 }
 
 local function add_ignore_type(options)
-  local comment_str = vim.bo.commentstring:gsub("%%s", ""):gsub("%s+", "")
+  local comment_str = vim.bo.commentstring:gsub('%%s', ''):gsub('%s+', '')
   if not comment_str then
     return
   end

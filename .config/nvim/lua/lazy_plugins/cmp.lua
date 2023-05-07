@@ -4,13 +4,11 @@ local function setup()
   local compare = require('cmp.config.compare')
   local types = require('cmp.types')
   local tabnine = require('cmp_tabnine.config')
-  require("cmp_ai.config"):setup(
-    {
-      -- provider = 'HF',
-      provider = 'OpenAI',
-      model = 'gpt-4',
-    }
-  )
+  require('cmp_ai.config'):setup({
+    -- provider = 'HF',
+    provider = 'OpenAI',
+    model = 'gpt-4',
+  })
 
   tabnine:setup({
     max_lines = 1000,
@@ -85,9 +83,9 @@ local function setup()
         cmp.mapping.complete({
           config = {
             sources = cmp.config.sources({
-                {name = 'cmp_ai', }
-            })
-          }
+              { name = 'cmp_ai' },
+            }),
+          },
         }),
         { 'i' }
       ),
@@ -151,7 +149,7 @@ local function setup()
           end,
         },
       },
-      {name = 'cmp_tabnine', },
+      { name = 'cmp_tabnine' },
       { name = 'vsnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lua' },
@@ -271,7 +269,7 @@ return {
     lazy = false,
     dependencies = {
       {
-        "tzachar/cmp-ai",
+        'tzachar/cmp-ai',
         dependencies = 'nvim-lua/plenary.nvim',
       },
       {
@@ -304,12 +302,12 @@ return {
       },
       {
         'tzachar/cmp-fuzzy-buffer',
-        dependencies = 'tzachar/fuzzy.nvim' ,
+        dependencies = 'tzachar/fuzzy.nvim',
       },
       {
         'tzachar/cmp-fuzzy-path',
-        dependencies = 'tzachar/fuzzy.nvim' ,
+        dependencies = 'tzachar/fuzzy.nvim',
       },
-    }
+    },
   },
 }
