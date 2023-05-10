@@ -30,8 +30,8 @@ local function setup()
       { cursor = "•", texthl = "SmoothCursorAqua" },
       { cursor = ".", texthl = "SmoothCursorBlue" },
       { cursor = ".", texthl = "SmoothCursorPurple" }, ]]
-        { cursor = '', texthl = 'Smooth1' },
-        { cursor = '', texthl = 'Smooth2' },
+        { cursor = '', texthl = 'Smooth1' },
+        { cursor = '', texthl = 'Smooth2' },
         { cursor = '●', texthl = 'Smooth3' },
         { cursor = '•', texthl = 'Smooth4' },
         { cursor = '.', texthl = 'Smooth5' },
