@@ -169,7 +169,7 @@ local function setup_servers()
           -- make sure to install with PylspInstall python-lsp-ruff
           ruff = {
             enabled = true,
-            extendSelect = { "I" },
+            extendSelect = { 'I' },
             ignore = {},
             lineLength = 160,
           },
