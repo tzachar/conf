@@ -94,7 +94,8 @@ local function setup()
         if cmp.get_active_entry() then
           cmp.confirm()
         else
-          require('ultimate-autopair.maps.cr').cmpnewline()
+          -- require('ultimate-autopair.configs.default.maps.cr').newline()
+          fallback()
         end
       end),
       ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),

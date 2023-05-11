@@ -487,33 +487,48 @@ return {
     },
   },
   {
-    'altermo/ultimate-autopair.nvim',
-    event = { 'InsertEnter', 'CmdlineEnter' },
+    "windwp/nvim-autopairs",
     config = function()
-      require('ultimate-autopair').setup({
-        cmap = false,
-        fastwarp = {
-          enable = true,
-          map = '<M-]>',
-          cmap = '<M-]>',
-          rmap = '<M-[>',
-          rcmap = '<M-[>',
-          fallback = nil,
-        },
-        fastend = {
-          enable = true,
-          map = '<M-4>',
-          cmap = '<M-4>',
-          smart = false,
-          fallback = nil,
-        },
-        extensions = {
-          { 'suround', { '"', "'", '{', '}', '[', ']', '(', ')' } },
-          { 'fly', { ')', '}', ']', ' ', match = nil, nofilter = false } },
+      require("nvim-autopairs").setup({
+        disable_filetype = { "TelescopePrompt", },
+        fast_wrap = {
+          map = '<M-e>',
+          end_key = '$',
         },
       })
-    end,
+    end
   },
+  -- {
+  --   'altermo/ultimate-autopair.nvim',
+  --   event = { 'InsertEnter', 'CmdlineEnter' },
+  --   config = function()
+  --     require('ultimate-autopair').setup({
+  --       cmap = false,
+  --       fastwarp = {
+  --         enable = true,
+  --         map = '<M-]>',
+  --         cmap = '<M-]>',
+  --         rmap = '<M-[>',
+  --         rcmap = '<M-[>',
+  --         multiline=true,
+  --         nocursormove=true,
+  --         do_nothing_if_fail=true,
+  --         fallback = nil,
+  --       },
+  --       -- fastend = {
+  --       --   enable = true,
+  --       --   map = '<M-4>',
+  --       --   cmap = '<M-4>',
+  --       --   smart = false,
+  --       --   fallback = nil,
+  --       -- },
+  --       -- extensions = {
+  --       --   { 'suround', { '"', "'", '{', '}', '[', ']', '(', ')' } },
+  --       --   { 'fly', { ')', '}', ']', ' ', match = nil, nofilter = false } },
+  --       -- },
+  --     })
+  --   end,
+  -- },
   {
     'rcarriga/nvim-notify',
     config = function()
