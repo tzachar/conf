@@ -487,16 +487,16 @@ return {
     },
   },
   {
-    "windwp/nvim-autopairs",
+    'windwp/nvim-autopairs',
     config = function()
-      require("nvim-autopairs").setup({
-        disable_filetype = { "TelescopePrompt", },
+      require('nvim-autopairs').setup({
+        disable_filetype = { 'TelescopePrompt' },
         fast_wrap = {
           map = '<M-e>',
           end_key = '$',
         },
       })
-    end
+    end,
   },
   -- {
   --   'altermo/ultimate-autopair.nvim',
