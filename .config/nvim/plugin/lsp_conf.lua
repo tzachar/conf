@@ -166,6 +166,13 @@ local function setup_servers()
       pylsp = {
         configurationSources = { 'flake8' },
         plugins = {
+          -- make sure to install with PylspInstall python-lsp-ruff
+          ruff = {
+            enabled = true,
+            extendSelect = { "I" },
+            ignore = {},
+            lineLength = 160,
+          },
           jedi_completion = {
             enabled = true,
             fuzzy = true,
@@ -177,13 +184,13 @@ local function setup_servers()
           pycodestyle = { enabled = false },
           autopep8 = { enabled = true },
           flake8 = {
-            enabled = true,
+            enabled = false,
             ignore = {},
             maxLineLength = 160,
           },
           mypy = { enabled = false },
           pyflakes = { enabled = false },
-          isort = { enabled = true },
+          isort = { enabled = false },
           yapf = { enabled = false },
           pylint = { enabled = false },
           pydocstyle = { enabled = false },
