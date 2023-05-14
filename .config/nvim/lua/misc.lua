@@ -84,28 +84,16 @@ require('nest').applyKeymaps({
 })
 vim.api.nvim_create_user_command('AddIgnoreType', add_ignore_type, { range = true })
 
-
 local function convert_to_json_list(options)
-  local lines = vim.api.nvim_buf_get_lines(
-    0,
-    options.line1 - 1,
-    options.line2,
-    true
-  )
+  local lines = vim.api.nvim_buf_get_lines(0, options.line1 - 1, options.line2, true)
   local new_lines = {}
   for i = 1, #lines do
-    lines[i] = lines[i]:match( "^%s*(.-)%s*$")
+    lines[i] = lines[i]:match('^%s*(.-)%s*$')
     if #lines[i] > 0 then
       table.insert(new_lines, '"' .. lines[i] .. '",')
     end
   end
-  vim.api.nvim_buf_set_lines(
-    0,
-    options.line1 - 1,
-    options.line2,
-    true,
-    new_lines
-  )
+  vim.api.nvim_buf_set_lines(0, options.line1 - 1, options.line2, true, new_lines)
   -- format
   vim.fn.feedkeys('gqab')
 end
