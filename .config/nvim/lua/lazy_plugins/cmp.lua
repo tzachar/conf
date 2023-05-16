@@ -150,7 +150,10 @@ local function setup()
           end,
         },
       },
-      { name = 'cmp_tabnine' },
+      {
+        name = 'cmp_tabnine',
+        keyword_pattern = '.',
+      },
       { name = 'vsnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lua' },

@@ -1098,8 +1098,8 @@ import socket
 import IPython
 
 
-def _get_history_file():
-    return '~/.ipython/profile_default/history.sqlite'
+# def _get_history_file():
+#     return '~/.ipython/profile_default/history.sqlite'
 
 
 if IPython.version_info[0] >= 5:
