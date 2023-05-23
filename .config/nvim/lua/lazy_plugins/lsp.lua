@@ -12,12 +12,12 @@ return {
   {
     'williamboman/mason.nvim',
     dependencies = 'neovim/nvim-lspconfig',
-    build = ":MasonUpdate",
-    cmd = { "Mason", "MasonInstall", "MasonUninstall" },
+    build = ':MasonUpdate',
+    cmd = { 'Mason', 'MasonInstall', 'MasonUninstall' },
     config = function()
-      require("mason").setup()
-      require("mason-registry"):on("package:install:success", vim.schedule_wrap(mason_post_install))
-    end
+      require('mason').setup()
+      require('mason-registry'):on('package:install:success', vim.schedule_wrap(mason_post_install))
+    end,
   },
   {
     'williamboman/mason-lspconfig.nvim',
