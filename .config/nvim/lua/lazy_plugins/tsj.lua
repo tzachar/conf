@@ -24,34 +24,34 @@ local function setup()
         pattern_list = lang_utils.set_preset_for_args({
           split = {
             last_separator = true,
-          }
+          },
         }),
         tuple_pattern = lang_utils.set_preset_for_args({
           split = {
             last_separator = true,
-          }
+          },
         }),
         import_from_statement = lang_utils.set_preset_for_args({
           split = {
             last_separator = true,
-          }
+          },
         }),
         argument_list = lang_utils.set_preset_for_args({
           split = {
             last_separator = true,
-          }
+          },
         }),
         parameters = lang_utils.set_preset_for_args({
           split = {
             last_separator = true,
-          }
+          },
         }),
         call = lang_utils.set_preset_for_args({
           split = {
             last_separator = true,
-          }
+          },
         }),
-      }
+      },
     },
   })
 end
