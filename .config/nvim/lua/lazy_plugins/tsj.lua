@@ -1,4 +1,5 @@
 local function setup()
+  local lang_utils = require('treesj.langs.utils')
   require('treesj').setup({
     use_default_keymaps = false,
 
@@ -17,8 +18,41 @@ local function setup()
 
     -- Notify about possible problems or not
     notify = true,
-    -- langs = langs,
     dot_repeat = true,
+    langs = {
+      python = {
+        pattern_list = lang_utils.set_preset_for_args({
+          split = {
+            last_separator = true,
+          }
+        }),
+        tuple_pattern = lang_utils.set_preset_for_args({
+          split = {
+            last_separator = true,
+          }
+        }),
+        import_from_statement = lang_utils.set_preset_for_args({
+          split = {
+            last_separator = true,
+          }
+        }),
+        argument_list = lang_utils.set_preset_for_args({
+          split = {
+            last_separator = true,
+          }
+        }),
+        parameters = lang_utils.set_preset_for_args({
+          split = {
+            last_separator = true,
+          }
+        }),
+        call = lang_utils.set_preset_for_args({
+          split = {
+            last_separator = true,
+          }
+        }),
+      }
+    },
   })
 end
 
