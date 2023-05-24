@@ -305,7 +305,9 @@ return {
   -- matchit
   {
     'andymass/vim-matchup',
-    event = 'VeryLazy',
+    config = function()
+      vim.g.matchup_delim_stopline = 30000
+    end
   },
 
   -- graphql support
