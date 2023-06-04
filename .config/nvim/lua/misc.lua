@@ -25,9 +25,12 @@ local function add_ignore_type(options)
     (function()
       for source, ignore_decl in pairs(ignore_decl_per_source) do
         local line = vim.api.nvim_buf_get_lines(0, linenr, linenr + 1, true)[1]
+        local ignore_decl_expr = '^(.*)%s*' .. comment_str .. '%s*' .. ignore_decl
+        local match = line:match(ignore_decl_expr)
         ignore_decl = '  ' .. comment_str .. ignore_decl
-        if string.sub(line, -#ignore_decl, -1) == ignore_decl then
-          vim.api.nvim_buf_set_text(0, linenr, #line - #ignore_decl, linenr, #line, {})
+        -- if string.sub(line, -#ignore_decl, -1) == ignore_decl then
+        if match then
+          vim.api.nvim_buf_set_text(0, linenr, 0, linenr, #line, {match})
           return
         elseif #diag > 0 and diag[1].source == source then
           vim.api.nvim_buf_set_text(0, linenr, #line, linenr, #line, { ignore_decl })
