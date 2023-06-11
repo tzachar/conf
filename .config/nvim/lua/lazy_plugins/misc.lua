@@ -337,12 +337,12 @@ return {
     url = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
     keys = {
       {
-        "<Leader>l",
+        '<Leader>l',
         function()
-          require("lsp_lines").toggle()
+          require('lsp_lines').toggle()
         end,
-        desc = "Toggle lsp_lines" ,
-      }
+        desc = 'Toggle lsp_lines',
+      },
     },
     config = function()
       require('lsp_lines').setup()
@@ -553,8 +553,7 @@ return {
   {
     'tzachar/highlight-undo.nvim',
     config = function()
-      require('highlight-undo').setup({
-      })
-    end
-  }
+      require('highlight-undo').setup({})
+    end,
+  },
 }
