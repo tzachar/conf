@@ -335,8 +335,20 @@ return {
   -- diagnostic lines
   {
     url = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+    keys = {
+      {
+        "<Leader>l",
+        function()
+          require("lsp_lines").toggle()
+        end,
+        desc = "Toggle lsp_lines" ,
+      }
+    },
     config = function()
       require('lsp_lines').setup()
+      vim.diagnostic.config({
+        virtual_text = false,
+      })
     end,
     event = 'VeryLazy',
   },
@@ -537,4 +549,12 @@ return {
       vim.notify = require('notify')
     end,
   },
+
+  {
+    'tzachar/highlight-undo.nvim',
+    config = function()
+      require('highlight-undo').setup({
+      })
+    end
+  }
 }

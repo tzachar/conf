@@ -24,7 +24,10 @@ return {
     dependencies = 'williamboman/mason.nvim',
   },
   -- ls progress
-  { 'j-hui/fidget.nvim' },
+  {
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+  },
 
   { 'onsails/lspkind-nvim' },
 }
