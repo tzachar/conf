@@ -44,11 +44,11 @@ else
 	alias ll='exa -al -snew --icons'
 fi
 
-if ! type "et" > /dev/null; then
+if ! type "erd" > /dev/null; then
 	echo "erdtree not installed (install using cargo). resorting to tree"
 	alias tree='tree -Csu'
 else
-	alias tree='et'
+	alias tree='erd'
 fi
 # spelling typos - highly personnal :-)
 alias xs='cd'
