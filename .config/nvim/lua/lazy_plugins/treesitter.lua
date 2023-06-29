@@ -4,8 +4,8 @@ local function setup()
       enable = true,
     },
     indent = {
-      enable = true,
-      disable = { 'py', 'python' },
+      enable = false,
+      disable = { 'py', 'python',  },
     },
     highlight = {
       enable = true, -- false will disable the whole extension

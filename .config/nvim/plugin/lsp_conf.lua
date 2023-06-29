@@ -87,6 +87,9 @@ local on_attach = function(client, bufnr)
   if client.name ~= 'null-ls' and caps.semanticTokensProvider and caps.semanticTokensProvider.full then
     vim.b.semantic_tokens = true
   end
+  if caps.inlayHintProvider then
+    vim.lsp.buf.inlay_hint(bufnr, true)
+  end
 end
 
 local DebounceRate = 5000
@@ -148,7 +151,17 @@ local function setup_servers()
   --     },
   --   },
   -- }
-  configs['rust_analyzer'] = {}
+  -- configs['rust_analyzer'] = {
+  --   settings = {
+  --     ["rust-analyzer"] = {
+  --       rustfmt = {
+  --         rangeFormatting = {
+  --           enable = true
+  --         },
+  --       },
+  --     },
+  --   },
+  -- }
   configs['pylsp'] = {
     root_dir = function(filename, bufnr)
       local util = require('lspconfig.util')
