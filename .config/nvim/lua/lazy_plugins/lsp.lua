@@ -34,12 +34,12 @@ return {
   {
     'simrat39/rust-tools.nvim',
     config = function()
-      local rt = require("rust-tools")
+      local rt = require('rust-tools')
       rt.setup({
         tools = {
           rustfmt = {
             rangeFormatting = {
-              enable = true
+              enable = true,
             },
           },
         },
@@ -70,15 +70,15 @@ return {
         },
       })
       rt.inlay_hints.set()
-    end
+    end,
   },
   {
     'lvimuser/lsp-inlayhints.nvim',
     branch = 'anticonceal',
     config = function()
-      vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = "LspAttach_inlayhints",
+      vim.api.nvim_create_augroup('LspAttach_inlayhints', {})
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = 'LspAttach_inlayhints',
         callback = function(args)
           if not (args.data and args.data.client_id) then
             return
@@ -86,9 +86,9 @@ return {
 
           local bufnr = args.buf
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require("lsp-inlayhints").on_attach(client, bufnr)
+          require('lsp-inlayhints').on_attach(client, bufnr)
         end,
       })
-    end
-  }
+    end,
+  },
 }

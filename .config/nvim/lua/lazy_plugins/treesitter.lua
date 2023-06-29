@@ -5,7 +5,7 @@ local function setup()
     },
     indent = {
       enable = false,
-      disable = { 'py', 'python',  },
+      disable = { 'py', 'python' },
     },
     highlight = {
       enable = true, -- false will disable the whole extension
