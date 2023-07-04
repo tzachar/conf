@@ -263,5 +263,5 @@ else
 	fi
 	}
 	zle -N _sgpt_zsh
-	bindkey ^l _sgpt_zsh
+	bindkey ^K _sgpt_zsh
 fi
