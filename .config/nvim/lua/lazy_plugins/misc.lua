@@ -90,10 +90,10 @@ return {
     end,
   },
   {
-    "xiantang/darcula-dark.nvim",
+    'xiantang/darcula-dark.nvim',
     enabled = false,
     dependencies = {
-        "nvim-treesitter/nvim-treesitter",
+      'nvim-treesitter/nvim-treesitter',
     },
     config = function()
       vim.cmd('colorscheme darcula-dark')

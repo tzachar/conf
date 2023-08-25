@@ -10,7 +10,7 @@ local function setup()
     highlight = {
       enable = true, -- false will disable the whole extension
       disable = {
-             -- "python",
+        -- "python",
       }, -- list of language that will be disabled
       custom_captures = { -- mapping of user defined captures to highlight groups
         -- ["foo.bar"] = "Identifier"   -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
@@ -198,5 +198,4 @@ return {
     'JoosepAlviste/nvim-ts-context-commentstring',
     event = 'VeryLazy',
   },
-
 }
