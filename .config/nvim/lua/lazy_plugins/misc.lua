@@ -9,6 +9,7 @@ return {
       require('lualine').setup({
         options = {
           globalstatus = false,
+          -- theme = 'tokyonight',
         },
         sections = {
           lualine_y = {
@@ -32,6 +33,7 @@ return {
   -- documentation
   {
     'danymat/neogen',
+    enabled = false,
     config = function()
       require('neogen').setup({
         enabled = true,
@@ -74,9 +76,32 @@ return {
   --
   -- zephyr-nvim dependencies nvim-treesitter
   -- use {'glepnir/zephyr-nvim', branch = 'main', dependencies = 'nvim-treesitter/nvim-treesitter'}
-  -- use({ 'folke/tokyonight.nvim' })
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    enabled = false,
+    config = function()
+      require('tokyonight').setup({
+        style = 'night',
+        transparent = false,
+      })
+      vim.cmd('colorscheme tokyonight')
+    end,
+  },
+  {
+    "xiantang/darcula-dark.nvim",
+    enabled = false,
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      vim.cmd('colorscheme darcula-dark')
+    end,
+  },
   {
     'rebelot/kanagawa.nvim',
+    -- enabled = false,
     config = function()
       require('kanagawa').setup({
         undercurl = true, -- enable undercurls
@@ -257,12 +282,6 @@ return {
   {
     'kevinhwang91/nvim-bqf',
     ft = { 'qf' },
-  },
-
-  -- change commentstring based on location in file
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',
-    event = 'VeryLazy',
   },
 
   -- dev icons

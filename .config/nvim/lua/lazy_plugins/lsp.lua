@@ -32,6 +32,14 @@ return {
   { 'onsails/lspkind-nvim' },
 
   {
+    "aznhe21/actions-preview.nvim",
+    config = function()
+      require("actions-preview").setup({
+          backend = { "nui", "telescope" },
+      })
+    end,
+  },
+  {
     'simrat39/rust-tools.nvim',
     config = function()
       local rt = require('rust-tools')
@@ -44,6 +52,14 @@ return {
           },
         },
         server = {
+          settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                -- need to make sure to add this one also to cargo config!!
+                target = "x86_64-unknown-linux-gnu",
+              },
+            },
+          },
           capabilities = require('cmp_nvim_lsp').default_capabilities(),
           on_attach = function(client, bufnr)
             local opts = { noremap = true, silent = true }
@@ -56,7 +72,8 @@ return {
             vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
             vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
             vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+            -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '', {noremap = true, silent = true, callback = require("actions-preview").code_actions})
             vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
             vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua require("telescope.builtin").lsp_references()<CR>', opts)
             vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.show_line_diagnostics()<CR>', opts)
