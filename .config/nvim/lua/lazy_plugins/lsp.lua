@@ -66,9 +66,9 @@ return {
                 target = 'x86_64-unknown-linux-gnu',
               },
               inlayHints = {
-                lifetimeElisionHints = {
-                  enable = true,
-                },
+                -- lifetimeElisionHints = {
+                --   enable = true,
+                -- },
               },
             },
           },
