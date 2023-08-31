@@ -51,12 +51,12 @@ return {
             },
           },
           on_initialized = function()
-            require("inlay-hints").set_all()
+            require('inlay-hints').set_all()
           end,
           inlay_hints = {
             auto = false,
             show_parameter_hints = true,
-          }
+          },
         },
         server = {
           settings = {
@@ -68,7 +68,7 @@ return {
               inlayHints = {
                 lifetimeElisionHints = {
                   enable = true,
-                }
+                },
               },
             },
           },
@@ -105,12 +105,12 @@ return {
   {
     'simrat39/inlay-hints.nvim',
     config = function()
-      local ih = require("inlay-hints")
+      local ih = require('inlay-hints')
       ih.setup({
         only_current_line = false,
         eol = {
           right_align = false,
-        }
+        },
       })
     end,
   },

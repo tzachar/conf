@@ -92,9 +92,8 @@ local on_attach = function(client, bufnr)
   --   vim.lsp.buf.inlay_hint(bufnr, true)
   -- end
 
-  local ih = require("inlay-hints")
+  local ih = require('inlay-hints')
   ih.on_attach(client, bufnr)
-
 end
 
 local DebounceRate = 5000
