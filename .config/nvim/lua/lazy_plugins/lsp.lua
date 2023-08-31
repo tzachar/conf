@@ -72,7 +72,6 @@ return {
               },
             },
           },
-          capabilities = require('cmp_nvim_lsp').default_capabilities(),
           on_attach = function(client, bufnr)
             local opts = { noremap = true, silent = true }
             vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -96,6 +95,7 @@ return {
             vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', '<cmd>lua Format_range_operator()<CR>', opts)
             vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>f', '<cmd>lua Format_range_operator()<CR>', opts)
             vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr(#{timeout_ms:3000})')
+            require('inlay-hints').on_attach(client, bufnr)
           end,
         },
       })
