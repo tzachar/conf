@@ -66,6 +66,7 @@ return {
                 target = 'x86_64-unknown-linux-gnu',
               },
               inlayHints = {
+                renderColons = false,
                 -- lifetimeElisionHints = {
                 --   enable = true,
                 -- },
@@ -110,6 +111,19 @@ return {
         only_current_line = false,
         eol = {
           right_align = false,
+          parameter = {
+            separator = ", ",
+            format = function(hints)
+              return string.format(" : %s", hints)
+            end,
+          },
+
+          type = {
+            separator = ", ",
+            format = function(hints)
+              return string.format("  %s", hints)
+            end,
+          },
         },
       })
     end,

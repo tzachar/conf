@@ -88,10 +88,8 @@ local on_attach = function(client, bufnr)
   if client.name ~= 'null-ls' and caps.semanticTokensProvider and caps.semanticTokensProvider.full then
     vim.b.semantic_tokens = true
   end
-  if caps.inlayHintProvider then
-    --   vim.lsp.buf.inlay_hint(bufnr, true)
-    require('inlay-hints').on_attach(client, bufnr)
-  end
+  --   vim.lsp.buf.inlay_hint(bufnr, true)
+  require('inlay-hints').on_attach(client, bufnr)
 end
 
 local DebounceRate = 5000
