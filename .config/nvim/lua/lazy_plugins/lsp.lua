@@ -112,16 +112,16 @@ return {
         eol = {
           right_align = false,
           parameter = {
-            separator = ", ",
+            separator = ', ',
             format = function(hints)
-              return string.format(" : %s", hints)
+              return string.format(' : %s', hints)
             end,
           },
 
           type = {
-            separator = ", ",
+            separator = ', ',
             format = function(hints)
-              return string.format("  %s", hints)
+              return string.format('  %s', hints)
             end,
           },
         },
