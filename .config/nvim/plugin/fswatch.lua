@@ -7,7 +7,7 @@ local FSWATCH_EVENTS = {
   OwnerModified = 2,
   AttributeModified = 2,
   MovedFrom = 1,
-  MovedTo = 3
+  MovedTo = 3,
   -- IsFile
   -- IsDir
   -- IsSymLink
@@ -49,8 +49,9 @@ local function fswatch(path, opts, callback)
     'fswatch',
     '--recursive',
     '--event-flags',
-    '--exclude', '/.git/',
-    path
+    '--exclude',
+    '/.git/',
+    path,
   }, {
     stdout = function(_, data)
       if data ~= nil then
@@ -58,7 +59,7 @@ local function fswatch(path, opts, callback)
           fswatch_output_handler(line, opts, callback)
         end
       end
-    end
+    end,
   })
 
   return function()
@@ -69,6 +70,5 @@ end
 if vim.fn.executable('fswatch') == 1 then
   require('vim.lsp._watchfiles')._watchfunc = fswatch
 else
-  vim.notify("Please install fswatch.")
+  vim.notify('Please install fswatch.')
 end
-

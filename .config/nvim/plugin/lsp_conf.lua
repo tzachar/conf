@@ -283,7 +283,7 @@ require('mason-lspconfig').setup({
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))
+capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))
 -- [Additional capabilities customization]
 -- Large workspace scanning may freeze the UI; see https://github.com/neovim/neovim/issues/23291
 -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
