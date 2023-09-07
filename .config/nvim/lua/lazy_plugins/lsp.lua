@@ -27,6 +27,10 @@ return {
   {
     'j-hui/fidget.nvim',
     tag = 'legacy',
+     event = "LspAttach",
+     opts = {
+       -- options
+     },
   },
 
   { 'onsails/lspkind-nvim' },

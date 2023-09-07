@@ -20,9 +20,6 @@ function Format_range_operator(...)
   vim.api.nvim_feedkeys('g@', 'n', false)
 end
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -104,7 +101,8 @@ local function setup_servers()
 
   local function add(lib)
     for _, p in pairs(vim.fn.expand(lib, false, true)) do
-      p = vim.loop.fs_realpath(p)
+      p = vim.uv.fs_realpath(p)
+      -- p = vim.loop.fs_realpath(p)
       library[p] = true
     end
   end
@@ -283,6 +281,13 @@ require('mason-lspconfig').setup({
   ensure_installed = vim.tbl_keys(lsp_configs),
 })
 
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))
+-- [Additional capabilities customization]
+-- Large workspace scanning may freeze the UI; see https://github.com/neovim/neovim/issues/23291
+-- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
 for server, opts in pairs(lsp_configs) do
   opts['capabilities'] = capabilities
   opts['on_attach'] = on_attach
@@ -291,8 +296,6 @@ for server, opts in pairs(lsp_configs) do
   }
   lspconfig[server].setup(opts)
 end
-
-require('fidget').setup({})
 
 -- highlight line numbers on error
 vim.cmd([[
