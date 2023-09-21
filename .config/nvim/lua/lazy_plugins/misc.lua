@@ -280,7 +280,7 @@ return {
 
   {
     'akinsho/git-conflict.nvim',
-    version = "*",
+    version = '*',
     config = function()
       require('git-conflict').setup({
         default_mappings = false,
