@@ -278,6 +278,16 @@ return {
   -- git
   { 'tpope/vim-fugitive', lazy = true, cmd = { 'G', 'Git' } },
 
+  {
+    'akinsho/git-conflict.nvim',
+    version = "*",
+    config = function()
+      require('git-conflict').setup({
+        default_mappings = false,
+      })
+    end,
+  },
+
   -- quickfix magic
   {
     'kevinhwang91/nvim-bqf',
