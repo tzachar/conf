@@ -101,7 +101,7 @@ return {
   },
   {
     'rebelot/kanagawa.nvim',
-    -- enabled = false,
+    enabled = true,
     config = function()
       require('kanagawa').setup({
         undercurl = true, -- enable undercurls
@@ -210,13 +210,71 @@ return {
   { 'godlygeek/tabular', cmd = 'Tabularize' },
   {
     'lukas-reineke/indent-blankline.nvim',
-    config = function()
-      -- indend-guides setup
-      require('indent_blankline').setup({
-        show_current_context = true,
-        show_current_context_start = false,
-      })
-    end,
+    main = "ibl",
+    event = "BufReadPre",
+    opts = {
+      indent = {
+        char = "│",
+        tab_char = "│",
+        smart_indent_cap = true,
+        priority = 2,
+      },
+      whitespace = { remove_blankline_trail = true },
+      scope = {
+        enabled = true,
+        char = "┃",
+        show_start = false,
+        show_end = false,
+        highlight = { "IndentBlanklineContextChar" },
+        injected_languages = true,
+        priority = 1000,
+        include = {
+          node_type = {
+            ["*"] = {
+              "argument_list",
+              "arguments",
+              "assignment_statement",
+              "Block",
+              "chunk",
+              "class",
+              "ContainerDecl",
+              "dictionary",
+              "do_block",
+              "do_statement",
+              "element",
+              "except",
+              "FnCallArguments",
+              "for",
+              "for_statement",
+              "function",
+              "function_declaration",
+              "function_definition",
+              "if_statement",
+              "IfExpr",
+              "IfStatement",
+              "import",
+              "InitList",
+              "list_literal",
+              "method",
+              "object",
+              "ParamDeclList",
+              "repeat_statement",
+              "selector",
+              "SwitchExpr",
+              "table",
+              "table_constructor",
+              "try",
+              "tuple",
+              "type",
+              "var",
+              "while",
+              "while_statement",
+              "with",
+            },
+          },
+        },
+      },
+    },
   },
 
   -- add cmd utils as vim commands
@@ -375,9 +433,6 @@ return {
     },
     config = function()
       require('lsp_lines').setup()
-      vim.diagnostic.config({
-        virtual_text = false,
-      })
     end,
     event = 'VeryLazy',
   },
@@ -544,6 +599,8 @@ return {
   -- {
   --   'altermo/ultimate-autopair.nvim',
   --   event = { 'InsertEnter', 'CmdlineEnter' },
+  --   enabled = false,
+  --   branch='v0.6',
   --   config = function()
   --     require('ultimate-autopair').setup({
   --       cmap = false,
@@ -553,7 +610,7 @@ return {
   --         cmap = '<M-]>',
   --         rmap = '<M-[>',
   --         rcmap = '<M-[>',
-  --         multiline=true,
+  --         multi=true,
   --         nocursormove=true,
   --         do_nothing_if_fail=true,
   --         fallback = nil,
