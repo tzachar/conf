@@ -46,7 +46,7 @@ function M.on_attach(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
-  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', {buf=bufnr})
+  vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
   -- Mappings.
   local opts = { noremap = true, silent = true }
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -70,7 +70,7 @@ function M.on_attach(client, bufnr)
 
   buf_set_keymap('n', '<leader>f', '', { callback = M.format_range_operator, noremap = true, silent = true })
   buf_set_keymap('v', '<leader>f', '', { callback = M.format_range_operator, noremap = true, silent = true })
-  vim.api.nvim_set_option_value('formatexpr', 'v:lua.vim.lsp.formatexpr(#{timeout_ms:3000})', {buf=bufnr})
+  vim.api.nvim_set_option_value('formatexpr', 'v:lua.vim.lsp.formatexpr(#{timeout_ms:3000})', { buf = bufnr })
 
   -- buf_set_keymap('v', '<leader>f', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
 

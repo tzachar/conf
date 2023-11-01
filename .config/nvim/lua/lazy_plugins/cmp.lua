@@ -101,26 +101,24 @@ local function setup()
         end
       end),
       -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-      ['<Tab>'] = cmp.mapping(
-        function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
-          elseif vim.snippet.jumpable(1) then
-            vim.snippet.jump(1)
-          else
-            fallback()
-          end
-        end, { 'i', 'c' }),
-      ['<S-Tab>'] = cmp.mapping(
-        function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
-          elseif vim.snippet.jumpable(-1) then
-            vim.snippet.jump(-1)
-          else
-            fallback()
-          end
-        end, { 'i', 'c' }),
+      ['<Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
+        elseif vim.snippet.jumpable(1) then
+          vim.snippet.jump(1)
+        else
+          fallback()
+        end
+      end, { 'i', 'c' }),
+      ['<S-Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
+        elseif vim.snippet.jumpable(-1) then
+          vim.snippet.jump(-1)
+        else
+          fallback()
+        end
+      end, { 'i', 'c' }),
     },
     formatting = {
       format = function(entry, vim_item)
@@ -312,7 +310,6 @@ local function setup()
   --   'confirm_done',
   --   cmp_autopairs.on_confirm_done()
   -- )
-
 end
 
 return {
