@@ -5,6 +5,7 @@ local function setup()
   local types = require('cmp.types')
   local tabnine = require('cmp_tabnine.config')
   require('cmp_ai.config'):setup({
+    -- provider = 'Bard',
     -- provider = 'HF',
     provider = 'OpenAI',
     model = 'gpt-4',
@@ -53,7 +54,8 @@ local function setup()
   cmp.setup({
     snippet = {
       expand = function(args)
-        vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` user.
+        -- vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` user.
+        vim.snippet.expand(args.body)
       end,
     },
     window = {
@@ -98,10 +100,28 @@ local function setup()
           fallback()
         end
       end),
-      ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
-      ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
+      -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { 'i', 'c' }),
+      ['<Tab>'] = cmp.mapping(
+        function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
+          elseif vim.snippet.jumpable(1) then
+            vim.snippet.jump(1)
+          else
+            fallback()
+          end
+        end, { 'i', 'c' }),
+      ['<S-Tab>'] = cmp.mapping(
+        function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
+          elseif vim.snippet.jumpable(-1) then
+            vim.snippet.jump(-1)
+          else
+            fallback()
+          end
+        end, { 'i', 'c' }),
     },
-
     formatting = {
       format = function(entry, vim_item)
         vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = 'symbol' })
@@ -154,7 +174,7 @@ local function setup()
         name = 'cmp_tabnine',
         keyword_length = 0,
       },
-      { name = 'vsnip' },
+      -- { name = 'vsnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lua' },
       { name = 'nvim_lsp_signature_help' },
@@ -264,6 +284,35 @@ local function setup()
       require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
     end,
   })
+  --
+  -- local show, hide = vim.diagnostic.handlers.virtual_lines.show, vim.diagnostic.handlers.virtual_lines.hide
+  -- vim.diagnostic.handlers.virtual_lines = {
+  --   show = function(...)
+  --       show(...)
+  --       if cmp.visible() then
+  --         cmp.core.view:_get_entries_view():open(
+  --           cmp.core.view:_get_entries_view().offset,
+  --           cmp.core.view:_get_entries_view().entries
+  --       )
+  --       end
+  --   end,
+  --   hide = function(...)
+  --       hide(...)
+  --       if cmp.visible() then
+  --         cmp.core.view:_get_entries_view():open(
+  --           cmp.core.view:_get_entries_view().offset,
+  --           cmp.core.view:_get_entries_view().entries
+  --       )
+  --       end
+  --   end
+  -- }
+
+  -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  -- cmp.event:on(
+  --   'confirm_done',
+  --   cmp_autopairs.on_confirm_done()
+  -- )
+
 end
 
 return {
@@ -290,9 +339,9 @@ return {
         'tzachar/cmp-tabnine',
         build = './install.sh',
       },
-      { 'hrsh7th/cmp-vsnip' },
-      { 'hrsh7th/vim-vsnip' },
-      { 'hrsh7th/vim-vsnip-integ' },
+      -- { 'hrsh7th/cmp-vsnip' },
+      -- { 'hrsh7th/vim-vsnip' },
+      -- { 'hrsh7th/vim-vsnip-integ' },
       { 'hrsh7th/cmp-nvim-lsp-signature-help' },
       { 'ray-x/cmp-treesitter' },
 

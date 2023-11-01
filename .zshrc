@@ -132,7 +132,7 @@ export EDITOR VISUAL HOME_CONF HOME_LIB
 export HOME_BIN PAGER
 #export LC_ALL=C
 export LC_ALL=en_US.UTF-8
-export PYTHONPATH=${PYTHONPATH}:${HOME}/python:~/work/vault/code/vault_py:~/work/vault/code/vault_py/apis:~/work/vault/code/
+export PYTHONPATH=${PYTHONPATH}:${HOME}/python:~/work/vault/code/vault_py:~/work/vault/code/vault_py/apis:~/work/vault/code/:~/work/rust/algo
 export MYPYPATH=${HOME}/.local/share/python-type-stubs
 
 #export number of processors on linux

@@ -193,7 +193,7 @@ local lsp_configs = setup_servers()
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   -- lsp_lines: disable virtual text for diagnostics
-  virtual_text = false,
+  virtual_text = true,
   signs = true,
   underline = true,
   update_in_insert = true,
