@@ -111,22 +111,22 @@ return {
     end,
   },
   -- diagnostic lines
-  -- {
-  --   url = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-  --   keys = {
-  --     {
-  --       '<Leader>l',
-  --       function()
-  --         require('lsp_lines').toggle()
-  --       end,
-  --       desc = 'Toggle lsp_lines',
-  --     },
-  --   },
-  --   config = function()
-  --     require('lsp_lines').setup()
-  --   end,
-  --   event = 'VeryLazy',
-  -- },
+  {
+    url = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+    keys = {
+      {
+        '<Leader>l',
+        function()
+          require('lsp_lines').toggle()
+        end,
+        desc = 'Toggle lsp_lines',
+      },
+    },
+    config = function()
+      require('lsp_lines').setup()
+    end,
+    event = 'VeryLazy',
+  },
 
   -- {
   --   'lvimuser/lsp-inlayhints.nvim',

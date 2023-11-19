@@ -1,8 +1,5 @@
 local function setup()
   require('nvim-treesitter.configs').setup({
-    context_commentstring = {
-      enable = true,
-    },
     indent = {
       enable = false,
       disable = { 'py', 'python' },
@@ -185,12 +182,6 @@ return {
   },
   {
     'David-Kunz/treesitter-unit',
-    event = 'VeryLazy',
-  },
-
-  -- change commentstring based on location in file
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',
     event = 'VeryLazy',
   },
 }
