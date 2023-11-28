@@ -642,6 +642,6 @@ return {
     cmd = {
       'Splitrun',
       'SplitrunNew',
-    }
-  }
+    },
+  },
 }
