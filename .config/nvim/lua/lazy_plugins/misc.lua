@@ -636,4 +636,12 @@ return {
   --   },
   --   event = 'VeryLazy',
   -- }
+  {
+    'https://github.com/Hubro/nvim-splitrun',
+    config = {},
+    cmd = {
+      'Splitrun',
+      'SplitrunNew',
+    }
+  }
 }

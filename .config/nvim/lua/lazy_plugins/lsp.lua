@@ -44,48 +44,6 @@ return {
     end,
   },
   {
-    'simrat39/rust-tools.nvim',
-    config = function()
-      local rt = require('rust-tools')
-      rt.setup({
-        tools = {
-          rustfmt = {
-            rangeFormatting = {
-              enable = true,
-            },
-          },
-          on_initialized = function()
-            require('inlay-hints').set_all()
-          end,
-          inlay_hints = {
-            auto = false,
-            show_parameter_hints = true,
-          },
-        },
-        server = {
-          settings = {
-            ['rust-analyzer'] = {
-              cargo = {
-                -- need to make sure to add this one also to cargo config!!
-                target = 'x86_64-unknown-linux-gnu',
-              },
-              inlayHints = {
-                renderColons = false,
-                -- lifetimeElisionHints = {
-                --   enable = true,
-                -- },
-              },
-            },
-          },
-          on_attach = function(client, bufnr)
-            require('lsp_utils').on_attach(client, bufnr)
-          end,
-        },
-      })
-      -- rt.inlay_hints.set()
-    end,
-  },
-  {
     'simrat39/inlay-hints.nvim',
     config = function()
       local ih = require('inlay-hints')
