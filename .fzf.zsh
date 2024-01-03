@@ -6,7 +6,7 @@ fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/tzachar/fzf/shell/completion.zsh" 2> /dev/null
+source "/home/tzachar/fzf/shell/completion.zsh"
 
 # Key bindings
 # ------------
