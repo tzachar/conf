@@ -18,6 +18,7 @@
   "cloud_whitelist": [],
   "num_of_suggestions": 5,
   "line_suggestions": true,
+  "rlhf": null,
   "omit_prefix_suggestions": true,
   "api_key": "ogtpnwedtygdwzeniguqmtletzttuk",
   "api_base_url": null,

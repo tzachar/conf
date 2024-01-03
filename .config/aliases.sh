@@ -66,5 +66,6 @@ alias rcmake="cmake -DCMAKE_BUILD_TYPE=Release"
 
 alias cq=condor_q
 
-alias sq='squeue -o "%.7i %.9P %.20j %.8u %.2t %.10M %.6D %R"'
+alias sq='squeue -o "%.9i %.30j %.8u %.2t %.10M %.6D %R"'
+alias si='sinfo'
 alias vi='nvim'
