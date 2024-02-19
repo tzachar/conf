@@ -6,8 +6,7 @@ vim.g.rustaceanvim = {
         enable = true,
       },
     },
-    on_initialized = function()
-    end,
+    on_initialized = function() end,
     inlay_hints = {
       auto = false,
       show_parameter_hints = true,
@@ -16,10 +15,7 @@ vim.g.rustaceanvim = {
   -- LSP configuration
   server = {
     on_attach = function(client, bufnr)
-      require('lsp_utils').on_attach(
-        client,
-        bufnr
-      )
+      require('lsp_utils').on_attach(client, bufnr)
       -- you can also put keymaps in here
     end,
     settings = {

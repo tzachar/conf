@@ -61,18 +61,17 @@ vim.opt.completeopt = 'menu,menuone,noselect'
 -- default yank to clip
 vim.opt.clipboard = 'unnamedplus'
 
-
 -- under tmux, set clipboard to use tmux
 if vim.fn.environ()['TMUX'] ~= nil then
   vim.g.clipboard = {
     name = 'TMUX',
     copy = {
-      ['+'] = {'tmux', 'load-buffer', '-'},
-      ['*'] = {'tmux', 'load-buffer', '-'},
+      ['+'] = { 'tmux', 'load-buffer', '-' },
+      ['*'] = { 'tmux', 'load-buffer', '-' },
     },
     paste = {
-      ['+'] = {'tmux', 'save-buffer', '-'},
-      ['*'] = {'tmux', 'save-buffer', '-'},
+      ['+'] = { 'tmux', 'save-buffer', '-' },
+      ['*'] = { 'tmux', 'save-buffer', '-' },
     },
     cache_enabled = true,
   }
@@ -247,15 +246,12 @@ end
 -- augroup end
 --
 
-vim.keymap.set(
-  'n',
-  'J',
-  function()
-    if vim.bo.filetype == 'rust' then
-      vim.cmd.RustLsp('joinLines')
-    else
-      -- TODO: write in lua
-      vim.cmd([[
+vim.keymap.set('n', 'J', function()
+  if vim.bo.filetype == 'rust' then
+    vim.cmd.RustLsp('joinLines')
+  else
+    -- TODO: write in lua
+    vim.cmd([[
           if getline('.')[-1:-1] == '(' || getline('.')[-1:-1] == '[' || getline('.')[-1:-1] == '{'
             execute 'normal! gJ'
             " Character under cursor is whitespace?
@@ -267,10 +263,8 @@ vim.keymap.set(
             execute 'normal! J'
           endif
       ]])
-    end
   end
-)
-
+end)
 
 -- tag closing
 vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml'
