@@ -43,31 +43,6 @@ return {
       })
     end,
   },
-  {
-    'simrat39/inlay-hints.nvim',
-    config = function()
-      local ih = require('inlay-hints')
-      ih.setup({
-        only_current_line = false,
-        eol = {
-          right_align = false,
-          parameter = {
-            separator = ', ',
-            format = function(hints)
-              return string.format(' : %s', hints)
-            end,
-          },
-
-          type = {
-            separator = ', ',
-            format = function(hints)
-              return string.format('  %s', hints)
-            end,
-          },
-        },
-      })
-    end,
-  },
   -- diagnostic lines
   {
     url = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
@@ -85,24 +60,4 @@ return {
     end,
     event = 'VeryLazy',
   },
-
-  -- {
-  --   'lvimuser/lsp-inlayhints.nvim',
-  --   branch = 'anticonceal',
-  --   config = function()
-  --     vim.api.nvim_create_augroup('LspAttach_inlayhints', {})
-  --     vim.api.nvim_create_autocmd('LspAttach', {
-  --       group = 'LspAttach_inlayhints',
-  --       callback = function(args)
-  --         if not (args.data and args.data.client_id) then
-  --           return
-  --         end
-  --
-  --         local bufnr = args.buf
-  --         local client = vim.lsp.get_client_by_id(args.data.client_id)
-  --         require('lsp-inlayhints').on_attach(client, bufnr)
-  --       end,
-  --     })
-  --   end,
-  -- },
 }

@@ -7,7 +7,6 @@ vim.g.rustaceanvim = {
       },
     },
     on_initialized = function()
-      require('inlay-hints').set_all()
     end,
     inlay_hints = {
       auto = false,
@@ -17,7 +16,10 @@ vim.g.rustaceanvim = {
   -- LSP configuration
   server = {
     on_attach = function(client, bufnr)
-      require('lsp_utils').on_attach(client, bufnr)
+      require('lsp_utils').on_attach(
+        client,
+        bufnr
+      )
       -- you can also put keymaps in here
     end,
     settings = {
@@ -26,8 +28,12 @@ vim.g.rustaceanvim = {
           -- need to make sure to add this one also to cargo config!!
           target = 'x86_64-unknown-linux-gnu',
         },
+        -- check = {
+        --   command = 'clippy',
+        --   ignore = {'new_ret_no_self', },
+        -- },
         inlayHints = {
-          renderColons = false,
+          renderColons = true,
         },
       },
     },

@@ -363,8 +363,6 @@ return {
     end,
   },
 
-  { 'dstein64/vim-startuptime', cmd = { 'StartupTime' } },
-
   -- for keymappings
   { 'LionC/nest.nvim' },
 
@@ -638,7 +636,7 @@ return {
   -- }
   {
     'https://github.com/Hubro/nvim-splitrun',
-    config = {},
+    opts = {},
     cmd = {
       'Splitrun',
       'SplitrunNew',

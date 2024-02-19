@@ -25,6 +25,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle Aloxaf/fzf-tab
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle hlissner/zsh-autopair
+antigen bundle MenkeTechnologies/zsh-cargo-completion
 
 # antigen bundle yuki-yano/zeno.zsh@main
 

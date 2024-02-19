@@ -61,6 +61,23 @@ vim.opt.completeopt = 'menu,menuone,noselect'
 -- default yank to clip
 vim.opt.clipboard = 'unnamedplus'
 
+
+-- under tmux, set clipboard to use tmux
+if vim.fn.environ()['TMUX'] ~= nil then
+  vim.g.clipboard = {
+    name = 'TMUX',
+    copy = {
+      ['+'] = {'tmux', 'load-buffer', '-'},
+      ['*'] = {'tmux', 'load-buffer', '-'},
+    },
+    paste = {
+      ['+'] = {'tmux', 'save-buffer', '-'},
+      ['*'] = {'tmux', 'save-buffer', '-'},
+    },
+    cache_enabled = true,
+  }
+end
+
 -- this controls saving swap and highlighting var under cursor
 vim.opt.updatetime = 100
 
@@ -159,6 +176,10 @@ vim.api.nvim_set_hl(0, 'SpellLocal', {
   underline = true,
 })
 
+vim.api.nvim_set_hl(0, 'LspInlayHint', {
+  fg = '#74748d',
+})
+
 --FSwitch
 --Switch to the file and load it into the current window >
 -- augroup mycppfiles
@@ -226,25 +247,30 @@ end
 -- augroup end
 --
 
-vim.cmd([[
-augroup replacegJ
-	fun! JoinSpaceless()
-		if getline('.')[-1:-1] == '(' || getline('.')[-1:-1] == '[' || getline('.')[-1:-1] == '{'
-			execute 'normal! gJ'
-			" Character under cursor is whitespace?
-			if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
-				" Then remove it!
-				execute 'normal dw'
-			endif
-		else
-			execute 'normal! J'
-		endif
-	endfun
+vim.keymap.set(
+  'n',
+  'J',
+  function()
+    if vim.bo.filetype == 'rust' then
+      vim.cmd.RustLsp('joinLines')
+    else
+      -- TODO: write in lua
+      vim.cmd([[
+          if getline('.')[-1:-1] == '(' || getline('.')[-1:-1] == '[' || getline('.')[-1:-1] == '{'
+            execute 'normal! gJ'
+            " Character under cursor is whitespace?
+            if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
+              " Then remove it!
+              execute 'normal dw'
+            endif
+          else
+            execute 'normal! J'
+          endif
+      ]])
+    end
+  end
+)
 
-	" Map it to a key
-	nnoremap J :call JoinSpaceless()<CR>
-augroup end
-]])
 
 -- tag closing
 vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml'

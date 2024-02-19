@@ -95,8 +95,10 @@ function M.on_attach(client, bufnr)
   if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
     vim.b.semantic_tokens = true
   end
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(bufnr, true)
+  end
   --   vim.lsp.buf.inlay_hint(bufnr, true)
-  require('inlay-hints').on_attach(client, bufnr)
   -- setup codelens
   M.setup_codelens_refresh(client, bufnr)
 end
