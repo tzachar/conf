@@ -10,7 +10,7 @@ function M.format_range_operator(...)
     --   timeout_ms = 3000,
     --   -- name='null-ls',
     -- })
-    require("conform").format({
+    require('conform').format({
       range = { start = start, ['end'] = finish },
       timeout_ms = 3000,
     })
