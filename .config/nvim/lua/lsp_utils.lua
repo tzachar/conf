@@ -5,10 +5,14 @@ function M.format_range_operator(...)
   _G.op_func_formatting = function()
     local start = vim.api.nvim_buf_get_mark(0, '[')
     local finish = vim.api.nvim_buf_get_mark(0, ']')
-    vim.lsp.buf.format({
+    -- vim.lsp.buf.format({
+    --   range = { start = start, ['end'] = finish },
+    --   timeout_ms = 3000,
+    --   -- name='null-ls',
+    -- })
+    require("conform").format({
       range = { start = start, ['end'] = finish },
       timeout_ms = 3000,
-      -- name='null-ls',
     })
     vim.go.operatorfunc = old_func
     _G.op_func_formatting = nil
@@ -70,7 +74,8 @@ function M.on_attach(client, bufnr)
 
   buf_set_keymap('n', '<leader>f', '', { callback = M.format_range_operator, noremap = true, silent = true })
   buf_set_keymap('v', '<leader>f', '', { callback = M.format_range_operator, noremap = true, silent = true })
-  vim.api.nvim_set_option_value('formatexpr', 'v:lua.vim.lsp.formatexpr(#{timeout_ms:3000})', { buf = bufnr })
+  -- vim.api.nvim_set_option_value('formatexpr', 'v:lua.vim.lsp.formatexpr(#{timeout_ms:3000})', { buf = bufnr })
+  vim.api.nvim_set_option_value('formatexpr', "v:lua.require'conform'.formatexpr(#{timeout_ms:3000})", { buf = bufnr })
 
   -- buf_set_keymap('v', '<leader>f', ':lua vim.lsp.buf.range_formatting()<CR>', opts)
 
