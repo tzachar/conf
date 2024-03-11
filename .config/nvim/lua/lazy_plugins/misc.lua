@@ -1,5 +1,12 @@
 return {
   {
+    'LunarVim/bigfile.nvim',
+    opts = {
+      filesize = 2,
+      pattern = { "*" },
+    }
+  },
+  {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'tzachar/local-highlight.nvim',
