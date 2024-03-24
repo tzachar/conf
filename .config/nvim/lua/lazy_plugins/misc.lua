@@ -14,6 +14,10 @@ return {
     config = function()
       -- load	lualine
       require('lualine').setup({
+        extensions = {
+          'lazy',
+          'mason',
+        },
         options = {
           globalstatus = false,
           -- theme = 'tokyonight',
@@ -40,7 +44,7 @@ return {
   -- documentation
   {
     'danymat/neogen',
-    enabled = false,
+    enabled = true,
     config = function()
       require('neogen').setup({
         enabled = true,

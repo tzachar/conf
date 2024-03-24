@@ -35,13 +35,13 @@ alias calc='set -o noglob;_calc'
 alias pconsole="~/bin/pconsole.sh"
 alias parallel="parallel --tmpdir /run/shm --compress"
 
-if ! type "exa" > /dev/null; then
-	echo "exa not installed (install using cargo). resorting to plain ls"
+if ! type "eza" > /dev/null; then
+	echo "eza not installed (install using cargo). resorting to plain ls"
 	alias ls='ls -hF --color'
 	alias ll='ls -al'
 else
-	alias ls='exa --icons'
-	alias ll='exa -al -snew --icons'
+	alias ls='eza --icons'
+	alias ll='eza -al -snew --icons'
 fi
 
 if ! type "erd" > /dev/null; then

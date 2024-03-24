@@ -16,8 +16,11 @@ local function setup_servers()
 
   local function add(lib)
     for _, p in pairs(vim.fn.expand(lib, false, true)) do
-      p = vim.uv.fs_realpath(p)
-      -- p = vim.loop.fs_realpath(p)
+      if vim.uv ~= nil and vim.uv.fs_realpath ~= nil then
+        p = vim.uv.fs_realpath(p)
+      else
+        p = vim.loop.fs_realpath(p)
+      end
       library[p] = true
     end
   end
@@ -339,5 +342,7 @@ local function enhanced_float_handler(handler)
 end
 
 local methods = vim.lsp.protocol.Methods
-vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover)
-vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vim.lsp.handlers.signature_help)
+if methods ~= nil and methods.textDocument_hover ~= nil then 
+  vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover)
+  vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vim.lsp.handlers.signature_help)
+end
