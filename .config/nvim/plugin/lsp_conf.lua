@@ -342,7 +342,7 @@ local function enhanced_float_handler(handler)
 end
 
 local methods = vim.lsp.protocol.Methods
-if methods ~= nil and methods.textDocument_hover ~= nil then 
+if methods ~= nil and methods.textDocument_hover ~= nil then
   vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover)
   vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vim.lsp.handlers.signature_help)
 end

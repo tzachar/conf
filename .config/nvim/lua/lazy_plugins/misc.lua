@@ -3,8 +3,8 @@ return {
     'LunarVim/bigfile.nvim',
     opts = {
       filesize = 2,
-      pattern = { "*" },
-    }
+      pattern = { '*' },
+    },
   },
   {
     'nvim-lualine/lualine.nvim',
