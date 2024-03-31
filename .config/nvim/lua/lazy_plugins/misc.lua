@@ -37,7 +37,7 @@ return {
     'tzachar/local-highlight.nvim',
     config = function()
       require('local-highlight').setup({
-        file_types = { 'python', 'cpp', 'lua', 'rust', 'c', 'cpp', 'javascript', },
+        file_types = { 'python', 'cpp', 'lua', 'rust', 'c', 'cpp', 'javascript' },
       })
     end,
   },
@@ -470,8 +470,8 @@ return {
         },
       },
       commands = {
-        toggle_comment_debug_prints = "ToggleCommentDebugPrints",
-        delete_debug_prints = "DeleteDebugPrints",
+        toggle_comment_debug_prints = 'ToggleCommentDebugPrints',
+        delete_debug_prints = 'DeleteDebugPrints',
       },
     },
   },
