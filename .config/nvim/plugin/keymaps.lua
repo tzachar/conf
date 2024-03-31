@@ -120,36 +120,4 @@ nest.applyKeymaps({
     { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>' },
     { '<leader>xl', '<cmd>loclist<cr>' },
   } },
-
-  -- debugprint
-  { mode = 'n', {
-    {
-      '<leader>d',
-      function()
-        return require('debugprint').debugprint()
-      end,
-      options = { expr = true },
-    },
-    {
-      '<leader>D',
-      function()
-        return require('debugprint').debugprint({ above = true })
-      end,
-      options = { expr = true },
-    },
-    {
-      '<leader>vd',
-      function()
-        return require('debugprint').debugprint({ variable = true })
-      end,
-      options = { expr = true },
-    },
-    {
-      '<leader>vD',
-      function()
-        return require('debugprint').debugprint({ variable = true, above = true })
-      end,
-      options = { expr = true },
-    },
-  } },
 })
