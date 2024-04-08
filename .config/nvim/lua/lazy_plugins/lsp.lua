@@ -65,6 +65,7 @@ return {
   {
     'stevearc/conform.nvim',
     opts = {
+      timeout_ms = 3000,
       formatters_by_ft = {
         rust = { 'rustfmt' },
         lua = { 'stylua' },

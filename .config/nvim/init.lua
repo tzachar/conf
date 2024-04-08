@@ -368,6 +368,7 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('plugins')
 require('misc')
+require('comment')
 
 vim.api.nvim_set_hl(0, 'Normal', {
   fg = 'wheat',
