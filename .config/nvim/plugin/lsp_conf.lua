@@ -78,7 +78,7 @@ local function setup_servers()
   --     },
   --   },
   -- }
-  configs['pylsp'] = {
+  configs['basedpyright'] = {
     root_dir = function(filename, bufnr)
       local util = require('lspconfig.util')
       local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename)
@@ -92,52 +92,88 @@ local function setup_servers()
       return vim.fs.dirname(filename)
     end,
     settings = {
-      pylsp = {
-        configurationSources = { 'flake8' },
-        plugins = {
-          -- make sure to install with PylspInstall python-lsp-ruff
-          ruff = {
-            enabled = true,
-            extendSelect = { 'I' },
-            ignore = {},
-            lineLength = 160,
-          },
-          jedi_completion = {
-            enabled = true,
-            fuzzy = true,
-          },
-          jedi_hover = { enabled = true },
-          jedi_references = { enabled = true },
-          jedi_signature_help = { enabled = true },
-          jedi_symbols = { enabled = true, all_scopes = true },
-          pycodestyle = { enabled = false },
-          autopep8 = { enabled = true },
-          flake8 = {
-            enabled = false,
-            ignore = {},
-            maxLineLength = 160,
-          },
-          mypy = { enabled = false },
-          pyflakes = { enabled = false },
-          isort = { enabled = false },
-          yapf = { enabled = false },
-          pylint = { enabled = false },
-          pydocstyle = { enabled = false },
-          mccabe = {
-            enabled = false,
-            threshold = 25,
-          },
-          preload = { enabled = false },
-          rope_completion = { enabled = false },
-          rope_autoimport = { enabled = false },
-        },
-      },
-    },
+      basedpyright = {
+        analysis = {
+          typeCheckingMode = 'off',
+          diagnosticSeverityOverrides = {
+            strictDictionaryInference     = 'warning',
+            reportMissingImports          = 'error',
+            reportUndefinedVariable       = 'error',
+            reportUnusedExpression        = 'warning',
+            reportCallIssue               = 'error',
+            reportIndexIssue              = 'error',
+            reportUnhashable              = 'error',
+            reportUnusedExcept            = 'error',
+            reportPossiblyUnboundVariable = 'error',
+            reportDuplicateImport         = 'error',
+            reportUnusedImport            = 'warning',
+            reportUnusedVariable          = 'warning',
+          }
+        }
+      }
+    }
   }
+  -- configs['pylsp'] = {
+  --   root_dir = function(filename, bufnr)
+  --     local util = require('lspconfig.util')
+  --     local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename)
+  --     if root then
+  --       return root
+  --     end
+  --     root = util.find_git_ancestor(filename)
+  --     if root then
+  --       return root
+  --     end
+  --     return vim.fs.dirname(filename)
+  --   end,
+  --   settings = {
+  --     pylsp = {
+  --       configurationSources = { 'flake8' },
+  --       plugins = {
+  --         -- make sure to install with PylspInstall python-lsp-ruff
+  --         ruff = {
+  --           enabled = true,
+  --           extendSelect = { 'I' },
+  --           ignore = {},
+  --           lineLength = 160,
+  --         },
+  --         jedi_completion = {
+  --           enabled = true,
+  --           fuzzy = true,
+  --         },
+  --         jedi_hover = { enabled = true },
+  --         jedi_references = { enabled = true },
+  --         jedi_signature_help = { enabled = true },
+  --         jedi_symbols = { enabled = true, all_scopes = true },
+  --         pycodestyle = { enabled = false },
+  --         autopep8 = { enabled = true },
+  --         flake8 = {
+  --           enabled = false,
+  --           ignore = {},
+  --           maxLineLength = 160,
+  --         },
+  --         mypy = { enabled = false },
+  --         pyflakes = { enabled = false },
+  --         isort = { enabled = false },
+  --         yapf = { enabled = false },
+  --         pylint = { enabled = false },
+  --         pydocstyle = { enabled = false },
+  --         mccabe = {
+  --           enabled = false,
+  --           threshold = 25,
+  --         },
+  --         preload = { enabled = false },
+  --         rope_completion = { enabled = false },
+  --         rope_autoimport = { enabled = false },
+  --       },
+  --     },
+  --   },
+  -- }
   configs['sqlls'] = {
     -- single_file_support = true,
   }
   configs['graphql'] = {}
+  configs['bufls'] = {}
   configs['lua_ls'] = {
     settings = {
       Lua = {
@@ -204,7 +240,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = vim.tbl_keys(lsp_configs),
+  ensure_installed = vim.tbl_extend('keep', vim.tbl_keys(lsp_configs), {'rust_analyzer'})
 })
 
 -- Add additional capabilities supported by nvim-cmp

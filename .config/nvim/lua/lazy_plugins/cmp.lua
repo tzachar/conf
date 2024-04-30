@@ -4,6 +4,7 @@ local function setup()
   local compare = require('cmp.config.compare')
   local types = require('cmp.types')
   local tabnine = require('cmp_tabnine.config')
+
   require('cmp_ai.config'):setup({
     -- provider = 'Bard',
     -- provider = 'HF',
@@ -54,7 +55,6 @@ local function setup()
   cmp.setup({
     snippet = {
       expand = function(args)
-        -- vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` user.
         vim.snippet.expand(args.body)
       end,
     },
@@ -104,7 +104,7 @@ local function setup()
       ['<Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
-        elseif vim.snippet.jumpable(1) then
+        elseif vim.snippet.active({direction = 1}) then
           vim.snippet.jump(1)
         else
           fallback()
@@ -113,7 +113,7 @@ local function setup()
       ['<S-Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
-        elseif vim.snippet.jumpable(-1) then
+        elseif vim.snippet.active({direction = -1}) then
           vim.snippet.jump(-1)
         else
           fallback()
