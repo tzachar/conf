@@ -104,7 +104,7 @@ local function setup()
       ['<Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
-        elseif vim.snippet.active({direction = 1}) then
+        elseif vim.snippet.active({ direction = 1 }) then
           vim.snippet.jump(1)
         else
           fallback()
@@ -113,7 +113,7 @@ local function setup()
       ['<S-Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' })
-        elseif vim.snippet.active({direction = -1}) then
+        elseif vim.snippet.active({ direction = -1 }) then
           vim.snippet.jump(-1)
         else
           fallback()

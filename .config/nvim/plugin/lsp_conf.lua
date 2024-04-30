@@ -96,22 +96,22 @@ local function setup_servers()
         analysis = {
           typeCheckingMode = 'off',
           diagnosticSeverityOverrides = {
-            strictDictionaryInference     = 'warning',
-            reportMissingImports          = 'error',
-            reportUndefinedVariable       = 'error',
-            reportUnusedExpression        = 'warning',
-            reportCallIssue               = 'error',
-            reportIndexIssue              = 'error',
-            reportUnhashable              = 'error',
-            reportUnusedExcept            = 'error',
+            strictDictionaryInference = 'warning',
+            reportMissingImports = 'error',
+            reportUndefinedVariable = 'error',
+            reportUnusedExpression = 'warning',
+            reportCallIssue = 'error',
+            reportIndexIssue = 'error',
+            reportUnhashable = 'error',
+            reportUnusedExcept = 'error',
             reportPossiblyUnboundVariable = 'error',
-            reportDuplicateImport         = 'error',
-            reportUnusedImport            = 'warning',
-            reportUnusedVariable          = 'warning',
-          }
-        }
-      }
-    }
+            reportDuplicateImport = 'error',
+            reportUnusedImport = 'warning',
+            reportUnusedVariable = 'warning',
+          },
+        },
+      },
+    },
   }
   -- configs['pylsp'] = {
   --   root_dir = function(filename, bufnr)
@@ -240,7 +240,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = vim.tbl_extend('keep', vim.tbl_keys(lsp_configs), {'rust_analyzer'})
+  ensure_installed = vim.tbl_extend('keep', vim.tbl_keys(lsp_configs), { 'rust_analyzer' }),
 })
 
 -- Add additional capabilities supported by nvim-cmp
