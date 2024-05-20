@@ -277,12 +277,6 @@ local diagnostic_icons = {
   INFO = '',
 }
 
--- Define the diagnostic signs.
-for severity, icon in pairs(diagnostic_icons) do
-  local hl = 'DiagnosticSign' .. severity:sub(1, 1) .. severity:sub(2):lower()
-  vim.fn.sign_define(hl, { text = icon, texthl = hl })
-end
-
 vim.diagnostic.config({
   virtual_text = false,
   float = {
@@ -296,7 +290,9 @@ vim.diagnostic.config({
     end,
   },
   -- Disable signs in the gutter.
-  signs = false,
+  signs = {
+    text = diagnostic_icons,
+  },
 })
 
 -- https://github.com/MariaSolOs/dotfiles/blob/main/.config/nvim/lua/lsp.lua

@@ -42,7 +42,13 @@ function M.setup_codelens_refresh(client, bufnr)
   vim.api.nvim_create_autocmd(cl_events, {
     group = group,
     buffer = bufnr,
-    callback = vim.lsp.codelens.refresh,
+    callback = function(...)
+      local ok2 = pcall(vim.lsp.codelens.refresh, ...)
+      if not ok2 then
+        vim.notify('Error calling codelense refresh', vim.log.levels.ERROR)
+        return true -- remove this autocommand
+      end
+    end
   })
 end
 
@@ -105,7 +111,7 @@ function M.on_attach(client, bufnr)
   end
   --   vim.lsp.buf.inlay_hint(bufnr, true)
   -- setup codelens
-  M.setup_codelens_refresh(client, bufnr)
+  -- M.setup_codelens_refresh(client, bufnr)
 end
 
 return M

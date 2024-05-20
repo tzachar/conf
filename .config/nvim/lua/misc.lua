@@ -2,6 +2,7 @@ local vim = vim
 
 local ignore_decl_per_source = {
   ['Pyright'] = 'type: ignore',
+  ['basedpyright'] = 'type: ignore',
   ['mypy'] = 'type: ignore',
   ['flake8'] = 'noqa',
   ['pyflakes'] = 'noqa',
