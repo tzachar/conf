@@ -48,7 +48,7 @@ function M.setup_codelens_refresh(client, bufnr)
         vim.notify('Error calling codelense refresh', vim.log.levels.ERROR)
         return true -- remove this autocommand
       end
-    end
+    end,
   })
 end
 
