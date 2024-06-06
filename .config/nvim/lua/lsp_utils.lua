@@ -43,7 +43,7 @@ function M.setup_codelens_refresh(client, bufnr)
     group = group,
     buffer = bufnr,
     callback = function(...)
-      local ok2 = pcall(vim.lsp.codelens.refresh, {bufnr = bufnr})
+      local ok2 = pcall(vim.lsp.codelens.refresh, { bufnr = bufnr })
       if not ok2 then
         vim.notify('Error calling codelense refresh', vim.log.levels.ERROR)
         return true -- remove this autocommand

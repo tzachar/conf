@@ -576,27 +576,27 @@ return {
   -- { 'kkharji/sqlite.lua', lazy = true },
 
   {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
+    'jackMort/ChatGPT.nvim',
+    event = 'VeryLazy',
     config = function()
-      require("chatgpt").setup({
+      require('chatgpt').setup({
         openai_edit_params = {
-          model = "gpt-4o",
-        }
+          model = 'gpt-4o',
+        },
       })
     end,
     dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "folke/trouble.nvim",
-      "nvim-telescope/telescope.nvim"
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'folke/trouble.nvim',
+      'nvim-telescope/telescope.nvim',
     },
     cmd = {
       'ChatGPT',
       'ChatGPTActAs',
       'ChatGPTEditWithInstructions',
       'ChatGPTEditWithInstructions',
-    }
+    },
   },
   {
     'jackMort/ChatGPT.nvim',
