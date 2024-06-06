@@ -4,9 +4,9 @@
 
 # pylint: disable=unused-import
 
-import importlib.util
-import os
-import socket
+# import importlib.util
+# import os
+# import socket
 import subprocess
 import warnings
 
@@ -294,6 +294,7 @@ def _load_rich(first=True):
         return
 
     except ModuleNotFoundError:
+        print('install rich!')
         pass
     if not first:
         return

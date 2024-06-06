@@ -15,7 +15,7 @@
 	editor = nvim
 	pager = less -FX
 [diff]
-	tool = meld
+	tool = nvimdiff
 	colorMoved = zebra
 [difftool]
     prompt = false

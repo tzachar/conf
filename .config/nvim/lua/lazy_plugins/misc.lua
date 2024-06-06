@@ -339,8 +339,15 @@ return {
     },
   },
 
+  -- highlight whitespace at eol
   {
     'ntpeters/vim-better-whitespace',
+    event = 'VeryLazy',
+  },
+
+  -- strip white space from eol as you type
+  {
+    'lewis6991/spaceless.nvim',
     event = 'VeryLazy',
   },
 
@@ -395,7 +402,7 @@ return {
     config = function()
       require('trouble').setup({})
     end,
-    cmd = { 'TroubleToggle' },
+    cmd = { 'Trouble' },
   },
 
   -- matchit
@@ -569,8 +576,27 @@ return {
   -- { 'kkharji/sqlite.lua', lazy = true },
 
   {
-    'aduros/ai.vim',
-    cmd = { 'AI' },
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup({
+        openai_edit_params = {
+          model = "gpt-4o",
+        }
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim",
+      "nvim-telescope/telescope.nvim"
+    },
+    cmd = {
+      'ChatGPT',
+      'ChatGPTActAs',
+      'ChatGPTEditWithInstructions',
+      'ChatGPTEditWithInstructions',
+    }
   },
   {
     'jackMort/ChatGPT.nvim',
