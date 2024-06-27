@@ -699,8 +699,8 @@ return {
     opts = {},
   },
   {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {},
   },
   {
@@ -716,13 +716,13 @@ return {
     --     "command": { "action": "sendInput", "input": "\u001b[13;2u" }
     --   }
     -- ]
-    "ysmb-wtsg/in-and-out.nvim",
+    'ysmb-wtsg/in-and-out.nvim',
     -- keys = { '<C-CR>', nil, mode = { 'i' } },
     config = function()
-      vim.keymap.set("i", "<C-CR>", function()
+      vim.keymap.set('i', '<C-CR>', function()
         dump('asdasdasd')
-        require("in-and-out").in_and_out()
-      end, {noremap = true})
+        require('in-and-out').in_and_out()
+      end, { noremap = true })
     end,
   },
 }
