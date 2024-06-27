@@ -694,4 +694,35 @@ return {
       'SplitrunNew',
     },
   },
+  {
+    'norcalli/nvim-terminal.lua',
+    opts = {},
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
+  },
+  {
+    -- for this to work under windows terminal, add the following to the json
+    -- config:
+    -- "actions": [
+    --   {
+    --     "keys": "ctrl+enter",
+    --     "command": { "action": "sendInput", "input": "\u001b[13;5u" }
+    --   },
+    --   {
+    --     "keys": "shift+enter",
+    --     "command": { "action": "sendInput", "input": "\u001b[13;2u" }
+    --   }
+    -- ]
+    "ysmb-wtsg/in-and-out.nvim",
+    -- keys = { '<C-CR>', nil, mode = { 'i' } },
+    config = function()
+      vim.keymap.set("i", "<C-CR>", function()
+        dump('asdasdasd')
+        require("in-and-out").in_and_out()
+      end, {noremap = true})
+    end,
+  },
 }

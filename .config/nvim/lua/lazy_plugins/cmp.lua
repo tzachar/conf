@@ -317,7 +317,8 @@ return {
   {
     'hrsh7th/nvim-cmp',
     config = setup,
-    lazy = false,
+    lazy = true,
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       {
         'tzachar/cmp-ai',
