@@ -7,7 +7,7 @@ local function setup()
     highlight = {
       enable = true, -- false will disable the whole extension
       -- see https://github.com/nvim-treesitter/nvim-treesitter/issues/1573#issuecomment-2202945329
-      additional_vim_regex_highlighting = { "python" },
+      additional_vim_regex_highlighting = { 'python' },
       disable = {
         -- "python",
       }, -- list of language that will be disabled

@@ -33,26 +33,26 @@ local function setup()
     treesitter = '[TS]',
     fuzzy_buffer = '[FZ]',
     fuzzy_path = '[FZ]',
-    HF = "",
-    OpenAI = "",
-    Codestral = "",
-    Bard = "",
+    HF = '',
+    OpenAI = '',
+    Codestral = '',
+    Bard = '',
   }
   local regular_format = lspkind.cmp_format({
-      mode = "symbol",
-      maxwidth = 80,
-      ellipsis_char = '...',
-      show_labelDetails = true,
-      menu = menu_mapping,
+    mode = 'symbol',
+    maxwidth = 80,
+    ellipsis_char = '...',
+    show_labelDetails = true,
+    menu = menu_mapping,
   })
   local ml_format = lspkind.cmp_format({
-      mode = "symbol",
-      maxwidth = 80,
-      ellipsis_char = '...',
-      show_labelDetails = true,
-      menu = {
-        cmp_tabnine = '[ML]',
-      },
+    mode = 'symbol',
+    maxwidth = 80,
+    ellipsis_char = '...',
+    show_labelDetails = true,
+    menu = {
+      cmp_tabnine = '[ML]',
+    },
   })
 
   local comparators = {
