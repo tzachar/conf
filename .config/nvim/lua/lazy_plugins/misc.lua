@@ -403,6 +403,43 @@ return {
       require('trouble').setup({})
     end,
     cmd = { 'Trouble' },
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xd",
+        "<cmd>Trouble todo toggle<cr>",
+        desc = "TODO (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
   },
 
   -- matchit
@@ -410,6 +447,7 @@ return {
     'andymass/vim-matchup',
     config = function()
       vim.g.matchup_delim_stopline = 30000
+      vim.g.matchup_matchparen_offscreen = {}
     end,
   },
 
@@ -661,12 +699,12 @@ return {
   --     })
   --   end,
   -- },
-  {
-    'rcarriga/nvim-notify',
-    config = function()
-      vim.notify = require('notify')
-    end,
-  },
+  -- {
+  --   'rcarriga/nvim-notify',
+  --   config = function()
+  --     vim.notify = require('notify')
+  --   end,
+  -- },
 
   {
     'tzachar/highlight-undo.nvim',
@@ -725,4 +763,32 @@ return {
       end, { noremap = true })
     end,
   },
+  {
+    "svban/YankAssassin.nvim",
+    config = function()
+      require("YankAssassin").setup {
+        auto = true, -- if auto is true, autocmds are used. Whenever y is used anywhere, the cursor doesn't move to start
+      }
+      -- Optional Mappings
+      vim.keymap.set({ "x", "n" }, "gy", "<Plug>(YADefault)", { silent = true })
+      vim.keymap.set({ "x", "n" }, "<leader>y", "<Plug>(YANoMove)", { silent = true })
+    end,
+  },
+  -- {
+  --   "Isrothy/neominimap.nvim",
+  --   enabled = true,
+  --   lazy = false,
+  --   init = function()
+  --     vim.opt.wrap = false -- Recommended
+  --     vim.opt.sidescrolloff = 36 -- It's recommended to set a large value
+  --     vim.g.neominimap = {
+  --       auto_enable = true,
+  --       exclude_filetypes = { "help" },
+  --       buf_filter = function(bufnr)
+  --         local line_count = vim.api.nvim_buf_line_count(bufnr)
+  --         return line_count < 4096 * 4
+  --       end,
+  --     }
+  --   end,
+  -- },
 }

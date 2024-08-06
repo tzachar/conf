@@ -26,7 +26,6 @@ return {
   -- ls progress
   {
     'j-hui/fidget.nvim',
-    tag = 'legacy',
     event = 'LspAttach',
     opts = {
       -- options

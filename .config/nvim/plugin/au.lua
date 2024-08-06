@@ -42,11 +42,11 @@ vim.api.nvim_create_autocmd('FileType', {
   group = ftypes,
   pattern = { 'yaml', 'lua' },
   callback = function()
-    vim.api.nvim_buf_set_option(0, 'ts', 2)
-    vim.api.nvim_buf_set_option(0, 'sts', 2)
-    vim.api.nvim_buf_set_option(0, 'sw', 2)
-    vim.api.nvim_buf_set_option(0, 'expandtab', true)
-    vim.api.nvim_win_set_option(0, 'number', true)
+    vim.api.nvim_set_option_value('ts', 2, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('sts', 2, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('sw', 2, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('expandtab', true, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('number', true, {scope="local", win=0})
   end,
 })
 
@@ -54,12 +54,12 @@ vim.api.nvim_create_autocmd('FileType', {
   group = ftypes,
   pattern = 'python',
   callback = function()
-    vim.api.nvim_buf_set_option(0, 'ts', 4)
-    vim.api.nvim_buf_set_option(0, 'sts', 4)
-    vim.api.nvim_buf_set_option(0, 'sw', 4)
-    vim.api.nvim_buf_set_option(0, 'expandtab', true)
-    vim.api.nvim_buf_set_option(0, 'textwidth', 120)
-    vim.api.nvim_win_set_option(0, 'number', true)
+    vim.api.nvim_set_option_value('ts', 4, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('sts', 4, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('sw', 4, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('expandtab', true, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('textwidth', 120, {scope="local", buf=0})
+    vim.api.nvim_set_option_value('number', true, {scope="local", win=0})
     vim.api.nvim_set_hl(0, '@sql', { bg = '#282828' })
   end,
 })

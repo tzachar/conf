@@ -87,4 +87,10 @@ return {
     version = '^4', -- Recommended
     ft = { 'rust' },
   },
+  {
+    'Aityz/cratesearch.nvim',
+    config = function()
+      require("cratesearch").setup()
+    end
+  },
 }

@@ -112,12 +112,4 @@ nest.applyKeymaps({
     { '<leader>nc', "<cmd>lua require('neogen').generate({ type = 'class' })<cr>" },
     { '<leader>nt', "<cmd>lua require('neogen').generate({ type = 'type' })<cr>" },
   } },
-
-  { mode = 'n', {
-    { '<leader>xx', '<cmd>TroubleToggle<cr>' },
-    { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>' },
-    { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>' },
-    { '<leader>xq', '<cmd>TroubleToggle quickfix<cr>' },
-    { '<leader>xl', '<cmd>loclist<cr>' },
-  } },
 })

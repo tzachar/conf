@@ -22,7 +22,7 @@ local function setup()
     -- snippet_placeholder = '';
   })
 
-  local source_mapping = {
+  local menu_mapping = {
     buffer = '[Buffer]',
     nvim_lsp = '[LSP]',
     nvim_lua = '[Lua]',
@@ -33,7 +33,27 @@ local function setup()
     treesitter = '[TS]',
     fuzzy_buffer = '[FZ]',
     fuzzy_path = '[FZ]',
+    HF = "",
+    OpenAI = "",
+    Codestral = "",
+    Bard = "",
   }
+  local regular_format = lspkind.cmp_format({
+      mode = "symbol",
+      maxwidth = 80,
+      ellipsis_char = '...',
+      show_labelDetails = true,
+      menu = menu_mapping,
+  })
+  local ml_format = lspkind.cmp_format({
+      mode = "symbol",
+      maxwidth = 80,
+      ellipsis_char = '...',
+      show_labelDetails = true,
+      menu = {
+        cmp_tabnine = '[ML]',
+      },
+  })
 
   local comparators = {
     require('cmp_tabnine.compare'),
@@ -122,23 +142,11 @@ local function setup()
     },
     formatting = {
       format = function(entry, vim_item)
-        vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = 'symbol' })
-        vim_item.menu = source_mapping[entry.source.name]
-        if entry.source.name == 'cmp_tabnine' then
-          local detail = (entry.completion_item.labelDetails or {}).detail
-          vim_item.kind = ''
-          if detail and detail:find('.*%%.*') then
-            vim_item.kind = vim_item.kind .. ' ' .. detail
-          end
-
-          if (entry.completion_item.data or {}).multiline then
-            vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
-          end
+        if entry.source.name == 'cmp_tabnine' and (entry.completion_item.data or {}).multiline then
+          return ml_format(entry, vim_item)
+        else
+          return regular_format(entry, vim_item)
         end
-
-        local maxwidth = 80
-        vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-        return vim_item
       end,
     },
 
