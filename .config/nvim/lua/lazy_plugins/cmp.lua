@@ -39,20 +39,20 @@ local function setup()
     Bard = '',
   }
   local regular_format = lspkind.cmp_format({
-      mode = "symbol",
-      maxwidth = 40,
-      ellipsis_char = '...',
-      show_labelDetails = true,
-      menu = menu_mapping,
+    mode = 'symbol',
+    maxwidth = 40,
+    ellipsis_char = '...',
+    show_labelDetails = true,
+    menu = menu_mapping,
   })
   local ml_format = lspkind.cmp_format({
-      mode = "symbol",
-      maxwidth = 40,
-      ellipsis_char = '...',
-      show_labelDetails = true,
-      menu = {
-        cmp_tabnine = '[ML]',
-      },
+    mode = 'symbol',
+    maxwidth = 40,
+    ellipsis_char = '...',
+    show_labelDetails = true,
+    menu = {
+      cmp_tabnine = '[ML]',
+    },
   })
 
   local comparators = {
