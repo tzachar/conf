@@ -13,7 +13,11 @@ local function setup()
         sh = {
           command = { 'zsh' },
         },
-        python = require('iron.fts.python').ipython,
+        python = {
+          format = require("iron.fts.common").bracketed_paste,
+          -- command = require('iron.fts.python').ipython,
+          command = { "ipython", "--no-autoindent" },
+        },
       },
       -- repl_open_cmd = require('iron.view').curry.right(60),
       repl_open_cmd = 'rightbelow vsplit',
@@ -62,7 +66,7 @@ vim.api.nvim_create_autocmd('BufWinLeave', {
 
 return {
   {
-    'hkupty/iron.nvim',
+    'Vigemus/iron.nvim',
     lazy = true,
     config = setup,
     cmd = {

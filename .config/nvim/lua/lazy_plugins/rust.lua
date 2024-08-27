@@ -44,10 +44,22 @@ return {
     config = function()
       local crates = require('crates')
       crates.setup({
-        src = {
+        completion = {
           cmp = {
             enabled = true,
           },
+          crates = {
+            enabled = true ,-- disabled by default
+            max_results = 8, -- The maximum number of search results to display
+            min_chars = 3, -- The minimum number of charaters to type before completions begin appearing
+          }
+        },
+        lsp = {
+          enabled = true,
+          on_attach = require('lsp_utils').on_attach,
+          actions = true,
+          completion = true,
+          hover = true,
         },
       })
       -- add to cmp
