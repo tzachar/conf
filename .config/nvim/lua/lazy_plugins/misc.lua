@@ -445,6 +445,7 @@ return {
   -- matchit
   {
     'andymass/vim-matchup',
+    enabled = true,
     config = function()
       vim.g.matchup_delim_stopline = 30000
       vim.g.matchup_matchparen_offscreen = {}
@@ -708,8 +709,19 @@ return {
 
   {
     'tzachar/highlight-undo.nvim',
+    event = 'VeryLazy',
     config = function()
-      require('highlight-undo').setup({})
+      require('highlight-undo').setup({
+        keymaps = {
+          lll = {
+            desc = "undo",
+            hlgroup = 'HighlightUndo',
+            mode = 'n',
+            lhs = '<C-a>',
+            opts = {},
+          },
+        }
+      })
     end,
   },
   -- {
@@ -758,7 +770,6 @@ return {
     -- keys = { '<C-CR>', nil, mode = { 'i' } },
     config = function()
       vim.keymap.set('i', '<C-CR>', function()
-        dump('asdasdasd')
         require('in-and-out').in_and_out()
       end, { noremap = true })
     end,
@@ -791,4 +802,12 @@ return {
   --     }
   --   end,
   -- },
+  -- prettify quickfix
+  {
+    'stevearc/quicker.nvim',
+    event = "FileType qf",
+    ---@module "quicker"
+    ---@type quicker.SetupOptions
+    opts = {},
+  },
 }

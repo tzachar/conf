@@ -14,6 +14,9 @@ vim.g.rustaceanvim = {
   },
   -- LSP configuration
   server = {
+    -- TODO
+    -- see https://github.com/hrsh7th/cmp-nvim-lsp/issues/72
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
     on_attach = function(client, bufnr)
       require('lsp_utils').on_attach(client, bufnr)
       -- you can also put keymaps in here
@@ -31,6 +34,9 @@ vim.g.rustaceanvim = {
         inlayHints = {
           renderColons = true,
         },
+        diagnostic = {
+          refreshSupport = false,
+        }
       },
     },
   },

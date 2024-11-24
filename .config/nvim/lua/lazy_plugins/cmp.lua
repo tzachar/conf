@@ -166,7 +166,7 @@ local function setup()
             local bufs = { vim.api.nvim_get_current_buf() }
             for _, buf in ipairs(vim.api.nvim_list_bufs()) do
               if vim.api.nvim_buf_is_loaded(buf) and buf ~= bufs[1] then
-                local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
+                local buftype = vim.api.nvim_get_option_value('buftype', {buf = buf})
                 if buftype ~= 'nofile' and buftype ~= 'prompt' then
                   bufs[#bufs + 1] = buf
                 end
@@ -323,7 +323,9 @@ end
 
 return {
   {
-    'hrsh7th/nvim-cmp',
+    -- 'hrsh7th/nvim-cmp',
+    'iguanacucumber/magazine.nvim',
+    name = "nvim-cmp",
     config = setup,
     lazy = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
@@ -333,15 +335,22 @@ return {
         dependencies = 'nvim-lua/plenary.nvim',
       },
       {
-        'hrsh7th/cmp-nvim-lsp',
+        'iguanacucumber/mag-nvim-lsp', name = "cmp-nvim-lsp", opts = {},
         dependencies = 'onsails/lspkind-nvim',
       },
-      { 'hrsh7th/cmp-buffer' },
+      -- { 'hrsh7th/cmp-buffer' },
+      -- { 'hrsh7th/cmp-cmdline' },
+      -- { 'hrsh7th/cmp-nvim-lua' },
+      { "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+      { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+      { "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
+      -- {
+      --   'hrsh7th/cmp-nvim-lsp',
+      --   dependencies = 'onsails/lspkind-nvim',
+      -- },
       { 'hrsh7th/cmp-calc' },
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-emoji' },
-      { 'hrsh7th/cmp-nvim-lua' },
-      { 'hrsh7th/cmp-cmdline' },
       {
         'tzachar/cmp-tabnine',
         build = './install.sh',

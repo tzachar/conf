@@ -108,6 +108,10 @@ local function setup_servers()
             reportDuplicateImport = 'error',
             reportUnusedImport = 'warning',
             reportUnusedVariable = 'warning',
+            reportMissingParameterType = false,
+            reportUnknownParameterType = false,
+            reportUnknownArgumentType = false,
+            reportUnknownMemberType = false,
           },
         },
       },
@@ -173,7 +177,7 @@ local function setup_servers()
     -- single_file_support = true,
   }
   configs['graphql'] = {}
-  configs['bufls'] = {}
+  configs['buf_ls'] = {}
   configs['lua_ls'] = {
     settings = {
       Lua = {
@@ -211,7 +215,7 @@ local function setup_servers()
       },
     },
   }
-  configs['tsserver'] = {
+  configs['ts_ls'] = {
     settings = {
       tsserver = {
         -- filetypes = { "sh", "zsh" };
@@ -377,4 +381,16 @@ local methods = vim.lsp.protocol.Methods
 if methods ~= nil and methods.textDocument_hover ~= nil then
   vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover)
   vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vim.lsp.handlers.signature_help)
+end
+
+-- temp fix for rust analyzer
+-- https://github.com/neovim/neovim/issues/30985
+for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+    local default_diagnostic_handler = vim.lsp.handlers[method]
+    vim.lsp.handlers[method] = function(err, result, context, config)
+        if err ~= nil and err.code == -32802 then
+            return
+        end
+        return default_diagnostic_handler(err, result, context, config)
+    end
 end

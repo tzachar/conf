@@ -353,6 +353,8 @@ function dump(...) ---@diagnostic disable-line
   print(unpack(objects))
 end
 
+-- vim.keymap.set('n', '<C-m>', "<cmd>lua dump(vim.uv.gettimeofday())<cr>", {})
+
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
