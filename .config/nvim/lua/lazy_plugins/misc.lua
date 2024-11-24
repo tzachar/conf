@@ -714,13 +714,13 @@ return {
       require('highlight-undo').setup({
         keymaps = {
           lll = {
-            desc = "undo",
+            desc = 'undo',
             hlgroup = 'HighlightUndo',
             mode = 'n',
             lhs = '<C-a>',
             opts = {},
           },
-        }
+        },
       })
     end,
   },
@@ -805,7 +805,7 @@ return {
   -- prettify quickfix
   {
     'stevearc/quicker.nvim',
-    event = "FileType qf",
+    event = 'FileType qf',
     ---@module "quicker"
     ---@type quicker.SetupOptions
     opts = {},

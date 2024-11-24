@@ -36,7 +36,7 @@ vim.g.rustaceanvim = {
         },
         diagnostic = {
           refreshSupport = false,
-        }
+        },
       },
     },
   },
