@@ -100,7 +100,7 @@ local function setup()
       },
     },
     matchup = {
-      enable = true, -- mandatory, false will disable the whole extension
+      enable = false, -- mandatory, false will disable the whole extension
       disable = {}, -- optional, list of language that will be disabled
       enable_quotes = true,
     },
@@ -158,9 +158,9 @@ return {
           if vim.b.semantic_tokens then
             return true
           end
-          local clients = (vim.lsp.get_clients or vim.lsp.get_active_clients)({ bufnr = bufnr })
+          local clients = (vim.lsp.get_clients or vim.lsp.get_clients)({ bufnr = bufnr })
           for _, c in pairs(clients) do
-            if c.name ~= 'null-ls' and c.supports_method('textDocument/semanticTokens/full') then
+            if c.name ~= 'null-ls' and c.supports_method('textDocument/semanticTokens/full', 0) then
               vim.b.semantic_tokens = true
               return vim.b.semantic_tokens
             end

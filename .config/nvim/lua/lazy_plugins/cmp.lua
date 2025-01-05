@@ -4,13 +4,16 @@ local function setup()
   local compare = require('cmp.config.compare')
   local types = require('cmp.types')
   local tabnine = require('cmp_tabnine.config')
+  local colorful = require("colorful-menu")
 
-  require('cmp_ai.config'):setup({
-    -- provider = 'Bard',
-    -- provider = 'HF',
-    provider = 'OpenAI',
-    model = 'gpt-4',
-  })
+  if os.getenv('OPENAI_API_KEY') then
+    require('cmp_ai.config'):setup({
+      -- provider = 'Bard',
+      -- provider = 'HF',
+      provider = 'OpenAI',
+      model = 'gpt-4',
+    })
+  end
 
   tabnine:setup({
     max_lines = 1000,
@@ -73,6 +76,15 @@ local function setup()
   }
 
   cmp.setup({
+    performance = {
+      debounce = 20,
+      throttle = 30,
+      fetching_timeout = 500,
+      filtering_context_budget = 3,
+      confirm_resolve_timeout = 80,
+      async_budget = 1,
+      max_view_entries = 200,
+    },
     snippet = {
       expand = function(args)
         vim.snippet.expand(args.body)
@@ -145,7 +157,26 @@ local function setup()
         if entry.source.name == 'cmp_tabnine' and (entry.completion_item.data or {}).multiline then
           return ml_format(entry, vim_item)
         else
-          return regular_format(entry, vim_item)
+          -- return regular_format(entry, vim_item)
+          local completion_item = entry:get_completion_item()
+          local highlights_info = colorful.highlights(completion_item, vim.bo.filetype)
+
+          -- error, such as missing parser, fallback to use raw label.
+          if highlights_info == nil then
+            vim_item.abbr = completion_item.label
+          else
+            vim_item.abbr_hl_group = highlights_info.highlights
+            vim_item.abbr = highlights_info.text
+          end
+
+          local kind = require("lspkind").cmp_format({
+            mode = "symbol_text",
+          })(entry, vim_item)
+          local strings = vim.split(kind.kind, "%s", { trimempty = true })
+          vim_item.kind = " " .. (strings[1] or "") .. " "
+          vim_item.menu = ""
+
+          return vim_item
         end
       end,
     },
@@ -379,6 +410,9 @@ return {
         'tzachar/cmp-fuzzy-path',
         dependencies = 'tzachar/fuzzy.nvim',
       },
+      {
+        'xzbdmw/colorful-menu.nvim',
+      }
     },
   },
 }

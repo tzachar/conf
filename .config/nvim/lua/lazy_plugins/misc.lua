@@ -706,7 +706,6 @@ return {
   --     vim.notify = require('notify')
   --   end,
   -- },
-
   {
     'tzachar/highlight-undo.nvim',
     event = 'VeryLazy',
