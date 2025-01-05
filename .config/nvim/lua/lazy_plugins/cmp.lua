@@ -154,10 +154,13 @@ local function setup()
     },
     formatting = {
       format = function(entry, vim_item)
-        if entry.source.name == 'cmp_tabnine' and (entry.completion_item.data or {}).multiline then
+        local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
+        dump(mode)
+        if mode == 'c' then
+          return regular_format(entry, vim_item)
+        elseif entry.source.name == 'cmp_tabnine' and (entry.completion_item.data or {}).multiline then
           return ml_format(entry, vim_item)
         else
-          -- return regular_format(entry, vim_item)
           local completion_item = entry:get_completion_item()
           local highlights_info = colorful.highlights(completion_item, vim.bo.filetype)
 
