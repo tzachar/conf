@@ -4,7 +4,7 @@ local function setup()
   local compare = require('cmp.config.compare')
   local types = require('cmp.types')
   local tabnine = require('cmp_tabnine.config')
-  local colorful = require("colorful-menu")
+  local colorful = require('colorful-menu')
 
   if os.getenv('OPENAI_API_KEY') then
     require('cmp_ai.config'):setup({
@@ -169,12 +169,12 @@ local function setup()
             vim_item.abbr = highlights_info.text
           end
 
-          local kind = require("lspkind").cmp_format({
-            mode = "symbol_text",
+          local kind = require('lspkind').cmp_format({
+            mode = 'symbol_text',
           })(entry, vim_item)
-          local strings = vim.split(kind.kind, "%s", { trimempty = true })
-          vim_item.kind = " " .. (strings[1] or "") .. " "
-          vim_item.menu = ""
+          local strings = vim.split(kind.kind, '%s', { trimempty = true })
+          vim_item.kind = ' ' .. (strings[1] or '') .. ' '
+          vim_item.menu = ''
 
           return vim_item
         end
@@ -412,7 +412,7 @@ return {
       },
       {
         'xzbdmw/colorful-menu.nvim',
-      }
+      },
     },
   },
 }
