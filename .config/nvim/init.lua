@@ -49,6 +49,7 @@ vim.opt.hidden = true
 vim.opt.modeline = true
 vim.opt.tagstack = true
 vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
+-- vim.opt.messagesopt = 'wait:500,history:10000'
 
 -- always show the sign column. prevent smoothcursor from jumping the window
 vim.opt.signcolumn = 'yes:1'

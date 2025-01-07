@@ -655,18 +655,18 @@ return {
       'ChatGPTEditWithInstructions',
     },
   },
-  {
-    'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup({
-        disable_filetype = { 'TelescopePrompt' },
-        fast_wrap = {
-          map = '<M-e>',
-          end_key = '$',
-        },
-      })
-    end,
-  },
+  -- {
+  --   'windwp/nvim-autopairs',
+  --   config = function()
+  --     require('nvim-autopairs').setup({
+  --       disable_filetype = { 'TelescopePrompt' },
+  --       fast_wrap = {
+  --         map = '<M-e>',
+  --         end_key = '$',
+  --       },
+  --     })
+  --   end,
+  -- },
   -- {
   --   'altermo/ultimate-autopair.nvim',
   --   event = { 'InsertEnter', 'CmdlineEnter' },

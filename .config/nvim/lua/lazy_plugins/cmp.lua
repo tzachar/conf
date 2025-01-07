@@ -155,19 +155,16 @@ local function setup()
     formatting = {
       format = function(entry, vim_item)
         local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
-        dump(mode)
         if mode == 'c' then
           return regular_format(entry, vim_item)
         elseif entry.source.name == 'cmp_tabnine' and (entry.completion_item.data or {}).multiline then
           return ml_format(entry, vim_item)
         else
-          local completion_item = entry:get_completion_item()
-          local highlights_info = colorful.highlights(completion_item, vim.bo.filetype)
+          local highlights_info = colorful.cmp_highlights(entry)
 
-          -- error, such as missing parser, fallback to use raw label.
-          if highlights_info == nil then
-            vim_item.abbr = completion_item.label
-          else
+          -- if highlight_info==nil, which means missing ts parser, let's fallback to use default `vim_item.abbr`.
+          -- What this plugin offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+          if highlights_info ~= nil then
             vim_item.abbr_hl_group = highlights_info.highlights
             vim_item.abbr = highlights_info.text
           end
@@ -351,8 +348,8 @@ local function setup()
   --   end
   -- }
 
-  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-  cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+  -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 end
 
 return {
