@@ -170,7 +170,7 @@ return {
     end,
   },
   {
-    "cohama/lexima.vim"
+    'cohama/lexima.vim',
   },
   {
     'David-Kunz/treesitter-unit',
