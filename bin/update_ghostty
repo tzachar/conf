@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source /etc/os-release
 GHOSTTY_DEB_URL=$(
    curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | \

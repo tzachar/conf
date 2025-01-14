@@ -1,4 +1,6 @@
 background = 000000
+foreground = wheat
+
 font-family = 'FiraCode Nerd Font Mono'
 keybind = f11=toggle_fullscreen
 font-size = 14
