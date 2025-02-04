@@ -245,8 +245,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 vim.diagnostic.config({ virtual_lines = true })
 vim.keymap.set('n', '<leader>l', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-  end
-)
+end)
 
 require('mason').setup()
 require('mason-lspconfig').setup({
