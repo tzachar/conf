@@ -36,6 +36,7 @@ local function setup_servers()
   add('~/.local/share/nvim/lazy/*')
 
   local configs = {}
+  configs['vale_ls'] = {}
   configs['cssls'] = {}
   configs['vimls'] = {}
   configs['yamlls'] = {
@@ -241,6 +242,11 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
   underline = true,
   update_in_insert = true,
 })
+vim.diagnostic.config({ virtual_lines = true })
+vim.keymap.set('n', '<leader>l', function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+  end
+)
 
 require('mason').setup()
 require('mason-lspconfig').setup({

@@ -209,7 +209,7 @@ def _hist(minimum, maximum, buckets, custbuckets):
             if len(ll) == 0:
                 continue
             try:
-                yield float(ll)
+                yield Decimal(ll)
             except Exception:
                 print(f'cannot parse line {ii + 1}:', ll)
                 pass
