@@ -1,4 +1,4 @@
-export TERMINFO=${HOME}/.local/kitty.app/lib/kitty/terminfo
+export TERMINFO=${HOME}/.terminfo
 
 export HISTORY_SUBSTRING_SEARCH_FUZZY=true
 
