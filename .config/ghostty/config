@@ -2,6 +2,12 @@ background = 000000
 foreground = wheat
 
 font-family = 'FiraCode Nerd Font Mono'
+font-size = 15
+# window-decoration = false
+gtk-tabs-location = hidden
+copy-on-select = true
+scrollback-limit = 100000
+
+
 keybind = f11=toggle_fullscreen
-font-size = 14
-window-decoration = false
+keybind = ctrl+enter=unbind
