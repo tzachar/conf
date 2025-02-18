@@ -81,7 +81,7 @@ local function setup_servers()
   --   },
   -- }
   configs['basedpyright'] = {
-    root_dir = function(filename, bufnr)  ---@diagnostic disable-line
+    root_dir = function(filename, bufnr) ---@diagnostic disable-line
       local util = require('lspconfig.util')
       local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename)
       if root then
@@ -310,21 +310,21 @@ vim.diagnostic.config({
 local hover = vim.lsp.buf.hover
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.lsp.buf.hover = function()
-    return hover {
-        border = 'rounded',
-        max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
-    }
+  return hover({
+    border = 'rounded',
+    max_height = math.floor(vim.o.lines * 0.5),
+    max_width = math.floor(vim.o.columns * 0.4),
+  })
 end
 
 local signature_help = vim.lsp.buf.signature_help
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.lsp.buf.signature_help = function()
-    return signature_help {
-        border = 'rounded',
-        max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
-    }
+  return signature_help({
+    border = 'rounded',
+    max_height = math.floor(vim.o.lines * 0.5),
+    max_width = math.floor(vim.o.columns * 0.4),
+  })
 end
 
 -- temp fix for rust analyzer
