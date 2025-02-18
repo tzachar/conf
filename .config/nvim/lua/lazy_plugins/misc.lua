@@ -1,12 +1,5 @@
 return {
   {
-    'LunarVim/bigfile.nvim',
-    opts = {
-      filesize = 2,
-      pattern = { '*' },
-    },
-  },
-  {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'tzachar/local-highlight.nvim',
@@ -219,74 +212,74 @@ return {
     event = 'VeryLazy',
   },
   { 'godlygeek/tabular', cmd = 'Tabularize' },
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    event = 'BufReadPre',
-    opts = {
-      indent = {
-        char = '│',
-        tab_char = '│',
-        smart_indent_cap = true,
-        priority = 2,
-      },
-      whitespace = { remove_blankline_trail = true },
-      scope = {
-        enabled = true,
-        char = '┃',
-        show_start = false,
-        show_end = false,
-        highlight = { 'IndentBlanklineContextChar' },
-        injected_languages = true,
-        priority = 1000,
-        include = {
-          node_type = {
-            ['*'] = {
-              'argument_list',
-              'arguments',
-              'assignment_statement',
-              'Block',
-              'chunk',
-              'class',
-              'ContainerDecl',
-              'dictionary',
-              'do_block',
-              'do_statement',
-              'element',
-              'except',
-              'FnCallArguments',
-              'for',
-              'for_statement',
-              'function',
-              'function_declaration',
-              'function_definition',
-              'if_statement',
-              'IfExpr',
-              'IfStatement',
-              'import',
-              'InitList',
-              'list_literal',
-              'method',
-              'object',
-              'ParamDeclList',
-              'repeat_statement',
-              'selector',
-              'SwitchExpr',
-              'table',
-              'table_constructor',
-              'try',
-              'tuple',
-              'type',
-              'var',
-              'while',
-              'while_statement',
-              'with',
-            },
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   main = 'ibl',
+  --   event = 'BufReadPre',
+  --   opts = {
+  --     indent = {
+  --       char = '│',
+  --       tab_char = '│',
+  --       smart_indent_cap = true,
+  --       priority = 2,
+  --     },
+  --     whitespace = { remove_blankline_trail = true },
+  --     scope = {
+  --       enabled = true,
+  --       char = '┃',
+  --       show_start = false,
+  --       show_end = false,
+  --       highlight = { 'IndentBlanklineContextChar' },
+  --       injected_languages = true,
+  --       priority = 1000,
+  --       include = {
+  --         node_type = {
+  --           ['*'] = {
+  --             'argument_list',
+  --             'arguments',
+  --             'assignment_statement',
+  --             'Block',
+  --             'chunk',
+  --             'class',
+  --             'ContainerDecl',
+  --             'dictionary',
+  --             'do_block',
+  --             'do_statement',
+  --             'element',
+  --             'except',
+  --             'FnCallArguments',
+  --             'for',
+  --             'for_statement',
+  --             'function',
+  --             'function_declaration',
+  --             'function_definition',
+  --             'if_statement',
+  --             'IfExpr',
+  --             'IfStatement',
+  --             'import',
+  --             'InitList',
+  --             'list_literal',
+  --             'method',
+  --             'object',
+  --             'ParamDeclList',
+  --             'repeat_statement',
+  --             'selector',
+  --             'SwitchExpr',
+  --             'table',
+  --             'table_constructor',
+  --             'try',
+  --             'tuple',
+  --             'type',
+  --             'var',
+  --             'while',
+  --             'while_statement',
+  --             'with',
+  --           },
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 
   -- add cmd utils as vim commands
   { 'tpope/vim-eunuch', cmd = {
@@ -614,47 +607,6 @@ return {
   -- sqlite lua
   -- { 'kkharji/sqlite.lua', lazy = true },
 
-  {
-    'jackMort/ChatGPT.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('chatgpt').setup({
-        openai_edit_params = {
-          model = 'gpt-4o',
-        },
-      })
-    end,
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'folke/trouble.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
-    cmd = {
-      'ChatGPT',
-      'ChatGPTActAs',
-      'ChatGPTEditWithInstructions',
-      'ChatGPTEditWithInstructions',
-    },
-  },
-  {
-    'jackMort/ChatGPT.nvim',
-    config = function()
-      require('chatgpt').setup({
-        -- optional configuration
-      })
-    end,
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
-    cmd = {
-      'ChatGPT',
-      'ChatGPTActAs',
-      'ChatGPTEditWithInstructions',
-    },
-  },
   -- {
   --   'windwp/nvim-autopairs',
   --   config = function()
