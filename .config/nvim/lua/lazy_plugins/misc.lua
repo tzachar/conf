@@ -708,20 +708,8 @@ return {
   -- },
   {
     'tzachar/highlight-undo.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('highlight-undo').setup({
-        keymaps = {
-          lll = {
-            desc = 'undo',
-            hlgroup = 'HighlightUndo',
-            mode = 'n',
-            lhs = '<C-a>',
-            opts = {},
-          },
-        },
-      })
-    end,
+    -- event = 'VeryLazy',
+    opts = {},
   },
   -- {
   --   "max397574/better-escape.nvim",

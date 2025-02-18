@@ -96,59 +96,6 @@ vim.opt.diffopt = vim.opt.diffopt + 'linematch:60'
 
 vim.opt.shada = [[!,'100,<50,s10,h,%]]
 
--- set filetypes
--- filetype on
--- filetype plugin indent on
-
--- syntax on		" Default to no syntax highlightning
-
--- augroup ftypeOptions
--- 	autocmd!
---
--- 	autocmd BufEnter *.tex setlocal makeprg=~/bin/latexmake.sh
--- 	autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>l :execute "!~tzachar/bin/pdflatexmake.sh " . expand("%:r") <cr><cr>
--- 	autocmd BufEnter *.tex nnoremap <buffer> <silent> <Leader>x :execute "!~tzachar/bin/latexmake.sh " . line("."). " " . expand("%:r")<cr><cr>
--- 	autocmd BufEnter *.tex setlocal spell spelllang=en
--- 	autocmd BufEnter *.tex inoremap <buffer> [[ \begin{
--- 	autocmd BufEnter *.tex inoremap <buffer> \i \item
--- 	autocmd BufEnter *.heb.tex setlocal spell spelllang=he
--- 	autocmd BufEnter *.heb.tex setlocal rightleft
--- 	" autocmd BufEnter *.tex nnoremap <buffer> =  <ESC>:call FormatLatexPar(0)<CR>
---
--- 	"js
--- 	autocmd BufEnter *.html set ft=html
--- 	autocmd BufEnter *.html syntax sync fromstart
--- augroup end
-
--- function! UpdateTimeStamp()
--- 	let l:winview = winsaveview()
--- 	%s/LAST_CHANGE "\zs[^"]*/\= strftime("%c")/e
--- 	%s/LAST_CHANGE_DATE "\zs[^"]*/\= strftime("%Y%m%d")/e
--- 	call winrestview(l:winview)
--- endfunction
-
--- augroup TimeStamp
--- 	au!
--- 	au! BufWritePre,FileWritePre,FileAppendPre *.cpp,*.c,*.py,*.h,*.hpp :call UpdateTimeStamp()
--- augroup END
-
--- vim -b : edit binary using xxd-format!
-
--- augroup Binary
--- 	au!
--- 	au BufReadPre  *.bin let &bin=1
--- 	au BufReadPost *.bin if &bin | %!xxd
--- 	au BufReadPost *.bin set ft=xxd | endif
--- 	au BufWritePre *.bin if &bin | %!xxd -r
--- 	au BufWritePre *.bin endif
--- 	au BufWritePost *.bin if &bin | %!xxd
--- 	au BufWritePost *.bin set nomod | endif
--- augroup END
---
---buffergatror oftions
--- vim.g.buffergator_viewport_split_policy="B"
--- vim.g.buffergator_split_size="10"
-
 --spelling highlight
 vim.api.nvim_set_hl(0, 'SpellBad', {
   reverse = true,
@@ -217,35 +164,6 @@ if vim.fn.executable('ag') then
   -- Use ag over grep
   vim.o.grepprg = 'ag --nogroup --nocolor'
 end
-
--- function! PerlFormat(str)
---   let out = system('perl -e "use Text::Autoformat; autoformat {break=>break_wrap, all=>1, left=>1, right=>80};"', a:str)
---   return out
--- endfunction
--- call TextTransform#MakeMappings('', '<Leader>pf', 'PerlFormat')
-
---for dbext
--- vim.g.dbext_default_profile_Vault = 'type=SQLITE:dbname=/home/' . $USER . '/work/vault/db/vault.sqlite'
--- vim.g.dbext_default_SQLITE_cmd_header=".mode list\n.headers ON\n"
--- vim.g.dbext_default_DBI_max_rows = 0
--- augroup project_vault
--- 	au!
---
--- 	fun! SetupDbext()
--- 		DBSetOption profile=Vault
--- 	endfun
---
--- 	" Automatically choose the correct dbext profile
--- 	autocmd BufRead */vault/db/*.sql DBSetOption profile=Vault
--- 	" autocmd BufRead */vault/db/*.sql SetupDbext()
---
--- 	function! DBextPostResult(db_type, buf_nr)
--- 		if a:db_type == 'SQLITE' && line('$') >= 2
--- 			execute ':silent 2,$! showtable -d\| -t -title=1'
--- 		endif
--- 	endfunction
--- augroup end
---
 
 vim.keymap.set('n', 'J', function()
   if vim.bo.filetype == 'rust' then
@@ -357,7 +275,7 @@ end
 -- vim.keymap.set('n', '<C-m>', "<cmd>lua dump(vim.uv.gettimeofday())<cr>", {})
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     'git',
     'clone',

@@ -89,8 +89,8 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.bo.cinkeys = '0{,0},0),0#,!^F,o,O,e,:'
     vim.bo.cindent = true
     vim.g.showmatch = true
-    vim.bo.expandtab = false
-    vim.bo.tabstop = 8
+    vim.bo.expandtab = true
+    vim.bo.tabstop = 4
   end,
 })
 
@@ -102,8 +102,8 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.bo.formatoptions = 'tcqr'
     vim.bo.cindent = true
     vim.bo.showmatch = true
-    vim.bo.expandtab = false
-    vim.bo.tabstop = 8
+    vim.bo.expandtab = true
+    vim.bo.tabstop = 4
   end,
 })
 
