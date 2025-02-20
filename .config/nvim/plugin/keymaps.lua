@@ -52,7 +52,7 @@ nest.applyKeymaps({
       -- } },
 
       -- multipage editing
-      { '<leader>ef', '<cmd>vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>', options = { silent = true } },
+      -- { '<leader>ef', '<cmd>vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>', options = { silent = true } },
 
       -- open init.vim
       { '<leader>ve', '<cmd>vsplit $MYVIMRC<cr>G' },

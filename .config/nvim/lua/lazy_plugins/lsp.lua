@@ -36,9 +36,11 @@ return {
 
   {
     'aznhe21/actions-preview.nvim',
+    dependencies = "MunifTanjim/nui.nvim",
     config = function()
       require('actions-preview').setup({
         backend = { 'nui', 'telescope' },
+        -- backend = { 'snacks' },
       })
     end,
   },
@@ -55,6 +57,18 @@ return {
         -- Use a sub-list to run only the first available formatter
         javascript = { { 'prettierd', 'prettier' } },
         cpp = { 'clang-format' },
+      },
+    },
+  },
+  {
+    "caliguIa/zendiagram.nvim",
+    opts = {},
+    keys = {
+      {
+        '<leader>m',
+        function() require('zendiagram').open() end,
+        mode = { 'n' },
+        desc = 'Float diagnostics',
       },
     },
   },
