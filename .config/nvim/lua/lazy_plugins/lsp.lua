@@ -36,7 +36,7 @@ return {
 
   {
     'aznhe21/actions-preview.nvim',
-    dependencies = "MunifTanjim/nui.nvim",
+    dependencies = 'MunifTanjim/nui.nvim',
     config = function()
       require('actions-preview').setup({
         backend = { 'nui', 'telescope' },
@@ -61,12 +61,14 @@ return {
     },
   },
   {
-    "caliguIa/zendiagram.nvim",
+    'caliguIa/zendiagram.nvim',
     opts = {},
     keys = {
       {
         '<leader>m',
-        function() require('zendiagram').open() end,
+        function()
+          require('zendiagram').open()
+        end,
         mode = { 'n' },
         desc = 'Float diagnostics',
       },
