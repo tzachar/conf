@@ -4,12 +4,19 @@ return {
     priority = 1000,
     lazy = false,
     config = {
+      explorer = {
+        replace_netrw = true,
+      },
       bigfile = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
       picker = {
         enabled = true,
         sources = {
+          explorer = {
+            matcher = { sort_empty = false, fuzzy = true },
+            auto_close = true,
+          },
           buffers = {
             sort_lastused = false,
             reverse = true,

@@ -298,16 +298,6 @@ return {
     'SudoWrite',
   } },
 
-  {
-    'Numkil/ag.nvim',
-    cmd = {
-      'Ag',
-      'AgAdd',
-      'LAg',
-      'LAgAdd',
-    },
-  },
-
   -- show mappings
   {
     'folke/which-key.nvim',

@@ -162,7 +162,8 @@ vim.keymap.set('n', '<Leader>;', ":call ToggleEndChar(';')<CR>", {})
 -- The Silver Searcher
 if vim.fn.executable('ag') then
   -- Use ag over grep
-  vim.o.grepprg = 'ag --nogroup --nocolor'
+  vim.o.grepprg = 'ag --nogroup --nocolor --vimgrep -- $*'
+  vim.o.grepformat = '%f:%l:%c:%m'
 end
 
 vim.keymap.set('n', 'J', function()
