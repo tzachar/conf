@@ -40,7 +40,7 @@ return {
       require('actions-preview').setup({
         backend = { 'snacks' },
         snacks = {
-          layout = { preset = "default" },
+          layout = { preset = 'default' },
           win = {
             preview = {
               on_buf = function()
