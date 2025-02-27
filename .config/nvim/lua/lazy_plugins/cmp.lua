@@ -325,31 +325,9 @@ local function setup()
       require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
     end,
   })
-  --
-  -- local show, hide = vim.diagnostic.handlers.virtual_lines.show, vim.diagnostic.handlers.virtual_lines.hide
-  -- vim.diagnostic.handlers.virtual_lines = {
-  --   show = function(...)
-  --       show(...)
-  --       if cmp.visible() then
-  --         cmp.core.view:_get_entries_view():open(
-  --           cmp.core.view:_get_entries_view().offset,
-  --           cmp.core.view:_get_entries_view().entries
-  --       )
-  --       end
-  --   end,
-  --   hide = function(...)
-  --       hide(...)
-  --       if cmp.visible() then
-  --         cmp.core.view:_get_entries_view():open(
-  --           cmp.core.view:_get_entries_view().offset,
-  --           cmp.core.view:_get_entries_view().entries
-  --       )
-  --       end
-  --   end
-  -- }
 
-  -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-  -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 end
 
 return {

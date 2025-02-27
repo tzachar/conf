@@ -1,5 +1,20 @@
 local function setup()
   require('nvim-treesitter.configs').setup({
+    auto_install = true,
+    sync_install = false,
+    ensure_installed = {
+      'python',
+      'c',
+      'cpp',
+      'json',
+      'bash',
+      'html',
+      'css',
+      'lua',
+    },
+    ignore_install = {},
+    modules = {},
+
     indent = {
       enable = false,
       disable = { 'py', 'python' },
@@ -24,25 +39,8 @@ local function setup()
         node_decremental = '<M-j>', -- decrement to the previous node
       },
     },
-    refactor = {
-      highlight_definitions = {
-        enable = false,
-        clear_on_cursor_move = false,
-      },
-      highlight_current_scope = {
-        enable = false,
-      },
-      smart_rename = {
-        enable = false,
-        --[[ keymaps = {
-          smart_rename = 'gt',          -- mapping to rename reference under cursor
-        }, ]]
-      },
-      navigation = {
-        enable = false,
-      },
-    },
     textobjects = {
+      enable = true,
       lsp_interop = {
         enable = true,
         --[[ peek_definition_code = {
@@ -58,15 +56,6 @@ local function setup()
           ['if'] = '@function.inner',
           ['ac'] = '@class.outer',
           ['ic'] = '@class.inner',
-        },
-      },
-      swap = {
-        enable = false,
-        swap_next = {
-          ['<leader>gs'] = '@parameter.inner',
-        },
-        swap_previous = {
-          ['<leader>gS'] = '@parameter.inner',
         },
       },
       move = {
@@ -88,21 +77,6 @@ local function setup()
           ['[]'] = '@class.outer',
         },
       },
-      ensure_installed = {
-        'python',
-        'c',
-        'cpp',
-        'json',
-        'bash',
-        'html',
-        'css',
-        'lua',
-      },
-    },
-    matchup = {
-      enable = false, -- mandatory, false will disable the whole extension
-      disable = {}, -- optional, list of language that will be disabled
-      enable_quotes = true,
     },
   })
 
@@ -135,22 +109,21 @@ end
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'm-demare/hlargs.nvim',
+      'David-Kunz/treesitter-unit',
+      'cohama/lexima.vim',
+    },
     build = ':TSUpdate',
     config = setup,
   },
   {
-    'nvim-treesitter/nvim-treesitter-refactor',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    event = 'VeryLazy',
-  },
-  {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
     event = 'VeryLazy',
   },
   {
     'm-demare/hlargs.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     event = 'VeryLazy',
     config = function()
       require('hlargs').setup({
@@ -160,7 +133,7 @@ return {
           end
           local clients = (vim.lsp.get_clients or vim.lsp.get_clients)({ bufnr = bufnr })
           for _, c in pairs(clients) do
-            if c.name ~= 'null-ls' and c.supports_method('textDocument/semanticTokens/full', 0) then
+            if c.name ~= 'null-ls' and c:supports_method('textDocument/semanticTokens/full', 0) then
               vim.b.semantic_tokens = true
               return vim.b.semantic_tokens
             end

@@ -30,7 +30,7 @@ return {
     'tzachar/local-highlight.nvim',
     config = function()
       require('local-highlight').setup({
-        file_types = { 'python', 'cpp', 'lua', 'rust', 'c', 'cpp', 'javascript' },
+        file_types = { 'python', 'cpp', 'lua', 'rust', 'c', 'cpp', 'javascript', 'sh' },
       })
     end,
   },
@@ -597,18 +597,18 @@ return {
   -- sqlite lua
   -- { 'kkharji/sqlite.lua', lazy = true },
 
-  -- {
-  --   'windwp/nvim-autopairs',
-  --   config = function()
-  --     require('nvim-autopairs').setup({
-  --       disable_filetype = { 'TelescopePrompt' },
-  --       fast_wrap = {
-  --         map = '<M-e>',
-  --         end_key = '$',
-  --       },
-  --     })
-  --   end,
-  -- },
+  {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup({
+        disable_filetype = { 'TelescopePrompt' },
+        fast_wrap = {
+          map = '<M-e>',
+          end_key = '$',
+        },
+      })
+    end,
+  },
   -- {
   --   'altermo/ultimate-autopair.nvim',
   --   event = { 'InsertEnter', 'CmdlineEnter' },

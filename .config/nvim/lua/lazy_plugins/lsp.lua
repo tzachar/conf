@@ -36,11 +36,19 @@ return {
 
   {
     'aznhe21/actions-preview.nvim',
-    dependencies = 'MunifTanjim/nui.nvim',
     config = function()
       require('actions-preview').setup({
-        backend = { 'nui', 'telescope' },
-        -- backend = { 'snacks' },
+        backend = { 'snacks' },
+        snacks = {
+          layout = { preset = "default" },
+          win = {
+            preview = {
+              on_buf = function()
+                vim.fn.feedkeys('jj')
+              end,
+            },
+          },
+        },
       })
     end,
   },
@@ -48,14 +56,17 @@ return {
   {
     'stevearc/conform.nvim',
     opts = {
-      timeout_ms = 3000,
+      default_format_opts = {
+        timeout_ms = 3000,
+        stop_after_first = true,
+      },
       formatters_by_ft = {
         rust = { 'rustfmt' },
         lua = { 'stylua' },
         -- Conform will run multiple formatters sequentially
         python = { 'isort', 'black' },
         -- Use a sub-list to run only the first available formatter
-        javascript = { { 'prettierd', 'prettier' } },
+        javascript = { 'prettierd', 'prettier' },
         cpp = { 'clang-format' },
       },
     },
