@@ -747,4 +747,13 @@ return {
     ---@type render.md.UserConfig
     opts = {},
   },
+  -- stay-in-place.nvim is a Neovim plugin that prevent the cursor from moving when using shift and filter actions.
+  -- keeps visual selection after applying operator
+  {
+    "gbprod/stay-in-place.nvim",
+    opts = {
+      set_keymaps = true,
+      preserve_visual_selection = true,
+    },
+  },
 }
