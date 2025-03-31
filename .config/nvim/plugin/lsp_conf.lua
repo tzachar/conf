@@ -40,9 +40,8 @@ local function setup_servers()
   configs['harper_ls'] = {
     autostart = false,
     settings = {
-      ["harper-ls"] = {
-      }
-    }
+      ['harper-ls'] = {},
+    },
   }
   configs['vale_ls'] = {}
   configs['cssls'] = {}

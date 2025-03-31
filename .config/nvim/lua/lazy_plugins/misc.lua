@@ -29,7 +29,7 @@ return {
   {
     'tzachar/local-highlight.nvim',
     opts = {
-        file_types = { 'python', 'cpp', 'lua', 'rust', 'c', 'cpp', 'javascript', 'sh' },
+      file_types = { 'python', 'cpp', 'lua', 'rust', 'c', 'cpp', 'javascript', 'sh' },
     },
   },
   -- documentation
