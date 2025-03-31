@@ -23,7 +23,7 @@ end
 
 function M.setup_codelens_refresh(client, bufnr)
   local status_ok, codelens_supported = pcall(function()
-    return client.supports_method('textDocument/codeLens')
+    return client:supports_method('textDocument/codeLens')
   end)
   if not status_ok or not codelens_supported then
     return
@@ -75,8 +75,8 @@ function M.on_attach(client, bufnr)
   buf_set_keymap('n', '<leader>ca', '', { noremap = true, silent = true, callback = require('actions-preview').code_actions })
   -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   -- buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', 'dp', '<cmd>lua vim.diagnostic.goto_prev({float = false, severity = { min = vim.diagnostic.severity.HINT }})<CR>', opts)
-  buf_set_keymap('n', 'dn', '<cmd>lua vim.diagnostic.goto_next({float = false, severity = { min = vim.diagnostic.severity.HINT }})<CR>', opts)
+  buf_set_keymap('n', 'dp', '<cmd>lua vim.diagnostic.jump({count = -1, float = false, severity = { min = vim.diagnostic.severity.HINT }})<CR>', opts)
+  buf_set_keymap('n', 'dn', '<cmd>lua vim.diagnostic.jump({count = 1, float = false, severity = { min = vim.diagnostic.severity.HINT }})<CR>', opts)
   buf_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
   buf_set_keymap('n', '<leader>f', '', { callback = M.format_range_operator, noremap = true, silent = true })
@@ -103,10 +103,10 @@ function M.on_attach(client, bufnr)
   -- end
 
   -- mark semantic
-  if client.supports_method('textDocument/semanticTokens/full') then
+  if client:supports_method('textDocument/semanticTokens/full') then
     vim.b.semantic_tokens = true
   end
-  if client.supports_method('textDocument/inlayHintProvider') then
+  if client:supports_method('textDocument/inlayHintProvider') then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
   --   vim.lsp.buf.inlay_hint(bufnr, true)

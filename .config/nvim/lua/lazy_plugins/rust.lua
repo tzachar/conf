@@ -102,7 +102,7 @@ return {
   },
   {
     'mrcjkb/rustaceanvim',
-    version = '^5', -- Recommended
+    -- version = '^5', -- Recommended
     ft = { 'rust' },
   },
   {

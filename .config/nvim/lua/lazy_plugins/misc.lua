@@ -28,11 +28,9 @@ return {
   },
   {
     'tzachar/local-highlight.nvim',
-    config = function()
-      require('local-highlight').setup({
+    opts = {
         file_types = { 'python', 'cpp', 'lua', 'rust', 'c', 'cpp', 'javascript', 'sh' },
-      })
-    end,
+    },
   },
   -- documentation
   {
@@ -336,16 +334,6 @@ return {
 
   -- git
   { 'tpope/vim-fugitive', lazy = true, cmd = { 'G', 'Git' } },
-
-  {
-    'akinsho/git-conflict.nvim',
-    version = '*',
-    config = function()
-      require('git-conflict').setup({
-        default_mappings = false,
-      })
-    end,
-  },
 
   -- quickfix magic
   {
@@ -674,10 +662,6 @@ return {
     },
   },
   {
-    'norcalli/nvim-terminal.lua',
-    opts = {},
-  },
-  {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {},
@@ -743,6 +727,7 @@ return {
   {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    ft = { 'markdown' },
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {

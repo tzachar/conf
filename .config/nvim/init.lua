@@ -79,7 +79,7 @@ if vim.fn.environ()['TMUX'] ~= nil then
 end
 
 -- this controls saving swap and highlighting var under cursor
-vim.opt.updatetime = 100
+vim.opt.updatetime = 10
 
 -- how much to wait for key sequence to complete
 vim.opt.timeoutlen = 500

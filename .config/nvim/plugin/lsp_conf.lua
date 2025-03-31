@@ -37,6 +37,13 @@ local function setup_servers()
 
   local configs = {}
   configs['clangd'] = {}
+  configs['harper_ls'] = {
+    autostart = false,
+    settings = {
+      ["harper-ls"] = {
+      }
+    }
+  }
   configs['vale_ls'] = {}
   configs['cssls'] = {}
   configs['vimls'] = {}

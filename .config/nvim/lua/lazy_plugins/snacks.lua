@@ -1,3 +1,5 @@
+vim.api.nvim_set_hl(0, "SnacksPicker", {bg = "#000000"})
+
 return {
   {
     'folke/snacks.nvim',
