@@ -277,3 +277,26 @@ export NVM_DIR="$HOME/.nvm"
 # setup go
 export GOPATH="${HOME}/go"
 export PATH=${PATH:=""}:"${HOME}/go/bin"
+
+
+# use bat instead of cat if available
+if command -v batcat >/dev/null 2>&1; then
+	# Save the original system `cat` under `rcat`
+	alias rcat="$(whence -p cat)"
+
+	# For Ubuntu and Debian-based `bat` packages
+	# the `bat` program is named `batcat` on these systems
+	alias cat="$(whence -p batcat) --theme kanagawa"
+	export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+	export MANROFFOPT="-c"
+elif command -v bat >/dev/null 2>&1; then
+	# Save the original system `cat` under `rcat`
+	alias rcat="$(whence -p cat)"
+
+	# For all other systems
+	alias cat="$(whence -p bat) --theme kanagawa"
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+	export MANROFFOPT="-c"
+else;
+	echo "Please install bat"
+fi

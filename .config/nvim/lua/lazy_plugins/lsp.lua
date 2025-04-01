@@ -40,7 +40,23 @@ return {
       require('actions-preview').setup({
         backend = { 'snacks' },
         snacks = {
-          layout = { preset = 'default' },
+          layout = {
+            -- this is the same as "vertical", but flipped
+            layout = {
+              backdrop = false,
+              width = 0.5,
+              min_width = 80,
+              height = 0.8,
+              min_height = 30,
+              box = "vertical",
+              border = "rounded",
+              title = "{title} {live} {flags}",
+              title_pos = "center",
+              { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+              { win = "input", height = 1, border = "bottom" },
+              { win = "list", border = "none" },
+            }
+          },
           win = {
             preview = {
               on_buf = function()
