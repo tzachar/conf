@@ -48,14 +48,14 @@ return {
               min_width = 80,
               height = 0.8,
               min_height = 30,
-              box = "vertical",
-              border = "rounded",
-              title = "{title} {live} {flags}",
-              title_pos = "center",
-              { win = "preview", title = "{preview}", height = 0.4, border = "top" },
-              { win = "input", height = 1, border = "bottom" },
-              { win = "list", border = "none" },
-            }
+              box = 'vertical',
+              border = 'rounded',
+              title = '{title} {live} {flags}',
+              title_pos = 'center',
+              { win = 'preview', title = '{preview}', height = 0.4, border = 'top' },
+              { win = 'input', height = 1, border = 'bottom' },
+              { win = 'list', border = 'none' },
+            },
           },
           win = {
             preview = {
