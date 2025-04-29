@@ -13,7 +13,7 @@
 	swm = switch master
 [core]
 	editor = nvim
-	pager = less -FX
+	pager = delta
 [diff]
 	tool = nvimdiff
 	colorMoved = zebra
@@ -31,9 +31,14 @@
 	prune = true
 [merge]
 	tool = meld
+	conflictStyle = zdiff3
 [mergetool "meld"]
     # Choose one of these 2 lines (not both!) explained below.
     cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
     cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
 [rebase]
 	autoStash = true
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true

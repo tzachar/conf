@@ -3,8 +3,8 @@ export TERMINFO=${HOME}/.terminfo
 export HISTORY_SUBSTRING_SEARCH_FUZZY=true
 
 source ~/antigen.zsh
+antigen bundle chrissicool/zsh-256color
 antigen use oh-my-zsh
-
 antigen bundle agkozak/zsh-z
 antigen bundle git
 antigen bundle sudo
@@ -280,16 +280,8 @@ export PATH=${PATH:=""}:"${HOME}/go/bin"
 
 
 # use bat instead of cat if available
-if command -v batcat >/dev/null 2>&1; then
-	# Save the original system `cat` under `rcat`
-	alias rcat="$(whence -p cat)"
-
-	# For Ubuntu and Debian-based `bat` packages
-	# the `bat` program is named `batcat` on these systems
-	alias cat="$(whence -p batcat) --theme kanagawa"
-	export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
-	export MANROFFOPT="-c"
-elif command -v bat >/dev/null 2>&1; then
+export BAT_THEME=kanagawa
+if command -v bat >/dev/null 2>&1; then
 	# Save the original system `cat` under `rcat`
 	alias rcat="$(whence -p cat)"
 
@@ -298,5 +290,28 @@ elif command -v bat >/dev/null 2>&1; then
 	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 	export MANROFFOPT="-c"
 else;
-	echo "Please install bat"
+	echo "Please install bat: cargo install bat"
+fi
+
+
+# check if we have tmux terminfo
+if [[ ! -f /usr/share/terminfo/t/tmux-256color ]] && [[ ! -f /usr/lib/terminfo/t/tmux-256color ]]; then
+	echo "Missing tmux-color256 terminfo. Try installing ncurses-term"
+fi
+
+if ! command -v delta >/dev/null 2>&1; then
+	echo "please install delta: cargo install git-delta"
+fi
+
+if ! command -v cargo >/dev/null 2>&1; then
+	echo "please install rust: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
+fi
+
+if ! command -v mold >/dev/null 2>&1; then
+	echo "please install mold. see https://github.com/rui314/mold"
+fi
+
+if ! command -v pyenv >/dev/null 2>&1; then
+	echo "please install pyenv: curl https://pyenv.run | bash"
+	echo "also make sure you have libsqlite-dev, libz-dev"
 fi

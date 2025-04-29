@@ -66,7 +66,7 @@ local toggle_fstring = function()
   vim.api.nvim_win_set_cursor(0, cursor)
 end
 
-vim.keymap.set('n', 'F', toggle_fstring, { noremap = true })
+vim.keymap.set('n', '<leader><leader>', toggle_fstring, { noremap = true })
 
 local split_join = function(split)
   -- local target_node = ts_utils.get_node_at_cursor()

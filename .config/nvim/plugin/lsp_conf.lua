@@ -248,7 +248,10 @@ vim.diagnostic.config({
   virtual_text = false,
   signs = true,
   underline = true,
-  update_in_insert = true,
+  update_in_insert = function(namespace, bufnr)  ---@diagnostic disable-line
+    local ft = vim.fn.getbufvar(2, '&filetype')
+    return ft ~= 'python'
+  end,
 })
 vim.keymap.set('n', '<leader>l', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())

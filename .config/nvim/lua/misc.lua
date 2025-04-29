@@ -59,33 +59,6 @@ nest.applyKeymaps({
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
 
-require('nest').applyKeymaps({
-  {
-    mode = 'n',
-    {
-      {
-        'yp',
-        function()
-          vim.fn.feedkeys('yy')
-          vim.fn.feedkeys('yssp')
-          vim.fn.feedkeys('p')
-        end,
-        buffer = true,
-        options = { silent = false },
-      },
-      {
-        'yP',
-        function()
-          vim.fn.feedkeys('yy')
-          vim.fn.feedkeys('yssp')
-          vim.fn.feedkeys('P')
-        end,
-        buffer = true,
-        options = { silent = false },
-      },
-    },
-  },
-})
 vim.api.nvim_create_user_command('AddIgnoreType', add_ignore_type, { range = true })
 
 local function convert_to_json_list(options)
