@@ -69,9 +69,9 @@ return {
   --   end,
   -- },
   {
-    "rachartier/tiny-code-action.nvim",
+    'rachartier/tiny-code-action.nvim',
     -- backend = "vim",
-    backend = "delta",
+    backend = 'delta',
     backend_opts = {
       delta = {
         -- Header from delta can be quite large.
@@ -81,24 +81,24 @@ return {
         -- The arguments to pass to delta
         -- If you have a custom configuration file, you can set the path to it like so:
         -- args = {
-          --     "--config" .. os.getenv("HOME") .. "/.config/delta/config.yml",
-          -- }
+        --     "--config" .. os.getenv("HOME") .. "/.config/delta/config.yml",
+        -- }
         args = {
-          "--line-numbers",
+          '--line-numbers',
         },
       },
     },
     dependencies = {
-      {"nvim-lua/plenary.nvim"},
+      { 'nvim-lua/plenary.nvim' },
 
       {
-        "folke/snacks.nvim",
+        'folke/snacks.nvim',
         opts = {
           terminal = {},
-        }
-      }
+        },
+      },
     },
-    event = "LspAttach",
+    event = 'LspAttach',
     opts = {
       picker = {
         'snacks',
@@ -127,14 +127,14 @@ return {
               end,
             },
           },
-        }
+        },
       },
     },
     keys = {
       {
         '<leader>ca',
         function()
-          require("tiny-code-action").code_action()
+          require('tiny-code-action').code_action()
         end,
         mode = { 'n' },
         desc = 'Code Actions',

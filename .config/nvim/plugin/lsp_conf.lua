@@ -248,7 +248,7 @@ vim.diagnostic.config({
   virtual_text = false,
   signs = true,
   underline = true,
-  update_in_insert = function(namespace, bufnr)  ---@diagnostic disable-line
+  update_in_insert = function(namespace, bufnr) ---@diagnostic disable-line
     local ft = vim.fn.getbufvar(2, '&filetype')
     return ft ~= 'python'
   end,
