@@ -19,7 +19,7 @@ function _exit()        # function to run upon exit of shell
 function not_in_repo()
 {
 	hg branch > /dev/null 2>&1
-	if [ $? -eq 0 ]; then 
+	if [ $? -eq 0 ]; then
 		return 1
 	else
 		return 0
@@ -166,7 +166,8 @@ function pull_all() #pull+update all mercurial repos under current dir.
 function update_nvim()
 {
 	pushd ~/bin
-	\wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage
+	# \wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage -O /tmp/nvim-linux-x86_64.appimage
+	\aria2c https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage
 	\mv nvim-linux-x86_64.appimage nvim
 	chmod a+rx nvim
 	popd

@@ -53,39 +53,6 @@ local function setup_servers()
       },
     },
   }
-  -- configs['pylyzer'] = {
-  --   root_dir = function(filename)
-  --     local util = require('lspconfig.util')
-  --     local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename)
-  --     if root then
-  --       return root
-  --     end
-  --     root = util.find_git_ancestor(filename)
-  --     if root then
-  --       return root
-  --     end
-  --     return vim.fs.dirname(filename)
-  --   end,
-  --   settings = {
-  --     python = {
-  --       checkOnType = false,
-  --       diagnostics = true,
-  --       inlayHints = true,
-  --       smartCompletion = true
-  --     },
-  --   },
-  -- }
-  -- configs['rust_analyzer'] = {
-  --   settings = {
-  --     ["rust-analyzer"] = {
-  --       rustfmt = {
-  --         rangeFormatting = {
-  --           enable = true
-  --         },
-  --       },
-  --     },
-  --   },
-  -- }
   configs['basedpyright'] = {
     root_dir = function(filename, bufnr) ---@diagnostic disable-line
       local util = require('lspconfig.util')
@@ -257,12 +224,11 @@ vim.keymap.set('n', '<leader>l', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
 
-require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = vim.tbl_extend('keep', vim.tbl_keys(lsp_configs), { 'rust_analyzer' }),
-  automatic_installation = true,
+  -- ensure_installed = vim.tbl_extend('keep', vim.tbl_keys(lsp_configs), { 'rust_analyzer' }),
+  automatic_enable = true,
+  ensure_installed = vim.tbl_keys(lsp_configs),
 })
-
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities(capabilities))

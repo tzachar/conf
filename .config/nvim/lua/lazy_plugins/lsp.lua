@@ -22,6 +22,9 @@ return {
   {
     'williamboman/mason-lspconfig.nvim',
     dependencies = 'williamboman/mason.nvim',
+    config = function()
+      -- leave this empty. it is configure in plugins/lsp.lua
+    end
   },
   -- ls progress
   {
