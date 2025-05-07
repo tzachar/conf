@@ -1,5 +1,4 @@
 local vim = vim
-local lspconfig = require('lspconfig')
 local lsp_utils = require('lsp_utils')
 
 require('cmp_nvim_lsp').setup({})
@@ -88,6 +87,8 @@ local function setup_servers()
             reportUnknownParameterType = false,
             reportUnknownArgumentType = false,
             reportUnknownMemberType = false,
+            reportImplicitOverride = false,
+            reportUnknownVariableType = false,
           },
         },
       },
@@ -240,7 +241,7 @@ for server, opts in pairs(lsp_configs) do
   opts['flags'] = {
     debounce_text_changes = DebounceRate,
   }
-  lspconfig[server].setup(opts)
+  vim.lsp.config(server, opts)
 end
 
 -- highlight line numbers on error
