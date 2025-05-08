@@ -53,22 +53,10 @@ local function setup_servers()
     },
   }
   configs['basedpyright'] = {
-    root_dir = function(filename, bufnr) ---@diagnostic disable-line
-      local util = require('lspconfig.util')
-      local root = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile')(filename)
-      if root then
-        return root
-      end
-      root = vim.fs.dirname(vim.fs.find('.git', { path = filename, upward = true })[1])
-      if root then
-        return root
-      end
-      return vim.fs.dirname(filename)
-    end,
     settings = {
       basedpyright = {
         analysis = {
-          diagnosticMode = 'openFilesOnly',
+          -- diagnosticMode = 'openFilesOnly',
           typeCheckingMode = 'off',
           diagnosticSeverityOverrides = {
             strictDictionaryInference = 'warning',

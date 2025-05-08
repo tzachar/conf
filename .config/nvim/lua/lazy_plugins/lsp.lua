@@ -10,7 +10,7 @@ return {
   { 'neovim/nvim-lspconfig' },
   -- update language servers
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     dependencies = 'neovim/nvim-lspconfig',
     build = ':MasonUpdate',
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall' },
@@ -20,7 +20,7 @@ return {
     end,
   },
   {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason-lspconfig.nvim',
     dependencies = 'williamboman/mason.nvim',
     config = function()
       -- leave this empty. it is configure in plugins/lsp.lua
