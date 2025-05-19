@@ -29,7 +29,7 @@ local function setup()
     buffer = '[Buffer]',
     nvim_lsp = '[LSP]',
     nvim_lua = '[Lua]',
-    cmp_tabnine = '[TN]',
+    cmp_tabnine = '',
     cmp_ai = '[AI]',
     path = '[Path]',
     calc = '[Calc]',
@@ -43,20 +43,20 @@ local function setup()
   }
   local regular_format = lspkind.cmp_format({
     mode = 'symbol',
-    maxwidth = 40,
+    maxwidth = 50,
     ellipsis_char = '...',
     show_labelDetails = true,
-    menu = menu_mapping,
+    symbol_map = menu_mapping,
   })
-  local ml_format = lspkind.cmp_format({
-    mode = 'symbol',
-    maxwidth = 40,
-    ellipsis_char = '...',
-    show_labelDetails = true,
-    menu = {
-      cmp_tabnine = '[ML]',
-    },
-  })
+  -- local ml_format = lspkind.cmp_format({
+  --   mode = 'symbol',
+  --   maxwidth = 40,
+  --   ellipsis_char = '...',
+  --   show_labelDetails = true,
+  --   menu = {
+  --     cmp_tabnine = '[ML]',
+  --   },
+  -- })
 
   local comparators = {
     require('cmp_tabnine.compare'),
@@ -153,32 +153,34 @@ local function setup()
       end, { 'i', 'c' }),
     },
     formatting = {
-      format = function(entry, vim_item)
-        local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
-        if mode == 'c' then
-          return regular_format(entry, vim_item)
-        elseif entry.source.name == 'cmp_tabnine' and (entry.completion_item.data or {}).multiline then
-          return ml_format(entry, vim_item)
-        else
-          local highlights_info = colorful.cmp_highlights(entry)
-
-          -- if highlight_info==nil, which means missing ts parser, let's fallback to use default `vim_item.abbr`.
-          -- What this plugin offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
-          if highlights_info ~= nil then
-            vim_item.abbr_hl_group = highlights_info.highlights
-            vim_item.abbr = highlights_info.text
-          end
-
-          local kind = require('lspkind').cmp_format({
-            mode = 'symbol_text',
-          })(entry, vim_item)
-          local strings = vim.split(kind.kind, '%s', { trimempty = true })
-          vim_item.kind = ' ' .. (strings[1] or '') .. ' '
-          vim_item.menu = ''
-
-          return vim_item
-        end
-      end,
+      format = regular_format,
+    --   format = function(entry, vim_item)
+    --     local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
+    --     if mode == 'c' then
+    --       return regular_format(entry, vim_item)
+    --     -- elseif entry.source.name == 'cmp_tabnine' and (entry.completion_item.data or {}).multiline then
+    --     --   return ml_format(entry, vim_item)
+    --     else
+    --       local highlights_info = colorful.cmp_highlights(entry)
+    --
+    --       -- if highlight_info==nil, which means missing ts parser, let's fallback to use default `vim_item.abbr`.
+    --       -- What this plugin offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+    --       if highlights_info ~= nil then
+    --         vim_item.abbr_hl_group = highlights_info.highlights
+    --         vim_item.abbr = highlights_info.text
+    --       end
+    --
+    --       local kind = require('lspkind').cmp_format({
+    --         mode = 'symbol_text',
+    --       })(entry, vim_item)
+    --       -- local kind = regular_format(entry, vim_item)
+    --       local strings = vim.split(kind.kind, '%s', { trimempty = true })
+    --       vim_item.kind = ' ' .. (strings[1] or '') .. ' '
+    --       vim_item.menu = ''
+    --
+    --       return vim_item
+    --     end
+    --   end,
     },
 
     matching = {

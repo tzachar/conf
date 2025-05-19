@@ -202,3 +202,9 @@ function kill-path-word()
 }
 zle -N kill-path-word
 bindkey "^[w" kill-path-word
+
+function install_font()
+{
+	nerd_font_name="$1" bash <(curl -fsSL https://raw.githubusercontent.com/monoira/nefoin/main/install.sh)
+
+}

@@ -45,6 +45,7 @@ local function setup()
     texthl = 'SmoothCursor', -- highlight group, default is { bg = nil, fg = "#FFD400" }
     threshold = 3,
     timeout = 3000,
+    disabled_filetypes = {"cmd"},
   })
 end
 

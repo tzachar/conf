@@ -122,7 +122,7 @@ HOME_LIB=${HOME}/lib
 HOME_BIN=${HOME}/bin
 #########################################
 
-export PATH=${HOME_BIN}:${PATH:=""}:/sbin:~/.local/kitty.app/bin/:${HOME}/.dotnet:${HOME}/.cargo/bin
+export PATH=${HOME_BIN}:${PATH:=""}:/sbin:~/.local/kitty.app/bin/:${HOME}/.dotnet
 EDITOR="nvim"
 VISUAL=$EDITOR
 PAGER='less -r'
@@ -145,13 +145,15 @@ else
 fi
 
 ulimit -S -c unlimited          # want coredumps
-#
-#source aliases:
+
+. ${HOME_CONF}/cargo.sh
+export PATH=${PATH}:${CARGO_INSTALL_ROOT}
+
 . ${HOME_CONF}/aliases.sh
 . ${HOME_CONF}/functions.sh
 
-export MANPATH=${MANPATH}:${HOME}/man
 
+export MANPATH=${MANPATH}:${HOME}/man
 #
 #source host specific config. do this last, to allow overrides
 if [[ -f ~/.config/hosts/${HOSTNAME}.conf ]]; then . ~/.config/hosts/${HOSTNAME}.conf; fi

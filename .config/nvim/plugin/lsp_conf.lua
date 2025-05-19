@@ -39,7 +39,13 @@ local function setup_servers()
   configs['harper_ls'] = {
     autostart = false,
     settings = {
-      ['harper-ls'] = {},
+      ['harper-ls'] = {
+        filetypes = { 'txt', 'md' },
+        linters = {
+          SentenceCapitalization = false,
+          SpellCheck = false
+        }
+      },
     },
   }
   configs['vale_ls'] = {}
@@ -204,10 +210,7 @@ vim.diagnostic.config({
   virtual_text = false,
   signs = true,
   underline = true,
-  update_in_insert = function(namespace, bufnr) ---@diagnostic disable-line
-    local ft = vim.fn.getbufvar(2, '&filetype')
-    return ft ~= 'python'
-  end,
+  update_in_insert = false,
 })
 vim.keymap.set('n', '<leader>l', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
