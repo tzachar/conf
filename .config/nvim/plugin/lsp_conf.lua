@@ -43,8 +43,8 @@ local function setup_servers()
         filetypes = { 'txt', 'md' },
         linters = {
           SentenceCapitalization = false,
-          SpellCheck = false
-        }
+          SpellCheck = false,
+        },
       },
     },
   }
