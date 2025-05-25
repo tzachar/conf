@@ -1,10 +1,8 @@
 local function get_node_at_position(row, col)
-  return vim.treesitter.get_node(
-    {
-      bufnr=0,
-      pos={row, col},
-    }
-  )
+  return vim.treesitter.get_node({
+    bufnr = 0,
+    pos = { row, col },
+  })
 end
 
 local zoom_out = function(node, types)

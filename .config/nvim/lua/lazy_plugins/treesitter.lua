@@ -1,5 +1,4 @@
 local function setup()
-
   local ts_au = vim.api.nvim_create_augroup('TsAu', { clear = true })
 
   vim.api.nvim_create_autocmd('FileType', {
@@ -8,7 +7,7 @@ local function setup()
     callback = function(args)
       local ft = args['match']
       if require('nvim-treesitter.parsers')[ft] ~= nil then
-        require('nvim-treesitter').install({ft})
+        require('nvim-treesitter').install({ ft })
         vim.treesitter.start()
       end
     end,
@@ -26,14 +25,14 @@ return {
     lazy = false,
     build = ':TSUpdate',
     config = setup,
-    branch = "main",
+    branch = 'main',
   },
   {
-    "nvim-treesitter/nvim-treesitter-textobjects",
+    'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter'
+      'nvim-treesitter/nvim-treesitter',
     },
-    branch = "main",
+    branch = 'main',
     event = 'VeryLazy',
     config = {
       select = {
@@ -41,18 +40,34 @@ return {
       },
     },
     keys = {
-      {"af", function()
-        require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
-      end, mode = {"x", "o"}},
-      {"if", function()
-        require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
-      end, mode = {"x", "o"}},
-      {"ac", function()
-        require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
-      end, mode = {"x", "o"}},
-      {"ic", function()
-        require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
-      end, mode = {"x", "o"}},
+      {
+        'af',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')
+        end,
+        mode = { 'x', 'o' },
+      },
+      {
+        'if',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')
+        end,
+        mode = { 'x', 'o' },
+      },
+      {
+        'ac',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@class.outer', 'textobjects')
+        end,
+        mode = { 'x', 'o' },
+      },
+      {
+        'ic',
+        function()
+          require('nvim-treesitter-textobjects.select').select_textobject('@class.inner', 'textobjects')
+        end,
+        mode = { 'x', 'o' },
+      },
     },
   },
   {
