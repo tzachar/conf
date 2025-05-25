@@ -1,107 +1,16 @@
 local function setup()
-  require('nvim-treesitter.configs').setup({
-    auto_install = true,
-    sync_install = false,
-    ensure_installed = {
-      'python',
-      'c',
-      'cpp',
-      'json',
-      'bash',
-      'html',
-      'css',
-      'lua',
-    },
-    ignore_install = {},
-    modules = {},
-
-    indent = {
-      enable = false,
-      disable = { 'py', 'python' },
-    },
-    highlight = {
-      enable = true, -- false will disable the whole extension
-      -- see https://github.com/nvim-treesitter/nvim-treesitter/issues/1573#issuecomment-2202945329
-      additional_vim_regex_highlighting = { 'python' },
-      disable = {
-        -- "python",
-      }, -- list of language that will be disabled
-      custom_captures = { -- mapping of user defined captures to highlight groups
-        -- ["foo.bar"] = "Identifier"   -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
-      },
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = { -- mappings for incremental selection (visual mappings)
-        -- init_selection = 'gnn', -- maps in normal mode to init the node/scope selection
-        node_incremental = '<M-k>', -- increment to the upper named parent
-        scope_incremental = '<M-i>', -- increment to the upper scope (as defined in locals.scm)
-        node_decremental = '<M-j>', -- decrement to the previous node
-      },
-    },
-    textobjects = {
-      enable = true,
-      lsp_interop = {
-        enable = true,
-        --[[ peek_definition_code = {
-          ["df"] = "@function.outer",
-          ["dF"] = "@class.outer",
-        }, ]]
-      },
-      select = {
-        enable = true,
-        keymaps = {
-          -- You can use the capture groups defined in textobjects.scm
-          ['af'] = '@function.outer',
-          ['if'] = '@function.inner',
-          ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner',
-        },
-      },
-      move = {
-        enable = true,
-        goto_next_start = {
-          [']m'] = '@function.outer',
-          [']]'] = '@class.outer',
-        },
-        goto_next_end = {
-          [']M'] = '@function.outer',
-          [']['] = '@class.outer',
-        },
-        goto_previous_start = {
-          ['[m'] = '@function.outer',
-          ['[['] = '@class.outer',
-        },
-        goto_previous_end = {
-          ['[M'] = '@function.outer',
-          ['[]'] = '@class.outer',
-        },
-      },
-    },
-  })
-
-  local ask_install = {}
-  function EnsureTSParserInstalled()
-    local parsers = require('nvim-treesitter.parsers')
-    local lang = parsers.get_buf_lang()
-    if parsers.get_parser_configs()[lang] and not parsers.has_parser(lang) and ask_install[lang] ~= false then
-      vim.schedule_wrap(function()
-        local res = vim.fn.confirm('Install treesitter parser for ' .. lang, '&Yes\n&No', 1)
-        if res == 1 then
-          vim.cmd('TSInstall ' .. lang)
-        else
-          ask_install[lang] = false
-        end
-      end)()
-    end
-  end
 
   local ts_au = vim.api.nvim_create_augroup('TsAu', { clear = true })
+
   vim.api.nvim_create_autocmd('FileType', {
     group = ts_au,
-    pattern = '*',
-    callback = function()
-      EnsureTSParserInstalled()
+    pattern = { '*' },
+    callback = function(args)
+      local ft = args['match']
+      if require('nvim-treesitter.parsers')[ft] ~= nil then
+        require('nvim-treesitter').install({ft})
+        vim.treesitter.start()
+      end
     end,
   })
 end
@@ -110,17 +19,41 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
       'm-demare/hlargs.nvim',
       'David-Kunz/treesitter-unit',
       'cohama/lexima.vim',
     },
+    lazy = false,
     build = ':TSUpdate',
     config = setup,
+    branch = "main",
   },
   {
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter'
+    },
+    branch = "main",
     event = 'VeryLazy',
+    config = {
+      select = {
+        lookahead = true,
+      },
+    },
+    keys = {
+      {"af", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+      end, mode = {"x", "o"}},
+      {"if", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+      end, mode = {"x", "o"}},
+      {"ac", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+      end, mode = {"x", "o"}},
+      {"ic", function()
+        require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
+      end, mode = {"x", "o"}},
+    },
   },
   {
     'm-demare/hlargs.nvim',

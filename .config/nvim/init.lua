@@ -192,12 +192,6 @@ vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml'
 -- vimtex
 vim.g.vimtex_compiler_enabled = 0
 
--- indentguide
-vim.g.indent_guides_guide_size = 1
-vim.g.indent_guides_enable_on_vim_startup = 1
-vim.g.indent_guides_auto_colors = 1
-vim.g.indent_guides_color_change_percent = 20
-
 -- function! CleverKey(key)
 -- 	if col('.') <= 0
 -- 		return a:key
@@ -216,14 +210,6 @@ vim.g.indent_guides_color_change_percent = 20
 -- inoremap <expr> " CleverKey('"')
 -- inoremap <expr> ] CleverKey(']')
 -- inoremap <expr> , CleverKey(',')
-
-vim.api.nvim_create_user_command('TSReload', function()
-  vim.cmd([[
-      write
-      edit
-      TSBufEnable highlight
-  ]])
-end, {})
 
 -- highlight whitespace
 vim.g.better_whitespace_ctermcolor = 'red'
