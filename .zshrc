@@ -2,6 +2,11 @@ export TERMINFO=${HOME}/.terminfo
 
 export HISTORY_SUBSTRING_SEARCH_FUZZY=true
 
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+zstyle :omz:plugins:ssh-agent quiet yes
+zstyle :omz:plugins:ssh-agent lazy yes
+
+
 source ~/antigen.zsh
 antigen bundle chrissicool/zsh-256color
 antigen use oh-my-zsh

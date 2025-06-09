@@ -185,74 +185,6 @@ return {
     event = 'VeryLazy',
   },
   { 'godlygeek/tabular', cmd = 'Tabularize' },
-  -- {
-  --   'lukas-reineke/indent-blankline.nvim',
-  --   main = 'ibl',
-  --   event = 'BufReadPre',
-  --   opts = {
-  --     indent = {
-  --       char = '│',
-  --       tab_char = '│',
-  --       smart_indent_cap = true,
-  --       priority = 2,
-  --     },
-  --     whitespace = { remove_blankline_trail = true },
-  --     scope = {
-  --       enabled = true,
-  --       char = '┃',
-  --       show_start = false,
-  --       show_end = false,
-  --       highlight = { 'IndentBlanklineContextChar' },
-  --       injected_languages = true,
-  --       priority = 1000,
-  --       include = {
-  --         node_type = {
-  --           ['*'] = {
-  --             'argument_list',
-  --             'arguments',
-  --             'assignment_statement',
-  --             'Block',
-  --             'chunk',
-  --             'class',
-  --             'ContainerDecl',
-  --             'dictionary',
-  --             'do_block',
-  --             'do_statement',
-  --             'element',
-  --             'except',
-  --             'FnCallArguments',
-  --             'for',
-  --             'for_statement',
-  --             'function',
-  --             'function_declaration',
-  --             'function_definition',
-  --             'if_statement',
-  --             'IfExpr',
-  --             'IfStatement',
-  --             'import',
-  --             'InitList',
-  --             'list_literal',
-  --             'method',
-  --             'object',
-  --             'ParamDeclList',
-  --             'repeat_statement',
-  --             'selector',
-  --             'SwitchExpr',
-  --             'table',
-  --             'table_constructor',
-  --             'try',
-  --             'tuple',
-  --             'type',
-  --             'var',
-  --             'while',
-  --             'while_statement',
-  --             'with',
-  --           },
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
 
   -- add cmd utils as vim commands
   { 'tpope/vim-eunuch', cmd = {
@@ -584,62 +516,11 @@ return {
       })
     end,
   },
-  -- {
-  --   'altermo/ultimate-autopair.nvim',
-  --   event = { 'InsertEnter', 'CmdlineEnter' },
-  --   enabled = false,
-  --   branch='v0.6',
-  --   config = function()
-  --     require('ultimate-autopair').setup({
-  --       cmap = false,
-  --       fastwarp = {
-  --         enable = true,
-  --         map = '<M-]>',
-  --         cmap = '<M-]>',
-  --         rmap = '<M-[>',
-  --         rcmap = '<M-[>',
-  --         multi=true,
-  --         nocursormove=true,
-  --         do_nothing_if_fail=true,
-  --         fallback = nil,
-  --       },
-  --       -- fastend = {
-  --       --   enable = true,
-  --       --   map = '<M-4>',
-  --       --   cmap = '<M-4>',
-  --       --   smart = false,
-  --       --   fallback = nil,
-  --       -- },
-  --       -- extensions = {
-  --       --   { 'suround', { '"', "'", '{', '}', '[', ']', '(', ')' } },
-  --       --   { 'fly', { ')', '}', ']', ' ', match = nil, nofilter = false } },
-  --       -- },
-  --     })
-  --   end,
-  -- },
-  -- {
-  --   'rcarriga/nvim-notify',
-  --   config = function()
-  --     vim.notify = require('notify')
-  --   end,
-  -- },
   {
     'tzachar/highlight-undo.nvim',
     -- event = 'VeryLazy',
     opts = {},
   },
-  -- {
-  --   "max397574/better-escape.nvim",
-  --   opts = {
-  --     mapping = {"jk", "jj"}, -- a table with mappings to use
-  --     timeout = vim.o.timeoutlen, -- the time in which the keys must be hit in ms. Use option timeoutlen by default
-  --     clear_empty_lines = true, -- clear line after escaping if there is only whitespace
-  --     keys = function()
-  --       return vim.api.nvim_win_get_cursor(0)[2] > 1 and '<esc>l' or '<esc>'
-  --     end,
-  --   },
-  --   event = 'VeryLazy',
-  -- }
   {
     'https://github.com/Hubro/nvim-splitrun',
     opts = {},

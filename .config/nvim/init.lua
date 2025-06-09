@@ -277,7 +277,7 @@ vim.opt.runtimepath:prepend(lazypath)
 require('plugins')
 require('misc')
 require('comment')
-require('vim._extui').enable({})
+-- require('vim._extui').enable({})
 
 vim.api.nvim_set_hl(0, 'Normal', {
   fg = 'wheat',

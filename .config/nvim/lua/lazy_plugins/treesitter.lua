@@ -97,4 +97,12 @@ return {
     'David-Kunz/treesitter-unit',
     event = 'VeryLazy',
   },
+  {
+    'daliusd/incr.nvim',
+    opts = {
+      incr_key = '<M-k>', -- increment selection key
+      decr_key = '<M-j>', -- decrement selection key
+    },
+    -- event = 'VeryLazy',
+  },
 }
