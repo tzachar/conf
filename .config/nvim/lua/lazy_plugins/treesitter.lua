@@ -63,6 +63,9 @@ local function setup()
           vim.treesitter.start()
         end
       end
+      if vim.tbl_contains(require('nvim-treesitter').get_available(), ft) then
+        vim.treesitter.start()
+      end
     end,
   })
 end
