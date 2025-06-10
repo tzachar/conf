@@ -58,10 +58,10 @@ local function setup()
     callback = function(args)
       local ft = args['match']
       if not vim.tbl_contains(require('nvim-treesitter').get_installed(), ft) then
-          if vim.tbl_contains(require('nvim-treesitter').get_available(), ft) then
-            require('nvim-treesitter').install({ ft })
-            vim.treesitter.start()
-          end
+        if vim.tbl_contains(require('nvim-treesitter').get_available(), ft) then
+          require('nvim-treesitter').install({ ft })
+          vim.treesitter.start()
+        end
       end
     end,
   })
