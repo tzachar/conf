@@ -57,9 +57,11 @@ local function setup()
     pattern = { '*' },
     callback = function(args)
       local ft = args['match']
-      if require('nvim-treesitter.parsers')[ft] ~= nil then
-        require('nvim-treesitter').install({ ft })
-        vim.treesitter.start()
+      if not vim.tbl_contains(require('nvim-treesitter').get_installed(), ft) then
+          if vim.tbl_contains(require('nvim-treesitter').get_available(), ft) then
+            require('nvim-treesitter').install({ ft })
+            vim.treesitter.start()
+          end
       end
     end,
   })
