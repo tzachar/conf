@@ -26,7 +26,19 @@ alias ..='cd ..'
 alias path='echo -e ${PATH//:/\\n}'
 alias pjet='enscript -h -G -fCourier9 -d $LPDEST'  # Pretty-print using enscript
 alias du='du -kh'
-alias df='df -kTh'
+
+if type "duf" > /dev/null; then
+	alias df='duf'
+else
+	alias df='df -kTh'
+fi
+
+if type "mtr" > /dev/null; then
+	alias traceroute='mtr'
+fi
+
+
+
 alias grep='grep --color=auto'
 alias g='grep'
 alias md='mkdir'

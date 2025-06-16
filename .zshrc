@@ -310,6 +310,10 @@ if ! command -v delta >/dev/null 2>&1; then
 	echo "please install delta: cargo install git-delta"
 fi
 
+if ! command -v duf >/dev/null 2>&1; then
+	echo "please install duf: sudo apt install duf"
+fi
+
 if ! command -v cargo >/dev/null 2>&1; then
 	echo "please install rust: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 fi
@@ -321,4 +325,26 @@ fi
 if ! command -v pyenv >/dev/null 2>&1; then
 	echo "please install pyenv: curl https://pyenv.run | bash"
 	echo "also make sure you have libsqlite-dev, libz-dev"
+fi
+
+if ! command -v tree-sitter >/dev/null 2>&1; then
+	echo "please install tree-sitter: https://github.com/tree-sitter/tree-sitter"
+fi
+
+if ! command -v glances >/dev/null 2>&1; then
+	echo "please install glances: pip install glances"
+fi
+
+# record terminal
+if ! command -v asciinema >/dev/null 2>&1; then
+	echo "please install asciinema: cargo install --locked --git https://github.com/asciinema/asciinema"
+fi
+if ! command -v agg >/dev/null 2>&1; then
+	echo "please install agg: cargo install --git https://github.com/asciinema/agg"
+fi
+
+if ! command -v doggo >/dev/null 2>&1; then
+	echo "please install doggo: curl -sS https://raw.githubusercontent.com/mr-karan/doggo/main/install.sh | sh"
+else
+	alias dig='doggo'
 fi
