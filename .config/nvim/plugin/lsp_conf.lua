@@ -179,15 +179,13 @@ local function setup_servers()
   configs['jsonls'] = {
     filetypes = { 'json' },
     settings = {
-      jsonls = {
-      },
+      jsonls = {},
     },
   }
   configs['bashls'] = {
     filetypes = { 'sh', 'zsh' },
     settings = {
-      bashls = {
-      },
+      bashls = {},
     },
   }
   configs['ts_ls'] = {
@@ -200,8 +198,7 @@ local function setup_servers()
   configs['html'] = {
     filetypes = { 'html', 'css' },
     settings = {
-      html = {
-      },
+      html = {},
     },
   }
   return configs
