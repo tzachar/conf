@@ -9,6 +9,7 @@ local ignore_decl_per_source = {
   ['ruff'] = 'noqa',
   ['pycodestyle'] = 'noqa',
   ['pylsp'] = 'noqa',
+  ['Pyrefly'] = ' pyrefly: ignore',
   ['Lua Diagnostics.'] = '-@diagnostic disable-line',
   ['Lua Syntax Check.'] = '-@diagnostic disable-line',
 }

@@ -153,6 +153,7 @@ return {
         stop_after_first = true,
       },
       formatters_by_ft = {
+        json = { 'jq' },
         rust = { 'rustfmt' },
         lua = { 'stylua' },
         -- Conform will run multiple formatters sequentially

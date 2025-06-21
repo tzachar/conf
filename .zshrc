@@ -337,10 +337,18 @@ fi
 
 # record terminal
 if ! command -v asciinema >/dev/null 2>&1; then
-	echo "please install asciinema: cargo install --locked --git https://github.com/asciinema/asciinema"
+	echo "please install asciinema: cargo install --locked --git https://github.com/asciinema/asciinema "
 fi
 if ! command -v agg >/dev/null 2>&1; then
 	echo "please install agg: cargo install --git https://github.com/asciinema/agg"
+fi
+
+if ! command -v rust-analyzer >/dev/null 2>&1; then
+	echo "please install rust-analyzer: rustup component add rust-analyzer"
+fi
+
+if ! command -v rg >/dev/null 2>&1; then
+	echo "please install ripgrep: carg install ripgrep"
 fi
 
 if ! command -v doggo >/dev/null 2>&1; then

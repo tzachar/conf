@@ -37,10 +37,10 @@ local function setup_servers()
   local configs = {}
   configs['clangd'] = {}
   configs['harper_ls'] = {
+    filetypes = { 'txt', 'md' },
     autostart = false,
     settings = {
       ['harper-ls'] = {
-        filetypes = { 'txt', 'md' },
         linters = {
           SentenceCapitalization = false,
           SpellCheck = false,
@@ -58,6 +58,10 @@ local function setup_servers()
       },
     },
   }
+  -- configs['pyrefly'] = {
+  --   settings = {
+  --   },
+  -- }
   configs['basedpyright'] = {
     settings = {
       basedpyright = {
@@ -150,9 +154,9 @@ local function setup_servers()
   configs['graphql'] = {}
   configs['buf_ls'] = {}
   configs['lua_ls'] = {
+    filetypes = { 'lua' },
     settings = {
       Lua = {
-        filetypes = { 'lua' },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
           globals = { 'vim' },
@@ -173,16 +177,16 @@ local function setup_servers()
     },
   }
   configs['jsonls'] = {
+    filetypes = { 'json' },
     settings = {
       jsonls = {
-        filetypes = { 'json' },
       },
     },
   }
   configs['bashls'] = {
+    filetypes = { 'sh', 'zsh' },
     settings = {
       bashls = {
-        filetypes = { 'sh', 'zsh' },
       },
     },
   }
@@ -194,9 +198,9 @@ local function setup_servers()
     },
   }
   configs['html'] = {
+    filetypes = { 'html', 'css' },
     settings = {
       html = {
-        filetypes = { 'html', 'css' },
       },
     },
   }
