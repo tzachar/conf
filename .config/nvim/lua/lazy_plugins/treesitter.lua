@@ -80,7 +80,7 @@ return {
     },
     lazy = false,
     build = ':TSUpdate',
-    config = setup,
+    opts = setup,
     branch = 'main',
   },
   {
@@ -90,12 +90,28 @@ return {
     },
     branch = 'main',
     event = 'VeryLazy',
-    config = {
+    opts = {
       select = {
         lookahead = true,
       },
     },
     keys = {
+      {
+        '<leader>a',
+        function()
+          require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
+        end,
+        mode = {'n'},
+        desc = "swam next",
+      },
+      {
+        '<leader>A',
+        function()
+          require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
+        end,
+        mode = {'n'},
+        desc = "swam prev",
+      },
       {
         'af',
         function()
@@ -129,7 +145,7 @@ return {
   {
     'm-demare/hlargs.nvim',
     event = 'VeryLazy',
-    config = function()
+    opts = function()
       require('hlargs').setup({
         disable = function(_, bufnr)
           if vim.b.semantic_tokens then

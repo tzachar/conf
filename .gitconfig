@@ -30,12 +30,15 @@
 [fetch]
 	prune = true
 [merge]
-	tool = meld
-	conflictStyle = zdiff3
+	tool = nvim
 [mergetool "meld"]
     # Choose one of these 2 lines (not both!) explained below.
     cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
     cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+[mergetool "nvim"]
+    cmd = nvim -f -c \"DiffviewOpen\"
+[mergetool]
+    prompt = false
 [rebase]
 	autoStash = true
 [interactive]

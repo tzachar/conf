@@ -337,6 +337,9 @@ return {
   {
     'smjonas/inc-rename.nvim',
     cmd = 'IncRename',
+    opt = {
+      input_buffer_type = "snacks",
+    },
     keys = {
       {
         'gt',
@@ -345,29 +348,6 @@ return {
         end,
         expr = true,
         desc = 'Incremental rename',
-      },
-    },
-  },
-
-  -- swap ts nodes
-  {
-    'mizlan/iswap.nvim',
-    config = function()
-      require('iswap').setup()
-    end,
-    keys = {
-      -- swap ts node under cursor
-      {
-        '<leader>gs',
-        function()
-          require('iswap').iswap_node_with('right')
-        end,
-      },
-      {
-        '<leader>gS',
-        function()
-          require('iswap').iswap_node_with('left')
-        end,
       },
     },
   },
@@ -631,4 +611,22 @@ return {
   -- },
   -- fix file indentations
   { 'tpope/vim-sleuth' },
+  -- {
+  --   "dmtrKovalenko/fff.nvim",
+  --   build = "cargo build --release",
+  --   -- or if you are using nixos
+  --   -- build = "nix run .#release",
+  --   opts = {
+  --     -- pass here all the options
+  --   },
+  --   keys = {
+  --     {
+  --       "ff", -- try it if you didn't it is a banger keybinding for a picker
+  --       function()
+  --         require("fff").find_files()
+  --       end,
+  --       desc = "FFFind FFFiles",
+  --     },
+  --   },
+  -- }
 }

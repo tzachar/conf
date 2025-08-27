@@ -92,3 +92,5 @@ local function show_documentation()
 end
 
 vim.keymap.set('n', 'K', show_documentation, { silent = true })
+
+vim.api.nvim_create_user_command('FormatCmdLine', [[.s/ -/ \\\r 	-/g | noh]], {})

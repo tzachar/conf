@@ -35,6 +35,22 @@ local function setup_servers()
   add('~/.local/share/nvim/lazy/*')
 
   local configs = {}
+  configs['ansiblels'] = {
+    settings = {
+      ansible = {
+        python = { interpreterPath = 'python' },
+        ansible = { path = 'ansible' },
+        executionEnvironment = { enabled = false },
+        validation = {
+          enabled = false,
+          lint = { enabled = true, path = 'ansible-lint' },
+        },
+      },
+    },
+    filetypes = { 'yaml', 'yml', 'ansible' },
+    -- root_dir = vim.lsp.util.root_pattern("roles", "playbooks"),
+    single_file_support = false,
+  }
   configs['clangd'] = {}
   configs['harper_ls'] = {
     filetypes = { 'txt', 'md' },
@@ -58,40 +74,44 @@ local function setup_servers()
       },
     },
   }
-  -- configs['pyrefly'] = {
+  -- configs['ty'] = {
   --   settings = {
   --   },
   -- }
-  configs['basedpyright'] = {
+  configs['pyrefly'] = {
     settings = {
-      basedpyright = {
-        analysis = {
-          -- diagnosticMode = 'openFilesOnly',
-          typeCheckingMode = 'off',
-          diagnosticSeverityOverrides = {
-            strictDictionaryInference = 'warning',
-            reportMissingImports = 'error',
-            reportUndefinedVariable = 'error',
-            reportUnusedExpression = 'warning',
-            reportCallIssue = 'error',
-            reportIndexIssue = 'error',
-            reportUnhashable = 'error',
-            reportUnusedExcept = 'error',
-            reportPossiblyUnboundVariable = 'error',
-            reportDuplicateImport = 'error',
-            reportUnusedImport = 'warning',
-            reportUnusedVariable = 'warning',
-            reportMissingParameterType = false,
-            reportUnknownParameterType = false,
-            reportUnknownArgumentType = false,
-            reportUnknownMemberType = false,
-            reportImplicitOverride = false,
-            reportUnknownVariableType = false,
-          },
-        },
-      },
     },
   }
+  -- configs['basedpyright'] = {
+  --   settings = {
+  --     basedpyright = {
+  --       analysis = {
+  --         -- diagnosticMode = 'openFilesOnly',
+  --         typeCheckingMode = 'off',
+  --         diagnosticSeverityOverrides = {
+  --           strictDictionaryInference = 'warning',
+  --           reportMissingImports = 'error',
+  --           reportUndefinedVariable = 'error',
+  --           reportUnusedExpression = 'warning',
+  --           reportCallIssue = 'error',
+  --           reportIndexIssue = 'error',
+  --           reportUnhashable = 'error',
+  --           reportUnusedExcept = 'error',
+  --           reportPossiblyUnboundVariable = 'error',
+  --           reportDuplicateImport = 'error',
+  --           reportUnusedImport = 'warning',
+  --           reportUnusedVariable = 'warning',
+  --           reportMissingParameterType = false,
+  --           reportUnknownParameterType = false,
+  --           reportUnknownArgumentType = false,
+  --           reportUnknownMemberType = false,
+  --           reportImplicitOverride = false,
+  --           reportUnknownVariableType = false,
+  --         },
+  --       },
+  --     },
+  --   },
+  -- }
   -- configs['pylsp'] = {
   --   root_dir = function(filename, bufnr)
   --     local util = require('lspconfig.util')
@@ -153,29 +173,30 @@ local function setup_servers()
   }
   configs['graphql'] = {}
   configs['buf_ls'] = {}
-  configs['lua_ls'] = {
-    filetypes = { 'lua' },
-    settings = {
-      Lua = {
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { 'vim' },
-        },
-        hint = {
-          enable = true,
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = library,
-          maxPreload = 3000,
-          checkThirdParty = false,
-          preloadFileSize = 50000,
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = { enable = false },
-      },
-    },
-  }
+  configs['emmylua_ls'] = {}
+  -- configs['lua_ls'] = {
+  --   filetypes = { 'lua' },
+  --   settings = {
+  --     Lua = {
+  --       diagnostics = {
+  --         -- Get the language server to recognize the `vim` global
+  --         globals = { 'vim' },
+  --       },
+  --       hint = {
+  --         enable = true,
+  --       },
+  --       workspace = {
+  --         -- Make the server aware of Neovim runtime files
+  --         library = library,
+  --         maxPreload = 3000,
+  --         checkThirdParty = false,
+  --         preloadFileSize = 50000,
+  --       },
+  --       -- Do not send telemetry data containing a randomized but unique identifier
+  --       telemetry = { enable = false },
+  --     },
+  --   },
+  -- }
   configs['jsonls'] = {
     filetypes = { 'json' },
     settings = {
@@ -206,12 +227,32 @@ end
 
 local lsp_configs = setup_servers()
 
+local diagnostic_icons = {
+  ERROR = '',
+  WARN = '',
+  HINT = '',
+  INFO = '',
+}
+
 vim.diagnostic.config({
-  virtual_lines = true,
+  virtual_lines = false,
   virtual_text = false,
-  signs = true,
   underline = true,
   update_in_insert = false,
+  float = {
+    border = 'rounded',
+    source = 'if_many',
+    -- Show severity icons as prefixes.
+    prefix = function(diag)
+      local level = vim.diagnostic.severity[diag.severity]
+      local prefix = string.format(' %s ', diagnostic_icons[level])
+      return prefix, 'Diagnostic' .. level:gsub('^%l', string.upper)
+    end,
+  },
+  -- Disable signs in the gutter.
+  signs = {
+    text = diagnostic_icons,
+  },
 })
 vim.keymap.set('n', '<leader>l', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
@@ -248,31 +289,6 @@ vim.cmd([[
   sign define DiagnosticSignInfo text= texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsLineNrInformation
   sign define DiagnosticSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsLineNrHint
 ]])
-
-local diagnostic_icons = {
-  ERROR = '',
-  WARN = '',
-  HINT = '',
-  INFO = '',
-}
-
-vim.diagnostic.config({
-  virtual_text = false,
-  float = {
-    border = 'rounded',
-    source = 'if_many',
-    -- Show severity icons as prefixes.
-    prefix = function(diag)
-      local level = vim.diagnostic.severity[diag.severity]
-      local prefix = string.format(' %s ', diagnostic_icons[level])
-      return prefix, 'Diagnostic' .. level:gsub('^%l', string.upper)
-    end,
-  },
-  -- Disable signs in the gutter.
-  signs = {
-    text = diagnostic_icons,
-  },
-})
 
 -- https://github.com/MariaSolOs/dotfiles/blob/main/.config/nvim/lua/lsp.lua
 local hover = vim.lsp.buf.hover

@@ -11,17 +11,17 @@ splice.priority = 1
 
 [extensions]
 
-hgext.transplant =
-hgext.rebase =
-hgext.fetch =
-hgext.churn =
-hgext.convert =
-hgext.mq =
-hgext.graphlog =
-hgext.hgk =
-hgext.extdiff =
-hgext.bookmarks =
-hggit = 
+# hgext.transplant =
+# hgext.rebase =
+# hgext.fetch =
+# hgext.churn =
+# hgext.convert =
+# hgext.mq =
+# hgext.graphlog =
+# hgext.hgk =
+# hgext.extdiff =
+# hgext.bookmarks =
+# hggit =
 
 
 color = 

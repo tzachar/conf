@@ -114,6 +114,13 @@ setopt magic_equal_subst
 #specify which chars to skip over:
 export WORDCHARS='*?_-.[]~/&;!#$%^(){}<>'
 
+# Enable edit-command-line widget
+autoload edit-command-line
+zle -N edit-command-line
+
+# Bind Ctrl-X then E to edit current command line
+bindkey '^Xe' edit-command-line
+
 #make zsh not expand wildcards in ssh, scp, rsync commands:
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
@@ -296,7 +303,7 @@ if command -v bat >/dev/null 2>&1; then
 	alias cat="$(whence -p bat) --theme kanagawa"
 	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 	export MANROFFOPT="-c"
-else;
+else
 	echo "Please install bat: cargo install bat"
 fi
 
