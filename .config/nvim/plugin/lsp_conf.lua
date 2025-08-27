@@ -79,8 +79,7 @@ local function setup_servers()
   --   },
   -- }
   configs['pyrefly'] = {
-    settings = {
-    },
+    settings = {},
   }
   -- configs['basedpyright'] = {
   --   settings = {

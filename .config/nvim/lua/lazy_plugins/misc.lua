@@ -338,7 +338,7 @@ return {
     'smjonas/inc-rename.nvim',
     cmd = 'IncRename',
     opt = {
-      input_buffer_type = "snacks",
+      input_buffer_type = 'snacks',
     },
     keys = {
       {

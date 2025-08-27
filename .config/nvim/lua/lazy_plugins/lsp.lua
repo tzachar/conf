@@ -179,8 +179,8 @@ return {
     },
   },
   {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy", -- Or `LspAttach`
+    'rachartier/tiny-inline-diagnostic.nvim',
+    event = 'VeryLazy', -- Or `LspAttach`
     priority = 1000, -- needs to be loaded in first
     config = function()
       require('tiny-inline-diagnostic').setup({
@@ -194,64 +194,64 @@ return {
         },
       })
       vim.diagnostic.config({ virtual_text = false })
-    end
+    end,
   },
   {
-    "piersolenski/wtf.nvim",
+    'piersolenski/wtf.nvim',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
     },
     opts = {},
     keys = {
       {
-        "<leader>wd",
-        mode = { "n", "x" },
+        '<leader>wd',
+        mode = { 'n', 'x' },
         function()
-          require("wtf").diagnose()
+          require('wtf').diagnose()
         end,
-        desc = "Debug diagnostic with AI",
+        desc = 'Debug diagnostic with AI',
       },
       {
-        "<leader>wf",
-        mode = { "n", "x" },
+        '<leader>wf',
+        mode = { 'n', 'x' },
         function()
-          require("wtf").fix()
+          require('wtf').fix()
         end,
-        desc = "Fix diagnostic with AI",
+        desc = 'Fix diagnostic with AI',
       },
       {
-        mode = { "n" },
-        "<leader>ws",
+        mode = { 'n' },
+        '<leader>ws',
         function()
-          require("wtf").search()
+          require('wtf').search()
         end,
-        desc = "Search diagnostic with Google",
+        desc = 'Search diagnostic with Google',
       },
       {
-        mode = { "n" },
-        "<leader>wp",
+        mode = { 'n' },
+        '<leader>wp',
         function()
-          require("wtf").pick_provider()
+          require('wtf').pick_provider()
         end,
-        desc = "Pick provider",
+        desc = 'Pick provider',
       },
       {
-        mode = { "n" },
-        "<leader>wh",
+        mode = { 'n' },
+        '<leader>wh',
         function()
-          require("wtf").history()
+          require('wtf').history()
         end,
-        desc = "Populate the quickfix list with previous chat history",
+        desc = 'Populate the quickfix list with previous chat history',
       },
-    --   {
-    --     mode = { "n" },
-    --     "<leader>wg",
-    --     function()
-    --       require("wtf").grep_history()
-    --     end,
-    --     desc = "Grep previous chat history with Telescope",
-    --   },
+      --   {
+      --     mode = { "n" },
+      --     "<leader>wg",
+      --     function()
+      --       require("wtf").grep_history()
+      --     end,
+      --     desc = "Grep previous chat history with Telescope",
+      --   },
     },
   },
 }

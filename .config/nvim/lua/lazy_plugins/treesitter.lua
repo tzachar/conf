@@ -99,18 +99,18 @@ return {
       {
         '<leader>a',
         function()
-          require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
+          require('nvim-treesitter-textobjects.swap').swap_next('@parameter.inner')
         end,
-        mode = {'n'},
-        desc = "swam next",
+        mode = { 'n' },
+        desc = 'swam next',
       },
       {
         '<leader>A',
         function()
-          require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
+          require('nvim-treesitter-textobjects.swap').swap_previous('@parameter.inner')
         end,
-        mode = {'n'},
-        desc = "swam prev",
+        mode = { 'n' },
+        desc = 'swam prev',
       },
       {
         'af',
