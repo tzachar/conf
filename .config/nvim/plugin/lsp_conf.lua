@@ -310,6 +310,9 @@ vim.lsp.buf.signature_help = function()
   })
 end
 
+-- format as you type
+vim.lsp.on_type_formatting.enable()
+
 -- temp fix for rust analyzer
 -- https://github.com/neovim/neovim/issues/30985
 for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do

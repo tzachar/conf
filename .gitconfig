@@ -17,6 +17,8 @@
 [diff]
 	tool = nvimdiff
 	colorMoved = zebra
+[difftool "nvimdiff"]
+    cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
 [difftool]
     prompt = false
 [difftool "meld"]
@@ -31,6 +33,7 @@
 	prune = true
 [merge]
 	tool = nvim
+	conflictStyle = diff3
 [mergetool "meld"]
     # Choose one of these 2 lines (not both!) explained below.
     cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
@@ -45,3 +48,6 @@
 	diffFilter = delta --color-only
 [delta]
 	navigate = true
+[merge "mergiraf"]
+	name = mergiraf
+	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L

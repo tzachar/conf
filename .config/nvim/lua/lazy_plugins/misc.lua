@@ -103,7 +103,6 @@ return {
       require('kanagawa').compile()
     end,
   },
-
   {
     'simnalamburt/vim-mundo',
     cmd = { 'MundoToggle' },
@@ -425,15 +424,16 @@ return {
       })
     end,
     keys = {
-      { '<C-a>', '<Plug>(dial-increment)', noremap = true, mode = 'n' },
-      { '<C-x>', '<Plug>(dial-decrement)', noremap = true, mode = 'n' },
-      { '+', '<Plug>(dial-increment)', noremap = true, mode = 'n' },
-      { '-', '<Plug>(dial-decrement)', noremap = true, mode = 'n' },
-      { '<C-a>', '<Plug>(dial-increment)', noremap = true, mode = 'v' },
-      { '<C-x>', '<Plug>(dial-decrement)', noremap = true, mode = 'v' },
-      -- these are buggy for now!
-      -- {'g<C-a>', require("dial.map").inc_gvisual(), options = {noremap = true} },
-      -- {'g<C-x>', require("dial.map").dec_gvisual(), options = {noremap = true} },
+      { 'g<C-a>', function() require("dial.map").manipulate("increment", "gnormal") end, noremap = true, mode = 'n' },
+      { 'g<C-x>', function() require("dial.map").manipulate("decrement", "gnormal") end, noremap = true, mode = 'n' },
+      { '<C-a>', function() require("dial.map").manipulate("increment", "normal") end, noremap = true, mode = 'n' },
+      { '<C-x>', function() require("dial.map").manipulate("decrement", "normal") end, noremap = true, mode = 'n' },
+      { '+', function() require("dial.map").manipulate("increment", "normal") end, noremap = true, mode = 'n' },
+      { '-', function() require("dial.map").manipulate("decrement", "normal") end, noremap = true, mode = 'n' },
+      { '<C-a>', function() require("dial.map").manipulate("increment", "visual") end, noremap = true, mode = 'x' },
+      { '<C-x>', function() require("dial.map").manipulate("decrement", "visual") end, noremap = true, mode = 'x' },
+      { 'g<C-a>', function() require("dial.map").manipulate("increment", "gvisual") end, noremap = true, mode = 'x' },
+      { 'g<C-x>', function() require("dial.map").manipulate("decrement", "gvisual") end, noremap = true, mode = 'x' },
     },
   },
 
@@ -575,7 +575,7 @@ return {
   {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
-    ft = { 'markdown' },
+    ft = { 'markdown', "codecompanion" },
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
