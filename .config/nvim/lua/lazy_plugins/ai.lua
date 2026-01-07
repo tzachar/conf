@@ -1,28 +1,28 @@
 return {
   {
     enabled = false,
-    "olimorris/codecompanion.nvim",
+    'olimorris/codecompanion.nvim',
     opts = {
       strategies = {
         chat = {
-          adapter = "gemini",
+          adapter = 'gemini',
         },
         inline = {
-          adapter = "gemini",
+          adapter = 'gemini',
         },
         cmd = {
-          adapter = "gemini",
-        }
+          adapter = 'gemini',
+        },
       },
       adapters = {
         acp = {
           gemini_cli = function()
-            return require("codecompanion.adapters").extend("gemini_cli", {
+            return require('codecompanion.adapters').extend('gemini_cli', {
               defaults = {
-                auth_method = "gemini-api-key", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
+                auth_method = 'gemini-api-key', -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
               },
               env = {
-                GEMINI_API_KEY = "cmd:op read op://personal/Gemini_API/credential --no-newline",
+                GEMINI_API_KEY = 'cmd:op read op://personal/Gemini_API/credential --no-newline',
               },
             })
           end,
@@ -30,8 +30,8 @@ return {
       },
     },
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
   },
 }
