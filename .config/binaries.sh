@@ -71,6 +71,10 @@ if ! command -v difft >/dev/null 2>&1; then
 	echo "please install mergiraf: cargo install --locked difftastic"
 fi
 
+if ! command -v lspmux >/dev/null 2>&1; then
+	echo "please install lspmux: cargo install lspmux"
+fi
+
 if ! command -v doggo >/dev/null 2>&1; then
 	echo "please install doggo: curl -sS https://raw.githubusercontent.com/mr-karan/doggo/main/install.sh | sh"
 else

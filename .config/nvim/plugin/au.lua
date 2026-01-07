@@ -40,6 +40,14 @@ local ftypes = vim.api.nvim_create_augroup('ftypes', { clear = true })
 
 vim.api.nvim_create_autocmd('FileType', {
   group = ftypes,
+  pattern = { 'rs', 'rust' },
+  callback = function()
+    require('lspmux').ensure_lspmux_running()
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = ftypes,
   pattern = { 'yaml', 'lua' },
   callback = function()
     vim.api.nvim_set_option_value('ts', 2, { scope = 'local', buf = 0 })

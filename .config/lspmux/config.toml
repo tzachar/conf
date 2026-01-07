@@ -1,0 +1,56 @@
+# all configuration options here are set to their default value they'll have if
+# they're not present in the file or if the config file is missing completely.
+
+# time in seconds after which a rust-analyzer server instance with no clients
+# connected will get killed to save system memory.
+#
+# you can set this option to `false` for infinite timeout
+instance_timeout = false
+
+# time in seconds how long to wait between the gc task checks for disconnected
+# clients and possibly starts a timeout task. the value must be at least 1.
+gc_interval = 10 # every 10 seconds
+
+# ip address and port on which lspmux server listens
+# or unix socket path on *nix operating systems
+#
+# the default "127.0.0.1" only allows connections from localhost which is
+# preferred since the protocol doesn't worry about security.
+# lspmux server expects the filesystem structure and contents to be the same
+# on its machine as on lspmux's machine. if you want to run the server on a
+# different computer it's theoretically possible but at least for now you're on
+# your own.
+#
+# ports below 1024 will typically require root privileges and should be
+# avoided, the default was picked at random, this only needs to change if
+# another application happens to collide with lspmux.
+listen = ["127.0.0.1", 27631] # localhost & some random unprivileged port
+# listen = "/var/run/lspmux/lspmux.sock" # unix socket
+
+# ip address and port to which lspmux will connect to or unix socket path on
+# *nix operating systems
+#
+# this should usually just match the value of `listen`
+connect = ["127.0.0.1", 27631] # same as `listen`
+# connect = "/var/run/lspmux/lspmux.sock" # same as `listen`
+
+# default log filters
+#
+# RUST_LOG env variable overrides this option, both use the same syntax which
+# is documented in the `env_logger` documentation here:
+# <https://docs.rs/env_logger/0.9.0/env_logger/index.html#enabling-logging>
+log_filters = "info"
+
+# environment variable names passed from `lspmux client` to the server
+#
+# By default no variables are passed and all servers are spawned in the same
+# environment as the `lspmux server` is.
+# When a name like "LD_LIBRARY_PATH" is specified, the proxy reads the variable
+# value from its environment and passes the variable with the value set in the
+# proxy environment to the server, which then passes it further to the server
+# executable.
+#
+# If "PATH" is specified here then the PATH from the client environment is
+# going to be used for looking up a relative `--server-path`.
+# Example: pass_environment = ["PATH", "LD_LIBRARY_PATH"]
+pass_environment = []

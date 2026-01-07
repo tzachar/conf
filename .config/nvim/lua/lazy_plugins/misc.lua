@@ -553,7 +553,7 @@ return {
 
   -- sqlite lua
   -- { 'kkharji/sqlite.lua', lazy = true },
-
+  --
   {
     'windwp/nvim-autopairs',
     config = function()

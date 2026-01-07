@@ -113,3 +113,16 @@ nest.applyKeymaps({
     { '<leader>nt', "<cmd>lua require('neogen').generate({ type = 'type' })<cr>" },
   } },
 })
+
+function ToggleSemicolon()
+  local line = vim.api.nvim_get_current_line()
+  if line:match('%s*;$') then
+    -- remove trailing semicolon
+    line = line:gsub('%s*;$', '')
+  else
+    -- add semicolon
+    line = line .. ';'
+  end
+  vim.api.nvim_set_current_line(line)
+end
+vim.keymap.set('n', '<Leader>;', ToggleSemicolon, { desc = 'Toggle semicolon' })

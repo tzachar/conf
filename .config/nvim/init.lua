@@ -148,16 +148,16 @@ vim.api.nvim_set_hl(0, 'Folded', {
   ctermbg = 'DarkGrey',
 })
 
---add a ; at the end of the line
-vim.cmd([[
-function! ToggleEndChar(charToMatch)
-	let l:winview = winsaveview()
-	s/\v(.)$/\=submatch(1)==a:charToMatch ? '' : submatch(1).a:charToMatch
-	nohlsearch
-	call winrestview(l:winview)
-endfunction
-]])
-vim.keymap.set('n', '<Leader>;', ":call ToggleEndChar(';')<CR>", {})
+-- --add a ; at the end of the line
+-- vim.cmd([[
+-- function! ToggleEndChar(charToMatch)
+-- 	let l:winview = winsaveview()
+-- 	s/\v(.)$/\=submatch(1)==a:charToMatch ? '' : submatch(1).a:charToMatch
+-- 	nohlsearch
+-- 	call winrestview(l:winview)
+-- endfunction
+-- ]])
+-- vim.keymap.set('n', '<Leader>;', ":call ToggleEndChar(';')<CR>", {})
 
 -- The Silver Searcher
 if vim.fn.executable('ag') then
