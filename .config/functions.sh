@@ -173,19 +173,63 @@ function update_nvim()
 	popd
 }
 
-function to_cmd()
-{
-	fname=$1; shift
-	prefix=$1
-	cat $fname | sed 's/^\|$/"/g' | paste -d, -s | sed "s/^\|,/ $prefix /"g
+function to_cmd() {
+    local prefix
+    local -a inputs
+
+    # 1. Validation: Ensure at least one argument (the prefix) is provided
+    if [[ $# -eq 0 ]]; then
+        print -u2 "Error: Please provide a prefix flag (e.g., --dates or --user)."
+        return 1
+    fi
+
+    # 2. Capture the prefix (first arg) and shift it off the list
+    prefix="$1"
+    shift
+
+    # 3. Determine Input Source from remaining arguments
+    if [[ $# -eq 0 ]]; then
+        # CASE A: No remaining args -> Read from Stdin
+        # If stdin is empty, this handles it gracefully
+        if [[ -p /dev/stdin ]] || [[ ! -t 0 ]]; then
+            inputs=("${(@f)$(cat)}")
+        else
+             print -u2 "Error: No input arguments or stdin provided."
+             return 1
+        fi
+
+    elif [[ $# -eq 1 && -f "$1" ]]; then
+        # CASE B: Single remaining arg is a file -> Read File
+        inputs=("${(@f)$(<"$1")}")
+
+    else
+        # CASE C: Remaining args are values -> Use directly
+        inputs=("$@")
+    fi
+
+    # 4. Output Transformation
+    for item in "${inputs[@]}"; do
+        # Skip empty lines/items
+        [[ -z "${item// }" ]] && continue
+
+        # Print prefix + item
+        print -n -r -- "$prefix" "$item" " "
+    done
 }
 
-function to_cmd_no_q()
-{
-	fname=$1; shift
-	prefix=$1
-	cat $fname | paste -d, -s | sed "s/^\|,/ $prefix /"g
-}
+# function to_cmd()
+# {
+# 	fname=$1; shift
+# 	prefix=$1
+# 	cat $fname | sed 's/^\|$/"/g' | paste -d, -s | sed "s/^\|,/ $prefix /"g
+# }
+#
+# function to_cmd_no_q()
+# {
+# 	fname=$1; shift
+# 	prefix=$1
+# 	cat $fname | paste -d, -s | sed "s/^\|,/ $prefix /"g
+# }
 
 function kill-path-word()
 {

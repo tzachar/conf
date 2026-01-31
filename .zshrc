@@ -11,6 +11,10 @@ source ~/antigen.zsh
 antigen bundle chrissicool/zsh-256color
 antigen use oh-my-zsh
 antigen bundle agkozak/zsh-z
+# use npx histdbimport
+antigen bundle larkery/zsh-histdb
+mkdir -p "${HOME}"/.local/share/zsh-histdb-skim/
+antigen bundle m42e/zsh-histdb-skim@main
 antigen bundle git
 antigen bundle sudo
 antigen bundle ubuntu
@@ -292,6 +296,38 @@ export NVM_DIR="$HOME/.nvm"
 # setup go
 export GOPATH="${HOME}/go"
 export PATH=${PATH:=""}:"${HOME}/go/bin"
+
+
+# setup 'm42e/zsh-histdb-skim'
+bindkey '^R' histdb-skim-widget
+
+# make autosuggest work with histdb
+# _zsh_autosuggest_strategy_histdb_top_here() {
+#     local query="select commands.argv from
+# history left join commands on history.command_id = commands.rowid
+# left join places on history.place_id = places.rowid
+# where places.dir LIKE '$(sql_escape $PWD)%'
+# and commands.argv LIKE '$(sql_escape $1)%'
+# group by commands.argv order by count(*) desc limit 1"
+#     suggestion=$(_histdb_query "$query")
+# }
+#
+# export ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
+
+_zsh_autosuggest_strategy_histdb_top() {
+    local query="
+        select commands.argv from history
+        left join commands on history.command_id = commands.rowid
+        left join places on history.place_id = places.rowid
+        where commands.argv LIKE '$(sql_escape $1)%'
+        group by commands.argv, places.dir
+        order by places.dir != '$(sql_escape $PWD)', count(*) desc
+        limit 1
+    "
+    suggestion=$(_histdb_query "$query")
+}
+
+ZSH_AUTOSUGGEST_STRATEGY=histdb_top
 
 # do this last, after setting up the env
 . ${HOME_CONF}/binaries.sh

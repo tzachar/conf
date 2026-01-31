@@ -34,8 +34,6 @@ local function setup()
     'markdown_inline',
     'matlab',
     'nginx',
-    'nm',
-    'n.so',
     'passwd',
     'pem',
     'puppet',

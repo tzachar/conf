@@ -5,7 +5,8 @@
 # connected will get killed to save system memory.
 #
 # you can set this option to `false` for infinite timeout
-instance_timeout = false
+instance_timeout = 1200
+# instance_timeout = false
 
 # time in seconds how long to wait between the gc task checks for disconnected
 # clients and possibly starts a timeout task. the value must be at least 1.

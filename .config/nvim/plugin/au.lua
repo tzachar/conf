@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd('FileType', {
   group = ftypes,
   pattern = { 'rs', 'rust' },
   callback = function()
-    require('lspmux').ensure_lspmux_running()
+    require('lspmux').setup()
   end,
 })
 

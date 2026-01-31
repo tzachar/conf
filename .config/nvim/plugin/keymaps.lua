@@ -101,10 +101,6 @@ nest.applyKeymaps({
   { mode = 'v', {
     { '<leader>c', "<cmd>lua require('iron').core.visual_send()<cr>" },
   } },
-  { mode = 'n', {
-    { '<leader>c', '<plug>(iron-send-motion)' },
-    { '<leader>rq', '<cmd>IronFocus<cr>' },
-  } },
 
   -- neogen documentation
   { mode = 'n', {

@@ -74,13 +74,13 @@ local function setup_servers()
       },
     },
   }
-  -- configs['ty'] = {
-  --   settings = {
-  --   },
-  -- }
-  configs['pyrefly'] = {
-    settings = {},
+  configs['ty'] = {
+    settings = {
+    },
   }
+  -- configs['pyrefly'] = {
+  --   settings = {},
+  -- }
   -- configs['basedpyright'] = {
   --   settings = {
   --     basedpyright = {

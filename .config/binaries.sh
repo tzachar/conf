@@ -80,3 +80,7 @@ if ! command -v doggo >/dev/null 2>&1; then
 else
 	alias dig='doggo'
 fi
+
+if ! command -v sk >/dev/null 2>&1; then
+	echo "please install sk:cargo +nightly install skim"
+fi
