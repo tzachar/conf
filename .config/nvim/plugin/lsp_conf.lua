@@ -75,8 +75,7 @@ local function setup_servers()
     },
   }
   configs['ty'] = {
-    settings = {
-    },
+    settings = {},
   }
   -- configs['pyrefly'] = {
   --   settings = {},
