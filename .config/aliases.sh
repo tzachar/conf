@@ -15,7 +15,7 @@
 #alias cd='set -o noglob;cd_titlebar'
 alias m='make'
 alias rm='rm -irf'
-alias cp='cp -i'
+# alias cp='cp -i'
 alias mv='mv -i'
 # -> Prevents accidentally clobbering files.
 alias mkdir='mkdir -p'
