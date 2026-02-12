@@ -25,9 +25,7 @@ antigen bundle tmux
 antigen bundle pipenv
 antigen bundle zsh-users/zsh-completions
 antigen bundle Aloxaf/fzf-tab
-# antigen bundle zsh-users/zsh-autosuggestions
-export ZSH_AUTOSUGGEST_DONT_CHECK_PREFIX="true"
-antigen bundle tzachar/zsh-autosuggestions
+antigen bundle zsh-users/zsh-autosuggestions
 
 antigen bundle hlissner/zsh-autopair
 antigen bundle MenkeTechnologies/zsh-cargo-completion
@@ -319,24 +317,14 @@ bindkey '^R' histdb-skim-widget
 # export ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
 
 function _zsh_autosuggest_strategy_histdb_top() {
-	# for this to work, you need https://github.com/tzachar/sqlite_skim
 	local query
-	if [[ -r ${HOME}/sqlite/libsqlite_skim.so ]]; then
-		query="
-		select distinct argv from commands
-		left join history on history.command_id = commands.rowid
-		order by skim_score('$(sql_escape $1)', argv) desc, start_time desc
-		limit 1
-		"
-	else
-	    query="
-		select distinct commands.argv from history
+	query="
+	select distinct commands.argv from history
 		left join commands on history.command_id = commands.rowid
 		where commands.argv LIKE '$(sql_escape $1)%'
 		order by start_time desc
 		limit 1
-	    "
-	fi
+		"
 	typeset -g suggestion=$(_histdb_query "$query")
 }
 ZSH_AUTOSUGGEST_STRATEGY=(histdb_top)
