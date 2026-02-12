@@ -25,7 +25,10 @@ antigen bundle tmux
 antigen bundle pipenv
 antigen bundle zsh-users/zsh-completions
 antigen bundle Aloxaf/fzf-tab
-antigen bundle zsh-users/zsh-autosuggestions
+# antigen bundle zsh-users/zsh-autosuggestions
+export ZSH_AUTOSUGGEST_DONT_CHECK_PREFIX="true"
+antigen bundle tzachar/zsh-autosuggestions
+
 antigen bundle hlissner/zsh-autopair
 antigen bundle MenkeTechnologies/zsh-cargo-completion
 
@@ -37,7 +40,8 @@ antigen bundle MenkeTechnologies/zsh-cargo-completion
 # antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zdharma-continuum/fast-syntax-highlighting
 
-antigen bundle zsh-users/zsh-history-substring-search
+# antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle tzachar/zsh-history-substring-search
 
 antigen theme romkatv/powerlevel10k
 
@@ -314,20 +318,52 @@ bindkey '^R' histdb-skim-widget
 #
 # export ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
 
-_zsh_autosuggest_strategy_histdb_top() {
-    local query="
-        select commands.argv from history
-        left join commands on history.command_id = commands.rowid
-        left join places on history.place_id = places.rowid
-        where commands.argv LIKE '$(sql_escape $1)%'
-        group by commands.argv, places.dir
-        order by places.dir != '$(sql_escape $PWD)', count(*) desc
-        limit 1
-    "
-    suggestion=$(_histdb_query "$query")
+function _zsh_autosuggest_strategy_histdb_top() {
+	# for this to work, you need https://github.com/tzachar/sqlite_skim
+	local query
+	if [[ -r ${HOME}/sqlite/libsqlite_skim.so ]]; then
+		query="
+		select distinct argv from commands
+		left join history on history.command_id = commands.rowid
+		order by skim_score('$(sql_escape $1)', argv) desc, start_time desc
+		limit 1
+		"
+	else
+	    query="
+		select distinct commands.argv from history
+		left join commands on history.command_id = commands.rowid
+		where commands.argv LIKE '$(sql_escape $1)%'
+		order by start_time desc
+		limit 1
+	    "
+	fi
+	typeset -g suggestion=$(_histdb_query "$query")
 }
+ZSH_AUTOSUGGEST_STRATEGY=(histdb_top)
 
-ZSH_AUTOSUGGEST_STRATEGY=histdb_top
+# for this to work, you need https://github.com/tzachar/sqlite_skim
+if [[ -r ${HOME}/sqlite/libsqlite_skim.so ]]; then
+	function _history-substring-get-raw-matches-histdb {
+		local SEP
+		local query
+		local what
+		SEP=$(printf $'\1')
+		query="
+		select distinct argv from commands
+		left join history on history.command_id = commands.rowid
+		order by skim_score('$(sql_escape ${_history_substring_search_query_parts[@]})', argv) desc, start_time desc
+		limit 50
+		"
+		result=$(_histdb_query -newline $SEP "$query")
+		_history_substring_search_raw_matches=(${(ps:\1:)result})
+		_history_substring_search_raw_matches=(${_history_substring_search_raw_matches[@]%$'\n'})
+	}
+
+	HISTORY_SUBSTRING_SEARCH_MATCH_FUNCTION="_history-substring-get-raw-matches-histdb"
+else
+	echo "please install sqlite_skim: https://github.com/tzachar/sqlite_skim"
+	echo "(cd /tmp; git clone https://github.com/tzachar/sqlite_skim; cd sqlite_skim; ./install.sh)"
+fi
 
 # do this last, after setting up the env
 . ${HOME_CONF}/binaries.sh
