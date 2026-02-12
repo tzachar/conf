@@ -319,7 +319,7 @@ bindkey '^R' histdb-skim-widget
 function _zsh_autosuggest_strategy_histdb_top() {
 	local query
 	query="
-	select distinct commands.argv from history
+	select commands.argv from history
 		left join commands on history.command_id = commands.rowid
 		where commands.argv LIKE '$(sql_escape $1)%'
 		order by start_time desc
