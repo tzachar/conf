@@ -2,3 +2,5 @@
 -- .load /usr/lib/sqlite3/pcre.so
 .load /home/tzachar/sqlite/inflate.so
 .load /home/tzachar/sqlite/libsqlitefunctions.so
+
+.load /home/tzachar/sqlite/libsqlite_skim.so
