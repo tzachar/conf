@@ -6,6 +6,7 @@ local ignore_decl_per_source = {
   ['mypy'] = 'type: ignore',
   ['flake8'] = 'noqa',
   ['pyflakes'] = 'noqa',
+  ['ty'] = ' ty: ignore',
   ['ruff'] = 'noqa',
   ['pycodestyle'] = 'noqa',
   ['pylsp'] = 'noqa',

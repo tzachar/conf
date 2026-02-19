@@ -337,10 +337,20 @@ if [[ -r ${HOME}/sqlite/libsqlite_skim.so ]]; then
 		local what
 		SEP=$(printf $'\1')
 		query="
-		select distinct argv from commands
-		left join history on history.command_id = commands.rowid
-		order by skim_score('$(sql_escape ${_history_substring_search_query_parts[@]})', argv) desc, start_time desc
-		limit 50
+			WITH UniqueCommands AS (
+			    SELECT
+				commands.argv,
+				MAX(history.start_time) AS last_run_time
+			    FROM commands
+			    LEFT JOIN history ON history.command_id = commands.rowid
+			    GROUP BY commands.argv
+			)
+			SELECT argv
+			FROM UniqueCommands
+			ORDER BY
+			    skim_score('$(sql_escape ${_history_substring_search_query_parts[@]})', argv) DESC,
+			    last_run_time DESC
+			LIMIT 50;
 		"
 		result=$(_histdb_query -newline $SEP "$query")
 		_history_substring_search_raw_matches=(${(ps:\1:)result})
@@ -352,6 +362,15 @@ else
 	echo "please install sqlite_skim: https://github.com/tzachar/sqlite_skim"
 	echo "(cd /tmp; git clone https://github.com/tzachar/sqlite_skim; cd sqlite_skim; ./install.sh)"
 fi
+
+# Ensure zsh-history.db is optimized with custom indexes
+if command -v sqlite3 >/dev/null 2>&1 && [[ -f "$HOME/.histdb/zsh-history.db" ]]; then
+    sqlite3 "$HOME/.histdb/zsh-history.db" "
+        CREATE INDEX IF NOT EXISTS idx_history_command_time ON history(command_id, start_time);
+        CREATE INDEX IF NOT EXISTS idx_commands_argv ON commands(argv);
+    " &>/dev/null &!
+fi
+
 
 # do this last, after setting up the env
 . ${HOME_CONF}/binaries.sh

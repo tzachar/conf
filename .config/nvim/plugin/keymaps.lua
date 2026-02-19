@@ -40,9 +40,6 @@ nest.applyKeymaps({
       { '<C-N>', '<Cmd>cn<cr>' },
       { '<C-@><C-N>', '<Cmd>cN<cr>' },
 
-      -- undo
-      { '<F5>', '<Cmd>MundoToggle<cr>' },
-
       -- fzf
       -- { '<leader>', {
       --   { 'b', '<cmd>lua require("fzf-lua").buffers()<cr>' },

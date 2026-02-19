@@ -104,8 +104,12 @@ return {
     end,
   },
   {
-    'simnalamburt/vim-mundo',
-    cmd = { 'MundoToggle' },
+    "jiaoshijie/undotree",
+    opts = {},
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
+      { "<F5>", "<cmd>lua require('undotree').toggle()<cr>" },
+    },
   },
   {
     'mileszs/ack.vim',
