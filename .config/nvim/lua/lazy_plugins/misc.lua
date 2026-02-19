@@ -104,11 +104,11 @@ return {
     end,
   },
   {
-    "jiaoshijie/undotree",
+    'jiaoshijie/undotree',
     opts = {},
     keys = { -- load the plugin only when using it's keybinding:
-      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
-      { "<F5>", "<cmd>lua require('undotree').toggle()<cr>" },
+      { '<leader>u', "<cmd>lua require('undotree').toggle()<cr>" },
+      { '<F5>', "<cmd>lua require('undotree').toggle()<cr>" },
     },
   },
   {
