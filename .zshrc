@@ -165,6 +165,7 @@ fi
 ulimit -S -c unlimited          # want coredumps
 
 . ${HOME_CONF}/cargo.sh
+. "$HOME/.cargo/env"
 export PATH=${PATH}:${CARGO_INSTALL_ROOT}/bin
 
 . ${HOME_CONF}/aliases.sh
@@ -222,8 +223,7 @@ export PYTHON_CONFIGURE_OPTS="--enable-shared --enable-loadable-sqlite-extension
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if [ -d ${PYENV_ROOT} ] ; then
-	eval "$(pyenv init --path)"
-	eval "$(pyenv init -)"
+	eval "$(pyenv init - zsh)"
 fi
 
 

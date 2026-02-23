@@ -6,7 +6,7 @@
 typeset -A dependencies
 dependencies=(
     ["cargo"]="curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
-    ["bat"]="cargo install bat"
+    ["bat"]="cargo install bat && bat cache --build"
     ["delta"]="cargo install git-delta"
     ["duf"]="sudo apt install duf"
     ["mold"]="echo 'See https://github.com/rui314/mold for install instructions'"
