@@ -28,6 +28,9 @@ import sys
 from decimal import Decimal
 
 import click
+import plotly.express as px
+import os
+import tempfile
 
 
 class MVSD(object):
@@ -182,17 +185,39 @@ def histogram(stream, minimum=None, maximum=None, buckets=None, custbuckets=None
         print("# %d value%s outside of min/max" % (skipped, skipped > 1 and 's' or ''))
     if calc_msvd:
         print("# Mean = %f; Variance = %f; SD = %f; Median %f" % (mvsd.mean(), mvsd.var(), mvsd.sd(), median(accepted_data)))
-    print("# each ∎ represents a count of %d" % bucket_scale)
-    bucket_min = min_v
-    bucket_max = min_v
-    for bucket in range(buckets):
-        bucket_min = bucket_max
-        bucket_max = boundaries[bucket]
-        bucket_count = bucket_counts[bucket]
-        star_count = 0
-        if bucket_count:
-            star_count = bucket_count // bucket_scale
-        print('%10.4f - %10.4f [%6d]: %s' % (bucket_min, bucket_max, bucket_count, '∎' * star_count))
+
+
+    x = [
+        f'{start} - {end}' for start, end in zip(
+            [min_v] + boundaries[:-1],
+            boundaries[:-1] + [max_v],
+        )
+    ]
+    fig = px.histogram(
+        x=x,
+        y=bucket_counts,
+    )
+
+    gfx = False
+    with tempfile.NamedTemporaryFile(delete=True, suffix='.png') as f:
+        fig.write_image(f.name, width=800, height=600, scale=2)
+        if os.system(f"timg -pk -g80x120 {f.name}") == 0:
+            gfx = True
+        else:
+            print("# Failed to generate image. Please install plotly and timg to view the histogram.")
+
+    if not gfx:
+        print("# each ∎ represents a count of %d" % bucket_scale)
+        bucket_min = min_v
+        bucket_max = min_v
+        for bucket in range(buckets):
+            bucket_min = bucket_max
+            bucket_max = boundaries[bucket]
+            bucket_count = bucket_counts[bucket]
+            star_count = 0
+            if bucket_count:
+                star_count = bucket_count // bucket_scale
+            print('%10.4f - %10.4f [%6d]: %s' % (bucket_min, bucket_max, bucket_count, '∎' * star_count))
 
 
 @click.command()
