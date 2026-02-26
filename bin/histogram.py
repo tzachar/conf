@@ -123,8 +123,8 @@ def histogram(stream, minimum=None, maximum=None, buckets=None, custbuckets=None
     else:
         max_v = max(data)
 
-    if not max_v > min_v:
-        raise ValueError('max must be > min. max:%s min:%s' % (max_v, min_v))
+    if not max_v >= min_v:
+        raise ValueError('max must be >= min. max:%s min:%s' % (max_v, min_v))
     diff = max_v - min_v
 
     boundaries = []
