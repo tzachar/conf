@@ -9,13 +9,14 @@ from datetime import datetime, timedelta
 # --- 1. Configuration Data ---
 
 class Binary:
-    def __init__(self, name, type, pkg=None, install_cmd=None, update_cmd=None, post_install=None):
+    def __init__(self, name, type, pkg=None, install_cmd=None, update_cmd=None, post_install=None, toolchain=None):
         self.name = name
         self.type = type  # cargo, pip, apt, rustup, custom
         self.pkg = pkg or name
         self.install_cmd = install_cmd
         self.update_cmd = update_cmd
         self.post_install = post_install
+        self.toolchain = toolchain
 
     def is_installed(self):
         return shutil.which(self.name) is not None
@@ -23,7 +24,8 @@ class Binary:
     def install(self):
         print(f"\033[34m-> Installing {self.name}...\033[0m")
         if self.type == "cargo":
-            cmd = f"cargo install {self.pkg}"
+            tc = f" {self.toolchain}" if self.toolchain else ""
+            cmd = f"cargo{tc} install {self.pkg}"
         elif self.type == "pip":
             cmd = f"pip install {self.pkg}"
         elif self.type == "apt":
@@ -43,7 +45,8 @@ class Binary:
         print(f"\033[34m-> Updating {self.name}...\033[0m")
         if self.type == "cargo":
             # cargo install updates if needed
-            cmd = f"cargo install {self.pkg}"
+            tc = f" {self.toolchain}" if self.toolchain else ""
+            cmd = f"cargo{tc} install {self.pkg}"
         elif self.type == "pip":
             cmd = f"pip install --upgrade {self.pkg}"
         elif self.type == "apt":
@@ -80,7 +83,7 @@ BINARIES = [
     Binary("difft", "cargo", pkg="--locked difftastic"),
     Binary("lspmux", "cargo"),
     Binary("doggo", "custom", install_cmd="curl -sS https://raw.githubusercontent.com/mr-karan/doggo/main/install.sh | sh"),
-    Binary("sk", "cargo", pkg="+nightly skim"),
+    Binary("sk", "cargo", pkg="skim", toolchain="+nightly"),
     Binary("cpx", "cargo"),
     Binary("stylua", "cargo"),
 ]
