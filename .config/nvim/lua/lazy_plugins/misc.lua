@@ -191,7 +191,7 @@ return {
 
   {
     'will133/vim-dirdiff',
-    cmd = 'DirDiff'
+    cmd = 'DirDiff',
   },
   -- add cmd utils as vim commands
   { 'tpope/vim-eunuch', cmd = {
