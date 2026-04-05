@@ -189,6 +189,10 @@ return {
   },
   { 'godlygeek/tabular', cmd = 'Tabularize' },
 
+  {
+    'will133/vim-dirdiff',
+    cmd = 'DirDiff'
+  },
   -- add cmd utils as vim commands
   { 'tpope/vim-eunuch', cmd = {
     'Delete',

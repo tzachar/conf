@@ -86,6 +86,7 @@ BINARIES = [
     Binary("sk", "cargo", pkg="skim", toolchain="+nightly"),
     Binary("cpx", "cargo"),
     Binary("stylua", "cargo"),
+    Binary("claude-chill", "cargo", pkg="--git https://github.com/davidbeesley/claude-chill"),
 ]
 
 # --- 2. System Health Checks ---

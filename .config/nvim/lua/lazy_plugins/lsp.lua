@@ -161,6 +161,9 @@ return {
         -- Use a sub-list to run only the first available formatter
         javascript = { 'prettierd', 'prettier' },
         cpp = { 'clang-format' },
+        sh = { 'beautysh' },
+        bash = { 'beautysh' },
+        zsh = { 'beautysh' },
       },
     },
   },

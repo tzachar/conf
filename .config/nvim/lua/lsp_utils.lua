@@ -13,7 +13,11 @@ function M.format_range_operator(...)
     require('conform').format({
       range = { start = start, ['end'] = finish },
       timeout_ms = 3000,
-    })
+    }, function(err)
+      if err then
+        vim.api.nvim_notify(err, vim.log.levels.ERROR, {})
+      end
+    end)
     vim.go.operatorfunc = old_func
     _G.op_func_formatting = nil
   end
@@ -43,7 +47,7 @@ function M.setup_codelens_refresh(client, bufnr)
     group = group,
     buffer = bufnr,
     callback = function(...)
-      local ok2 = pcall(vim.lsp.codelens.refresh, { bufnr = bufnr })
+      local ok2 = pcall(vim.lsp.codelens.enable,  true, { bufnr = bufnr })
       if not ok2 then
         vim.notify('Error calling codelense refresh', vim.log.levels.ERROR)
         return true -- remove this autocommand

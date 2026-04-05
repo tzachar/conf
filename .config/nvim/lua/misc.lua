@@ -57,10 +57,6 @@ nest.applyKeymaps({
   } },
 })
 
--- mundo
-vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
-
 vim.api.nvim_create_user_command('AddIgnoreType', add_ignore_type, { range = true })
 
 local function convert_to_json_list(options)
