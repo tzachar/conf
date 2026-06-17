@@ -1,90 +1,14 @@
-local function setup()
-  local ts_au = vim.api.nvim_create_augroup('TsAu', { clear = true })
-
-  require('nvim-treesitter').install({
-    'asm',
-    'awk',
-    'bash',
-    'bibtex',
-    'c',
-    'cmake',
-    'cpp',
-    'css',
-    'csv',
-    'diff',
-    'dot',
-    'gitcommit',
-    'git_config',
-    'git_rebase',
-    'gpg',
-    'graphql',
-    'html',
-    'htmldjango',
-    'http',
-    'ispc',
-    'java',
-    'javascript',
-    'jinja',
-    'jinja_inline',
-    'json',
-    'latex',
-    'lua',
-    'make',
-    'markdown',
-    'markdown_inline',
-    'matlab',
-    'nginx',
-    'passwd',
-    'pem',
-    'puppet',
-    'python',
-    'regex',
-    'rust',
-    'sql',
-    'ssh_config',
-    'strace',
-    'tmux',
-    'toml',
-    'tsv',
-    'vimdoc',
-    'yaml',
-    'zig',
-  })
-  vim.api.nvim_create_autocmd('FileType', {
-    group = ts_au,
-    pattern = { '*' },
-    callback = function(args)
-      local ft = args['match']
-      if not vim.tbl_contains(require('nvim-treesitter').get_installed(), ft) then
-        if vim.tbl_contains(require('nvim-treesitter').get_available(), ft) then
-          require('nvim-treesitter').install({ ft })
-          vim.treesitter.start()
-        end
-      end
-      if vim.tbl_contains(require('nvim-treesitter').get_available(), ft) then
-        vim.treesitter.start()
-      end
-    end,
-  })
-end
-
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'm-demare/hlargs.nvim',
-      'David-Kunz/treesitter-unit',
-      'cohama/lexima.vim',
-    },
-    lazy = false,
-    build = ':TSUpdate',
-    opts = setup,
-    branch = 'main',
+    'arborist-ts/arborist.nvim',
+    opts = {
+
+    }
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter',
+      'arborist-ts/arborist.nvim',
     },
     branch = 'main',
     event = 'VeryLazy',
@@ -166,13 +90,5 @@ return {
   {
     'David-Kunz/treesitter-unit',
     event = 'VeryLazy',
-  },
-  {
-    'daliusd/incr.nvim',
-    opts = {
-      incr_key = '<M-k>', -- increment selection key
-      decr_key = '<M-j>', -- decrement selection key
-    },
-    -- event = 'VeryLazy',
   },
 }

@@ -23,6 +23,11 @@ vim.g.rustaceanvim = {
     end,
     settings = {
       ['rust-analyzer'] = {
+        lspMux = {
+          version = "1",
+          method = "connect",
+          server = "rust-analyzer",
+        },
         cargo = {
           -- need to make sure to add this one also to cargo config!!
           target = 'x86_64-unknown-linux-gnu',
@@ -101,6 +106,7 @@ return {
   {
     'mrcjkb/rustaceanvim',
     -- version = '^5', -- Recommended
+    version = '^9',
     ft = { 'rust' },
   },
   {

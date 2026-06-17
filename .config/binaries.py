@@ -87,6 +87,13 @@ BINARIES = [
     Binary("cpx", "cargo"),
     Binary("stylua", "cargo"),
     Binary("claude-chill", "cargo", pkg="--git https://github.com/davidbeesley/claude-chill"),
+    Binary(
+        "rtk",
+        "custom",
+        install_cmd="curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh",
+        update_cmd="curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh",
+        post_install="rtk init -g",
+    ),
 ]
 
 # --- 2. System Health Checks ---

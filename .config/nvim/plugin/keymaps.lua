@@ -105,6 +105,20 @@ nest.applyKeymaps({
     { '<leader>nc', "<cmd>lua require('neogen').generate({ type = 'class' })<cr>" },
     { '<leader>nt', "<cmd>lua require('neogen').generate({ type = 'type' })<cr>" },
   } },
+
+  -- incremental selection
+  {
+    mode = 'n', {
+      { '<M-k>', "<cmd>normal van<cr>" },
+      { '<M-j>', "<cmd>normal vin<cr>" },
+    }
+  },
+  {
+    mode = 'v', {
+      { '<M-k>', function() vim.api.nvim_feedkeys('an', 'v', false) end },
+      { '<M-j>', function() vim.api.nvim_feedkeys('in', 'v', false) end },
+    }
+  },
 })
 
 function ToggleSemicolon()

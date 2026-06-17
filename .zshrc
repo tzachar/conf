@@ -1,3 +1,8 @@
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+	# time ZSH_DEBUGRC=1 zsh -i -c exit
+	zmodload zsh/zprof
+fi
+
 export TERMINFO=${HOME}/.terminfo
 
 export HISTORY_SUBSTRING_SEARCH_FUZZY=true
@@ -39,7 +44,7 @@ antigen bundle MenkeTechnologies/zsh-cargo-completion
 antigen bundle zdharma-continuum/fast-syntax-highlighting
 
 # antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle tzachar/zsh-history-substring-search
+antigen bundle ${USER}/zsh-history-substring-search
 
 antigen theme romkatv/powerlevel10k
 
@@ -140,7 +145,7 @@ HOME_LIB=${HOME}/lib
 HOME_BIN=${HOME}/bin
 #########################################
 
-export PATH=${HOME_BIN}:${PATH:=""}:/sbin:~/.local/kitty.app/bin/:${HOME}/.dotnet
+export PATH=${HOME_BIN}:${PATH:=""}:/sbin:~/.local/kitty.app/bin/:$HOME/.local/bin/
 EDITOR="nvim"
 VISUAL=$EDITOR
 PAGER='less -r'
@@ -223,7 +228,7 @@ export PYTHON_CONFIGURE_OPTS="--enable-shared --enable-loadable-sqlite-extension
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if [ -d ${PYENV_ROOT} ] ; then
-	eval "$(pyenv init - zsh)"
+	eval "$(pyenv init --no-rehash - zsh)"
 fi
 
 
@@ -321,7 +326,7 @@ function _zsh_autosuggest_strategy_histdb_top() {
 	query="
 	select commands.argv from history
 		left join commands on history.command_id = commands.rowid
-		where commands.argv LIKE '$(sql_escape $1)%'
+		where commands.argv LIKE '$(sql_escape $@)%'
 		order by start_time desc
 		limit 1
 		"
@@ -359,7 +364,7 @@ if [[ -r ${HOME}/sqlite/libsqlite_skim.so ]]; then
 
 	HISTORY_SUBSTRING_SEARCH_MATCH_FUNCTION="_history-substring-get-raw-matches-histdb"
 else
-	echo "please install sqlite_skim: https://github.com/tzachar/sqlite_skim"
+	echo "please install sqlite_skim: https://github.com/${USER}/sqlite_skim"
 	echo "(cd /tmp; git clone https://github.com/tzachar/sqlite_skim; cd sqlite_skim; ./install.sh)"
 fi
 
@@ -374,3 +379,7 @@ fi
 
 # do this last, after setting up the env
 . ${HOME_CONF}/binaries.sh
+
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi

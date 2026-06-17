@@ -1,9 +1,29 @@
+local function codeium_boost(entry1, entry2)
+  if entry1.source.name == 'codeium' and entry2.source.name == 'codeium' then
+    if not entry1.completion_item.priority then
+      return false
+    elseif not entry2.completion_item.priority then
+      return true
+    else
+      return (entry1.completion_item.priority > entry2.completion_item.priority)
+    end
+  end
+
+  if entry1.source.name == 'codeium' and entry2.source.name ~= 'codeium' then
+    return true
+  elseif entry1.source.name ~= 'codeium' and entry2.source.name == 'codeium' then
+    return false
+  else
+    return nil
+  end
+end
+
 local function setup()
   local lspkind = require('lspkind')
   local cmp = require('cmp')
   local compare = require('cmp.config.compare')
   local types = require('cmp.types')
-  local tabnine = require('cmp_tabnine.config')
+  -- local tabnine = require('cmp_tabnine.config')
   local colorful = require('colorful-menu')
 
   if os.getenv('OPENAI_API_KEY') then
@@ -15,21 +35,22 @@ local function setup()
     })
   end
 
-  tabnine:setup({
-    max_lines = 1000,
-    max_num_results = 20,
-    sort = true,
-    priority = 5000,
-    show_prediction_strength = true,
-    run_on_every_keystroke = true,
-    -- snippet_placeholder = '';
-  })
+  -- tabnine:setup({
+  --   max_lines = 1000,
+  --   max_num_results = 20,
+  --   sort = true,
+  --   priority = 5000,
+  --   show_prediction_strength = true,
+  --   run_on_every_keystroke = true,
+  --   -- snippet_placeholder = '';
+  -- })
 
   local menu_mapping = {
     buffer = '[Buffer]',
     nvim_lsp = '[LSP]',
     nvim_lua = '[Lua]',
-    cmp_tabnine = '',
+    -- cmp_tabnine = '',
+    codeium = '',
     cmp_ai = '[AI]',
     path = '[Path]',
     calc = '[Calc]',
@@ -59,7 +80,8 @@ local function setup()
   -- })
 
   local comparators = {
-    require('cmp_tabnine.compare'),
+    -- require('cmp_tabnine.compare'),
+    codeium_boost,
     require('cmp_ai.compare'),
     require('cmp_fuzzy_path.compare'),
     require('cmp_fuzzy_buffer.compare'),
@@ -210,9 +232,13 @@ local function setup()
         },
       },
       {
-        name = 'cmp_tabnine',
+        name = 'codeium',
         keyword_length = 0,
       },
+      -- {
+      --   name = 'cmp_tabnine',
+      --   keyword_length = 0,
+      -- },
       -- { name = 'vsnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lua' },
@@ -318,15 +344,15 @@ local function setup()
     -- vim.api.nvim_buf_set_extmark(0, ns_id, row, col, opts)
   end)
 
-  local au = vim.api.nvim_create_augroup('tabnine', { clear = true })
-
-  vim.api.nvim_create_autocmd('BufRead', {
-    group = au,
-    pattern = '*.py',
-    callback = function()
-      require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
-    end,
-  })
+  -- local au = vim.api.nvim_create_augroup('tabnine', { clear = true })
+  --
+  -- vim.api.nvim_create_autocmd('BufRead', {
+  --   group = au,
+  --   pattern = '*.py',
+  --   callback = function()
+  --     require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
+  --   end,
+  -- })
 
   local cmp_autopairs = require('nvim-autopairs.completion.cmp')
   cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
@@ -364,10 +390,10 @@ return {
       { 'hrsh7th/cmp-calc' },
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-emoji' },
-      {
-        'tzachar/cmp-tabnine',
-        build = './install.sh',
-      },
+      -- {
+      --   'tzachar/cmp-tabnine',
+      --   build = './install.sh',
+      -- },
       -- { 'hrsh7th/cmp-vsnip' },
       -- { 'hrsh7th/vim-vsnip' },
       -- { 'hrsh7th/vim-vsnip-integ' },
@@ -392,6 +418,17 @@ return {
       },
       {
         'xzbdmw/colorful-menu.nvim',
+      },
+      {
+        "Exafunction/windsurf.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "hrsh7th/nvim-cmp",
+        },
+        config = function()
+          require("codeium").setup({
+          })
+        end
       },
     },
   },

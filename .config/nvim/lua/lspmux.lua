@@ -62,6 +62,9 @@ function M.ensure_running()
 
     if not err then
       -- Connection successful, release lock and return
+      vim.schedule(function()
+        vim.notify('Lspmux server is already running', vim.log.levels.INFO)
+      end)
       checking_lock = false
       return
     end

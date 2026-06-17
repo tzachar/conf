@@ -29,6 +29,7 @@
 [diff]
 	tool = nvimdiff
 	colorMoved = zebra
+	algorithm = patience
 [difftool "nvimdiff"]
     cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
 [difftool]

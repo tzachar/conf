@@ -49,7 +49,6 @@ return {
         },
       })
     end,
-    dependencies = 'nvim-treesitter/nvim-treesitter',
     cmd = { 'Neogen' },
   },
 
@@ -64,16 +63,6 @@ return {
         transparent = false,
       })
       vim.cmd('colorscheme tokyonight')
-    end,
-  },
-  {
-    'xiantang/darcula-dark.nvim',
-    enabled = false,
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function()
-      vim.cmd('colorscheme darcula-dark')
     end,
   },
   {
@@ -652,7 +641,7 @@ return {
   -- markdown
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     ft = { 'markdown', 'codecompanion' },
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
