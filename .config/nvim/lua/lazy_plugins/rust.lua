@@ -24,9 +24,9 @@ vim.g.rustaceanvim = {
     settings = {
       ['rust-analyzer'] = {
         lspMux = {
-          version = "1",
-          method = "connect",
-          server = "rust-analyzer",
+          version = '1',
+          method = 'connect',
+          server = 'rust-analyzer',
         },
         cargo = {
           -- need to make sure to add this one also to cargo config!!

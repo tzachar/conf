@@ -108,16 +108,28 @@ nest.applyKeymaps({
 
   -- incremental selection
   {
-    mode = 'n', {
-      { '<M-k>', "<cmd>normal van<cr>" },
-      { '<M-j>', "<cmd>normal vin<cr>" },
-    }
+    mode = 'n',
+    {
+      { '<M-k>', '<cmd>normal van<cr>' },
+      { '<M-j>', '<cmd>normal vin<cr>' },
+    },
   },
   {
-    mode = 'v', {
-      { '<M-k>', function() vim.api.nvim_feedkeys('an', 'v', false) end },
-      { '<M-j>', function() vim.api.nvim_feedkeys('in', 'v', false) end },
-    }
+    mode = 'v',
+    {
+      {
+        '<M-k>',
+        function()
+          vim.api.nvim_feedkeys('an', 'v', false)
+        end,
+      },
+      {
+        '<M-j>',
+        function()
+          vim.api.nvim_feedkeys('in', 'v', false)
+        end,
+      },
+    },
   },
 })
 

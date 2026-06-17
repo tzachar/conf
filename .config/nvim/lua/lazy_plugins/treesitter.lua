@@ -1,9 +1,7 @@
 return {
   {
     'arborist-ts/arborist.nvim',
-    opts = {
-
-    }
+    opts = {},
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
