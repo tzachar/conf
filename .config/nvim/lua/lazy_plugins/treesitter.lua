@@ -1,12 +1,84 @@
+local function setup()
+  local ts_au = vim.api.nvim_create_augroup('TsAu', { clear = true })
+
+  require('nvim-treesitter').install({
+    'asm',
+    'awk',
+    'bash',
+    'bibtex',
+    'c',
+    'cmake',
+    'cpp',
+    'css',
+    'csv',
+    'diff',
+    'dot',
+    'gitcommit',
+    'git_config',
+    'git_rebase',
+    'gpg',
+    'graphql',
+    'html',
+    'htmldjango',
+    'http',
+    'ispc',
+    'java',
+    'javascript',
+    'jinja',
+    'jinja_inline',
+    'json',
+    'latex',
+    'lua',
+    'make',
+    'markdown',
+    'markdown_inline',
+    'matlab',
+    'nginx',
+    'passwd',
+    'pem',
+    'puppet',
+    'python',
+    'regex',
+    'rust',
+    'sql',
+    'ssh_config',
+    'strace',
+    'toml',
+    'tsv',
+    'vimdoc',
+    'yaml',
+    'zig',
+  })
+  vim.api.nvim_create_autocmd('FileType', {
+    group = ts_au,
+    pattern = { '*' },
+    callback = function(args)
+      local ft = args['match']
+      if not vim.tbl_contains(require('nvim-treesitter').get_installed(), ft) then
+        if vim.tbl_contains(require('nvim-treesitter').get_available(), ft) then
+          require('nvim-treesitter').install({ ft })
+          vim.treesitter.start()
+        end
+      end
+      if vim.tbl_contains(require('nvim-treesitter').get_available(), ft) then
+        vim.treesitter.start()
+      end
+    end,
+  })
+end
+
 return {
   {
-    'arborist-ts/arborist.nvim',
-    opts = {},
+    'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
+    opts = setup,
+    build = ':TSUpdate',
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = {
-      'arborist-ts/arborist.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
     branch = 'main',
     event = 'VeryLazy',
@@ -65,22 +137,20 @@ return {
   {
     'm-demare/hlargs.nvim',
     event = 'VeryLazy',
-    opts = function()
-      require('hlargs').setup({
-        disable = function(_, bufnr)
-          if vim.b.semantic_tokens then
-            return true
+    opts = {
+      disable = function(_, bufnr)
+        if vim.b.semantic_tokens then
+          return true
+        end
+        local clients = (vim.lsp.get_clients or vim.lsp.get_clients)({ bufnr = bufnr })
+        for _, c in pairs(clients) do
+          if c.name ~= 'null-ls' and c:supports_method('textDocument/semanticTokens/full', 0) then
+            vim.b.semantic_tokens = true
+            return vim.b.semantic_tokens
           end
-          local clients = (vim.lsp.get_clients or vim.lsp.get_clients)({ bufnr = bufnr })
-          for _, c in pairs(clients) do
-            if c.name ~= 'null-ls' and c:supports_method('textDocument/semanticTokens/full', 0) then
-              vim.b.semantic_tokens = true
-              return vim.b.semantic_tokens
-            end
-          end
-        end,
-      })
-    end,
+        end
+      end,
+    },
   },
   {
     'cohama/lexima.vim',

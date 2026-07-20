@@ -90,7 +90,7 @@ zstyle :completion:\* squeeze-slashes true
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 
 # set autosuggest color
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=245,underline,bold"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=245,bold,underline"
 
 # use emacs keys
 bindkey -e
