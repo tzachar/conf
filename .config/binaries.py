@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 class Binary:
     def __init__(self, name, type, pkg=None, install_cmd=None, update_cmd=None, post_install=None, toolchain=None):
         self.name = name
-        self.type = type  # cargo, pip, apt, rustup, custom
+        self.type = type  # cargo, pip, apt, rustup, go, custom
         self.pkg = pkg or name
         self.install_cmd = install_cmd
         self.update_cmd = update_cmd
@@ -32,6 +32,9 @@ class Binary:
             cmd = f"sudo apt install -y {self.pkg}"
         elif self.type == "rustup":
             cmd = f"rustup component add {self.pkg}"
+        elif self.type == "go":
+            pkg = self.pkg if "@" in self.pkg else f"{self.pkg}@latest"
+            cmd = f"go install {pkg}"
         elif self.type == "custom":
             cmd = self.install_cmd
         else:
@@ -53,6 +56,10 @@ class Binary:
             cmd = f"sudo apt install --only-upgrade -y {self.pkg}"
         elif self.type == "rustup":
             cmd = f"rustup component add {self.pkg}"
+        elif self.type == "go":
+            # go install of @latest re-resolves the newest version
+            pkg = self.pkg if "@" in self.pkg else f"{self.pkg}@latest"
+            cmd = f"go install {pkg}"
         elif self.type == "custom":
             cmd = self.update_cmd if self.update_cmd else self.install_cmd
             if not cmd:
@@ -68,6 +75,7 @@ class Binary:
 
 BINARIES = [
     Binary("cargo", "custom", install_cmd="curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh", update_cmd="rustup update"),
+    Binary("go", "apt", pkg="golang-go"),
     Binary("bat", "cargo", post_install="bat cache --build"),
     Binary("delta", "cargo", pkg="git-delta"),
     Binary("duf", "apt"),
@@ -76,6 +84,8 @@ BINARIES = [
     Binary("tree-sitter", "custom", install_cmd="echo 'See https://github.com/tree-sitter/tree-sitter'"),
     Binary("glances", "pip"),
     Binary("asciinema", "cargo", pkg="--locked --git https://github.com/asciinema/asciinema"),
+    Binary("p11k-engine", "cargo", pkg="--git https://github.com/qaaxaap/powerlevel11k"),
+    Binary("p11k-d", "cargo", pkg="--git https://github.com/qaaxaap/powerlevel11k"),
     Binary("agg", "cargo", pkg="--git https://github.com/asciinema/agg"),
     Binary("rust-analyzer", "rustup"),
     Binary("rg", "cargo", pkg="ripgrep"),
@@ -86,7 +96,9 @@ BINARIES = [
     Binary("sk", "cargo", pkg="skim", toolchain="+nightly"),
     Binary("cpx", "cargo"),
     Binary("stylua", "cargo"),
-    Binary("claude-chill", "cargo", pkg="--git https://github.com/davidbeesley/claude-chill"),
+    Binary("xan", "cargo"),
+    Binary("sy", "cargo"),
+    Binary("sgpt", "go", pkg="github.com/tbckr/sgpt/v2/cmd/sgpt"),
     Binary(
         "rtk",
         "custom",

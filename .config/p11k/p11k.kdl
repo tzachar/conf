@@ -1,0 +1,47 @@
+mode "nerdfont-complete"
+layout {
+    left {
+        line {
+            os_icon
+            dir
+            vcs
+        }
+    }
+    right {
+        line {
+            status
+            command_execution_time
+            background_jobs
+            time
+        }
+    }
+    transient-prompt #true
+}
+separators {
+    segment ""
+    sub ""
+    end ""
+    right-start ""
+    right-segment ""
+    right-sub ""
+    left-tail ""
+    right-tail ""
+    gap " "
+}
+frame fg=240 {
+}
+segments {
+    background_jobs fg=6 bg=0 verbose=#false
+    command_execution_time fg=0 bg=3 prefix="took " precision=0 threshold-seconds=3
+    dir fg=254 bg=4 shorten-dir-length=1 shorten-strategy="truncate_to_unique" {
+        state "ANCHOR" fg=255 bold=#true
+        state "SHORTENED" fg=250
+    }
+    os_icon fg=232 bg=7
+    prompt_char fg=76 {
+        state "ERROR" fg=196
+    }
+    status bg=0 error-foreground=3 ok-foreground=2 verbose=#true
+    time fg=66 bg=7 prefix="at " time-format="24h"
+    vcs bg=2 prefix="on " clean-foreground=0 conflicted-foreground=1 meta-foreground=7 modified-foreground=0 shorten-length=12 shorten-min-length=32 shorten-strategy="truncate_middle" untracked-foreground=0
+}

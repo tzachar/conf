@@ -4,3 +4,5 @@
 .load /home/tzachar/sqlite/libsqlitefunctions.so
 
 .load /home/tzachar/sqlite/libsqlite_skim.so
+.timeout 2000
+

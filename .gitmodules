@@ -7,3 +7,6 @@
 [submodule ".local/share/python-type-stubs"]
 	path = .local/share/python-type-stubs
 	url = https://github.com/microsoft/python-type-stubs
+[submodule ".tmux/plugins/tpm"]
+	path = .tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm

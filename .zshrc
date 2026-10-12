@@ -1,3 +1,16 @@
+############### HOME CONF ###############
+HOME_CONF=${HOME}/.config
+HOME_LIB=${HOME}/lib
+HOME_BIN=${HOME}/bin
+#########################################
+
+. ${HOME_CONF}/cargo.sh
+. "$HOME/.cargo/env"
+export PATH=${PATH}:${CARGO_INSTALL_ROOT}/bin
+
+
+[[ -z "$P11K_ENGINE" ]] && exec ${CARGO_INSTALL_ROOT}/bin/p11k --shell zsh --config ${HOME_CONF}/p11k/p11k.kdl
+
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
 	# time ZSH_DEBUGRC=1 zsh -i -c exit
 	zmodload zsh/zprof
@@ -46,16 +59,7 @@ antigen bundle zdharma-continuum/fast-syntax-highlighting
 # antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle ${USER}/zsh-history-substring-search
 
-antigen theme romkatv/powerlevel10k
-
 antigen apply
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 
 # add custom completions
@@ -139,12 +143,6 @@ expand_wildcard_commands=(scp ssh rsync)
 zstyle -e :urlglobber url-other-schema \
 '[[ (($expand_wildcard_commands[(I)$words[1]])) ]] && reply=("*") || reply=(http https ftp rsync)'
 
-############### HOME CONF ###############
-HOME_CONF=${HOME}/.config
-HOME_LIB=${HOME}/lib
-HOME_BIN=${HOME}/bin
-#########################################
-
 export PATH=${HOME_BIN}:${PATH:=""}:/sbin:~/.local/kitty.app/bin/:$HOME/.local/bin/
 EDITOR="nvim"
 VISUAL=$EDITOR
@@ -168,10 +166,6 @@ else
 fi
 
 ulimit -S -c unlimited          # want coredumps
-
-. ${HOME_CONF}/cargo.sh
-. "$HOME/.cargo/env"
-export PATH=${PATH}:${CARGO_INSTALL_ROOT}/bin
 
 . ${HOME_CONF}/aliases.sh
 . ${HOME_CONF}/functions.sh
@@ -272,10 +266,6 @@ bindkey "^[[1;3C" forward-word-dir
 # export DENO_INSTALL="${HOME}/.deno"
 # export PATH="$DENO_INSTALL/bin:$PATH"
 
-#
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 
 # Shell-GPT integration ZSH v0.1
 if ! type "sgpt" > /dev/null; then
@@ -287,7 +277,7 @@ else
 		    _sgpt_prev_cmd=$BUFFER
 		    BUFFER+="⌛"
 		    zle -I && zle redisplay
-		    BUFFER=$(sgpt --shell <<< "$_sgpt_prev_cmd" --no-interaction)
+		    BUFFER=$(sgpt sh "$_sgpt_prev_cmd")
 		    zle end-of-line
 		fi
 	}
